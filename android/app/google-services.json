@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "285842097121",
+    "project_id": "scaibu-todo-app",
+    "storage_bucket": "scaibu-todo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285842097121:android:b9cc5cc66f3150b53a48a0",
+        "android_client_info": {
+          "package_name": "com.example.todo_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh0Oi-7P0X4bnnfgkYRtwjzoyjYrUG5hQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
