@@ -8,8 +8,30 @@ import 'package:todo_app/core/network/network_config.dart';
 
 enum HttpRequestMethod { GET, POST, DELETE, PUT, PATCH, UPLOAD, DOWNLOAD }
 
-class RestApi {
-  static Map<String, String> createHeader() {
+RestApi restApi = RestApiImpl();
+
+abstract interface class RestApi {
+  Future request({
+    HttpRequestMethod type = HttpRequestMethod.GET,
+    required String endPoint,
+    required Map<String, dynamic> requestBody,
+    Map<String, dynamic>? headers,
+    String uploadKey = '',
+    String uploadFilePath = '',
+    required String requestAPIName,
+    void Function(int)? onStatusCodeError,
+  });
+
+  Future handleResponse({
+    required Response response,
+    HttpResponseType responseType = HttpResponseType.JSON,
+    required String requestAPIName,
+    void Function(int)? onStatusCodeError,
+  });
+}
+
+class RestApiImpl implements RestApi {
+  Map<String, String> createHeader() {
     Map<String, String> header = {
       HttpHeaders.contentTypeHeader: 'application/json',
     };
@@ -17,7 +39,7 @@ class RestApi {
     return header;
   }
 
-  static Uri createURL({required String endPoint}) {
+  Uri createURL({required String endPoint}) {
     if (!endPoint.startsWith('http')) {
       return Uri.parse('$BASE_URL$endPoint');
     } else {
@@ -25,7 +47,7 @@ class RestApi {
     }
   }
 
-  static Future handleStreamResponse({
+  Future handleStreamResponse({
     required StreamedResponse response,
     required String requestAPIName,
     void Function(int)? onStatusCodeError,
@@ -49,7 +71,8 @@ class RestApi {
     }
   }
 
-  static Future request({
+  @override
+  Future request({
     HttpRequestMethod type = HttpRequestMethod.GET,
     required String endPoint,
     required Map<String, dynamic> requestBody,
@@ -120,7 +143,37 @@ class RestApi {
     }
   }
 
-  static Future<dynamic> streamResponse(
+  @override
+  Future handleResponse({
+    required Response response,
+    HttpResponseType responseType = HttpResponseType.JSON,
+    required String requestAPIName,
+    void Function(int)? onStatusCodeError,
+  }) async {
+    printResponse(requestAPIName, response);
+
+    if (response.statusCode.isSuccessful()) {
+      if (response.body.isEmpty) {
+        return jsonDecode(response.body);
+      } else {
+        if (responseType == HttpResponseType.JSON) {
+          return jsonDecode(response.body);
+        } else if (responseType == HttpResponseType.FULL_RESPONSE) {
+          return jsonDecode(response.body);
+        } else if (responseType == HttpResponseType.STRING) {
+          return jsonDecode(response.body);
+        } else if (responseType == HttpResponseType.BODY_BYTES) {
+          return jsonDecode(response.body);
+        }
+      }
+    } else {
+      if (response.body.isJson()) log(jsonDecode(response.body));
+      if (response.body.isJson()) return jsonDecode(response.body);
+      throw handleErrorCode(response.statusCode, onStatusCodeError);
+    }
+  }
+
+  Future<dynamic> streamResponse(
     HttpRequestMethod type,
     StreamedResponse streamedResponse,
     String requestAPIName,
@@ -140,35 +193,6 @@ class RestApi {
         onStatusCodeError: onStatusCodeError,
       );
     }
-  }
-}
-
-Future handleResponse({
-  required Response response,
-  HttpResponseType responseType = HttpResponseType.JSON,
-  required String requestAPIName,
-  void Function(int)? onStatusCodeError,
-}) async {
-  printResponse(requestAPIName, response);
-
-  if (response.statusCode.isSuccessful()) {
-    if (response.body.isEmpty) {
-      return jsonDecode(response.body);
-    } else {
-      if (responseType == HttpResponseType.JSON) {
-        return jsonDecode(response.body);
-      } else if (responseType == HttpResponseType.FULL_RESPONSE) {
-        return jsonDecode(response.body);
-      } else if (responseType == HttpResponseType.STRING) {
-        return jsonDecode(response.body);
-      } else if (responseType == HttpResponseType.BODY_BYTES) {
-        return jsonDecode(response.body);
-      }
-    }
-  } else {
-    if (response.body.isJson()) log(jsonDecode(response.body));
-    if (response.body.isJson()) return jsonDecode(response.body);
-    throw handleErrorCode(response.statusCode, onStatusCodeError);
   }
 }
 
