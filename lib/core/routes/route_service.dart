@@ -1,6 +1,6 @@
-class Path {
+class ApplicationPaths {
   static const String todoListViewPage = '/';
   static const String createTodoPage = '/createTodoPage';
 
-  Path._();
+  ApplicationPaths._();
 }

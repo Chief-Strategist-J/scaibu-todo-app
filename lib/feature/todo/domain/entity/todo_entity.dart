@@ -1,55 +1,59 @@
 class TodoEntity {
-  final int todoId;
-  final String title;
-  final String description;
-  final bool isCompleted;
+  final int? todoId;
+  final String? firebaseTodoId;
+  final String? title;
+  final String? description;
+  final bool? isCompleted;
   final DateTime? dueDate;
-  final String priority;
 
   /// priority: low, medium, high
-  final int assignedTo;
-  final String tags;
-  final int createdBy;
-  final int updatedBy;
-  final String status;
+
+  final String? priority;
+  final int? assignedTo;
+  final String? tags;
+  final int? createdBy;
+  final int? updatedBy;
 
   /// status: pending, in progress, completed
+  final String? status;
+
   final DateTime? reminder;
-  final String attachment;
-  final String category;
-  final int estimatedTime;
-  final int actualTime;
-  final bool recurring;
-  final String recurringFrequency;
+  final String? attachment;
+  final String? category;
+  final int? estimatedTime;
+  final int? actualTime;
+  final bool? recurring;
 
   /// daily, weekly, monthly
-  final String notes;
+  final String? recurringFrequency;
+  final String? notes;
   final DateTime? completedAt;
-  final String colorCode;
-  final bool isArchived;
+  final String? colorCode;
+  final bool? isArchived;
 
   TodoEntity({
-    required this.todoId,
-    required this.title,
-    required this.description,
-    required this.isCompleted,
-    required this.dueDate,
-    required this.priority,
-    required this.assignedTo,
-    required this.tags,
-    required this.createdBy,
-    required this.updatedBy,
-    required this.status,
-    required this.reminder,
-    required this.attachment,
-    required this.category,
-    required this.estimatedTime,
-    required this.actualTime,
-    required this.recurring,
-    required this.recurringFrequency,
-    required this.notes,
-    required this.completedAt,
-    required this.colorCode,
-    required this.isArchived,
+    this.firebaseTodoId,
+    this.todoId,
+    this.title,
+    this.description,
+    this.isCompleted,
+    this.dueDate,
+    this.priority,
+    this.assignedTo,
+    this.tags,
+    this.createdBy,
+    this.updatedBy,
+    this.status,
+    this.reminder,
+    this.attachment,
+    this.category,
+    this.estimatedTime,
+    this.actualTime,
+    this.recurring,
+    this.recurringFrequency,
+    this.notes,
+    this.completedAt,
+    this.colorCode,
+    this.isArchived,
   });
 }

@@ -99,18 +99,22 @@ class RestApiImpl implements RestApi {
             break;
 
           case HttpRequestMethod.POST:
+            log('REQUEST --> $requestBody');
             response = await post(url, body: json.encode(requestBody), headers: headers);
             break;
 
           case HttpRequestMethod.DELETE:
+            log('REQUEST --> $requestBody');
             response = await delete(url, body: json.encode(requestBody), headers: headers);
             break;
 
           case HttpRequestMethod.PUT:
+            log('REQUEST --> $requestBody');
             response = await put(url, body: json.encode(requestBody), headers: headers);
             break;
 
           case HttpRequestMethod.PATCH:
+            log('REQUEST API --> $requestBody');
             response = await patch(url, body: json.encode(requestBody), headers: headers);
             break;
 

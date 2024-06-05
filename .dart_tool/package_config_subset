@@ -58,6 +58,14 @@ dbus
 2.17
 file:///home/j/.pub-cache/hosted/pub.dev/dbus-0.7.10/
 file:///home/j/.pub-cache/hosted/pub.dev/dbus-0.7.10/lib/
+easy_localization
+2.12
+file:///home/j/.pub-cache/hosted/pub.dev/easy_localization-3.0.7/
+file:///home/j/.pub-cache/hosted/pub.dev/easy_localization-3.0.7/lib/
+easy_logger
+2.12
+file:///home/j/.pub-cache/hosted/pub.dev/easy_logger-0.0.2/
+file:///home/j/.pub-cache/hosted/pub.dev/easy_logger-0.0.2/lib/
 equatable
 2.12
 file:///home/j/.pub-cache/hosted/pub.dev/equatable-2.0.5/
@@ -90,6 +98,10 @@ flutter_bloc
 2.12
 file:///home/j/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.5/
 file:///home/j/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.5/lib/
+flutter_hooks
+2.17
+file:///home/j/.pub-cache/hosted/pub.dev/flutter_hooks-0.20.5/
+file:///home/j/.pub-cache/hosted/pub.dev/flutter_hooks-0.20.5/lib/
 flutter_lints
 2.19
 file:///home/j/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/
@@ -118,6 +130,10 @@ http_parser
 2.12
 file:///home/j/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
 file:///home/j/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
+intl
+3.0
+file:///home/j/.pub-cache/hosted/pub.dev/intl-0.19.0/
+file:///home/j/.pub-cache/hosted/pub.dev/intl-0.19.0/lib/
 leak_tracker
 3.2
 file:///home/j/.pub-cache/hosted/pub.dev/leak_tracker-10.0.4/
@@ -286,6 +302,10 @@ flutter
 3.3
 file:///home/j/snap/flutter/common/flutter/packages/flutter/
 file:///home/j/snap/flutter/common/flutter/packages/flutter/lib/
+flutter_localizations
+3.2
+file:///home/j/snap/flutter/common/flutter/packages/flutter_localizations/
+file:///home/j/snap/flutter/common/flutter/packages/flutter_localizations/lib/
 flutter_test
 3.3
 file:///home/j/snap/flutter/common/flutter/packages/flutter_test/

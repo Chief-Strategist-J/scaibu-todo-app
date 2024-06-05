@@ -2,32 +2,34 @@ import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
 
 class TodoModel extends TodoEntity {
   TodoModel({
-    required super.todoId,
-    required super.title,
-    required super.description,
-    required super.isCompleted,
-    required super.dueDate,
-    required super.priority,
-    required super.assignedTo,
-    required super.tags,
-    required super.createdBy,
-    required super.updatedBy,
-    required super.status,
-    required super.reminder,
-    required super.attachment,
-    required super.category,
-    required super.estimatedTime,
-    required super.actualTime,
-    required super.recurring,
-    required super.recurringFrequency,
-    required super.notes,
-    required super.completedAt,
-    required super.colorCode,
-    required super.isArchived,
+    super.todoId,
+    super.title,
+    super.description,
+    super.isCompleted,
+    super.dueDate,
+    super.priority,
+    super.assignedTo,
+    super.tags,
+    super.createdBy,
+    super.updatedBy,
+    super.status,
+    super.reminder,
+    super.attachment,
+    super.category,
+    super.estimatedTime,
+    super.actualTime,
+    super.recurring,
+    super.recurringFrequency,
+    super.notes,
+    super.completedAt,
+    super.colorCode,
+    super.isArchived,
+    super.firebaseTodoId,
   });
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
+      firebaseTodoId: json['firebase_todo_id'],
       todoId: json['id'],
       title: json['title'],
       description: json['description'],
@@ -77,6 +79,8 @@ class TodoModel extends TodoEntity {
       'completed_at': completedAt.toString(),
       'color_code': colorCode,
       'is_archived': isArchived,
+      'firebase_todo_id': firebaseTodoId,
+
     };
   }
 }

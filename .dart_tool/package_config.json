@@ -92,6 +92,18 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "easy_localization",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/easy_localization-3.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "easy_logger",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/easy_logger-0.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "equatable",
       "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/equatable-2.0.5",
       "packageUri": "lib/",
@@ -146,10 +158,22 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_hooks",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/flutter_hooks-0.20.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "flutter_localizations",
+      "rootUri": "file:///home/j/snap/flutter/common/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "flutter_test",
@@ -198,6 +222,12 @@
       "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/intl-0.19.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
@@ -446,7 +476,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-05-31T17:39:22.146713Z",
+  "generated": "2024-06-01T07:05:26.081538Z",
   "generator": "pub",
   "generatorVersion": "3.4.1",
   "flutterRoot": "file:///home/j/snap/flutter/common/flutter",
