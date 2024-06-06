@@ -80,7 +80,6 @@ class TodoModel extends TodoEntity {
       'color_code': colorCode,
       'is_archived': isArchived,
       'firebase_todo_id': firebaseTodoId,
-
     };
   }
 }

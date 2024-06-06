@@ -20,5 +20,5 @@ class InitTodoState extends TodoState {
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [todoList];
 }

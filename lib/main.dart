@@ -1,11 +1,5 @@
-import 'package:todo_app/core/network/network_service.dart';
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/data/dataSource/firebase_api_impl.dart';
-import 'package:todo_app/feature/todo/data/dataSource/local_api_impl.dart';
-import 'package:todo_app/feature/todo/data/repository/todo_repository_impl.dart';
-import 'package:todo_app/feature/todo/presentation/bloc/todo_event.dart';
 
-import 'feature/todo/presentation/bloc/todo_bloc.dart';
 
 Future<void> main() async {
   await initialSetup.utilityInit();

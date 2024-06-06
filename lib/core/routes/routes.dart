@@ -26,7 +26,7 @@ final router = GoRouter(
                 InitEvent([]),
               );
           },
-          child: TodoPage(),
+          child: const TodoPage(),
         );
       },
     ),

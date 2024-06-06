@@ -1,35 +1,35 @@
 class TodoEntity {
-  final int? todoId;
-  final String? firebaseTodoId;
-  final String? title;
-  final String? description;
-  final bool? isCompleted;
-  final DateTime? dueDate;
+  int? todoId;
+  String? firebaseTodoId;
+  String? title;
+  String? description;
+  bool? isCompleted;
+  DateTime? dueDate;
 
   /// priority: low, medium, high
 
-  final String? priority;
-  final int? assignedTo;
-  final String? tags;
-  final int? createdBy;
-  final int? updatedBy;
+  String? priority;
+  int? assignedTo;
+  String? tags;
+  int? createdBy;
+  int? updatedBy;
 
   /// status: pending, in progress, completed
-  final String? status;
+  String? status;
 
-  final DateTime? reminder;
-  final String? attachment;
-  final String? category;
-  final int? estimatedTime;
-  final int? actualTime;
-  final bool? recurring;
+  DateTime? reminder;
+  String? attachment;
+  String? category;
+  int? estimatedTime;
+  int? actualTime;
+  bool? recurring;
 
   /// daily, weekly, monthly
-  final String? recurringFrequency;
-  final String? notes;
-  final DateTime? completedAt;
-  final String? colorCode;
-  final bool? isArchived;
+  String? recurringFrequency;
+  String? notes;
+  DateTime? completedAt;
+  String? colorCode;
+  bool? isArchived;
 
   TodoEntity({
     this.firebaseTodoId,

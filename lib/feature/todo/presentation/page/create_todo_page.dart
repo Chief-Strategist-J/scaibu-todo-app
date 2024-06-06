@@ -1,51 +1,50 @@
-import 'package:todo_app/core/network/network_service.dart';
-import 'package:todo_app/core/routes/route_service.dart';
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/data/dataSource/firebase_api_impl.dart';
-import 'package:todo_app/feature/todo/data/dataSource/local_api_impl.dart';
-import 'package:todo_app/feature/todo/data/repository/todo_repository_impl.dart';
-import 'package:todo_app/feature/todo/domain/useCases/create_todo_use_case.dart';
-import 'package:todo_app/feature/todo/presentation/widget/content_widget.dart';
-import 'package:todo_app/feature/todo/presentation/widget/custom_button.dart';
 
 class CreateTodoPage extends HookWidget {
   CreateTodoPage({super.key});
 
-  final _formKey = GlobalKey<FormState>();
+  final _validatorKey = GlobalKey<FormState>();
+
   Future<void> _onTapOfCreateTodo(
     TextEditingController titleController,
     TextEditingController descriptionController,
     BuildContext context,
   ) async {
-    if (_formKey.currentState!.validate()) {
-      final firebaseTodo = TodoRepositoryImpl(FirebaseApiImpl());
-      final serverTodo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
+    if (!_validatorKey.currentState!.validate()) return;
 
-      final Map<String, dynamic> todo = {
-        'title': titleController.text,
-        'description': descriptionController.text,
-      };
+    final firebaseTodo = TodoRepositoryImpl(FirebaseApiImpl());
+    final serverTodo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
 
-      await CreateTodoUseCase(firebaseTodo: firebaseTodo, serverTodo: serverTodo).call(todo);
-      finish(context);
-    }
+    final Map<String, dynamic> todo = {
+      'title': titleController.text,
+      'description': descriptionController.text,
+    };
+
+    final _createTodo = await CreateTodoUseCase(
+      firebaseTodo: firebaseTodo,
+      serverTodo: serverTodo,
+    );
+
+    _createTodo.call(todo);
+
+    finish(context);
   }
 
   @override
   Widget build(BuildContext context) {
     final bool _isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom == 0;
 
-    final titleController = useTextEditingController();
-    final dateController = useTextEditingController();
-    final startTimeController = useTextEditingController();
-    final endTimeController = useTextEditingController();
-    final descriptionController = useTextEditingController();
+    final _titleController = useTextEditingController();
+    final _dateController = useTextEditingController();
+    final _startTimeController = useTextEditingController();
+    final _endTimeController = useTextEditingController();
+    final _descriptionController = useTextEditingController();
 
-    final titleNode = useFocusNode();
-    final dateNode = useFocusNode();
-    final startTimeNode = useFocusNode();
-    final endTimeNode = useFocusNode();
-    final descriptionNode = useFocusNode();
+    final _titleNode = useFocusNode();
+    final _dateNode = useFocusNode();
+    final _startTimeNode = useFocusNode();
+    final _endTimeNode = useFocusNode();
+    final _descriptionNode = useFocusNode();
 
     return SafeArea(
       child: Scaffold(
@@ -53,7 +52,7 @@ class CreateTodoPage extends HookWidget {
           fit: StackFit.expand,
           children: [
             Form(
-              key: _formKey,
+              key: _validatorKey,
               autovalidateMode: AutovalidateMode.always,
               child: AnimatedScrollView(
                 listAnimationType: ListAnimationType.None,
@@ -66,13 +65,13 @@ class CreateTodoPage extends HookWidget {
                   ),
                   ContentWidget(
                     title: 'Title',
-                    controller: titleController,
-                    focusNode: titleNode,
+                    controller: _titleController,
+                    focusNode: _titleNode,
                   ),
                   ContentWidget(
                     title: 'Date',
-                    controller: dateController,
-                    focusNode: dateNode,
+                    controller: _dateController,
+                    focusNode: _dateNode,
                     isDateField: true,
                   ),
                   Row(
@@ -80,8 +79,8 @@ class CreateTodoPage extends HookWidget {
                       Flexible(
                         child: ContentWidget(
                           title: 'Start Time',
-                          controller: startTimeController,
-                          focusNode: startTimeNode,
+                          controller: _startTimeController,
+                          focusNode: _startTimeNode,
                           isTimeField: true,
                         ),
                       ),
@@ -89,8 +88,8 @@ class CreateTodoPage extends HookWidget {
                       Flexible(
                         child: ContentWidget(
                           title: 'End Time',
-                          controller: endTimeController,
-                          focusNode: endTimeNode,
+                          controller: _endTimeController,
+                          focusNode: _endTimeNode,
                           isTimeField: true,
                         ),
                       ),
@@ -98,8 +97,8 @@ class CreateTodoPage extends HookWidget {
                   ),
                   ContentWidget(
                     title: 'Descriptions',
-                    controller: descriptionController,
-                    focusNode: descriptionNode,
+                    controller: _descriptionController,
+                    focusNode: _descriptionNode,
                     textInputAction: TextInputAction.done,
                   ),
                 ],
@@ -113,7 +112,7 @@ class CreateTodoPage extends HookWidget {
                 child: CustomButton(
                   data: "Create New Task",
                   onTap: () async {
-                    await _onTapOfCreateTodo(titleController, descriptionController, context);
+                    await _onTapOfCreateTodo(_titleController, _descriptionController, context);
                   },
                 ),
               )

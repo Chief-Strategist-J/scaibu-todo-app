@@ -1,69 +1,101 @@
-import 'package:todo_app/core/network/network_service.dart';
-import 'package:todo_app/core/routes/route_service.dart';
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/data/dataSource/firebase_api_impl.dart';
-import 'package:todo_app/feature/todo/data/dataSource/local_api_impl.dart';
-import 'package:todo_app/feature/todo/data/repository/todo_repository_impl.dart';
-import 'package:todo_app/feature/todo/domain/useCases/get_todo_list_use_case.dart';
-import 'package:todo_app/feature/todo/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/feature/todo/presentation/bloc/todo_event.dart';
-import 'package:todo_app/feature/todo/presentation/bloc/todo_state.dart';
+import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
+
+var voidParameter;
 
 class TodoPage extends StatelessWidget {
+  const TodoPage();
+
+  TodoBloc _todoBloc(BuildContext context) => context.read<TodoBloc>();
+
+  Future<void> _init(BuildContext context) async {
+    /// Change this later after
+    final firebaseTodo = TodoRepositoryImpl(FirebaseApiImpl());
+    final serverTodo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
+
+    final getTodoListUseCase = GetTodoListUseCase(firebaseServer: firebaseTodo, server: serverTodo);
+    final res = await getTodoListUseCase.call(voidParameter);
+
+    res.fold((failure) {}, (todoList) {
+      _todoBloc(context).add(InitEvent(todoList));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: BlocBuilder<TodoBloc, TodoState>(
-          builder: (context, state) {
-            final bloc = context.read<TodoBloc>();
-
+          builder: (_, state) {
             if (state is InitTodoState) {
               if (state.todoList == null) return Offstage();
 
-              if (state.todoList!.isEmpty) {
-                return Center(child: Text('No todos available'));
+              final todoList = state.todoList ?? [];
+              if (todoList.isEmpty) {
+                return const Center(child: Text('No todos available'));
               }
 
-              return ListView.builder(
-                itemCount: state.todoList!.length,
-                padding: EdgeInsets.all(16),
-                itemBuilder: (context, index) {
-                  return Text("Index ${index.toString()} : ${state.todoList![index].firebaseTodoId ?? ''}");
-                },
+              return Padding(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+                child: CustomScrollView(
+                  restorationId: '_todoList',
+                  shrinkWrap: true,
+                  cacheExtent: 50,
+                  semanticChildCount: 2,
+                  slivers: [
+                    SliverList.builder(
+                      itemCount: todoList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.only(bottom: 12),
+                          padding: EdgeInsets.all(16),
+                          decoration: boxDecorationWithRoundedCorners(
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              AppThemeData.defaultBoxShadow,
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text("Title : ${todoList[index].title ?? ''}"),
+                                    4.height,
+                                    Text("Description : ${todoList[index].description ?? ''}"),
+                                  ],
+                                ),
+                              ),
+                              Checkbox(
+                                value: todoList[index].isCompleted ?? false,
+                                onChanged: (value) {
+                                  todoList[index].isCompleted = value;
+                                  _todoBloc(context).add(InitEvent(todoList));
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               );
             } else {
-              return Center(child: CircularProgressIndicator()); // Show loading indicator
+              return const Center(child: CircularProgressIndicator()); // Show loading indicator
             }
           },
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            // context.push(ApplicationPaths.createTodoPage);
-
-
-            await init(context);
+            await context.push(ApplicationPaths.createTodoPage);
+            await _init(context);
           },
         ),
       ),
     );
-  }
-
-  Future<void> init(BuildContext context) async {
-    final getTodoListUseCase = GetTodoListUseCase(
-      firebaseTodo: TodoRepositoryImpl(FirebaseApiImpl()),
-      serverTodo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
-    );
-
-    var params;
-    final res = await getTodoListUseCase.call(params);
-
-    res.fold((failure) {
-      print("Failed to fetch todo list");
-    }, (todoList) {
-      print("Fetched todo list with ${todoList.length} items");
-      context.read<TodoBloc>().add(InitEvent(todoList));
-    });
   }
 }

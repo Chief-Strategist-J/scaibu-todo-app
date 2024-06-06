@@ -3,42 +3,51 @@ import 'package:todo_app/core/todo_library.dart';
 TimeService _timeService = TimeService();
 
 class ContentWidget extends StatelessWidget {
-  final bool isTimeField;
-  final bool isDateField;
+  final bool _isTimeField;
+  final bool _isDateField;
 
-  final String title;
+  final String _title;
 
-  final TextEditingController controller;
+  final TextEditingController _controller;
 
-  final TextFieldType textFieldType;
+  final TextFieldType _textFieldType;
 
-  final FocusNode? focusNode;
+  final FocusNode? _focusNode;
 
-  final TextInputAction? textInputAction;
+  final TextInputAction? _textInputAction;
 
-  final GestureTapCallback? onTap;
+  final GestureTapCallback? _onTap;
 
   const ContentWidget({
     super.key,
-    required this.title,
-    required this.controller,
-    this.focusNode,
-    this.textInputAction,
-    this.isTimeField = false,
-    this.isDateField = false,
-    this.onTap,
-    this.textFieldType = TextFieldType.NAME,
-  });
+    required String title,
+    required TextEditingController controller,
+    FocusNode? focusNode,
+    TextInputAction? textInputAction,
+    bool isTimeField = false,
+    bool isDateField = false,
+    void Function()? onTap,
+    TextFieldType textFieldType = TextFieldType.OTHER,
+  })  : _onTap = onTap,
+        _textInputAction = textInputAction,
+        _focusNode = focusNode,
+        _textFieldType = textFieldType,
+        _controller = controller,
+        _title = title,
+        _isDateField = isDateField,
+        _isTimeField = isTimeField;
 
-  bool get isEnabled => !((isTimeField) || (isDateField));
+  bool get _isEnabled => !((_isTimeField) || (_isDateField));
 
-  Future<void> onTapOfInputField(BuildContext context) async {
-    if (onTap != null) onTap!.call();
+  Future<void> _onTapOfInputField(BuildContext context) async {
+    if (_onTap != null) _onTap?.call();
 
-    if (isTimeField) {
-      controller.text = await _timeService.pickTime(context);
-    } else if (isDateField) {
-      controller.text = await _timeService.selectDate(context);
+    if (FocusScope.of(context).hasFocus) hideKeyboard(context);
+
+    if (_isTimeField) {
+      _controller.text = await _timeService.pickTime(context);
+    } else if (_isDateField) {
+      _controller.text = await _timeService.selectDate(context);
     }
   }
 
@@ -48,17 +57,17 @@ class ContentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         16.height,
-        Text(title, style: TextStyle(color: gray, fontSize: 14, fontWeight: FontWeight.w500)),
+        Text(_title, style: TextStyle(color: gray, fontSize: 14, fontWeight: FontWeight.w500)),
         GestureDetector(
           onTap: () async {
-            await onTapOfInputField(context);
+            await _onTapOfInputField(context);
           },
           child: AppTextField(
-            controller: controller,
-            focus: focusNode,
-            enabled: isEnabled,
-            textInputAction: textInputAction ?? TextInputAction.next,
-            textFieldType: textFieldType,
+            controller: _controller,
+            focus: _focusNode,
+            enabled: _isEnabled,
+            textInputAction: _textInputAction ?? TextInputAction.next,
+            textFieldType: _textFieldType,
           ),
         ),
       ],

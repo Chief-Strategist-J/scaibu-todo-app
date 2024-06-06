@@ -1,6 +1,5 @@
 import 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
 import 'package:todo_app/feature/todo/data/model/todo_model.dart';
-import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
 import 'package:todo_app/feature/todo/domain/repository/todo_repository.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
@@ -10,7 +9,7 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<List<TodoModel>> getListOfTodos() async {
     return await baseApi.getListOfTodos();
-    ;
+
   }
 
   @override
