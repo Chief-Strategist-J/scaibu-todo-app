@@ -1,7 +1,4 @@
-import 'package:fpdart/src/either.dart';
-import 'package:todo_app/core/error/failure.dart';
-import 'package:todo_app/core/useCases/use_case.dart';
-import 'package:todo_app/feature/todo/domain/repository/todo_repository.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
   final TodoRepository databaseRep;
@@ -17,13 +14,14 @@ class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
 
       /// Update created to-do id
       final Map<String, String> req = {'id': localTodoId};
-      await firebaseRepo.updateTodoId(Id: localTodoId, request: req);
+      await firebaseRepo.updateTodoId(Id: todoId, request: req);
 
       final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
-      await databaseRep.updateTodoId(Id: todoId, request: serverReq);
+      await databaseRep.updateTodoId(Id: localTodoId, request: serverReq);
 
       return Right(null);
-    } catch (e) {
+    } catch (e,s) {
+      logService.crashLog(errorMessage: 'Failed to create todo', stack: s);
       return Left(ServerFailure('Failed to create todo'));
     }
   }

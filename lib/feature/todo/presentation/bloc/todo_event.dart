@@ -1,8 +1,11 @@
-
-
 import 'package:todo_app/core/todo_library.dart';
 
 sealed class TodoEvent extends Equatable {}
+
+class LoadingEvent extends TodoEvent {
+  @override
+  List<Object?> get props => [];
+}
 
 class InitEvent extends TodoEvent {
   final List<TodoEntity>? todoList;

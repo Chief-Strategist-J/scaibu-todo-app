@@ -1,6 +1,5 @@
-
-
 import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/core/utils/parse_service.dart';
 
 class FirebaseApiImpl implements BaseApi {
   static FirebaseFirestore fireStore = FirebaseFirestore.instance;
@@ -8,14 +7,14 @@ class FirebaseApiImpl implements BaseApi {
 
   @override
   Future<String> createTodo(Map<String, dynamic> todoData) async {
-    String firebaseTodoID = '';
-
-    await todoCollection.add(todoData).then((value) {
-      value.update({'firebase_todo_id': value.id});
-      firebaseTodoID = value.id;
-    });
-
-    return firebaseTodoID;
+    try {
+      final docRef = await todoCollection.add(todoData);
+      await docRef.update({'firebase_todo_id': docRef.id});
+      return docRef.id;
+    } catch (e) {
+      log('Error creating todo: $e');
+      return '';
+    }
   }
 
   @override
@@ -29,32 +28,22 @@ class FirebaseApiImpl implements BaseApi {
 
     final value = await todoCollection.get();
 
-    value.docs.map((e) {
+    value.docs.map(
+      (e) {
+        TodoModel _todo = TodoModel(
+          todoId: parseService.parseToInt(e.data()['id']),
+          firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
+          title: e.data()['title'],
+          description: e.data()['description'],
+          isCompleted: e.data()['is_completed'] ?? false,
+        );
 
-      TodoModel _todo = TodoModel(
-        todoId: parseToInt(e.data()['id']),
-        firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
-        title: e.data()['title'],
-        description: e.data()['description'],
-      );
-
-      _todoList.add(_todo);
-      return e.data();
-    }).toList();
+        _todoList.add(_todo);
+        return e.data();
+      },
+    ).toList();
 
     return _todoList;
-  }
-
-  int parseToInt(dynamic value, {int defaultValue = -1}) {
-    if (value == null) return defaultValue;
-
-    if (value is int) return value;
-
-    if (value is String) {
-      final intValue = int.tryParse(value);
-      if (intValue != null) return intValue;
-    }
-    return defaultValue;
   }
 
   @override

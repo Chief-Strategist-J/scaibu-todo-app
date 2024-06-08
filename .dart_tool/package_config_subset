@@ -94,6 +94,14 @@ firebase_core_web
 3.2
 file:///home/j/.pub-cache/hosted/pub.dev/firebase_core_web-2.17.0/
 file:///home/j/.pub-cache/hosted/pub.dev/firebase_core_web-2.17.0/lib/
+firebase_crashlytics
+2.18
+file:///home/j/.pub-cache/hosted/pub.dev/firebase_crashlytics-3.5.7/
+file:///home/j/.pub-cache/hosted/pub.dev/firebase_crashlytics-3.5.7/lib/
+firebase_crashlytics_platform_interface
+2.18
+file:///home/j/.pub-cache/hosted/pub.dev/firebase_crashlytics_platform_interface-3.6.35/
+file:///home/j/.pub-cache/hosted/pub.dev/firebase_crashlytics_platform_interface-3.6.35/lib/
 flutter_bloc
 2.12
 file:///home/j/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.5/

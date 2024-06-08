@@ -26,6 +26,7 @@ dependencies:
   go_router: ^14.1.4
   easy_localization: ^3.0.7
   flutter_hooks: ^0.20.5
+  firebase_crashlytics: ^3.5.7
 
 dev_dependencies:
   flutter_test:

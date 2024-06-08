@@ -5,6 +5,8 @@ sealed class TodoState extends Equatable {
   List<Object?> get props => [];
 }
 
+class LoadingState extends TodoState {}
+
 class InitTodoState extends TodoState {
   final List<TodoEntity>? todoList;
 

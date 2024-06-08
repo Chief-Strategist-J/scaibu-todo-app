@@ -5,9 +5,27 @@ class TodoListComponent extends StatelessWidget {
 
   const TodoListComponent({super.key, required this.todoList});
 
-  void _onCheckboxChange(int index, bool? value, BuildContext context) {
-    todoList[index].isCompleted = value;
-    context.read<TodoBloc>().add(InitEvent(todoList));
+  Future<void> _onCheckboxChange(int index, bool? value, BuildContext context) async {
+    try {
+      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
+
+      final Map<String, dynamic> todoData = {
+        'todo_id': todoList[index].todoId.toString(),
+        'is_completed': value.validate(),
+      };
+
+      await updateTodoUseCase.call(
+        UpdateTodoParam(
+          firebaseID: todoList[index].firebaseTodoId.validate(),
+          localID: todoList[index].todoId.toString(),
+          todoData: todoData,
+        ),
+      );
+
+      context.read<TodoBloc>().add(InitEvent([]));
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'error while updating todo', stack: s);
+    }
   }
 
   @override

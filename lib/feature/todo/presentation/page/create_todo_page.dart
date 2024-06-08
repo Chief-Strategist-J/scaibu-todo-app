@@ -12,18 +12,19 @@ class CreateTodoPage extends HookWidget {
   ) async {
     if (!_validatorKey.currentState!.validate()) return;
 
-    final _firebaseRepo = TodoRepositoryImpl(FirebaseApiImpl());
-    final _databaseRepo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
+    try {
+      final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
 
-    /// CREATED TODOs HERE
-    final Map<String, dynamic> _todo = {
-      'title': titleController.text,
-      'description': descriptionController.text,
-    };
+      final Map<String, dynamic> todo = {
+        'title': titleController.text,
+        'description': descriptionController.text,
+      };
 
-    await CreateTodoUseCase(firebaseRepo: _firebaseRepo, databaseRep: _databaseRepo).call(_todo);
-
-    finish(context);
+      await createTodoUseCase.call(todo);
+      finish(context);
+    } catch (e) {
+      log('An error occurred: $e');
+    }
   }
 
   Widget _showCreateTodoButton({

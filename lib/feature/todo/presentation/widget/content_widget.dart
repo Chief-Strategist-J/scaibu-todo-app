@@ -1,6 +1,6 @@
 import 'package:todo_app/core/todo_library.dart';
 
-TimeService _timeService = TimeService();
+TimeService timeService = getIt<TimeService>();
 
 class ContentWidget extends StatelessWidget {
   final bool _isTimeField;
@@ -45,9 +45,9 @@ class ContentWidget extends StatelessWidget {
     if (FocusScope.of(context).hasFocus) hideKeyboard(context);
 
     if (_isTimeField) {
-      _controller.text = await _timeService.pickTime(context);
+      _controller.text = await timeService.pickTime(context);
     } else if (_isDateField) {
-      _controller.text = await _timeService.selectDate(context);
+      _controller.text = await timeService.selectDate(context);
     }
   }
 

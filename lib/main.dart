@@ -6,6 +6,8 @@ Future<void> main() async {
   await initialSetup.firebaseInit();
   await initialSetup.languageInit();
 
+  Dependency.setup();
+
   runApp(
     EasyLocalization(
       path: initialSetup.path,

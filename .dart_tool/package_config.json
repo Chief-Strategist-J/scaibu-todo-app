@@ -146,6 +146,18 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "firebase_crashlytics",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/firebase_crashlytics-3.5.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_crashlytics_platform_interface",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/firebase_crashlytics_platform_interface-3.6.35",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///home/j/snap/flutter/common/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -476,7 +488,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-06-01T07:05:26.081538Z",
+  "generated": "2024-06-08T16:15:05.259459Z",
   "generator": "pub",
   "generatorVersion": "3.4.1",
   "flutterRoot": "file:///home/j/snap/flutter/common/flutter",

@@ -20,8 +20,8 @@ final router = GoRouter(
         return BlocProvider<TodoBloc>(
           create: (context) {
             return TodoBloc(
-              fireTodo: TodoRepositoryImpl(FirebaseApiImpl()),
-              serverTodo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
+              firebaseRepo: TodoRepositoryImpl(FirebaseApiImpl()),
+              serverRepo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
             )..add(
                 InitEvent([]),
               );
@@ -37,8 +37,8 @@ final router = GoRouter(
         return BlocProvider<TodoBloc>(
           create: (context) {
             return TodoBloc(
-              fireTodo: TodoRepositoryImpl(FirebaseApiImpl()),
-              serverTodo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
+              firebaseRepo: TodoRepositoryImpl(FirebaseApiImpl()),
+              serverRepo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
             )..add(
                 InitEvent([]),
               );

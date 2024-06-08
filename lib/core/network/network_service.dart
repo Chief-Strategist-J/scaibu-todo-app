@@ -1,34 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:http/http.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:todo_app/core/error/error_codes.dart';
-import 'package:todo_app/core/network/network_config.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 enum HttpRequestMethod { GET, POST, DELETE, PUT, PATCH, UPLOAD, DOWNLOAD }
 
 RestApi restApi = RestApiImpl();
-
-abstract interface class RestApi {
-  Future request({
-    HttpRequestMethod type = HttpRequestMethod.GET,
-    required String endPoint,
-    required Map<String, dynamic> requestBody,
-    Map<String, dynamic>? headers,
-    String uploadKey = '',
-    String uploadFilePath = '',
-    required String requestAPIName,
-    void Function(int)? onStatusCodeError,
-  });
-
-  Future handleResponse({
-    required Response response,
-    HttpResponseType responseType = HttpResponseType.JSON,
-    required String requestAPIName,
-    void Function(int)? onStatusCodeError,
-  });
-}
 
 class RestApiImpl implements RestApi {
   Map<String, String> createHeader() {

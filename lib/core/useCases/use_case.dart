@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:todo_app/core/error/failure.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 abstract class UseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
