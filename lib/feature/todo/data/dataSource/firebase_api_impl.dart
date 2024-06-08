@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
-import 'package:todo_app/feature/todo/data/model/todo_model.dart';
+
+
+import 'package:todo_app/core/todo_library.dart';
 
 class FirebaseApiImpl implements BaseApi {
   static FirebaseFirestore fireStore = FirebaseFirestore.instance;
@@ -9,6 +9,7 @@ class FirebaseApiImpl implements BaseApi {
   @override
   Future<String> createTodo(Map<String, dynamic> todoData) async {
     String firebaseTodoID = '';
+
     await todoCollection.add(todoData).then((value) {
       value.update({'firebase_todo_id': value.id});
       firebaseTodoID = value.id;

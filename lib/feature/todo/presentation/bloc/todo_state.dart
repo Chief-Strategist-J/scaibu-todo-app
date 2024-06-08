@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 sealed class TodoState extends Equatable {
   @override
@@ -15,7 +14,7 @@ class InitTodoState extends TodoState {
     return InitTodoState(todoList: []);
   }
 
-   InitTodoState copyWith({List<TodoEntity>? todoList}) {
+  InitTodoState copyWith({List<TodoEntity>? todoList}) {
     return InitTodoState(todoList: todoList ?? this.todoList);
   }
 

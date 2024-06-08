@@ -4,32 +4,27 @@ import 'package:todo_app/core/useCases/use_case.dart';
 import 'package:todo_app/feature/todo/domain/repository/todo_repository.dart';
 
 class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
-  final TodoRepository serverTodo;
-  final TodoRepository firebaseTodo;
+  final TodoRepository databaseRep;
+  final TodoRepository firebaseRepo;
 
-  CreateTodoUseCase({required this.serverTodo, required this.firebaseTodo});
+  CreateTodoUseCase({required this.databaseRep, required this.firebaseRepo});
 
   @override
   Future<Either<Failure, void>> call(Map<String, dynamic> params) async {
     try {
-      final firebaseTodoId = await firebaseTodo.createTodo(params);
-      final localServerTodoId = await serverTodo.createTodo(params);
+      final todoId = await firebaseRepo.createTodo(params);
+      final localTodoId = await databaseRep.createTodo(params);
 
-      _updateFirebaseIdToLocalServer(localServerTodoId, firebaseTodoId);
+      /// Update created to-do id
+      final Map<String, String> req = {'id': localTodoId};
+      await firebaseRepo.updateTodoId(Id: localTodoId, request: req);
+
+      final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
+      await databaseRep.updateTodoId(Id: todoId, request: serverReq);
 
       return Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to create todo'));
     }
-  }
-
-  void _updateFirebaseIdToLocalServer(String localServerTodoId, String firebaseTodoId) {
-    final Map<String, dynamic> updateRequest = {
-      'todo_id': localServerTodoId,
-      'firebase_todo_id': firebaseTodoId,
-    };
-
-    firebaseTodo.updateTodo({'id': localServerTodoId}, firebaseTodoId);
-    serverTodo.updateTodo(updateRequest, localServerTodoId);
   }
 }

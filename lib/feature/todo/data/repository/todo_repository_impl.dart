@@ -1,15 +1,13 @@
-import 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
-import 'package:todo_app/feature/todo/data/model/todo_model.dart';
-import 'package:todo_app/feature/todo/domain/repository/todo_repository.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
   final BaseApi baseApi;
+
   TodoRepositoryImpl(this.baseApi);
 
   @override
   Future<List<TodoModel>> getListOfTodos() async {
     return await baseApi.getListOfTodos();
-
   }
 
   @override
@@ -25,5 +23,10 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<String> createTodo(Map<String, dynamic> todoData) async {
     return await baseApi.createTodo(todoData);
+  }
+
+  @override
+  Future<bool> updateTodoId({required String Id, required Map<String, String> request}) async {
+    return await updateTodo(request, Id).then((value) => true).catchError((e) => false);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:todo_app/core/todo_library.dart';
 
 class CreateTodoPage extends HookWidget {
-  CreateTodoPage({super.key});
+  final _validatorKey;
 
-  final _validatorKey = GlobalKey<FormState>();
+  CreateTodoPage({super.key}) : _validatorKey = GlobalKey<FormState>();
 
   Future<void> _onTapOfCreateTodo(
     TextEditingController titleController,
@@ -12,28 +12,43 @@ class CreateTodoPage extends HookWidget {
   ) async {
     if (!_validatorKey.currentState!.validate()) return;
 
-    final firebaseTodo = TodoRepositoryImpl(FirebaseApiImpl());
-    final serverTodo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
+    final _firebaseRepo = TodoRepositoryImpl(FirebaseApiImpl());
+    final _databaseRepo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
 
-    final Map<String, dynamic> todo = {
+    /// CREATED TODOs HERE
+    final Map<String, dynamic> _todo = {
       'title': titleController.text,
       'description': descriptionController.text,
     };
 
-    final _createTodo = await CreateTodoUseCase(
-      firebaseTodo: firebaseTodo,
-      serverTodo: serverTodo,
-    );
-
-    _createTodo.call(todo);
+    await CreateTodoUseCase(firebaseRepo: _firebaseRepo, databaseRep: _databaseRepo).call(_todo);
 
     finish(context);
   }
 
+  Widget _showCreateTodoButton({
+    required TextEditingController title,
+    required TextEditingController description,
+    required BuildContext context,
+  }) {
+    final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
+    if (!isKeyboardNotOpened) return Offstage();
+
+    return Positioned(
+      bottom: 16,
+      left: 16,
+      right: 16,
+      child: CustomButton(
+        data: "Create New Task",
+        onTap: () async {
+          await _onTapOfCreateTodo(title, description, context);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool _isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom == 0;
-
     final _titleController = useTextEditingController();
     final _dateController = useTextEditingController();
     final _startTimeController = useTextEditingController();
@@ -104,18 +119,11 @@ class CreateTodoPage extends HookWidget {
                 ],
               ),
             ),
-            if (_isKeyboardOpen)
-              Positioned(
-                bottom: 16,
-                left: 16,
-                right: 16,
-                child: CustomButton(
-                  data: "Create New Task",
-                  onTap: () async {
-                    await _onTapOfCreateTodo(_titleController, _descriptionController, context);
-                  },
-                ),
-              )
+            _showCreateTodoButton(
+              title: _titleController,
+              description: _descriptionController,
+              context: context,
+            )
           ],
         ),
       ),

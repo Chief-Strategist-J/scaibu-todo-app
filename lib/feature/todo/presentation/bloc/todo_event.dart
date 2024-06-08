@@ -1,5 +1,6 @@
-import 'package:equatable/equatable.dart';
-import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
+
+
+import 'package:todo_app/core/todo_library.dart';
 
 sealed class TodoEvent extends Equatable {}
 
@@ -13,7 +14,11 @@ class InitEvent extends TodoEvent {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || super == other && other is InitEvent && runtimeType == other.runtimeType && todoList == other.todoList;
+    final isInitEvent = other is InitEvent;
+    final isRunTypeSame = runtimeType == other.runtimeType;
+    final isObjectSame = isInitEvent && isRunTypeSame;
+
+    return identical(this, other) || super == other && isObjectSame && todoList == other.todoList;
   }
 
   @override

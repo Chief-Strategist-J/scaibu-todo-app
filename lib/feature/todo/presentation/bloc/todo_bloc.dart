@@ -1,8 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
-import 'package:todo_app/feature/todo/domain/repository/todo_repository.dart';
-import 'todo_event.dart';
-import 'todo_state.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository? fireTodo;
@@ -18,16 +14,33 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     if (combinedList.isNotEmpty) {
       emit(InitTodoState(todoList: combinedList));
       return;
-    } else if (fireTodo != null) {
+    }
+    if (fireTodo != null) {
       combinedList = await fireTodo?.getListOfTodos() ?? [];
       return;
-
-    } else if (serverTodo != null) {
+    }
+    if (serverTodo != null) {
       combinedList = await serverTodo?.getListOfTodos() ?? [];
       return;
-
     }
 
     emit(InitTodoState(todoList: combinedList));
+  }
+
+  Future<void> onTapOfCreateTodo(BuildContext context) async {
+    await context.push(ApplicationPaths.createTodoPage);
+
+    /// TODO : Change this later and convert into dependency injection
+    final firebaseTodo = TodoRepositoryImpl(FirebaseApiImpl());
+    final serverTodo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
+
+    final res = await GetTodoListUseCase(
+      firebaseRepo: firebaseTodo,
+      databaseRepo: serverTodo,
+    ).call(voidParameter);
+
+    res.fold((failure) {}, (todoList) {
+      context.read<TodoBloc>().add(InitEvent(todoList));
+    });
   }
 }
