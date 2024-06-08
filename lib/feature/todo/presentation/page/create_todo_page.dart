@@ -11,20 +11,8 @@ class CreateTodoPage extends HookWidget {
     BuildContext context,
   ) async {
     if (!_validatorKey.currentState!.validate()) return;
-
-    try {
-      final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
-
-      final Map<String, dynamic> todo = {
-        'title': titleController.text,
-        'description': descriptionController.text,
-      };
-
-      await createTodoUseCase.call(todo);
-      finish(context);
-    } catch (e) {
-      log('An error occurred: $e');
-    }
+    context.read<TodoBloc>().createTodo(titleController, descriptionController);
+    finish(context);
   }
 
   Widget _showCreateTodoButton({

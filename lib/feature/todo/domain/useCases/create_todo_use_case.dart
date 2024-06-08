@@ -21,7 +21,7 @@ class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
 
       return Right(null);
     } catch (e,s) {
-      logService.crashLog(errorMessage: 'Failed to create todo', stack: s);
+      logService.crashLog(errorMessage: 'Failed to create todo',e: e, stack: s);
       return Left(ServerFailure('Failed to create todo'));
     }
   }

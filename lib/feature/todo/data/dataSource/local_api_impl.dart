@@ -28,8 +28,8 @@ class LocalApiImpl implements BaseApi {
   }
 
   @override
-  void deleteTodo(String todoId) {
-    restApi.request(
+  Future<void> deleteTodo(String todoId) async {
+    await restApi.request(
       endPoint: TodoEndPoint.deleteTodo,
       requestBody: {'todo_id': todoId},
       requestAPIName: TodoEndPoint.deleteTodo,

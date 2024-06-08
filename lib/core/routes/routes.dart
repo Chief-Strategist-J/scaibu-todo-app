@@ -1,10 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo_app/core/network/network_service.dart';
 import 'package:todo_app/core/routes/route_service.dart';
-import 'package:todo_app/feature/todo/data/dataSource/firebase_api_impl.dart';
-import 'package:todo_app/feature/todo/data/dataSource/local_api_impl.dart';
-import 'package:todo_app/feature/todo/data/repository/todo_repository_impl.dart';
 import 'package:todo_app/feature/todo/presentation/bloc/todo_bloc.dart';
 import 'package:todo_app/feature/todo/presentation/bloc/todo_event.dart';
 import 'package:todo_app/feature/todo/presentation/page/create_todo_page.dart';
@@ -14,18 +11,11 @@ final router = GoRouter(
   initialLocation: ApplicationPaths.todoListViewPage,
   routes: [
     GoRoute(
-      name: ApplicationPaths.todoListViewPage, // Optional, add name to your routes. Allows you navigate by name instead of path
+      name: ApplicationPaths.todoListViewPage,
       path: ApplicationPaths.todoListViewPage,
       builder: (context, state) {
         return BlocProvider<TodoBloc>(
-          create: (context) {
-            return TodoBloc(
-              firebaseRepo: TodoRepositoryImpl(FirebaseApiImpl()),
-              serverRepo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
-            )..add(
-                InitEvent([]),
-              );
-          },
+          create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([])),
           child: const TodoPage(),
         );
       },
@@ -35,14 +25,7 @@ final router = GoRouter(
       path: ApplicationPaths.createTodoPage,
       builder: (context, state) {
         return BlocProvider<TodoBloc>(
-          create: (context) {
-            return TodoBloc(
-              firebaseRepo: TodoRepositoryImpl(FirebaseApiImpl()),
-              serverRepo: TodoRepositoryImpl(LocalApiImpl(RestApiImpl())),
-            )..add(
-                InitEvent([]),
-              );
-          },
+          create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([])),
           child: CreateTodoPage(),
         );
       },

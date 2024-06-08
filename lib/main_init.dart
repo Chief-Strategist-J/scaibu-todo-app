@@ -1,6 +1,6 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/core/utils/log_service.dart';
 import 'package:todo_app/core/utils/parse_service.dart';
+import 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
 
 InitialSetup initialSetup = InitialSetup();
 
@@ -75,6 +75,13 @@ class Dependency {
       TodoRepositoryImpl(getIt<BaseApi>(instanceName: localApi)),
       instanceName: serverRepo,
     );
+
+    getIt.registerFactory(() {
+      return TodoBloc(
+        firebaseRepo: getIt<TodoRepository>(instanceName: firebaseRepo),
+        serverRepo: getIt<TodoRepository>(instanceName: serverRepo),
+      );
+    });
   }
 
   static void registerTodoUseCase() {
@@ -93,6 +100,13 @@ class Dependency {
     });
     getIt.registerFactory(() {
       return UpdateTodoUseCase(
+        firebaseRepo: getIt<TodoRepository>(instanceName: firebaseRepo),
+        databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
+      );
+    });
+
+    getIt.registerFactory(() {
+      return DeleteTodoUseCase(
         firebaseRepo: getIt<TodoRepository>(instanceName: firebaseRepo),
         databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
       );

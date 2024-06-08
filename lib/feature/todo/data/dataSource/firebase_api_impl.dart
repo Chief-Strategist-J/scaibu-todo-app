@@ -18,15 +18,15 @@ class FirebaseApiImpl implements BaseApi {
   }
 
   @override
-  void deleteTodo(String todoId) {
-    todoCollection.doc(todoId).delete();
+  Future<void> deleteTodo(String todoId) async {
+    await todoCollection.doc(todoId).delete();
   }
 
   @override
   Future<List<TodoModel>> getListOfTodos() async {
     final _todoList = <TodoModel>[];
 
-    final value = await todoCollection.get();
+    final value = await todoCollection.where('is_archived',isEqualTo:  false).get();
 
     value.docs.map(
       (e) {

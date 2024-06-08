@@ -3,7 +3,7 @@ import 'package:todo_app/core/todo_library.dart';
 LogService logService = getIt<LogService>();
 
 class LogService {
-  void crashLog({required String errorMessage, dynamic e, required StackTrace stack}) {
+  void crashLog({required String errorMessage, dynamic e, StackTrace? stack}) {
     FlutterErrorDetails errorDetails = FlutterErrorDetails(exception: e, stack: stack);
     FlutterError.reportError(errorDetails);
 

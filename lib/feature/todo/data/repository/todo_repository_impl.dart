@@ -16,8 +16,8 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  void deleteTodos(String todoId) {
-    baseApi.deleteTodo(todoId);
+  Future<void> deleteTodos(String todoId) async {
+    await baseApi.deleteTodo(todoId);
   }
 
   @override

@@ -41,7 +41,7 @@ class RestApiImpl implements RestApi {
         return await jsonDecode(streamResponse);
       }
     } else {
-      return handleErrorCode(response.statusCode, onStatusCodeError);
+      throw handleErrorCode(response.statusCode, onStatusCodeError);
     }
   }
 
@@ -146,7 +146,7 @@ class RestApiImpl implements RestApi {
       }
     } else {
       if (response.body.isJson()) log(jsonDecode(response.body));
-      if (response.body.isJson()) return jsonDecode(response.body);
+      if (response.body.isJson()) throw jsonDecode(response.body);
       throw handleErrorCode(response.statusCode, onStatusCodeError);
     }
   }

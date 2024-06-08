@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:get_it/get_it.dart';
 import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository? firebaseRepo;
@@ -40,21 +40,111 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       final res = await getTodoListUseCase(voidParameter);
 
       res.fold((failure) {
-        log('Failed to fetch todo list: $failure');
+        logService.crashLog(errorMessage: 'Failed to fetch todo list');
       }, (todoList) {
         context.read<TodoBloc>().add(InitEvent(todoList));
       });
-    } catch (e) {
-      log('An error occurred: $e');
+
+      //
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Failed to fetch todo list', stack: s);
     }
-    // /// TODO : Change this later and convert into dependency injection
-    // final firebaseTodo = TodoRepositoryImpl(FirebaseApiImpl());
-    // final serverTodo = TodoRepositoryImpl(LocalApiImpl(RestApiImpl()));
-    //
-    // final res = await GetTodoListUseCase(firebaseRepo: firebaseTodo, databaseRepo: serverTodo).call(voidParameter);
-    //
-    // res.fold((failure) {}, (todoList) {
-    //   context.read<TodoBloc>().add(InitEvent(todoList));
-    // });
+  }
+
+  Future<void> onCheckboxChange({
+    required int index,
+    bool checked = false,
+    required List<TodoEntity> list,
+  }) async {
+    try {
+      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
+      final TodoEntity todoItem = list[index];
+
+      final Map<String, dynamic> todoData = {
+        'todo_id': todoItem.todoId.toString(),
+        'is_completed': checked.validate(),
+      };
+
+      final updateTodo = UpdateTodoParam(
+        firebaseID: todoItem.firebaseTodoId.validate(),
+        localID: todoItem.todoId.toString(),
+        todoData: todoData,
+      );
+
+      await updateTodoUseCase.call(updateTodo);
+      add(InitEvent([]));
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Error while updating todo', stack: s);
+    }
+  }
+
+  Future<void> onArchivedTodo({
+    required int index,
+    required List<TodoEntity> list,
+    required final DismissDirection direction,
+  }) async {
+    if (direction == DismissDirection.startToEnd) {
+      try {
+        final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
+        final TodoEntity todoItem = list[index];
+
+        final Map<String, dynamic> todoData = {
+          'todo_id': todoItem.todoId.toString(),
+          'is_archived': true,
+        };
+
+        final updateTodo = UpdateTodoParam(
+          firebaseID: todoItem.firebaseTodoId.validate(),
+          localID: todoItem.todoId.toString(),
+          todoData: todoData,
+        );
+
+        await updateTodoUseCase.call(updateTodo);
+        add(InitEvent([]));
+      } catch (e, s) {
+        logService.crashLog(errorMessage: 'Error while updating todo',e: e, stack: s);
+      }
+    }
+  }
+
+  Future<void> createTodo(
+    TextEditingController titleController,
+    TextEditingController descriptionController,
+  ) async {
+    try {
+      final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
+
+      final Map<String, dynamic> todo = {
+        "title": titleController.text,
+        "description": descriptionController.text,
+        "is_archived": false,
+        "is_completed": false,
+      };
+
+      await createTodoUseCase.call(todo);
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
+    }
+  }
+
+  Future<void> onDismissDelete({
+    required DismissDirection direction,
+    required TodoEntity todoData,
+  }) async {
+    if (direction == DismissDirection.endToStart) {
+      final deleteTodoUseCase = GetIt.instance<DeleteTodoUseCase>();
+
+      DeleteTodoParam deleteParam = DeleteTodoParam(
+        firebaseId: todoData.firebaseTodoId.validate(),
+        localId: todoData.todoId.validate().toString(),
+      );
+
+      try {
+        await deleteTodoUseCase.call(deleteParam);
+      } catch (e, s) {
+        logService.crashLog(errorMessage: 'Error while deleting todo', stack: s);
+      }
+      add(InitEvent([]));
+    }
   }
 }
