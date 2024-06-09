@@ -71,7 +71,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         todoData: todoData,
       );
 
-      await updateTodoUseCase.call(updateTodo);
+      await updateTodoUseCase(updateTodo);
       add(InitEvent([]));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
@@ -126,7 +126,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     };
 
     try {
-      await createTodoUseCase.call(todo);
+      await createTodoUseCase(todo);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
     }

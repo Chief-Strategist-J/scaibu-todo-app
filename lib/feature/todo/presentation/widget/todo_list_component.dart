@@ -1,4 +1,5 @@
 import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/feature/todo/presentation/page/edit_todo_page.dart';
 
 class TodoListComponent extends StatelessWidget {
   final List<TodoEntity> todoList;
@@ -85,6 +86,27 @@ class TodoListItemComponent extends StatelessWidget {
     this.onDismissed,
   });
 
+  Future<void> onTapOfEdit(BuildContext context) async {
+    // TODO UPDATE IT LATER
+    await context.push(
+      ApplicationPaths.editTodoPage,
+      extra: EditTodoPageParam(
+        titleController: TextEditingController(text: todoData.title),
+        dateController: TextEditingController(text: ''),
+        startTimeController: TextEditingController(),
+        endTimeController: TextEditingController(),
+        descriptionController: TextEditingController(text: todoData.description),
+        titleNode: FocusNode(),
+        dateNode: FocusNode(),
+        startTimeNode: FocusNode(),
+        endTimeNode: FocusNode(),
+        descriptionNode: FocusNode(),
+        firebaseTodoId: todoData.firebaseTodoId.validate(),
+        todoId: todoData.todoId.validate().toString(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dismissible(
@@ -165,7 +187,12 @@ class TodoListItemComponent extends StatelessWidget {
               children: [
                 Icon(Icons.flag, size: 22),
                 8.width,
-                Icon(Icons.edit, size: 22),
+                GestureDetector(
+                  child: Icon(Icons.edit, size: 22),
+                  onTap: () async {
+                    await onTapOfEdit(context);
+                  },
+                ),
               ],
             ),
           ],

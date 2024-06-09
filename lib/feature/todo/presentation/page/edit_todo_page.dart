@@ -1,23 +1,41 @@
 import 'package:todo_app/core/todo_library.dart';
 
-class CreateTodoPage extends HookWidget {
-  CreateTodoPage({super.key});
+class EditTodoPage extends HookWidget {
+  final EditTodoPageParam todoPage;
+
+  EditTodoPage(this.todoPage, {super.key});
 
   Future<void> _onTapOfCreateTodo(
-    _TodoPageModel todoPage,
+    EditTodoPageParam todoPage,
     BuildContext context,
   ) async {
     if (!todoPage.validatorKey.currentState!.validate()) {
       toast("Field must be validated");
       return;
     } else {
-      context.read<TodoBloc>().createTodo(todoPage.titleController, todoPage.descriptionController);
-      finish(context);
+      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
+
+      final Map<String, dynamic> todoData = {
+        'todo_id': todoPage.todoId,
+        'title': todoPage.titleController.text,
+        'description': todoPage.descriptionController.text,
+      };
+
+      final updateTodo = UpdateTodoParam(
+        firebaseID: todoPage.firebaseTodoId,
+        localID: todoPage.todoId,
+        todoData: todoData,
+      );
+
+      await updateTodoUseCase(updateTodo).then((value) {
+        context.read<TodoBloc>().add(InitEvent([]));
+        finish(context);
+      });
     }
   }
 
   Widget _showCreateTodoButton({
-    required _TodoPageModel todoPage,
+    required EditTodoPageParam todoPage,
     required BuildContext context,
   }) {
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
@@ -29,7 +47,7 @@ class CreateTodoPage extends HookWidget {
       left: 16,
       right: 16,
       child: CustomButton(
-        data: "Create New Task",
+        data: "Edit Task",
         onTap: () async {
           await _onTapOfCreateTodo(todoPage, context);
         },
@@ -39,19 +57,6 @@ class CreateTodoPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _TodoPageModel todoPage = _TodoPageModel(
-      titleController: useTextEditingController(text: 'Task'),
-      dateController: useTextEditingController(text: timeService.initialDate),
-      startTimeController: useTextEditingController(text: timeService.currentTime),
-      endTimeController: useTextEditingController(text: timeService.currentTimeAfterMinute()),
-      descriptionController: useTextEditingController(text: '-'),
-      titleNode: useFocusNode(),
-      dateNode: useFocusNode(),
-      startTimeNode: useFocusNode(),
-      endTimeNode: useFocusNode(),
-      descriptionNode: useFocusNode(),
-    );
-
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -121,12 +126,15 @@ class CreateTodoPage extends HookWidget {
   }
 }
 
-class _TodoPageModel extends CreateTodoPage {
+class EditTodoPageParam {
   final TextEditingController titleController;
   final TextEditingController dateController;
   final TextEditingController startTimeController;
   final TextEditingController endTimeController;
   final TextEditingController descriptionController;
+  final String firebaseTodoId;
+  final String todoId;
+
   final validatorKey = GlobalKey<FormState>();
 
   final FocusNode titleNode;
@@ -135,7 +143,9 @@ class _TodoPageModel extends CreateTodoPage {
   final FocusNode endTimeNode;
   final FocusNode descriptionNode;
 
-  _TodoPageModel({
+  EditTodoPageParam({
+    required this.firebaseTodoId,
+    required this.todoId,
     required this.titleController,
     required this.dateController,
     required this.startTimeController,

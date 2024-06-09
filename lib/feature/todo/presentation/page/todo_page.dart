@@ -1,7 +1,5 @@
 import 'package:todo_app/core/todo_library.dart';
-
 var voidParameter;
-
 class TodoPage extends StatefulWidget {
   const TodoPage();
 
@@ -26,8 +24,7 @@ class _TodoPageState extends State<TodoPage> {
       child: Scaffold(
         body: BlocBuilder<TodoBloc, TodoState>(
           builder: (_, state) {
-
-            if(state is LoadingState) return const LoadingWidget();
+            if (state is LoadingState) return const LoadingWidget();
             if (state is! InitTodoState) return const LoadingWidget();
 
             final todoList = state.todoList ?? [];

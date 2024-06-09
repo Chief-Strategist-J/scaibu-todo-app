@@ -45,7 +45,7 @@ class ContentWidget extends StatelessWidget {
     if (FocusScope.of(context).hasFocus) hideKeyboard(context);
 
     if (_isTimeField) {
-      _controller.text = await timeService.pickTime(context);
+      _controller.text = await timeService.selectTime(context);
     } else if (_isDateField) {
       _controller.text = await timeService.selectDate(context);
     }
@@ -66,6 +66,11 @@ class ContentWidget extends StatelessWidget {
             controller: _controller,
             focus: _focusNode,
             enabled: _isEnabled,
+            validator: (value) {
+              if(value == null) return "Can't Null";
+              if(value.isEmpty) return "Can't Empty";
+              return null;
+            },
             textInputAction: _textInputAction ?? TextInputAction.next,
             textFieldType: _textFieldType,
           ),

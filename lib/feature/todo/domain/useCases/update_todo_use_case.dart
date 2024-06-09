@@ -15,7 +15,6 @@ class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
       return Right(null);
     } catch (e,s) {
       logService.crashLog(errorMessage: 'Failed to create todo',e: e, stack: s);
-
       return Left(ServerFailure('Failed to create todo'));
     }
   }
