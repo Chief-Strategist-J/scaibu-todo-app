@@ -11,14 +11,14 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, void> {
     try {
       List<TodoEntity> todoList = [];
 
-      todoList = await firebaseRepo.getListOfTodos();
+      todoList = await firebaseRepo.getListOfTodos() ;
       if (todoList.isEmpty) {
         todoList = await databaseRepo.getListOfTodos();
       }
 
       return Right(todoList);
     } on Exception catch (e,s) {
-      logService.crashLog(errorMessage: 'Failed to create todo', stack: s);
+      logService.crashLog(errorMessage: 'Failed to create todo',e: e, stack: s);
 
       return Left(ServerFailure('Error fetching todo list'));
     }

@@ -1,5 +1,4 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/core/utils/log_service.dart';
 
 class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
   final TodoRepository databaseRep;
@@ -15,7 +14,7 @@ class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
 
       return Right(null);
     } catch (e,s) {
-      logService.crashLog(errorMessage: 'Failed to create todo', stack: s);
+      logService.crashLog(errorMessage: 'Failed to create todo',e: e, stack: s);
 
       return Left(ServerFailure('Failed to create todo'));
     }

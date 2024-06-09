@@ -13,7 +13,7 @@ class DeleteTodoUseCase extends UseCase<void, DeleteTodoParam> {
       await databaseRep.deleteTodos(params.localId);
       return Right(null);
     } catch (e, s) {
-      logService.crashLog(errorMessage: 'Delete todo api done', stack: s);
+      logService.crashLog(errorMessage: 'Delete todo api done',e: e, stack: s);
       return Left(ServerFailure('Delete todo api done'));
     }
   }

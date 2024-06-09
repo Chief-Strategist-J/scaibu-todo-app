@@ -40,14 +40,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       final res = await getTodoListUseCase(voidParameter);
 
       res.fold((failure) {
-        logService.crashLog(errorMessage: 'Failed to fetch todo list');
+        logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
       }, (todoList) {
         context.read<TodoBloc>().add(InitEvent(todoList));
       });
 
       //
     } catch (e, s) {
-      logService.crashLog(errorMessage: 'Failed to fetch todo list', stack: s);
+      logService.crashLog(errorMessage: 'Failed to fetch todo list', e: e, stack: s);
     }
   }
 
@@ -74,7 +74,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       await updateTodoUseCase.call(updateTodo);
       add(InitEvent([]));
     } catch (e, s) {
-      logService.crashLog(errorMessage: 'Error while updating todo', stack: s);
+      logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
   }
 
@@ -102,7 +102,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         await updateTodoUseCase.call(updateTodo);
         add(InitEvent([]));
       } catch (e, s) {
-        logService.crashLog(errorMessage: 'Error while updating todo',e: e, stack: s);
+        logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
       }
     }
   }
@@ -111,16 +111,21 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     TextEditingController titleController,
     TextEditingController descriptionController,
   ) async {
+    if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
+      toast("field must be not empty");
+      return;
+    }
+
+    final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
+
+    final Map<String, dynamic> todo = {
+      "title": titleController.text,
+      "description": descriptionController.text,
+      "is_archived": false,
+      "is_completed": false,
+    };
+
     try {
-      final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
-
-      final Map<String, dynamic> todo = {
-        "title": titleController.text,
-        "description": descriptionController.text,
-        "is_archived": false,
-        "is_completed": false,
-      };
-
       await createTodoUseCase.call(todo);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
@@ -142,7 +147,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       try {
         await deleteTodoUseCase.call(deleteParam);
       } catch (e, s) {
-        logService.crashLog(errorMessage: 'Error while deleting todo', stack: s);
+        logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
       }
       add(InitEvent([]));
     }

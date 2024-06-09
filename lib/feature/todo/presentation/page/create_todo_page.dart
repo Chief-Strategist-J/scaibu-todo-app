@@ -1,16 +1,20 @@
 import 'package:todo_app/core/todo_library.dart';
 
 class CreateTodoPage extends HookWidget {
-  final _validatorKey;
+  final _validatorKey = GlobalKey<FormState>();
 
-  CreateTodoPage({super.key}) : _validatorKey = GlobalKey<FormState>();
+  CreateTodoPage({super.key});
 
   Future<void> _onTapOfCreateTodo(
     TextEditingController titleController,
     TextEditingController descriptionController,
     BuildContext context,
   ) async {
-    if (!_validatorKey.currentState!.validate()) return;
+    if (!_validatorKey.currentState!.validate()) {
+      toast("Field must be validated");
+      return;
+    }
+
     context.read<TodoBloc>().createTodo(titleController, descriptionController);
     finish(context);
   }
@@ -21,6 +25,7 @@ class CreateTodoPage extends HookWidget {
     required BuildContext context,
   }) {
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
+
     if (!isKeyboardNotOpened) return Offstage();
 
     return Positioned(
