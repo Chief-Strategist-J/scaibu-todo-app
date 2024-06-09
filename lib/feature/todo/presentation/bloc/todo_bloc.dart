@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository? firebaseRepo;
@@ -132,10 +129,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void> onDismissDelete({
-    required DismissDirection direction,
-    required TodoEntity todoData,
-  }) async {
+  Future<void> onDismissDelete({required DismissDirection direction, required TodoEntity todoData}) async {
     if (direction == DismissDirection.endToStart) {
       final deleteTodoUseCase = GetIt.instance<DeleteTodoUseCase>();
 
@@ -151,5 +145,24 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       }
       add(InitEvent([]));
     }
+  }
+
+  Future<void> onEditPageUpdateTodo(EditTodoPageParam todoPage) async {
+    final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
+
+    final Map<String, dynamic> todoData = {
+      'todo_id': todoPage.todoId,
+      'title': todoPage.titleController.text,
+      'description': todoPage.descriptionController.text,
+    };
+
+    final updateTodo = UpdateTodoParam(
+      firebaseID: todoPage.firebaseTodoId,
+      localID: todoPage.todoId,
+      todoData: todoData,
+    );
+
+    await updateTodoUseCase(updateTodo);
+    add(InitEvent([]));
   }
 }

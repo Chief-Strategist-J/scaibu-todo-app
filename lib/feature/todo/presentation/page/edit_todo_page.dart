@@ -1,43 +1,24 @@
 import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/feature/todo/presentation/widget/param/parameters.dart';
 
 class EditTodoPage extends HookWidget {
   final EditTodoPageParam todoPage;
 
   EditTodoPage(this.todoPage, {super.key});
 
-  Future<void> _onTapOfCreateTodo(
+  Future<void> _onTapOfUpdateTodo(
     EditTodoPageParam todoPage,
     BuildContext context,
   ) async {
     if (!todoPage.validatorKey.currentState!.validate()) {
       toast("Field must be validated");
-      return;
     } else {
-      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
-
-      final Map<String, dynamic> todoData = {
-        'todo_id': todoPage.todoId,
-        'title': todoPage.titleController.text,
-        'description': todoPage.descriptionController.text,
-      };
-
-      final updateTodo = UpdateTodoParam(
-        firebaseID: todoPage.firebaseTodoId,
-        localID: todoPage.todoId,
-        todoData: todoData,
-      );
-
-      await updateTodoUseCase(updateTodo).then((value) {
-        context.read<TodoBloc>().add(InitEvent([]));
-        finish(context);
-      });
+      await context.read<TodoBloc>().onEditPageUpdateTodo(todoPage);
+      finish(context);
     }
   }
 
-  Widget _showCreateTodoButton({
-    required EditTodoPageParam todoPage,
-    required BuildContext context,
-  }) {
+  Widget _showCreateTodoButton({required EditTodoPageParam todoPage, required BuildContext context}) {
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
 
     if (!isKeyboardNotOpened) return Offstage();
@@ -49,7 +30,7 @@ class EditTodoPage extends HookWidget {
       child: CustomButton(
         data: "Edit Task",
         onTap: () async {
-          await _onTapOfCreateTodo(todoPage, context);
+          await _onTapOfUpdateTodo(todoPage, context);
         },
       ),
     );
@@ -124,37 +105,4 @@ class EditTodoPage extends HookWidget {
       ),
     );
   }
-}
-
-class EditTodoPageParam {
-  final TextEditingController titleController;
-  final TextEditingController dateController;
-  final TextEditingController startTimeController;
-  final TextEditingController endTimeController;
-  final TextEditingController descriptionController;
-  final String firebaseTodoId;
-  final String todoId;
-
-  final validatorKey = GlobalKey<FormState>();
-
-  final FocusNode titleNode;
-  final FocusNode dateNode;
-  final FocusNode startTimeNode;
-  final FocusNode endTimeNode;
-  final FocusNode descriptionNode;
-
-  EditTodoPageParam({
-    required this.firebaseTodoId,
-    required this.todoId,
-    required this.titleController,
-    required this.dateController,
-    required this.startTimeController,
-    required this.endTimeController,
-    required this.descriptionController,
-    required this.titleNode,
-    required this.dateNode,
-    required this.startTimeNode,
-    required this.endTimeNode,
-    required this.descriptionNode,
-  });
 }

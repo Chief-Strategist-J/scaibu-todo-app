@@ -1,12 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
-import 'package:todo_app/core/routes/route_service.dart';
-import 'package:todo_app/feature/todo/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/feature/todo/presentation/bloc/todo_event.dart';
-import 'package:todo_app/feature/todo/presentation/page/create_todo_page.dart';
-import 'package:todo_app/feature/todo/presentation/page/edit_todo_page.dart';
-import 'package:todo_app/feature/todo/presentation/page/todo_page.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 final router = GoRouter(
   initialLocation: ApplicationPaths.todoListViewPage,

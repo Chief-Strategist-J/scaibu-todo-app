@@ -1,5 +1,5 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/presentation/page/edit_todo_page.dart';
+import 'package:todo_app/feature/todo/presentation/widget/todo_list_item_component.dart';
 
 class TodoListComponent extends StatelessWidget {
   final List<TodoEntity> todoList;
@@ -17,16 +17,36 @@ class TodoListComponent extends StatelessWidget {
     await bloc.onDismissDelete(direction: direction, todoData: todoData);
   }
 
+  Future<void> _onArchived(
+    BuildContext context,
+    TodoEntity todoData,
+    DismissDirection direction,
+    int index,
+  ) async {
+    final bloc = context.read<TodoBloc>();
+    todoList.remove(todoData);
+    await bloc.onArchivedTodo(direction: direction, index: index, list: todoList);
+  }
+
+  Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
+    await context.push(
+      ApplicationPaths.editTodoPage,
+      extra: EditTodoPageParam(
+        titleController: TextEditingController(text: todoData.title),
+        dateController: TextEditingController(text: ''),
+        startTimeController: TextEditingController(),
+        endTimeController: TextEditingController(),
+        descriptionController: TextEditingController(text: todoData.description),
+        firebaseTodoId: todoData.firebaseTodoId.validate(),
+        todoId: todoData.todoId.validate().toString(),
+      ),
+    );
+  }
+
   Future<void> _onRefresh(BuildContext context) {
     final bloc = context.read<TodoBloc>();
     bloc.add(InitEvent([]));
     return Future(() => true);
-  }
-
-  Future<void> _onArchived(BuildContext context, TodoEntity todoData, DismissDirection direction, int index) async {
-    final bloc = context.read<TodoBloc>();
-    todoList.remove(todoData);
-    await bloc.onArchivedTodo(direction: direction, index: index, list: todoList);
   }
 
   @override
@@ -61,175 +81,12 @@ class TodoListComponent extends StatelessWidget {
                     await _onDelete(context, direction, todoData);
                     await _onArchived(context, todoData, direction, index);
                   },
+                  onTapOfEdit: () {
+                    _onTapOfEdit(context, todoData);
+                  },
                 );
               },
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TodoListItemComponent extends StatelessWidget {
-  final TodoEntity todoData;
-  final ValueChanged<bool?>? onChanged;
-  final DismissDirectionCallback? onDismissed;
-
-  final ValueKey uniqueKey;
-
-  const TodoListItemComponent({
-    super.key,
-    required this.todoData,
-    required this.onChanged,
-    required this.uniqueKey,
-    this.onDismissed,
-  });
-
-  Future<void> onTapOfEdit(BuildContext context) async {
-    // TODO UPDATE IT LATER
-    await context.push(
-      ApplicationPaths.editTodoPage,
-      extra: EditTodoPageParam(
-        titleController: TextEditingController(text: todoData.title),
-        dateController: TextEditingController(text: ''),
-        startTimeController: TextEditingController(),
-        endTimeController: TextEditingController(),
-        descriptionController: TextEditingController(text: todoData.description),
-        titleNode: FocusNode(),
-        dateNode: FocusNode(),
-        startTimeNode: FocusNode(),
-        endTimeNode: FocusNode(),
-        descriptionNode: FocusNode(),
-        firebaseTodoId: todoData.firebaseTodoId.validate(),
-        todoId: todoData.todoId.validate().toString(),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Dismissible(
-      key: uniqueKey,
-      background: const BackgroundComponent(
-        icon: Icons.archive,
-        backgroundColor: Colors.green,
-      ),
-      secondaryBackground: const BackgroundComponent(
-        icon: Icons.delete,
-        backgroundColor: redColor,
-        mainAxisAlignment: MainAxisAlignment.end,
-      ),
-      onDismissed: onDismissed,
-      child: Container(
-        margin: EdgeInsets.only(top: 6, bottom: 6),
-        padding: EdgeInsets.all(16),
-        decoration: boxDecorationWithRoundedCorners(
-          borderRadius: BorderRadius.circular(23),
-          boxShadow: [
-            AppThemeData.defaultBoxShadow,
-          ],
-        ),
-        child: Row(
-          children: [
-            Checkbox(
-              value: todoData.isCompleted ?? false,
-              onChanged: onChanged,
-            ),
-            4.width,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      text: 'Task : ',
-                      style: primaryTextStyle(size: 14),
-                      children: [
-                        TextSpan(
-                          text: todoData.title ?? '',
-                          style: boldTextStyle(size: 14),
-                        ),
-                      ],
-                    ),
-                  ),
-                  4.height,
-                  Text.rich(
-                    TextSpan(
-                      text: 'Description : ',
-                      style: primaryTextStyle(size: 14),
-                      children: [
-                        TextSpan(
-                          text: todoData.description ?? '',
-                          style: boldTextStyle(size: 14),
-                        ),
-                      ],
-                    ),
-                  ),
-                  4.height,
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.calendar_month, size: 12, color: greenColor),
-                      2.width,
-                      Text(
-                        '2:00 AM',
-                        style: boldTextStyle(color: greenColor, size: 12),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.flag, size: 22),
-                8.width,
-                GestureDetector(
-                  child: Icon(Icons.edit, size: 22),
-                  onTap: () async {
-                    await onTapOfEdit(context);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BackgroundComponent extends StatelessWidget {
-  final Color backgroundColor;
-  final IconData? icon;
-  final MainAxisAlignment mainAxisAlignment;
-
-  const BackgroundComponent({
-    super.key,
-    this.icon,
-    this.backgroundColor = whiteColor,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 6),
-      decoration: boxDecorationWithRoundedCorners(backgroundColor: Colors.white),
-      child: Container(
-        decoration: boxDecorationWithRoundedCorners(
-          borderRadius: BorderRadius.circular(23),
-          backgroundColor: backgroundColor,
-        ),
-        child: Row(
-          mainAxisAlignment: mainAxisAlignment,
-          children: [
-            if (mainAxisAlignment == MainAxisAlignment.start) 16.width,
-            Icon(icon, color: context.primaryColor),
-            if (mainAxisAlignment == MainAxisAlignment.end) 16.width,
           ],
         ),
       ),

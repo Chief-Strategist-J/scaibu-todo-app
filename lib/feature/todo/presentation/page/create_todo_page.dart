@@ -4,7 +4,7 @@ class CreateTodoPage extends HookWidget {
   CreateTodoPage({super.key});
 
   Future<void> _onTapOfCreateTodo(
-    _TodoPageModel todoPage,
+    CreatePageParameters todoPage,
     BuildContext context,
   ) async {
     if (!todoPage.validatorKey.currentState!.validate()) {
@@ -17,7 +17,7 @@ class CreateTodoPage extends HookWidget {
   }
 
   Widget _showCreateTodoButton({
-    required _TodoPageModel todoPage,
+    required CreatePageParameters todoPage,
     required BuildContext context,
   }) {
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
@@ -39,7 +39,7 @@ class CreateTodoPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _TodoPageModel todoPage = _TodoPageModel(
+    final CreatePageParameters todoPage = CreatePageParameters(
       titleController: useTextEditingController(text: 'Task'),
       dateController: useTextEditingController(text: timeService.initialDate),
       startTimeController: useTextEditingController(text: timeService.currentTime),
@@ -119,32 +119,4 @@ class CreateTodoPage extends HookWidget {
       ),
     );
   }
-}
-
-class _TodoPageModel extends CreateTodoPage {
-  final TextEditingController titleController;
-  final TextEditingController dateController;
-  final TextEditingController startTimeController;
-  final TextEditingController endTimeController;
-  final TextEditingController descriptionController;
-  final validatorKey = GlobalKey<FormState>();
-
-  final FocusNode titleNode;
-  final FocusNode dateNode;
-  final FocusNode startTimeNode;
-  final FocusNode endTimeNode;
-  final FocusNode descriptionNode;
-
-  _TodoPageModel({
-    required this.titleController,
-    required this.dateController,
-    required this.startTimeController,
-    required this.endTimeController,
-    required this.descriptionController,
-    required this.titleNode,
-    required this.dateNode,
-    required this.startTimeNode,
-    required this.endTimeNode,
-    required this.descriptionNode,
-  });
 }
