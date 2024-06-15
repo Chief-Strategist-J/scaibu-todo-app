@@ -5,6 +5,7 @@ Future<void> main() async {
   await initialSetup.utilityInit();
   await initialSetup.firebaseInit();
   await initialSetup.languageInit();
+  await initialSetup.localStorageInit();
 
   Dependency.setup();
 

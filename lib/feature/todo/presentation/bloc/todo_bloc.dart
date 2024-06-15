@@ -14,27 +14,20 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _init(InitEvent event, Emitter<TodoState> emit) async {
-    List<TodoEntity> todoList = event.todoList ?? [];
+    final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
+    final res = await getTodoListUseCase(false);
 
-    if (todoList.isEmpty) {
-      try {
-        if (firebaseRepo != null) {
-          todoList = await firebaseRepo?.getListOfTodos() ?? [];
-        } else if (serverRepo != null) {
-          todoList = await serverRepo?.getListOfTodos() ?? [];
-        }
-      } catch (e) {
-        log('Error fetching todo list: $e');
-      }
-    }
-
-    emit(InitTodoState(todoList: todoList));
+    res.fold((failure) {
+      logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
+    }, (todoList) {
+      emit(InitTodoState(todoList: todoList));
+    });
   }
 
-  Future<void> getList(BuildContext context) async {
+  Future<void> getList(bool isUpdated) async {
     try {
       final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
-      final res = await getTodoListUseCase(false);
+      final res = await getTodoListUseCase(isUpdated);
 
       res.fold((failure) {
         logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
@@ -96,7 +89,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           todoData: todoData,
         );
 
-        await updateTodoUseCase.call(updateTodo);
+        await updateTodoUseCase(updateTodo);
         add(InitEvent([]));
       } catch (e, s) {
         logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
@@ -131,7 +124,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
 
       try {
-        await deleteTodoUseCase.call(deleteParam);
+        await deleteTodoUseCase(deleteParam).then((value) async {
+          await getList(true);
+        });
       } catch (e, s) {
         logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
       }

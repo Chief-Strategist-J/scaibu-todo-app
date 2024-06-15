@@ -8,6 +8,7 @@ export 'package:nb_utils/nb_utils.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:equatable/equatable.dart';
 export 'package:easy_localization/easy_localization.dart' hide TextDirection;
+export 'package:hive/hive.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:get_it/get_it.dart';
 export 'package:fpdart/src/either.dart';
@@ -21,6 +22,7 @@ export 'package:todo_app/core/error/error_codes.dart';
 export 'package:todo_app/core/network/network_config.dart';
 
 /// CORE
+export 'package:todo_app/dependency.dart';
 export 'package:todo_app/firebase_options.dart';
 export 'package:todo_app/main_init.dart';
 export 'package:todo_app/core/utils/time_service.dart';
@@ -33,6 +35,8 @@ export 'package:todo_app/core/error/failure.dart';
 export 'package:todo_app/core/useCases/use_case.dart';
 export 'package:todo_app/core/network/rest_api.dart';
 export 'package:todo_app/core/utils/log_service.dart';
+export 'package:todo_app/core/utils/parse_service.dart';
+
 
 /// SHARED
 export 'package:todo_app/shared/widget/empty_widget.dart';
@@ -40,8 +44,8 @@ export 'package:todo_app/shared/widget/loading_widget.dart';
 
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
-export 'package:todo_app/feature/todo/data/dataSource/firebase_api_impl.dart';
-export 'package:todo_app/feature/todo/data/dataSource/local_api_impl.dart';
+export 'package:todo_app/feature/todo/data/dataSource/remote/firebase_api_impl.dart';
+export 'package:todo_app/feature/todo/data/dataSource/remote/database_api_impl.dart';
 export 'package:todo_app/feature/todo/data/model/response/create_todo_response.dart';
 export 'package:todo_app/feature/todo/data/model/response/todo_list_response.dart';
 export 'package:todo_app/feature/todo/data/model/todo_model.dart';

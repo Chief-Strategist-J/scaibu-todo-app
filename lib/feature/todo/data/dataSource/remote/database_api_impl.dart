@@ -9,10 +9,10 @@ class TodoEndPoint {
   TodoEndPoint._();
 }
 
-class LocalApiImpl implements BaseApi {
+class DataBaseApiImpl implements BaseApi {
   final RestApi restApi;
 
-  const LocalApiImpl(this.restApi);
+  const DataBaseApiImpl(this.restApi);
 
   @override
   Future<String> createTodo(Map<String, dynamic> todoData) async {
@@ -24,6 +24,7 @@ class LocalApiImpl implements BaseApi {
         type: HttpRequestMethod.POST,
       ),
     );
+
     return createTodoResponse.data!.id.toString();
   }
 

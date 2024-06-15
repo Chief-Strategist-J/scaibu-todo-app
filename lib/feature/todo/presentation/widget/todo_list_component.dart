@@ -12,7 +12,6 @@ class TodoListComponent extends StatelessWidget {
 
   Future<void> _onDelete(BuildContext context, DismissDirection direction, TodoEntity todoData) async {
     final bloc = context.read<TodoBloc>();
-    todoList.remove(todoData);
     await bloc.onDismissDelete(direction: direction, todoData: todoData);
   }
 

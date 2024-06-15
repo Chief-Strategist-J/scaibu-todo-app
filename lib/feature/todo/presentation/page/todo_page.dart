@@ -1,24 +1,7 @@
 import 'package:todo_app/core/todo_library.dart';
 
-var voidParameter;
-
-class TodoPage extends StatefulWidget {
+class TodoPage extends StatelessWidget {
   const TodoPage();
-
-  @override
-  State<TodoPage> createState() => _TodoPageState();
-}
-
-class _TodoPageState extends State<TodoPage> {
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  void init() {
-    context.read<TodoBloc>().getList(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +25,7 @@ class _TodoPageState extends State<TodoPage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             await context.push(ApplicationPaths.manageTodoPage, extra: null);
-            context.read<TodoBloc>().getList(context);
+            context.read<TodoBloc>().getList(true);
           },
         ),
       ),
