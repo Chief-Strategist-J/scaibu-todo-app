@@ -20,6 +20,8 @@ export 'dart:async';
 export 'package:http/http.dart';
 export 'package:todo_app/core/error/error_codes.dart';
 export 'package:todo_app/core/network/network_config.dart';
+export 'package:mix/mix.dart' hide Box;
+
 
 /// CORE
 export 'package:todo_app/dependency.dart';
@@ -61,7 +63,6 @@ export 'package:todo_app/feature/todo/presentation/bloc/todo_state.dart';
 export 'package:todo_app/feature/todo/presentation/page/todo_page.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todo_list_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/content_widget.dart';
-export 'package:todo_app/feature/todo/presentation/widget/custom_button.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
 export 'package:todo_app/feature/todo/presentation/widget/param/parameters.dart';

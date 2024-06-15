@@ -317,6 +317,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  internet_connection_checker_plus:
+    dependency: "direct main"
+    description:
+      name: internet_connection_checker_plus
+      sha256: "45d33532937eb931a14fb1f885c4b0ade6332983ba98349920fca0a23751d7c9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.2"
   intl:
     dependency: transitive
     description:
@@ -389,6 +397,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.0"
+  mix:
+    dependency: "direct main"
+    description:
+      name: mix
+      sha256: "06625c1c17c708db08634c1eec2a04abed86d04982aaddf8db9b15c4660e83b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   nb_utils:
     dependency: "direct main"
     description:
@@ -667,5 +683,5 @@ packages:
     source: hosted
     version: "6.5.0"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.4.1 <4.0.0"
   flutter: ">=3.22.0"

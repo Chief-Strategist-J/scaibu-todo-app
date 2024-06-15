@@ -9,20 +9,15 @@ class LoadingEvent extends TodoEvent {
 
 class InitEvent extends TodoEvent {
   final List<TodoEntity>? todoList;
+  final bool isListUpdated;
 
-  InitEvent(this.todoList);
-
-  @override
-  List<Object?> get props => [todoList];
+  InitEvent(this.todoList, {this.isListUpdated = false});
 
   @override
-  bool operator ==(Object other) {
-    final isInitEvent = other is InitEvent;
-    final isRunTypeSame = runtimeType == other.runtimeType;
-    final isObjectSame = isInitEvent && isRunTypeSame;
+  List<Object?> get props => [todoList,isListUpdated];
 
-    return identical(this, other) || super == other && isObjectSame && todoList == other.todoList;
-  }
+  @override
+  bool operator ==(Object other) => identical(this, other) || super == other && other is InitEvent && runtimeType == other.runtimeType && todoList == other.todoList && isListUpdated == other.isListUpdated;
 
   @override
   int get hashCode => super.hashCode ^ todoList.hashCode;

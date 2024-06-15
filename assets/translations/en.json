@@ -1,3 +1,14 @@
 {
-  "new_task":"New Task"
+  "new_task":"New Task",
+  "update_task":"Update Task",
+  "add_task": "Add Task",
+  "connect_to_the_internet_to_perform_this_operation": "Connect to the internet to perform this operation",
+  "field_must_be_validated" : "Field must be validated",
+  "task": "Task",
+  "date": "Date",
+  "start_time": "Start Time",
+  "end_time": "End Time",
+  "descriptions": "Descriptions",
+  "no_to_do_items_available" :"No to-do items available.",
+  "connect_to_the_internet_to_create_a_to_do_list": "Connect to the internet to create a to-do list."
 }

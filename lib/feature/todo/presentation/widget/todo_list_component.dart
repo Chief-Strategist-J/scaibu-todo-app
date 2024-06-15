@@ -40,6 +40,7 @@ class TodoListComponent extends StatelessWidget {
         isUpdatingExistingTodo: true,
       ),
     );
+    context.read<TodoBloc>().add(InitEvent([], isListUpdated: true));
   }
 
   Future<void> _onRefresh(BuildContext context) {

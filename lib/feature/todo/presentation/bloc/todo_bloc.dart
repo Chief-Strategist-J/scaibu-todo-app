@@ -15,7 +15,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   void _init(InitEvent event, Emitter<TodoState> emit) async {
     final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
-    final res = await getTodoListUseCase(false);
+    final res = await getTodoListUseCase(event.isListUpdated);
 
     res.fold((failure) {
       logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
@@ -24,29 +24,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     });
   }
 
-  Future<void> getList(bool isUpdated) async {
+  Future<void> onCheckboxChange({required int index, bool checked = false, required List<TodoEntity> list}) async {
     try {
-      final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
-      final res = await getTodoListUseCase(isUpdated);
+      if (!isInternetConnected) return;
 
-      res.fold((failure) {
-        logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
-      }, (todoList) {
-        add(InitEvent(todoList));
-      });
-
-      //
-    } catch (e, s) {
-      logService.crashLog(errorMessage: 'Failed to fetch todo list', e: e, stack: s);
-    }
-  }
-
-  Future<void> onCheckboxChange({
-    required int index,
-    bool checked = false,
-    required List<TodoEntity> list,
-  }) async {
-    try {
       final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
       final TodoEntity todoItem = list[index];
 
@@ -62,7 +43,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
 
       await updateTodoUseCase(updateTodo);
-      add(InitEvent([]));
+      add(InitEvent([], isListUpdated: true));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
@@ -73,6 +54,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     required List<TodoEntity> list,
     required final DismissDirection direction,
   }) async {
+    if (!isInternetConnected) return;
+
     if (direction == DismissDirection.startToEnd) {
       try {
         final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
@@ -90,7 +73,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         );
 
         await updateTodoUseCase(updateTodo);
-        add(InitEvent([]));
+        add(InitEvent([], isListUpdated: true));
       } catch (e, s) {
         logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
       }
@@ -109,6 +92,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     try {
       await createTodoUseCase(todo);
+      add(InitEvent([], isListUpdated: true));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
     }
@@ -125,12 +109,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       try {
         await deleteTodoUseCase(deleteParam).then((value) async {
-          await getList(true);
+          add(InitEvent([], isListUpdated: true));
         });
       } catch (e, s) {
         logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
       }
-      add(InitEvent([]));
     }
   }
 
@@ -154,6 +137,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     );
 
     await updateTodoUseCase(updateTodo);
-    add(InitEvent([]));
+    add(InitEvent([], isListUpdated: true));
   }
 }

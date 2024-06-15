@@ -15,7 +15,7 @@ class TodoPage extends StatelessWidget {
             final todoList = state.todoList ?? [];
 
             if (state.todoList == null || todoList.isEmpty) {
-              return const EmptyWidget(msg: 'No todo available');
+              return EmptyWidget(msg: 'no_to_do_items_available'.tr());
             }
 
             return TodoListComponent(todoList: todoList);
@@ -23,9 +23,13 @@ class TodoPage extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
           onPressed: () async {
-            await context.push(ApplicationPaths.manageTodoPage, extra: null);
-            context.read<TodoBloc>().getList(true);
+            if (!isInternetConnected) {
+              toast("connect_to_the_internet_to_create_a_to_do_list".tr());
+              return;
+            }
+            context.go(ApplicationPaths.manageTodoPage, extra: null);
           },
         ),
       ),

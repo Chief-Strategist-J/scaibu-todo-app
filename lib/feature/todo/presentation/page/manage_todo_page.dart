@@ -1,4 +1,5 @@
 import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
 
 class ManageTodoPage extends StatelessWidget {
   final ManageTodoPageParam? todoPage;
@@ -7,13 +8,18 @@ class ManageTodoPage extends StatelessWidget {
 
   bool get getIsUpdateTodo => todoPage?.isUpdatingExistingTodo ?? false;
 
-  String get getTitle => getIsUpdateTodo ? "Update Task" : "New Task";
+  String get getTitle => getIsUpdateTodo ? 'update_task'.tr() : 'new_task'.tr();
 
-  String get getButtonText => getIsUpdateTodo ? "Update Task" : "Add Task";
+  String get getButtonText => getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
 
   Future<void> _onTapOfManageTodo(ManageTodoPageParam todoDetail, BuildContext context) async {
+    if (!isInternetConnected) {
+      toast('connect_to_the_internet_to_perform_this_operation'.tr());
+      return;
+    }
+
     if (!todoDetail.validatorKey.currentState!.validate()) {
-      toast("Field must be validated");
+      toast('field_must_be_validated'.tr());
       return;
     }
 
@@ -82,12 +88,12 @@ class ManageTodoPage extends StatelessWidget {
                     ],
                   ),
                   ContentWidget(
-                    title: 'Task',
+                    title: 'task'.tr(),
                     controller: _todoPage.titleController,
                     focusNode: _todoPage.titleNode,
                   ),
                   ContentWidget(
-                    title: 'Date',
+                    title: 'date'.tr(),
                     controller: _todoPage.dateController,
                     focusNode: _todoPage.dateNode,
                     isDateField: true,
@@ -96,7 +102,7 @@ class ManageTodoPage extends StatelessWidget {
                     children: [
                       Flexible(
                         child: ContentWidget(
-                          title: 'Start Time',
+                          title: 'start_time'.tr(),
                           controller: _todoPage.startTimeController,
                           focusNode: _todoPage.startTimeNode,
                           isTimeField: true,
@@ -105,7 +111,7 @@ class ManageTodoPage extends StatelessWidget {
                       16.width,
                       Flexible(
                         child: ContentWidget(
-                          title: 'End Time',
+                          title: 'end_time'.tr(),
                           controller: _todoPage.endTimeController,
                           focusNode: _todoPage.endTimeNode,
                           isTimeField: true,
@@ -114,7 +120,7 @@ class ManageTodoPage extends StatelessWidget {
                     ],
                   ),
                   ContentWidget(
-                    title: 'Descriptions',
+                    title: 'descriptions'.tr(),
                     controller: _todoPage.descriptionController,
                     focusNode: _todoPage.descriptionNode,
                     textInputAction: TextInputAction.done,

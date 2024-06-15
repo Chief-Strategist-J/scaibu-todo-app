@@ -1,5 +1,6 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/background_component.dart';
+import 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.dart';
+import 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.variant.dart';
 
 class TodoListItemComponent extends StatelessWidget {
   final TodoEntity todoData;
@@ -22,15 +23,8 @@ class TodoListItemComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: uniqueKey,
-      background: const BackgroundComponent(
-        icon: Icons.archive,
-        backgroundColor: Colors.green,
-      ),
-      secondaryBackground: const BackgroundComponent(
-        icon: Icons.delete,
-        backgroundColor: redColor,
-        mainAxisAlignment: MainAxisAlignment.end,
-      ),
+      background: const BackgroundComponent(icon: Icons.archive),
+      secondaryBackground: const BackgroundComponent(variant: BackgroundComponentVariant.delete, icon: Icons.delete),
       onDismissed: onDismissed,
       child: Container(
         margin: EdgeInsets.only(top: 6, bottom: 6),
@@ -55,7 +49,7 @@ class TodoListItemComponent extends StatelessWidget {
                 children: [
                   Text.rich(
                     TextSpan(
-                      text: 'Task : ',
+                      text: '',
                       style: primaryTextStyle(size: 14),
                       children: [
                         TextSpan(
@@ -68,7 +62,7 @@ class TodoListItemComponent extends StatelessWidget {
                   4.height,
                   Text.rich(
                     TextSpan(
-                      text: 'Description : ',
+                      text: '',
                       style: primaryTextStyle(size: 14),
                       children: [
                         TextSpan(
