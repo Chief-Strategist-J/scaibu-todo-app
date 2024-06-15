@@ -1,5 +1,4 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/todo_list_item_component.dart';
 
 class TodoListComponent extends StatelessWidget {
   final List<TodoEntity> todoList;
@@ -30,8 +29,8 @@ class TodoListComponent extends StatelessWidget {
 
   Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
     await context.push(
-      ApplicationPaths.editTodoPage,
-      extra: EditTodoPageParam(
+      ApplicationPaths.manageTodoPage,
+      extra: ManageTodoPageParam(
         titleController: TextEditingController(text: todoData.title),
         dateController: TextEditingController(text: ''),
         startTimeController: TextEditingController(),
@@ -39,6 +38,7 @@ class TodoListComponent extends StatelessWidget {
         descriptionController: TextEditingController(text: todoData.description),
         firebaseTodoId: todoData.firebaseTodoId.validate(),
         todoId: todoData.todoId.validate().toString(),
+        isUpdatingExistingTodo: true,
       ),
     );
   }

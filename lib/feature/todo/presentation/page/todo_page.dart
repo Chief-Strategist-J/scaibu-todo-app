@@ -41,7 +41,7 @@ class _TodoPageState extends State<TodoPage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            await context.push(ApplicationPaths.createTodoPage);
+            await context.push(ApplicationPaths.manageTodoPage, extra: null);
             context.read<TodoBloc>().getList(context);
           },
         ),

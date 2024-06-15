@@ -52,7 +52,7 @@ class LocalApiImpl implements BaseApi {
 
     final _todoList = <TodoModel>[];
 
-    todoList.data!.forEach((element) {
+    todoList.data?.forEach((element) {
       TodoModel _todo = TodoModel(
         todoId: element.id!.toInt(),
         title: element.title,

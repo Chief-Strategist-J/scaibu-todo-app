@@ -34,12 +34,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> getList(BuildContext context) async {
     try {
       final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
-      final res = await getTodoListUseCase(voidParameter);
+      final res = await getTodoListUseCase(false);
 
       res.fold((failure) {
         logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
       }, (todoList) {
-        context.read<TodoBloc>().add(InitEvent(todoList));
+        add(InitEvent(todoList));
       });
 
       //
@@ -104,20 +104,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void> createTodo(
-    TextEditingController titleController,
-    TextEditingController descriptionController,
-  ) async {
-    if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
-      toast("field must be not empty");
-      return;
-    }
-
+  Future<void> createTodo({required ManageTodoPageParam todoDetail}) async {
     final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
 
     final Map<String, dynamic> todo = {
-      "title": titleController.text,
-      "description": descriptionController.text,
+      "title": todoDetail.titleController.text,
+      "description": todoDetail.descriptionController.text,
       "is_archived": false,
       "is_completed": false,
     };
@@ -147,7 +139,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void> onEditPageUpdateTodo(EditTodoPageParam todoPage) async {
+  Future<void> onEditPageUpdateTodo(ManageTodoPageParam todoPage) async {
+    if (todoPage.firebaseTodoId.validate().isEmpty || todoPage.todoId.validate().isEmpty) {
+      return;
+    }
+
     final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
 
     final Map<String, dynamic> todoData = {
@@ -157,8 +153,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     };
 
     final updateTodo = UpdateTodoParam(
-      firebaseID: todoPage.firebaseTodoId,
-      localID: todoPage.todoId,
+      firebaseID: todoPage.firebaseTodoId.validate(),
+      localID: todoPage.todoId.validate(),
       todoData: todoData,
     );
 

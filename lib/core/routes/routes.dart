@@ -14,22 +14,12 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      name: ApplicationPaths.createTodoPage,
-      path: ApplicationPaths.createTodoPage,
+      name: ApplicationPaths.manageTodoPage,
+      path: ApplicationPaths.manageTodoPage,
       builder: (context, state) {
         return BlocProvider<TodoBloc>(
           create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([])),
-          child: CreateTodoPage(),
-        );
-      },
-    ),
-    GoRoute(
-      name: ApplicationPaths.editTodoPage,
-      path: ApplicationPaths.editTodoPage,
-      builder: (context, state) {
-        return BlocProvider<TodoBloc>(
-          create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([])),
-          child: EditTodoPage(state.extra as EditTodoPageParam),
+          child: ManageTodoPage(todoPage: state.extra as ManageTodoPageParam?),
         );
       },
     ),
