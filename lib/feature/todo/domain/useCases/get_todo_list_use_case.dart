@@ -48,7 +48,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
 
   Future<List<TodoEntity>> _getStoredCachedOfflineList() async {
     Box<dynamic> box = await getTodoBox;
-    var mapList = box.get(todoListCachedKey) ?? [] as List<Map<String, dynamic>>?;
+    var mapList = box.get(todoListCachedKey) ?? [];
     List<TodoEntity> offlineList = [];
 
     if (mapList == null || mapList.isEmpty) {

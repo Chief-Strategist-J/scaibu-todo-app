@@ -10,5 +10,6 @@
   "end_time": "End Time",
   "descriptions": "Descriptions",
   "no_to_do_items_available" :"No to-do items available.",
-  "connect_to_the_internet_to_create_a_to_do_list": "Connect to the internet to create a to-do list."
+  "connect_to_the_internet_to_create_a_to_do_list": "Connect to the internet to create a to-do list.",
+  "we_regret_to_inform_you_that_the_internet_is_not_connected": "We regret to inform you that the internet is not connected."
 }

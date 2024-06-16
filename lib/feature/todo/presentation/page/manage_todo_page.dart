@@ -42,12 +42,15 @@ class ManageTodoPage extends StatelessWidget {
   String get getButtonText => getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
 
   Future<void> _onTapOfManageTodo(ManageTodoPageParam todoDetail, BuildContext context) async {
+    final bloc = context.read<TodoBloc>();
+
     if (!isInternetConnected) {
+      bloc.add(NoInternetConnectionEvent());
       toast('connect_to_the_internet_to_perform_this_operation'.tr());
       return;
     }
 
-    if (context.read<TodoBloc>().state == LoadingState) {
+    if (bloc.state == LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -56,8 +59,6 @@ class ManageTodoPage extends StatelessWidget {
       toast('field_must_be_validated'.tr());
       return;
     }
-
-    final bloc = context.read<TodoBloc>();
 
     bool isNotNullTodo = todoPage != null;
     bool isUpdatingExistingTodo = getIsUpdateTodo;
@@ -72,27 +73,6 @@ class ManageTodoPage extends StatelessWidget {
     finish(context);
   }
 
-  Widget _todoButton({
-    required ManageTodoPageParam todoDetail,
-    required BuildContext context,
-  }) {
-    final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
-
-    if (!isKeyboardNotOpened) return Offstage();
-
-    return Positioned(
-      bottom: 16,
-      left: 16,
-      right: 16,
-      child: CustomButton(
-        data: getButtonText,
-        onTap: () async {
-          await _onTapOfManageTodo(todoDetail, context);
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final _todoPage = todoPage ??
@@ -103,6 +83,7 @@ class ManageTodoPage extends StatelessWidget {
           endTimeController: TextEditingController(text: timeService.currentTimeAfterMinute()),
           descriptionController: TextEditingController(text: '-'),
         );
+    final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
 
     return SafeArea(
       child: Scaffold(
@@ -111,7 +92,7 @@ class ManageTodoPage extends StatelessWidget {
           children: [
             Form(
               key: _todoPage.validatorKey,
-              autovalidateMode: AutovalidateMode.always,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: AnimatedScrollView(
                 listAnimationType: ListAnimationType.None,
                 padding: EdgeInsets.all(16),
@@ -162,7 +143,31 @@ class ManageTodoPage extends StatelessWidget {
                 ],
               ),
             ),
-            _todoButton(todoDetail: _todoPage, context: context)
+            if (!isKeyboardNotOpened)
+              Offstage()
+            else
+              Positioned(
+                bottom: 16,
+                left: 16,
+                right: 16,
+                child: BlocBuilder<TodoBloc, TodoState>(
+                  builder: (_, state) {
+                    if (context.read<TodoBloc>().state is LoadingState) return Offstage();
+                    if (context.read<TodoBloc>().state is NoInternetConnectionState) return Offstage();
+
+                    if (context.read<TodoBloc>().state is InitTodoState) {
+                      return CustomButton(
+                        data: getButtonText,
+                        onTap: () async {
+                          await _onTapOfManageTodo(_todoPage, context);
+                        },
+                      );
+                    }
+
+                    return Offstage();
+                  },
+                ),
+              )
           ],
         ),
       ),

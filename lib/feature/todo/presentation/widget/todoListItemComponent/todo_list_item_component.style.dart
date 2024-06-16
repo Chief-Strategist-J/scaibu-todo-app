@@ -13,6 +13,8 @@ class TodoListItemComponentStyle {
     return Style(
       $box.margin.top(6),
       $box.margin.bottom(6),
+      $box.margin.left(4),
+      $box.margin.right(4),
       $box.padding.all(16),
       $box.decoration.borderRadius.circular(16),
       $box.shadow.blurRadius(5),

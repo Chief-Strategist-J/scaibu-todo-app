@@ -7,20 +7,22 @@ final router = GoRouter(
       name: ApplicationPaths.todoListViewPage,
       path: ApplicationPaths.todoListViewPage,
       builder: (context, state) {
-        return BlocProvider<TodoBloc>(
-          create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([])),
-          child: const TodoPage(),
-        );
+        if (!isInternetConnected) {
+          context.read<TodoBloc>().add(NoInternetConnectionEvent());
+        }
+
+        return const TodoPage();
       },
     ),
     GoRoute(
       name: ApplicationPaths.manageTodoPage,
       path: ApplicationPaths.manageTodoPage,
       builder: (context, state) {
-        return BlocProvider<TodoBloc>(
-          create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([])),
-          child: ManageTodoPage(todoPage: state.extra as ManageTodoPageParam?),
-        );
+        if (!isInternetConnected) {
+          context.read<TodoBloc>().add(NoInternetConnectionEvent());
+        }
+
+        return ManageTodoPage(todoPage: state.extra as ManageTodoPageParam?);
       },
     ),
   ],

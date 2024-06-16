@@ -1,4 +1,4 @@
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:nested/nested.dart';
 import 'package:todo_app/core/todo_library.dart';
 
 Future<void> main() async {
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             break;
           case InternetStatus.disconnected:
             isInternetConnected = false;
-            toast("Not Connected", length: Toast.LENGTH_LONG);
+            toast('we_regret_to_inform_you_that_the_internet_is_not_connected'.tr(), length: Toast.LENGTH_LONG, bgColor: redColor);
             break;
         }
       },
@@ -57,16 +57,25 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
+  List<SingleChildWidget> get providers {
+    return [
+      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([]))),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'TODO Application',
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: AppThemeData.lightTheme,
-      debugShowCheckedModeBanner: false,
-      routerConfig: router,
+    return MultiBlocProvider(
+      providers: providers,
+      child: MaterialApp.router(
+        title: 'TODO Application',
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        theme: AppThemeData.lightTheme,
+        debugShowCheckedModeBanner: false,
+        routerConfig: router,
+      ),
     );
   }
 }

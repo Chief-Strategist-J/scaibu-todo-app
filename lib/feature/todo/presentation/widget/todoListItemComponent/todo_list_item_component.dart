@@ -6,6 +6,8 @@ class TodoListItemComponent extends StatelessWidget {
   final DismissDirectionCallback? onDismissed;
   final GestureTapCallback onTapOfEdit;
   final TodoListItemComponentVariant variant;
+  final VoidCallback? onPress;
+
 
   final ValueKey uniqueKey;
 
@@ -17,6 +19,7 @@ class TodoListItemComponent extends StatelessWidget {
     this.onDismissed,
     required this.onTapOfEdit,
     this.variant = TodoListItemComponentVariant.primary,
+    this.onPress,
   });
 
   @override
@@ -30,11 +33,18 @@ class TodoListItemComponent extends StatelessWidget {
       onDismissed: onDismissed,
       child: PressableBox(
         style: style.style(context),
+        onPress: onPress,
         child: Row(
           children: [
-            Checkbox(
-              value: todoData.isCompleted ?? false,
-              onChanged: onChanged,
+            BlocBuilder<TodoBloc, TodoState>(
+              builder: (context, state) {
+                if (state is NoInternetConnectionState) return Offstage();
+
+                return Checkbox(
+                  value: todoData.isCompleted ?? false,
+                  onChanged: onChanged,
+                );
+              },
             ),
             4.width,
             Expanded(
@@ -58,9 +68,15 @@ class TodoListItemComponent extends StatelessWidget {
               style: style.rawStyleOfStartMin(context),
               children: [
                 Icon(Icons.flag, size: 22),
-                GestureDetector(
-                  child: Icon(Icons.edit, size: 22),
-                  onTap: onTapOfEdit,
+                BlocBuilder<TodoBloc, TodoState>(
+                  builder: (context, state) {
+                    if (state is NoInternetConnectionState) return Offstage();
+
+                    return GestureDetector(
+                      child: Icon(Icons.edit, size: 22),
+                      onTap: onTapOfEdit,
+                    );
+                  },
                 ),
               ],
             ),

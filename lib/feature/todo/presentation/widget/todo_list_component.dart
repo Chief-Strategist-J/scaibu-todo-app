@@ -9,6 +9,7 @@ class TodoListComponent extends StatelessWidget {
 
   void _onUpdateCheckBoxValue(BuildContext context, {bool? checked, required TodoEntity todoData}) {
     if (!isInternetConnected) {
+      context.read<TodoBloc>().add(NoInternetConnectionEvent());
       toast("Connect to the internet");
       return;
     }
@@ -30,12 +31,19 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onRefresh(BuildContext context) {
+    if (!isInternetConnected) {
+      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+      toast("Connect to the internet to perform this action");
+      return Future(() => false);
+    }
+
     todoBloc(context).add(InitEvent([]));
     return Future(() => true);
   }
 
   Future<void> _onSwipeOfTodo(DismissDirection direction, BuildContext context, TodoEntity todoData, int index) async {
     if (!isInternetConnected) {
+      context.read<TodoBloc>().add(NoInternetConnectionEvent());
       toast("Connect to the internet to perform this action");
       return;
     }
@@ -53,6 +61,7 @@ class TodoListComponent extends StatelessWidget {
 
   Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
     if (!isInternetConnected) {
+      context.read<TodoBloc>().add(NoInternetConnectionEvent());
       toast("Connect to the internet to Edit todo");
       return;
     }
@@ -76,6 +85,24 @@ class TodoListComponent extends StatelessWidget {
       ),
     );
     todoBloc(context).add(InitEvent([], isListUpdated: true));
+  }
+
+  Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
+    if (todoBloc(context).state is NoInternetConnectionState) {
+      await context.push(
+        ApplicationPaths.manageTodoPage,
+        extra: ManageTodoPageParam(
+          titleController: TextEditingController(text: todoData.title),
+          dateController: TextEditingController(text: ''),
+          startTimeController: TextEditingController(),
+          endTimeController: TextEditingController(),
+          descriptionController: TextEditingController(text: todoData.description),
+          firebaseTodoId: todoData.firebaseTodoId.validate(),
+          todoId: todoData.todoId.validate().toString(),
+          isUpdatingExistingTodo: true,
+        ),
+      );
+    }
   }
 
   @override
@@ -103,8 +130,10 @@ class TodoListComponent extends StatelessWidget {
                   key: key,
                   uniqueKey: key,
                   todoData: todoData,
+                  onPress: () {
+                    _onTapTodo(context, todoData);
+                  },
                   onChanged: (value) {
-                    toast("${todoData.isCompleted} ");
                     _onUpdateCheckBoxValue(context, checked: value, todoData: todoData);
                   },
                   onDismissed: (direction) async {

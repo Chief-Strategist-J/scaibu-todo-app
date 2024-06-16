@@ -3,42 +3,63 @@ import 'package:todo_app/core/todo_library.dart';
 class TodoPage extends StatelessWidget {
   const TodoPage();
 
-  Widget _getActionButton(BuildContext context) {
-    if (context.read<TodoBloc>().state == LoadingState) return Offstage();
-
-    return FloatingActionButton(
-      child: Icon(Icons.add),
-      onPressed: () async {
-        if (!isInternetConnected) {
-          toast("connect_to_the_internet_to_create_a_to_do_list".tr());
-          return;
-        }
-
-        context.go(ApplicationPaths.manageTodoPage, extra: null);
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: BlocBuilder<TodoBloc, TodoState>(
-          builder: (_, state) {
-            if (state is LoadingState) return const LoadingWidget();
-            if (state is! InitTodoState) return const LoadingWidget();
+      child: PopScope(
+        canPop: false,
+        child: Scaffold(
+          body: BlocBuilder<TodoBloc, TodoState>(
+            builder: (_, state) {
+              if (state is LoadingState) return const LoadingWidget();
 
-            final todoList = state.todoList ?? [];
+              if (state is InitTodoState) {
+                final todoList = state.todoList ?? [];
 
-            if (state.todoList == null || todoList.isEmpty) {
+                if (state.todoList == null || todoList.isEmpty) {
+                  return EmptyWidget(msg: 'no_to_do_items_available'.tr());
+                }
+
+                return TodoListComponent(todoList: todoList);
+              }
+
+              if (state is NoInternetConnectionState) {
+                final todoList = state.todoList ?? [];
+
+                if (state.todoList == null || todoList.isEmpty) {
+                  return EmptyWidget(msg: 'no_to_do_items_available'.tr());
+                }
+                return TodoListComponent(todoList: todoList);
+              }
+
               return EmptyWidget(msg: 'no_to_do_items_available'.tr());
-            }
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
+            builder: (context, state) {
+              if (state is LoadingState) return Offstage();
+              if (state is NoInternetConnectionState) return Offstage();
 
-            return TodoListComponent(todoList: todoList);
-          },
+              if (state is InitTodoState) {
+                return FloatingActionButton(
+                  child: Icon(Icons.add),
+                  onPressed: () async {
+                    if (!isInternetConnected) {
+                      toast("connect_to_the_internet_to_create_a_to_do_list".tr());
+                      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+                      return;
+                    }
+
+                    context.go(ApplicationPaths.manageTodoPage, extra: null);
+                  },
+                );
+              }
+
+              return Offstage();
+            },
+          ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: _getActionButton(context),
       ),
     );
   }
