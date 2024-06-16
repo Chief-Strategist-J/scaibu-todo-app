@@ -1,6 +1,4 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.style.dart';
-import 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.variant.dart';
 
 class CustomButton extends StatelessWidget {
   final GestureTapCallback? _onTap;
@@ -23,10 +21,7 @@ class CustomButton extends StatelessWidget {
     return PressableBox(
       onPress: _onTap,
       style: style.button(context),
-      child: StyledText(
-        _data ?? '',
-        style: style.button(context),
-      ),
+      child: StyledText(_data ?? '', style: style.button(context)),
     );
   }
 }

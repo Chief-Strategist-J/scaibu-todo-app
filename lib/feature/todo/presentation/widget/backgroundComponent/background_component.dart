@@ -1,14 +1,14 @@
 import 'package:todo_app/core/todo_library.dart';
 import 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.style.dart';
-import 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.variant.dart';
 
 class BackgroundComponent extends StatelessWidget {
   final BackgroundComponentVariant variant;
   final IconData? icon;
+
   const BackgroundComponent({
     super.key,
-    this.variant = BackgroundComponentVariant.archive,
     this.icon,
+    this.variant = BackgroundComponentVariant.archive,
   });
 
   @override

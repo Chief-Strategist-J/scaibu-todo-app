@@ -5,28 +5,63 @@ class TodoListComponent extends StatelessWidget {
 
   const TodoListComponent({super.key, required this.todoList});
 
-  void _onChanged(BuildContext context, int index, bool? value) {
-    final bloc = context.read<TodoBloc>();
-    bloc.onCheckboxChange(index: index, list: todoList, checked: value.validate());
+  TodoBloc todoBloc(BuildContext context) => context.read<TodoBloc>();
+
+  void _onUpdateCheckBoxValue(BuildContext context, {bool? checked, required TodoEntity todoData}) {
+    if (!isInternetConnected) {
+      toast("Connect to the internet");
+      return;
+    }
+
+    if (todoBloc(context).state == LoadingState) {
+      toast("Loading please wait ...");
+      return;
+    }
+
+    todoBloc(context).updateCheckBoxValue(checked: checked.validate(), todoItem: todoData);
   }
 
-  Future<void> _onDelete(BuildContext context, DismissDirection direction, TodoEntity todoData) async {
-    final bloc = context.read<TodoBloc>();
-    await bloc.onDismissDelete(direction: direction, todoData: todoData);
+  Future<void> _deleteTodo(BuildContext context, TodoEntity todoData) async {
+    await todoBloc(context).deleteTodo(todoData: todoData);
   }
 
-  Future<void> _onArchived(
-    BuildContext context,
-    TodoEntity todoData,
-    DismissDirection direction,
-    int index,
-  ) async {
-    final bloc = context.read<TodoBloc>();
-    todoList.remove(todoData);
-    await bloc.onArchivedTodo(direction: direction, index: index, list: todoList);
+  Future<void> _archiveTodo(BuildContext context, TodoEntity todoData) async {
+    await todoBloc(context).archiveTodo(todoItem: todoData);
+  }
+
+  Future<void> _onRefresh(BuildContext context) {
+    todoBloc(context).add(InitEvent([]));
+    return Future(() => true);
+  }
+
+  Future<void> _onSwipeOfTodo(DismissDirection direction, BuildContext context, TodoEntity todoData, int index) async {
+    if (!isInternetConnected) {
+      toast("Connect to the internet to perform this action");
+      return;
+    }
+    if (todoBloc(context).state == LoadingState) {
+      toast("Loading please wait ...");
+      return;
+    }
+
+    if (direction == DismissDirection.endToStart) {
+      await _deleteTodo(context, todoData);
+    } else if (direction == DismissDirection.startToEnd) {
+      await _archiveTodo(context, todoData);
+    }
   }
 
   Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
+    if (!isInternetConnected) {
+      toast("Connect to the internet to Edit todo");
+      return;
+    }
+
+    if (todoBloc(context).state == LoadingState) {
+      toast("Loading please wait ...");
+      return;
+    }
+
     await context.push(
       ApplicationPaths.manageTodoPage,
       extra: ManageTodoPageParam(
@@ -40,13 +75,7 @@ class TodoListComponent extends StatelessWidget {
         isUpdatingExistingTodo: true,
       ),
     );
-    context.read<TodoBloc>().add(InitEvent([], isListUpdated: true));
-  }
-
-  Future<void> _onRefresh(BuildContext context) {
-    final bloc = context.read<TodoBloc>();
-    bloc.add(InitEvent([]));
-    return Future(() => true);
+    todoBloc(context).add(InitEvent([], isListUpdated: true));
   }
 
   @override
@@ -75,11 +104,11 @@ class TodoListComponent extends StatelessWidget {
                   uniqueKey: key,
                   todoData: todoData,
                   onChanged: (value) {
-                    _onChanged(context, index, value);
+                    toast("${todoData.isCompleted} ");
+                    _onUpdateCheckBoxValue(context, checked: value, todoData: todoData);
                   },
                   onDismissed: (direction) async {
-                    await _onDelete(context, direction, todoData);
-                    await _onArchived(context, todoData, direction, index);
+                    await _onSwipeOfTodo(direction, context, todoData, index);
                   },
                   onTapOfEdit: () {
                     _onTapOfEdit(context, todoData);

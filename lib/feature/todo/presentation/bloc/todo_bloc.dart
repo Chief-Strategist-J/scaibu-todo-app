@@ -24,12 +24,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     });
   }
 
-  Future<void> onCheckboxChange({required int index, bool checked = false, required List<TodoEntity> list}) async {
+  Future<void> updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
     try {
       if (!isInternetConnected) return;
 
       final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
-      final TodoEntity todoItem = list[index];
 
       final Map<String, dynamic> todoData = {
         'todo_id': todoItem.todoId.toString(),
@@ -42,6 +41,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         todoData: todoData,
       );
 
+
       await updateTodoUseCase(updateTodo);
       add(InitEvent([], isListUpdated: true));
     } catch (e, s) {
@@ -49,34 +49,27 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void> onArchivedTodo({
-    required int index,
-    required List<TodoEntity> list,
-    required final DismissDirection direction,
-  }) async {
+  Future<void> archiveTodo({required TodoEntity todoItem}) async {
     if (!isInternetConnected) return;
 
-    if (direction == DismissDirection.startToEnd) {
-      try {
-        final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
-        final TodoEntity todoItem = list[index];
+    try {
+      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
 
-        final Map<String, dynamic> todoData = {
-          'todo_id': todoItem.todoId.toString(),
-          'is_archived': true,
-        };
+      final Map<String, dynamic> todoData = {
+        'todo_id': todoItem.todoId.toString(),
+        'is_archived': true,
+      };
 
-        final updateTodo = UpdateTodoParam(
-          firebaseID: todoItem.firebaseTodoId.validate(),
-          localID: todoItem.todoId.toString(),
-          todoData: todoData,
-        );
+      final updateTodo = UpdateTodoParam(
+        firebaseID: todoItem.firebaseTodoId.validate(),
+        localID: todoItem.todoId.toString(),
+        todoData: todoData,
+      );
 
-        await updateTodoUseCase(updateTodo);
-        add(InitEvent([], isListUpdated: true));
-      } catch (e, s) {
-        logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
-      }
+      await updateTodoUseCase(updateTodo);
+      add(InitEvent([], isListUpdated: true));
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
   }
 
@@ -98,22 +91,19 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void> onDismissDelete({required DismissDirection direction, required TodoEntity todoData}) async {
-    if (direction == DismissDirection.endToStart) {
-      final deleteTodoUseCase = GetIt.instance<DeleteTodoUseCase>();
+  Future<void> deleteTodo({required TodoEntity todoData}) async {
+    final deleteTodoUseCase = GetIt.instance<DeleteTodoUseCase>();
 
-      DeleteTodoParam deleteParam = DeleteTodoParam(
-        firebaseId: todoData.firebaseTodoId.validate(),
-        localId: todoData.todoId.validate().toString(),
-      );
+    DeleteTodoParam deleteParam = DeleteTodoParam(
+      firebaseId: todoData.firebaseTodoId.validate(),
+      localId: todoData.todoId.validate().toString(),
+    );
 
-      try {
-        await deleteTodoUseCase(deleteParam).then((value) async {
-          add(InitEvent([], isListUpdated: true));
-        });
-      } catch (e, s) {
-        logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
-      }
+    try {
+      await deleteTodoUseCase(deleteParam);
+      add(InitEvent([], isListUpdated: true));
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
     }
   }
 

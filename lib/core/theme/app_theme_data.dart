@@ -4,7 +4,11 @@ class AppThemeData {
   static const MaterialAccentColor cardColor = Colors.blueAccent;
   static final Color shadowColor = Colors.grey.withOpacity(0.5);
 
-  static final defaultBoxShadow = BoxShadow(blurRadius: 5, spreadRadius: 1, color: AppThemeData.shadowColor);
+  static final defaultBoxShadow = BoxShadow(
+    blurRadius: 5,
+    spreadRadius: 1,
+    color: AppThemeData.shadowColor,
+  );
 
   static InputBorder get _getInputBoarder {
     return UnderlineInputBorder(

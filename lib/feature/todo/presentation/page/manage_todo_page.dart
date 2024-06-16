@@ -1,5 +1,34 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
+
+class ManageTodoPageParam {
+  final FocusNode titleNode = FocusNode();
+  final FocusNode dateNode = FocusNode();
+  final FocusNode startTimeNode = FocusNode();
+  final FocusNode endTimeNode = FocusNode();
+  final FocusNode descriptionNode = FocusNode();
+  final validatorKey = GlobalKey<FormState>();
+
+  final TextEditingController titleController;
+  final TextEditingController dateController;
+  final TextEditingController startTimeController;
+  final TextEditingController endTimeController;
+  final TextEditingController descriptionController;
+
+  final String? firebaseTodoId;
+  final String? todoId;
+  final bool isUpdatingExistingTodo;
+
+  ManageTodoPageParam({
+    this.firebaseTodoId,
+    this.todoId,
+    required this.titleController,
+    required this.dateController,
+    required this.startTimeController,
+    required this.endTimeController,
+    required this.descriptionController,
+    this.isUpdatingExistingTodo = false,
+  });
+}
 
 class ManageTodoPage extends StatelessWidget {
   final ManageTodoPageParam? todoPage;
@@ -15,6 +44,11 @@ class ManageTodoPage extends StatelessWidget {
   Future<void> _onTapOfManageTodo(ManageTodoPageParam todoDetail, BuildContext context) async {
     if (!isInternetConnected) {
       toast('connect_to_the_internet_to_perform_this_operation'.tr());
+      return;
+    }
+
+    if (context.read<TodoBloc>().state == LoadingState) {
+      toast("Loading please wait ...");
       return;
     }
 

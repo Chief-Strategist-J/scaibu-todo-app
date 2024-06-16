@@ -1,4 +1,4 @@
-import 'package:mix/mix.dart';
+import 'package:todo_app/core/todo_library.dart';
 
 class CustomButtonVariant extends Variant {
   const CustomButtonVariant._(super.name);

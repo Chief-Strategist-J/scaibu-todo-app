@@ -22,7 +22,6 @@ export 'package:todo_app/core/error/error_codes.dart';
 export 'package:todo_app/core/network/network_config.dart';
 export 'package:mix/mix.dart' hide Box;
 
-
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/firebase_options.dart';
@@ -38,7 +37,6 @@ export 'package:todo_app/core/useCases/use_case.dart';
 export 'package:todo_app/core/network/rest_api.dart';
 export 'package:todo_app/core/utils/log_service.dart';
 export 'package:todo_app/core/utils/parse_service.dart';
-
 
 /// SHARED
 export 'package:todo_app/shared/widget/empty_widget.dart';
@@ -63,7 +61,13 @@ export 'package:todo_app/feature/todo/presentation/bloc/todo_state.dart';
 export 'package:todo_app/feature/todo/presentation/page/todo_page.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todo_list_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/content_widget.dart';
-export 'package:todo_app/feature/todo/presentation/widget/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
-export 'package:todo_app/feature/todo/presentation/widget/param/parameters.dart';
 export 'package:todo_app/feature/todo/presentation/page/manage_todo_page.dart';
+export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.variant.dart';
+export 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.variant.dart';
+export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.style.dart';
+export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.style.dart';
+export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.variant.dart';
+export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
+export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';

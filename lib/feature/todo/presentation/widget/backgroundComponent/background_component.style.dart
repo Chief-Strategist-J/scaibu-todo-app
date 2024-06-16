@@ -1,5 +1,4 @@
 import 'package:todo_app/core/todo_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/backgroundComponent/background_component.variant.dart';
 
 class BackgroundComponentStyle {
   final BackgroundComponentVariant variant;
@@ -15,21 +14,13 @@ class BackgroundComponentStyle {
       BackgroundComponentVariant.archive($box.decoration.color(Colors.green)),
       BackgroundComponentVariant.delete($box.decoration.color(redColor)),
       $box.decoration.borderRadius.circular(16),
-    ).applyVariants(
-      [
-        variant,
-      ],
-    );
+    ).applyVariants([variant]);
   }
 
   Style rawAlignment(BuildContext context) {
     return Style(
       BackgroundComponentVariant.delete($flex.mainAxisAlignment.end()),
       BackgroundComponentVariant.archive($flex.mainAxisAlignment.start()),
-    ).applyVariants(
-      [
-        variant,
-      ],
-    );
+    ).applyVariants([variant]);
   }
 }
