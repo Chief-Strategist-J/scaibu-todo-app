@@ -31,10 +31,10 @@ class LogService {
 
   String _errorMessage(String errorMessage, e, String stackTrace) {
     final detailedErrorMessage = '''
-    ${red}Error: ${yellow}${errorMessage.toUpperCase()}$reset
-    ${red}Exception: ${blue}${e.toString().toUpperCase()}$reset
+    ${red}Error: $yellow${errorMessage.toUpperCase()}$reset
+    ${red}Exception: $blue${e.toString().toUpperCase()}$reset
     -----------------------------------------------------------------------------------
-    ${red}Stack Trace: ${white}\n${stackTrace.toString()}$reset
+    ${red}Stack Trace: $white\n${stackTrace.toString()}$reset
     ''';
     return detailedErrorMessage;
   }

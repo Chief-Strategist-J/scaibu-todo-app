@@ -2,7 +2,7 @@ import 'package:todo_app/core/todo_library.dart';
 
 abstract interface class RestApi {
   Future request({
-    HttpRequestMethod type = HttpRequestMethod.GET,
+    HttpRequestMethod type = HttpRequestMethod.get,
     required String endPoint,
     required Map<String, dynamic> requestBody,
     Map<String, dynamic>? headers,

@@ -57,7 +57,7 @@ class ManageTodoPage extends StatelessWidget {
       return;
     }
 
-    if (bloc.state == LoadingState) {
+    if (bloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -76,13 +76,11 @@ class ManageTodoPage extends StatelessWidget {
     } else {
       await bloc.createTodo(todoDetail: todoDetail);
     }
-
-    context.go(ApplicationPaths.todoListViewPage);
   }
 
   @override
   Widget build(BuildContext context) {
-    final _todoPage = todoPage ??
+    final localTodoData = todoPage ??
         ManageTodoPageParam(
           titleController: TextEditingController(text: 'Task'),
           dateController: TextEditingController(),
@@ -98,11 +96,11 @@ class ManageTodoPage extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Form(
-              key: _todoPage.validatorKey,
+              key: localTodoData.validatorKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: AnimatedScrollView(
                 listAnimationType: ListAnimationType.None,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 children: [
                   Row(
                     children: [
@@ -111,22 +109,22 @@ class ManageTodoPage extends StatelessWidget {
                   ),
                   ContentWidget(
                     title: 'task'.tr(),
-                    controller: _todoPage.titleController,
-                    focusNode: _todoPage.titleNode,
+                    controller: localTodoData.titleController,
+                    focusNode: localTodoData.titleNode,
                   ),
                   ContentWidget(
                     title: 'descriptions'.tr(),
-                    controller: _todoPage.descriptionController,
-                    focusNode: _todoPage.descriptionNode,
+                    controller: localTodoData.descriptionController,
+                    focusNode: localTodoData.descriptionNode,
                     textInputAction: TextInputAction.done,
                   ),
                   ContentWidget(
                     title: 'date'.tr(),
-                    controller: _todoPage.dateController,
-                    focusNode: _todoPage.dateNode,
+                    controller: localTodoData.dateController,
+                    focusNode: localTodoData.dateNode,
                     isDateField: true,
                     onSelectOfDateOrTime: (p0) {
-                      _todoPage.date = p0;
+                      localTodoData.date = p0;
                     },
                   ),
                   Row(
@@ -134,11 +132,11 @@ class ManageTodoPage extends StatelessWidget {
                       Flexible(
                         child: ContentWidget(
                           title: 'start_time'.tr(),
-                          controller: _todoPage.startTimeController,
-                          focusNode: _todoPage.startTimeNode,
+                          controller: localTodoData.startTimeController,
+                          focusNode: localTodoData.startTimeNode,
                           isTimeField: true,
                           onSelectOfDateOrTime: (p0) {
-                            _todoPage.startTime = p0;
+                            localTodoData.startTime = p0;
                           },
                         ),
                       ),
@@ -146,11 +144,11 @@ class ManageTodoPage extends StatelessWidget {
                       Flexible(
                         child: ContentWidget(
                           title: 'end_time'.tr(),
-                          controller: _todoPage.endTimeController,
-                          focusNode: _todoPage.endTimeNode,
+                          controller: localTodoData.endTimeController,
+                          focusNode: localTodoData.endTimeNode,
                           isTimeField: true,
                           onSelectOfDateOrTime: (p0) {
-                            _todoPage.endTime = p0;
+                            localTodoData.endTime = p0;
                           },
                         ),
                       ),
@@ -160,7 +158,7 @@ class ManageTodoPage extends StatelessWidget {
               ),
             ),
             if (!isKeyboardNotOpened)
-              Offstage()
+              const Offstage()
             else
               Positioned(
                 bottom: 16,
@@ -168,19 +166,21 @@ class ManageTodoPage extends StatelessWidget {
                 right: 16,
                 child: BlocBuilder<TodoBloc, TodoState>(
                   builder: (_, state) {
-                    if (context.read<TodoBloc>().state is LoadingState) return Offstage();
-                    if (context.read<TodoBloc>().state is NoInternetConnectionState) return Offstage();
+                    if (context.read<TodoBloc>().state is LoadingState) return const Offstage();
+                    if (context.read<TodoBloc>().state is NoInternetConnectionState) return const Offstage();
 
                     if (context.read<TodoBloc>().state is InitTodoState) {
                       return CustomButton(
                         data: getButtonText,
-                        onTap: () async {
-                          await _onTapOfManageTodo(_todoPage, context);
+                        onTap: () {
+                          _onTapOfManageTodo(localTodoData, context).then((value) {
+                            context.go(ApplicationPaths.todoListViewPage);
+                          });
                         },
                       );
                     }
 
-                    return Offstage();
+                    return const Offstage();
                   },
                 ),
               )

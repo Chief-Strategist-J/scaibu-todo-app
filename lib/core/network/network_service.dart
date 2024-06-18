@@ -1,6 +1,6 @@
 import 'package:todo_app/core/todo_library.dart';
 
-enum HttpRequestMethod { GET, POST, DELETE, PUT, PATCH, UPLOAD, DOWNLOAD }
+enum HttpRequestMethod { get, post, delete, put, patch, upload, download }
 
 RestApi restApi = RestApiImpl();
 
@@ -15,9 +15,9 @@ class RestApiImpl implements RestApi {
 
   Uri createURL({required String endPoint}) {
     if (!endPoint.startsWith('http')) {
-      return Uri.parse('$BASE_URL$endPoint');
+      return Uri.parse('$baseUrl$endPoint');
     } else {
-      return Uri.parse('$BASE_URL$endPoint');
+      return Uri.parse('$baseUrl$endPoint');
     }
   }
 
@@ -47,7 +47,7 @@ class RestApiImpl implements RestApi {
 
   @override
   Future request({
-    HttpRequestMethod type = HttpRequestMethod.GET,
+    HttpRequestMethod type = HttpRequestMethod.get,
     required String endPoint,
     required Map<String, dynamic> requestBody,
     Map<String, dynamic>? headers,
@@ -68,38 +68,38 @@ class RestApiImpl implements RestApi {
 
       try {
         switch (type) {
-          case HttpRequestMethod.GET:
+          case HttpRequestMethod.get:
             response = await get(url, headers: headers);
             break;
 
-          case HttpRequestMethod.POST:
+          case HttpRequestMethod.post:
             log('REQUEST --> $requestBody');
             response = await post(url, body: json.encode(requestBody), headers: headers);
             break;
 
-          case HttpRequestMethod.DELETE:
+          case HttpRequestMethod.delete:
             log('REQUEST --> $requestBody');
             response = await delete(url, body: json.encode(requestBody), headers: headers);
             break;
 
-          case HttpRequestMethod.PUT:
+          case HttpRequestMethod.put:
             log('REQUEST --> $requestBody');
             response = await put(url, body: json.encode(requestBody), headers: headers);
             break;
 
-          case HttpRequestMethod.PATCH:
+          case HttpRequestMethod.patch:
             log('REQUEST API --> $requestBody');
             response = await patch(url, body: json.encode(requestBody), headers: headers);
             break;
 
-          case HttpRequestMethod.UPLOAD:
+          case HttpRequestMethod.upload:
             MultipartRequest request = MultipartRequest('POST', url);
             request.files.add(await MultipartFile.fromPath(uploadKey, uploadFilePath));
             request.headers.addAll(headers);
             streamedResponse = await request.send();
             break;
 
-          case HttpRequestMethod.DOWNLOAD:
+          case HttpRequestMethod.download:
             log('please handle download request');
             return '';
         }
@@ -111,8 +111,8 @@ class RestApiImpl implements RestApi {
           onStatusCodeError,
           response,
         );
-      } on Exception catch (e) {
-        throw e;
+      } catch (_) {
+        rethrow;
       }
 
       /// Handing Response
@@ -158,7 +158,7 @@ class RestApiImpl implements RestApi {
     void Function(int)? onStatusCodeError,
     Response response,
   ) {
-    if (type == HttpRequestMethod.UPLOAD || type == HttpRequestMethod.DOWNLOAD) {
+    if (type == HttpRequestMethod.upload || type == HttpRequestMethod.download) {
       return handleStreamResponse(
         response: streamedResponse,
         requestAPIName: requestAPIName,

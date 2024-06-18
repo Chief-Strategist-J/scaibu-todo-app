@@ -11,7 +11,7 @@ class DeleteTodoUseCase extends UseCase<void, DeleteTodoParam> {
     try {
       await firebaseRepo.deleteTodos(params.firebaseId);
       await databaseRep.deleteTodos(params.localId);
-      return Right(null);
+      return const Right(null);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Delete todo api done',e: e, stack: s);
       return Left(ServerFailure('Delete todo api done'));

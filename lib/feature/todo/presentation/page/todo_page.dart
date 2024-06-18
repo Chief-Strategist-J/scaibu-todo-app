@@ -1,7 +1,7 @@
 import 'package:todo_app/core/todo_library.dart';
 
 class TodoPage extends StatelessWidget {
-  const TodoPage();
+  const TodoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +38,12 @@ class TodoPage extends StatelessWidget {
           floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
             builder: (context, state) {
-              if (state is LoadingState) return Offstage();
-              if (state is NoInternetConnectionState) return Offstage();
+              if (state is LoadingState) return const Offstage();
+              if (state is NoInternetConnectionState) return const Offstage();
 
               if (state is InitTodoState) {
                 return FloatingActionButton(
-                  child: Icon(Icons.add),
+                  child: const Icon(Icons.add),
                   onPressed: () async {
                     if (!isInternetConnected) {
                       toast("connect_to_the_internet_to_create_a_to_do_list".tr());
@@ -56,7 +56,7 @@ class TodoPage extends StatelessWidget {
                 );
               }
 
-              return Offstage();
+              return const Offstage();
             },
           ),
         ),

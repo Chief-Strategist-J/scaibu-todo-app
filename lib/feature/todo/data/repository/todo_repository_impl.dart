@@ -26,7 +26,7 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<bool> updateTodoId({required String Id, required Map<String, String> request}) async {
-    return await updateTodo(request, Id).then((value) => true).catchError((e) => false);
+  Future<bool> updateTodoId({required String id, required Map<String, String> request}) async {
+    return await updateTodo(request, id).then((value) => true).catchError((e) => false);
   }
 }

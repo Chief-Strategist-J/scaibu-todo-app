@@ -27,13 +27,13 @@ class FirebaseApiImpl implements BaseApi {
 
   @override
   Future<List<TodoModel>> getListOfTodos() async {
-    final _todoList = <TodoModel>[];
+    final todoList = <TodoModel>[];
 
     final value = await todoCollection.where('is_archived', isEqualTo: false).get();
 
     value.docs.map(
       (e) {
-        TodoModel _todo = TodoModel(
+        TodoModel todo = TodoModel(
           todoId: parseService.parseToInt(e.data()['id']),
           firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
           title: e.data()['title'],
@@ -44,14 +44,14 @@ class FirebaseApiImpl implements BaseApi {
           date: DateTime.parse(e.data()['date']),
         );
 
-        _todoList.add(_todo);
+        todoList.add(todo);
         return e.data();
       },
     ).toList();
 
     log('Firebase api: getListOfTodos');
 
-    return _todoList;
+    return todoList;
   }
 
   @override

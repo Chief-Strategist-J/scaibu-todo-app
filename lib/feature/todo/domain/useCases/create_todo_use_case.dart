@@ -14,12 +14,12 @@ class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
 
       /// Update created to-do id
       final Map<String, String> req = {'id': localTodoId};
-      await firebaseRepo.updateTodoId(Id: todoId, request: req);
+      await firebaseRepo.updateTodoId(id: todoId, request: req);
 
       final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
-      await databaseRep.updateTodoId(Id: localTodoId, request: serverReq);
+      await databaseRep.updateTodoId(id: localTodoId, request: serverReq);
 
-      return Right(null);
+      return const Right(null);
     } catch (e,s) {
       logService.crashLog(errorMessage: 'Failed to create todo',e: e, stack: s);
       return Left(ServerFailure('Failed to create todo'));

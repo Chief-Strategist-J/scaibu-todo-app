@@ -5,10 +5,9 @@ class TimeServiceModel {
   final DateTime? dateTime;
 
   TimeServiceModel({
-    required String formatTimeInString,
-    DateTime? dateTime,
-  })  : dateTime = dateTime,
-        formatTimeInString = formatTimeInString;
+    required this.formatTimeInString,
+    this.dateTime,
+  });
 }
 
 class TimeService {
@@ -46,7 +45,6 @@ class TimeService {
   Future<TimeServiceModel> selectTime(BuildContext context) async {
     final TimeOfDay? value = await _timePicker(context);
 
-    // DateTime.now().add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute));
     final TimeServiceModel time = TimeServiceModel(
       formatTimeInString: (value == null) ? _formatTimeOfDay(timeOfDay) : _formatTimeOfDay(value),
       dateTime: (value == null) ? _convertTimeOfDayToDateAndTime(timeOfDay) : _convertTimeOfDayToDateAndTime(value),
@@ -83,7 +81,7 @@ class TimeService {
       context: context,
       initialTime: timeOfDay,
       builder: (BuildContext context, Widget? child) {
-        if (child == null) return Offstage();
+        if (child == null) return const Offstage();
         final data = MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false);
         return MediaQuery(data: data, child: child);
       },

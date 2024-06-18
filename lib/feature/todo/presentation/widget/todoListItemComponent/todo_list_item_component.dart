@@ -38,7 +38,7 @@ class TodoListItemComponent extends StatelessWidget {
           children: [
             BlocBuilder<TodoBloc, TodoState>(
               builder: (context, state) {
-                if (state is NoInternetConnectionState) return Offstage();
+                if (state is NoInternetConnectionState) return const Offstage();
 
                 return Checkbox(
                   value: todoData.isCompleted ?? false,
@@ -56,7 +56,7 @@ class TodoListItemComponent extends StatelessWidget {
                   HBox(
                     style: style.rawStyleOfStartMin(context, sizeBetweenChildren: 2),
                     children: [
-                      Icon(Icons.calendar_month, size: 12, color: greenColor),
+                      const Icon(Icons.calendar_month, size: 12, color: greenColor),
                       2.width,
                       StyledText('2:00 AM', style: style.style(context, fontSize: 12)),
                     ],
@@ -67,14 +67,14 @@ class TodoListItemComponent extends StatelessWidget {
             HBox(
               style: style.rawStyleOfStartMin(context),
               children: [
-                Icon(Icons.flag, size: 22),
+                const Icon(Icons.flag, size: 22),
                 BlocBuilder<TodoBloc, TodoState>(
                   builder: (context, state) {
-                    if (state is NoInternetConnectionState) return Offstage();
+                    if (state is NoInternetConnectionState) return const Offstage();
 
                     return GestureDetector(
-                      child: Icon(Icons.edit, size: 22),
                       onTap: onTapOfEdit,
+                      child: const Icon(Icons.edit, size: 22),
                     );
                   },
                 ),

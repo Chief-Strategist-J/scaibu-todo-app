@@ -9,5 +9,5 @@ abstract interface class TodoRepository {
 
   Future<void> deleteTodos(String todoId);
 
-  Future<bool> updateTodoId({required String Id, required Map<String, String> request});
+  Future<bool> updateTodoId({required String id, required Map<String, String> request});
 }

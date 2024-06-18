@@ -13,11 +13,11 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
   }
 
   @override
-  Future<Either<Failure, List<TodoEntity>>> call(bool shouldListIsUpdated) async {
+  Future<Either<Failure, List<TodoEntity>>> call(bool params) async {
     try {
       List<TodoEntity> todoList = [];
 
-      if (shouldListIsUpdated) {
+      if (params) {
         todoList = await _getListFromRemote(todoList);
       } else {
         todoList = await _getStoredCachedOfflineList();
@@ -75,7 +75,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
     Box<dynamic> box = await getTodoBox;
     List<Map<String, dynamic>> mapTodoList = [];
 
-    todoList.forEach((element) {
+    for (TodoEntity element in todoList) {
       Map<String, dynamic> map = {
         'id': element.todoId,
         'title': element.title,
@@ -85,7 +85,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
       };
 
       mapTodoList.add(map);
-    });
+    }
 
     box.put(todoListCachedKey, mapTodoList);
   }

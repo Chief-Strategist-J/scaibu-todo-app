@@ -13,7 +13,7 @@ class NoInternetConnectionState extends TodoState {
   NoInternetConnectionState({required this.todoList});
 
   factory NoInternetConnectionState.init() {
-    return NoInternetConnectionState(todoList: []);
+    return NoInternetConnectionState(todoList: const []);
   }
 
   InitTodoState copyWith({List<TodoEntity>? todoList}) {
@@ -30,7 +30,7 @@ class InitTodoState extends TodoState {
   InitTodoState({required this.todoList});
 
   factory InitTodoState.init() {
-    return InitTodoState(todoList: []);
+    return InitTodoState(todoList: const []);
   }
 
   InitTodoState copyWith({List<TodoEntity>? todoList}) {

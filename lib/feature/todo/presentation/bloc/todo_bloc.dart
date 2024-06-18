@@ -32,7 +32,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _handleInternetStatusChange(InternetStatus status) {
-    (status == InternetStatus.connected) ? add(InitEvent([], isListUpdated: false)) : add(NoInternetConnectionEvent());
+    (status == InternetStatus.connected) ? add(InitEvent(const [], isListUpdated: false)) : add(NoInternetConnectionEvent());
   }
 
   Future<void> _init(InitEvent event, Emitter<TodoState> emit) async {
@@ -70,7 +70,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
 
       await updateTodoUseCase(updateTodo);
-      add(InitEvent([], isListUpdated: true));
+      add(InitEvent(const [], isListUpdated: true));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
@@ -97,7 +97,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
 
       await updateTodoUseCase(updateTodo);
-      add(InitEvent([], isListUpdated: true));
+      add(InitEvent(const [], isListUpdated: true));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
@@ -126,7 +126,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     try {
       await createTodoUseCase(todo);
-      add(InitEvent([], isListUpdated: true));
+      add(InitEvent(const [], isListUpdated: true));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
     }
@@ -142,7 +142,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     try {
       await deleteTodoUseCase(deleteParam);
-      add(InitEvent([], isListUpdated: true));
+      add(InitEvent(const [], isListUpdated: true));
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
     }
@@ -179,6 +179,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     );
 
     await updateTodoUseCase(updateTodo);
-    add(InitEvent([], isListUpdated: true));
+    add(InitEvent(const [], isListUpdated: true));
   }
 }

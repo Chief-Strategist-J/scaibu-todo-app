@@ -21,7 +21,7 @@ class DataBaseApiImpl implements BaseApi {
         endPoint: TodoEndPoint.createTodo,
         requestBody: todoData,
         requestAPIName: TodoEndPoint.createTodo,
-        type: HttpRequestMethod.POST,
+        type: HttpRequestMethod.post,
       ),
     );
 
@@ -34,7 +34,7 @@ class DataBaseApiImpl implements BaseApi {
       endPoint: TodoEndPoint.deleteTodo,
       requestBody: {'todo_id': todoId},
       requestAPIName: TodoEndPoint.deleteTodo,
-      type: HttpRequestMethod.DELETE,
+      type: HttpRequestMethod.delete,
     );
   }
 
@@ -45,16 +45,16 @@ class DataBaseApiImpl implements BaseApi {
         endPoint: TodoEndPoint.getTodoList,
         requestBody: {},
         requestAPIName: TodoEndPoint.getTodoList,
-        type: HttpRequestMethod.GET,
+        type: HttpRequestMethod.get,
       ),
     );
     if (todoList.data == null) return [];
     if (todoList.data!.isEmpty) return [];
 
-    final _todoList = <TodoModel>[];
+    final todoList0 = <TodoModel>[];
 
     todoList.data?.forEach((element) {
-      TodoModel _todo = TodoModel(
+      TodoModel todo = TodoModel(
         todoId: element.id!.toInt(),
         title: element.title,
         description: element.description,
@@ -64,10 +64,10 @@ class DataBaseApiImpl implements BaseApi {
         startTime: DateTime.parse(element.startTime.validate()),
       );
 
-      _todoList.add(_todo);
+      todoList0.add(todo);
     });
 
-    return _todoList;
+    return todoList0;
   }
 
   @override
@@ -76,7 +76,7 @@ class DataBaseApiImpl implements BaseApi {
       endPoint: TodoEndPoint.updateTodo,
       requestBody: updateTodoData,
       requestAPIName: TodoEndPoint.updateTodo,
-      type: HttpRequestMethod.POST,
+      type: HttpRequestMethod.post,
     );
   }
 }
