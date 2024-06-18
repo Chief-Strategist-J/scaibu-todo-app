@@ -17,6 +17,7 @@ class ContentWidget extends StatelessWidget {
   final TextInputAction? _textInputAction;
 
   final GestureTapCallback? _onTap;
+  final void Function(TimeServiceModel)? _onSelectOfDateOrTime;
 
   const ContentWidget({
     super.key,
@@ -28,7 +29,9 @@ class ContentWidget extends StatelessWidget {
     bool isDateField = false,
     void Function()? onTap,
     TextFieldType textFieldType = TextFieldType.OTHER,
-  })  : _onTap = onTap,
+    void Function(TimeServiceModel)? onSelectOfDateOrTime,
+  })  : _onSelectOfDateOrTime = onSelectOfDateOrTime,
+        _onTap = onTap,
         _textInputAction = textInputAction,
         _focusNode = focusNode,
         _textFieldType = textFieldType,
@@ -45,9 +48,19 @@ class ContentWidget extends StatelessWidget {
     if (FocusScope.of(context).hasFocus) hideKeyboard(context);
 
     if (_isTimeField) {
-      _controller.text = await timeService.selectTime(context);
+      final TimeServiceModel time = await timeService.selectTime(context);
+      _controller.text = time.formatTimeInString;
+
+      if (_onSelectOfDateOrTime != null) {
+        _onSelectOfDateOrTime?.call(time);
+      }
     } else if (_isDateField) {
-      _controller.text = await timeService.selectDate(context);
+      final TimeServiceModel time = await timeService.selectDate(context);
+      _controller.text = time.formatTimeInString;
+
+      if (_onSelectOfDateOrTime != null) {
+        _onSelectOfDateOrTime?.call(time);
+      }
     }
   }
 
@@ -67,8 +80,8 @@ class ContentWidget extends StatelessWidget {
             focus: _focusNode,
             enabled: _isEnabled,
             validator: (value) {
-              if(value == null) return "Can't Null";
-              if(value.isEmpty) return "Can't Empty";
+              if (value == null) return "Can't Null";
+              if (value.isEmpty) return "Can't Empty";
               return null;
             },
             textInputAction: _textInputAction ?? TextInputAction.next,

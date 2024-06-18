@@ -1,5 +1,16 @@
 import 'package:todo_app/core/todo_library.dart';
 
+class TimeServiceModel {
+  final String formatTimeInString;
+  final DateTime? dateTime;
+
+  TimeServiceModel({
+    required String formatTimeInString,
+    DateTime? dateTime,
+  })  : dateTime = dateTime,
+        formatTimeInString = formatTimeInString;
+}
+
 class TimeService {
   DateFormat get _dateFormat => DateFormat('d-MMMM-y', 'en');
 
@@ -32,16 +43,30 @@ class TimeService {
     return '$formattedHour:$formattedMinute $period';
   }
 
-  Future<String> selectTime(BuildContext context) async {
+  Future<TimeServiceModel> selectTime(BuildContext context) async {
     final TimeOfDay? value = await _timePicker(context);
-    if (value == null) return '';
-    return _formatTimeOfDay(value);
+
+    // DateTime.now().add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute));
+    final TimeServiceModel time = TimeServiceModel(
+      formatTimeInString: (value == null) ? _formatTimeOfDay(timeOfDay) : _formatTimeOfDay(value),
+      dateTime: (value == null) ? _convertTimeOfDayToDateAndTime(timeOfDay) : _convertTimeOfDayToDateAndTime(value),
+    );
+
+    return time;
   }
 
-  Future<String> selectDate(BuildContext context) async {
+  DateTime _convertTimeOfDayToDateAndTime(TimeOfDay timeOfDay) {
+    return DateTime.now().add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute));
+  }
+
+  Future<TimeServiceModel> selectDate(BuildContext context) async {
     DateTime? picked = await _datePicker(context);
-    if (picked == null) return '';
-    return _dateFormat.format(picked);
+    final TimeServiceModel time = TimeServiceModel(
+      formatTimeInString: (picked == null) ? _dateFormat.format(_currentDateTime) : _dateFormat.format(picked),
+      dateTime: (picked == null) ? _currentDateTime : picked,
+    );
+
+    return time;
   }
 
   Future<DateTime?> _datePicker(BuildContext context) async {

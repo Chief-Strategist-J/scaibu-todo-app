@@ -25,6 +25,9 @@ class TodoModel extends TodoEntity {
     super.colorCode,
     super.isArchived,
     super.firebaseTodoId,
+    super.date,
+    super.endTime,
+    super.startTime,
   });
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
@@ -52,6 +55,9 @@ class TodoModel extends TodoEntity {
       completedAt: json['completed_at'] != null ? DateTime.parse(json['completed_at']) : null,
       colorCode: json['color_code'],
       isArchived: json['is_archived'],
+      startTime: json['start_time'],
+      endTime: json['end_time'],
+      date: json['date'],
     );
   }
 
@@ -80,6 +86,9 @@ class TodoModel extends TodoEntity {
       'color_code': colorCode,
       'is_archived': isArchived,
       'firebase_todo_id': firebaseTodoId,
+      'start_time':startTime,
+      'end_time':endTime,
+      'date':date,
     };
   }
 }

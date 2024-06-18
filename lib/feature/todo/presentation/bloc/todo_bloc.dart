@@ -114,6 +114,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       "is_archived": false,
       "is_completed": false,
     };
+    if (todoDetail.startTime != null) {
+      todo.putIfAbsent('start_time', () => todoDetail.startTime?.dateTime.toString());
+    }
+    if (todoDetail.endTime != null) {
+      todo.putIfAbsent('end_time', () => todoDetail.endTime?.dateTime.toString());
+    }
+    if (todoDetail.date != null) {
+      todo.putIfAbsent('date', () => todoDetail.date?.dateTime.toString());
+    }
 
     try {
       await createTodoUseCase(todo);
@@ -152,6 +161,16 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       'title': todoPage.titleController.text,
       'description': todoPage.descriptionController.text,
     };
+
+    if (todoPage.startTime != null) {
+      todoData.putIfAbsent('start_time', () => todoPage.startTime?.dateTime.toString());
+    }
+    if (todoPage.endTime != null) {
+      todoData.putIfAbsent('end_time', () => todoPage.endTime?.dateTime.toString());
+    }
+    if (todoPage.date != null) {
+      todoData.putIfAbsent('date', () => todoPage.date?.dateTime.toString());
+    }
 
     final updateTodo = UpdateTodoParam(
       firebaseID: todoPage.firebaseTodoId.validate(),

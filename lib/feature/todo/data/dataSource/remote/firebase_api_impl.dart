@@ -39,6 +39,9 @@ class FirebaseApiImpl implements BaseApi {
           title: e.data()['title'],
           description: e.data()['description'],
           isCompleted: e.data()['is_completed'] ?? false,
+          startTime: DateTime.parse(e.data()['start_time']),
+          endTime: DateTime.parse(e.data()['end_time']),
+          date: DateTime.parse(e.data()['date']),
         );
 
         _todoList.add(_todo);

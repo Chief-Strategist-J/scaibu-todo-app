@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             break;
           case InternetStatus.disconnected:
             isInternetConnected = false;
-            toast('we_regret_to_inform_you_that_the_internet_is_not_connected'.tr(), length: Toast.LENGTH_LONG, bgColor: redColor);
+            toast('your_internet_is_not_connected'.tr(), length: Toast.LENGTH_LONG, bgColor: redColor);
             break;
         }
       },

@@ -59,6 +59,9 @@ class Data {
     this.description,
     this.notes,
     this.firebaseTodoId,
+    this.startTime,
+    this.endTime,
+    this.date,
   });
 
   Data.fromJson(dynamic json) {
@@ -67,6 +70,9 @@ class Data {
     description = json['description'];
     notes = json['notes'];
     firebaseTodoId = json['firebase_todo_id'];
+    date = json['date'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
   }
 
   num? id;
@@ -74,6 +80,9 @@ class Data {
   String? description;
   String? notes;
   String? firebaseTodoId;
+  String? date;
+  String? startTime;
+  String? endTime;
 
   Data copyWith({
     num? id,
@@ -81,6 +90,9 @@ class Data {
     String? description,
     String? notes,
     String? firebaseTodoId,
+    String? date,
+    String? startTime,
+    String? endTime,
   }) =>
       Data(
         id: id ?? this.id,
@@ -88,6 +100,9 @@ class Data {
         description: description ?? this.description,
         notes: notes ?? this.notes,
         firebaseTodoId: firebaseTodoId ?? this.firebaseTodoId,
+        date: date ?? this.date,
+        endTime: endTime ?? this.endTime,
+        startTime: startTime ?? this.startTime,
       );
 
   Map<String, dynamic> toJson() {
@@ -97,6 +112,9 @@ class Data {
     map['description'] = description;
     map['notes'] = notes;
     map['firebase_todo_id'] = firebaseTodoId;
+    map['date'] = date;
+    map['start_time'] = startTime;
+    map['end_time'] = endTime;
     return map;
   }
 }

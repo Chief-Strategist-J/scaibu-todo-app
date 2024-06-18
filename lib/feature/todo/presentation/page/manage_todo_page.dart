@@ -14,6 +14,10 @@ class ManageTodoPageParam {
   final TextEditingController endTimeController;
   final TextEditingController descriptionController;
 
+  TimeServiceModel? date;
+  TimeServiceModel? startTime;
+  TimeServiceModel? endTime;
+
   final String? firebaseTodoId;
   final String? todoId;
   final bool isUpdatingExistingTodo;
@@ -26,6 +30,9 @@ class ManageTodoPageParam {
     required this.startTimeController,
     required this.endTimeController,
     required this.descriptionController,
+    this.date,
+    this.startTime,
+    this.endTime,
     this.isUpdatingExistingTodo = false,
   });
 }
@@ -70,7 +77,7 @@ class ManageTodoPage extends StatelessWidget {
       await bloc.createTodo(todoDetail: todoDetail);
     }
 
-    finish(context);
+    context.go(ApplicationPaths.todoListViewPage);
   }
 
   @override
@@ -78,9 +85,9 @@ class ManageTodoPage extends StatelessWidget {
     final _todoPage = todoPage ??
         ManageTodoPageParam(
           titleController: TextEditingController(text: 'Task'),
-          dateController: TextEditingController(text: timeService.initialDate),
-          startTimeController: TextEditingController(text: timeService.currentTime),
-          endTimeController: TextEditingController(text: timeService.currentTimeAfterMinute()),
+          dateController: TextEditingController(),
+          startTimeController: TextEditingController(),
+          endTimeController: TextEditingController(),
           descriptionController: TextEditingController(text: '-'),
         );
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
@@ -108,10 +115,19 @@ class ManageTodoPage extends StatelessWidget {
                     focusNode: _todoPage.titleNode,
                   ),
                   ContentWidget(
+                    title: 'descriptions'.tr(),
+                    controller: _todoPage.descriptionController,
+                    focusNode: _todoPage.descriptionNode,
+                    textInputAction: TextInputAction.done,
+                  ),
+                  ContentWidget(
                     title: 'date'.tr(),
                     controller: _todoPage.dateController,
                     focusNode: _todoPage.dateNode,
                     isDateField: true,
+                    onSelectOfDateOrTime: (p0) {
+                      _todoPage.date = p0;
+                    },
                   ),
                   Row(
                     children: [
@@ -121,6 +137,9 @@ class ManageTodoPage extends StatelessWidget {
                           controller: _todoPage.startTimeController,
                           focusNode: _todoPage.startTimeNode,
                           isTimeField: true,
+                          onSelectOfDateOrTime: (p0) {
+                            _todoPage.startTime = p0;
+                          },
                         ),
                       ),
                       16.width,
@@ -130,15 +149,12 @@ class ManageTodoPage extends StatelessWidget {
                           controller: _todoPage.endTimeController,
                           focusNode: _todoPage.endTimeNode,
                           isTimeField: true,
+                          onSelectOfDateOrTime: (p0) {
+                            _todoPage.endTime = p0;
+                          },
                         ),
                       ),
                     ],
-                  ),
-                  ContentWidget(
-                    title: 'descriptions'.tr(),
-                    controller: _todoPage.descriptionController,
-                    focusNode: _todoPage.descriptionNode,
-                    textInputAction: TextInputAction.done,
                   ),
                 ],
               ),

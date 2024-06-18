@@ -31,6 +31,10 @@ class TodoEntity {
   String? colorCode;
   bool? isArchived;
 
+  DateTime? startTime;
+  DateTime? endTime;
+  DateTime? date;
+
   TodoEntity({
     this.firebaseTodoId,
     this.todoId,
@@ -55,6 +59,9 @@ class TodoEntity {
     this.completedAt,
     this.colorCode,
     this.isArchived,
+    this.startTime,
+    this.endTime,
+    this.date,
   });
 
   @override
@@ -84,7 +91,10 @@ class TodoEntity {
           notes == other.notes &&
           completedAt == other.completedAt &&
           colorCode == other.colorCode &&
-          isArchived == other.isArchived;
+          isArchived == other.isArchived &&
+          startTime == other.startTime &&
+          endTime == other.endTime &&
+          date == other.date;
 
   @override
   int get hashCode =>
@@ -110,7 +120,10 @@ class TodoEntity {
       notes.hashCode ^
       completedAt.hashCode ^
       colorCode.hashCode ^
-      isArchived.hashCode;
+      isArchived.hashCode ^
+      startTime.hashCode ^
+      endTime.hashCode ^
+      date.hashCode;
 
   TodoEntity copyWith({
     int? todoId,
@@ -136,6 +149,9 @@ class TodoEntity {
     DateTime? completedAt,
     String? colorCode,
     bool? isArchived,
+    DateTime? startTime,
+    DateTime? endTime,
+    DateTime? date,
   }) {
     return TodoEntity(
       todoId: todoId ?? this.todoId,
@@ -161,6 +177,9 @@ class TodoEntity {
       completedAt: completedAt ?? this.completedAt,
       colorCode: colorCode ?? this.colorCode,
       isArchived: isArchived ?? this.isArchived,
+      date: date ?? this.date,
+      endTime: endTime ?? this.endTime,
+      startTime: startTime ?? this.startTime,
     );
   }
 }
