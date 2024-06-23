@@ -5,6 +5,22 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  64.height,
+                  AppTextField(textFieldType: TextFieldType.NAME),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

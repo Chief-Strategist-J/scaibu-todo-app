@@ -1,5 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/auth/presentation/bloc/auth/auth_bloc.dart';
+
 final getIt = GetIt.instance;
+
 class Dependency {
   static String get firebaseApi => 'FirebaseApi';
 
@@ -14,6 +17,13 @@ class Dependency {
 
     /// TODOs Dependency
     todoDependency();
+    authDependency();
+  }
+
+  static void authDependency() {
+    getIt.registerFactory(() {
+      return AuthBloc();
+    });
   }
 
   static void todoDependency() {

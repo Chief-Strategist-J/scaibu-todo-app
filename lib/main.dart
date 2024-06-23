@@ -1,4 +1,3 @@
-import 'package:nested/nested.dart';
 import 'package:todo_app/core/app_library.dart';
 
 Future<void> main() async {
@@ -44,7 +43,13 @@ class _MyAppState extends State<MyApp> {
             break;
           case InternetStatus.disconnected:
             isInternetConnected = false;
-            toast('your_internet_is_not_connected'.tr(), length: Toast.LENGTH_LONG, bgColor: redColor);
+
+            toast(
+              'your_internet_is_not_connected'.tr(),
+              length: Toast.LENGTH_LONG,
+              bgColor: redColor,
+            );
+
             break;
         }
       },
@@ -59,7 +64,8 @@ class _MyAppState extends State<MyApp> {
 
   List<SingleChildWidget> get providers {
     return [
-      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent([]))),
+      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent(const []))),
+      BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
     ];
   }
 

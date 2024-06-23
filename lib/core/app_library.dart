@@ -1,5 +1,6 @@
 library todoLibrary;
 
+export 'package:nested/nested.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:go_router/go_router.dart';
@@ -22,7 +23,6 @@ export 'package:todo_app/core/error/error_codes.dart';
 export 'package:todo_app/core/network/network_config.dart';
 export 'package:mix/mix.dart' hide Box;
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-
 
 /// CORE
 export 'package:todo_app/dependency.dart';
@@ -74,9 +74,16 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
 
-
-export 'package:todo_app/feature/auth/domain/repository/auth_repository.dart';
+// Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
 export 'package:todo_app/feature/auth/data/model/response/login_response.dart';
 export 'package:todo_app/feature/auth/domain/entity/login_entity.dart';
 export 'package:todo_app/feature/auth/domain/entity/user_entity.dart';
+export 'package:todo_app/feature/auth/domain/repository/auth_repository.dart';
+export 'package:todo_app/feature/auth/presentation/pages/forget_password_page.dart';
+export 'package:todo_app/feature/auth/presentation/pages/login_page.dart';
+export 'package:todo_app/feature/auth/presentation/pages/profile_page.dart';
+export 'package:todo_app/feature/auth/presentation/pages/registration_page.dart';
+export 'package:todo_app/feature/auth/presentation/pages/splash_page.dart';
+export 'package:todo_app/feature/auth/presentation/bloc/auth/auth_bloc.dart';
+export 'package:todo_app/feature/auth/presentation/bloc/auth/auth_event.dart';
