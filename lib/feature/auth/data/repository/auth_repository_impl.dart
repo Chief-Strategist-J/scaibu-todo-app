@@ -1,5 +1,3 @@
-
-
 import 'package:todo_app/core/app_library.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -10,16 +8,6 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred) {
     return baseApi.forgetPassword(forgetPasswordCred);
-  }
-
-  @override
-  Future<UserEntity> getUserDetail(String userID) {
-    return baseApi.getUserDetail(userID);
-  }
-
-  @override
-  Future<UserEntity> registerUser(Map<String, dynamic> userData) {
-    return baseApi.registerUser(userData);
   }
 
   @override
@@ -38,22 +26,23 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserEntity> updateUserDetail(Map<String, dynamic> userDetail, String userID) {
-    return baseApi.updateUserDetail(userDetail, userID);
+  Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred) {
+    return baseApi.verifyOtp(verifyOtpCred);
   }
 
   @override
-  Future<bool> verifyOtp(String otp) {
-    return baseApi.verifyOtp(otp);
-  }
-
-  @override
-  Future<void> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred) {
+  Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred) {
     return baseApi.verifyForgetPasswordOtp(forgetPasswordCred);
   }
 
   @override
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> createOpt(Map<String, dynamic> otpCred) {
+    // TODO: implement createOpt
     throw UnimplementedError();
   }
 }

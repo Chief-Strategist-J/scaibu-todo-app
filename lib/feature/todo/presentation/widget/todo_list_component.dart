@@ -37,7 +37,7 @@ class TodoListComponent extends StatelessWidget {
       return Future(() => false);
     }
 
-    todoBloc(context).add(InitEvent([]));
+    todoBloc(context).add(InitEvent(const []));
     return Future(() => true);
   }
 
@@ -84,7 +84,7 @@ class TodoListComponent extends StatelessWidget {
         isUpdatingExistingTodo: true,
       ),
     );
-    todoBloc(context).add(InitEvent([], isListUpdated: true));
+    todoBloc(context).add(InitEvent(const [], isListUpdated: true));
   }
 
   Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
@@ -108,13 +108,13 @@ class TodoListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       child: RefreshIndicator(
         onRefresh: () {
           return _onRefresh(context);
         },
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           restorationId: '_todoList',
           shrinkWrap: true,
           cacheExtent: 50,

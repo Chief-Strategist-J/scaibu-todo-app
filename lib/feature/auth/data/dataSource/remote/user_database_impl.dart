@@ -1,13 +1,11 @@
-
-
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/auth/data/model/response/create_otp_response.dart';
+import 'package:todo_app/feature/auth/data/model/response/verify_otp_for_forget_password_response.dart';
 
 class UserAuthEndPoint {
   static const loginOrSignUp = "api/loginOrSignUp";
   static const createOtp = "api/createOtp";
   static const verifyOtp = "api/verifyOtp";
-  static const updateUserDetails = "api/updateUserDetails";
-  static const getUserDetail = "api/getUserDetail";
   static const forgetPassword = "api/forgetPassword";
   static const verifyPasswordOtp = "api/verifyPasswordOtp";
   static const updatePassword = 'api/updatePassword';
@@ -24,7 +22,7 @@ class UserDatabaseImpl implements UserBaseApi {
       await restApi.request(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
-        requestAPIName: UserAuthEndPoint.loginOrSignUp,
+        type: HttpRequestMethod.post,
       ),
     );
 
@@ -46,7 +44,7 @@ class UserDatabaseImpl implements UserBaseApi {
       await restApi.request(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
-        requestAPIName: UserAuthEndPoint.loginOrSignUp,
+        type: HttpRequestMethod.post,
       ),
     );
 
@@ -63,50 +61,85 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred) {
-    // TODO: implement forgetPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserEntity> getUserDetail(String userID) {
-    // TODO: implement getUserDetail
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserEntity> registerUser(Map<String, dynamic> userData) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
+  Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred) async {
+    await restApi.request(
+      requestBody: forgetPasswordCred,
+      endPoint: UserAuthEndPoint.forgetPassword,
+      type: HttpRequestMethod.post,
+    );
   }
 
   @override
   Future<void> standardLogOut(String userID) {
-    // TODO: implement standardLogOut
     throw UnimplementedError();
   }
 
   @override
-  Future<void> updatePassword(Map<String, dynamic> updatePasswordCred) {
-    // TODO: implement updatePassword
-    throw UnimplementedError();
+  Future<void> updatePassword(Map<String, dynamic> updatePasswordCred) async {
+    await restApi.request(
+      requestBody: updatePasswordCred,
+      endPoint: UserAuthEndPoint.updatePassword,
+      type: HttpRequestMethod.post,
+    );
   }
 
   @override
-  Future<UserEntity> updateUserDetail(Map<String, dynamic> userDetail, String userID) {
-    // TODO: implement updateUserDetail
-    throw UnimplementedError();
+  Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred) async {
+    CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
+      await restApi.request(
+        requestBody: verifyOtpCred,
+        endPoint: UserAuthEndPoint.verifyOtp,
+        type: HttpRequestMethod.post,
+      ),
+    );
+
+    if (createTodoResponse.data == null) return false;
+
+    return createTodoResponse.data!.success.validate();
   }
 
   @override
-  Future<bool> verifyOtp(String otp) {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
+  Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred) async {
+    final verify = VerifyOtpForForgetPasswordResponse.fromJson(
+      await restApi.request(
+        requestBody: forgetPasswordCred,
+        endPoint: UserAuthEndPoint.verifyPasswordOtp,
+        type: HttpRequestMethod.post,
+      ),
+    );
+    if (verify.data == null) return UserEntity();
+
+    return UserEntity(
+      id: verify.data?.id,
+      email: verify.data?.email,
+      address: verify.data?.address,
+      avatar: verify.data?.avatar,
+      bio: verify.data?.bio,
+      birthdate: verify.data?.birthdate,
+      city: verify.data?.city,
+      country: verify.data?.country,
+      firebaseUserDetailsId: verify.data?.firebaseUserDetailsId,
+      firstName: verify.data?.firstName,
+      lastName: verify.data?.lastName,
+      phone: verify.data?.phone,
+      state: verify.data?.state,
+      userId: verify.data?.userId,
+      zipcode: verify.data?.zipcode,
+    );
   }
 
   @override
-  Future<void> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred) {
-    // TODO: implement verifyForgetPasswordOtp
-    throw UnimplementedError();
+  Future<bool> createOpt(Map<String, dynamic> otpCred) async {
+    CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
+      await restApi.request(
+        requestBody: otpCred,
+        endPoint: UserAuthEndPoint.createOtp,
+        type: HttpRequestMethod.post,
+      ),
+    );
+
+    if (createTodoResponse.data == null) return false;
+
+    return createTodoResponse.data!.success.validate();
   }
 }

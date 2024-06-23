@@ -20,7 +20,6 @@ class DataBaseApiImpl implements BaseApi {
       await restApi.request(
         endPoint: TodoEndPoint.createTodo,
         requestBody: todoData,
-        requestAPIName: TodoEndPoint.createTodo,
         type: HttpRequestMethod.post,
       ),
     );
@@ -33,7 +32,6 @@ class DataBaseApiImpl implements BaseApi {
     await restApi.request(
       endPoint: TodoEndPoint.deleteTodo,
       requestBody: {'todo_id': todoId},
-      requestAPIName: TodoEndPoint.deleteTodo,
       type: HttpRequestMethod.delete,
     );
   }
@@ -44,7 +42,6 @@ class DataBaseApiImpl implements BaseApi {
       await restApi.request(
         endPoint: TodoEndPoint.getTodoList,
         requestBody: {},
-        requestAPIName: TodoEndPoint.getTodoList,
         type: HttpRequestMethod.get,
       ),
     );
@@ -75,7 +72,6 @@ class DataBaseApiImpl implements BaseApi {
     await restApi.request(
       endPoint: TodoEndPoint.updateTodo,
       requestBody: updateTodoData,
-      requestAPIName: TodoEndPoint.updateTodo,
       type: HttpRequestMethod.post,
     );
   }

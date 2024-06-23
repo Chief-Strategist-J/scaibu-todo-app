@@ -8,14 +8,12 @@ abstract interface class RestApi {
     Map<String, dynamic>? headers,
     String uploadKey = '',
     String uploadFilePath = '',
-    required String requestAPIName,
     void Function(int)? onStatusCodeError,
   });
 
   Future handleResponse({
     required Response response,
     HttpResponseType responseType = HttpResponseType.JSON,
-    required String requestAPIName,
     void Function(int)? onStatusCodeError,
   });
 }

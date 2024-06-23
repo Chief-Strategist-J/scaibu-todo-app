@@ -23,15 +23,13 @@ class RestApiImpl implements RestApi {
 
   Future handleStreamResponse({
     required StreamedResponse response,
-    required String requestAPIName,
     void Function(int)? onStatusCodeError,
     HttpResponseType responseType = HttpResponseType.JSON,
   }) async {
-    printLogMessage(requestAPIName, response);
+    printLogMessage(response);
 
     String streamResponse = await response.stream.bytesToString();
 
-    setValue(requestAPIName, streamResponse);
     log('RESPONSE BODY : $streamResponse');
 
     if (response.statusCode.isSuccessful()) {
@@ -53,7 +51,6 @@ class RestApiImpl implements RestApi {
     Map<String, dynamic>? headers,
     String uploadKey = '',
     String uploadFilePath = '',
-    required String requestAPIName,
     void Function(int)? onStatusCodeError,
   }) async {
     if (await isNetworkAvailable()) {
@@ -107,7 +104,6 @@ class RestApiImpl implements RestApi {
         return streamResponse(
           type,
           streamedResponse,
-          requestAPIName,
           onStatusCodeError,
           response,
         );
@@ -125,10 +121,9 @@ class RestApiImpl implements RestApi {
   Future handleResponse({
     required Response response,
     HttpResponseType responseType = HttpResponseType.JSON,
-    required String requestAPIName,
     void Function(int)? onStatusCodeError,
   }) async {
-    printResponse(requestAPIName, response);
+    printResponse(response);
 
     if (response.statusCode.isSuccessful()) {
       if (response.body.isEmpty) {
@@ -154,29 +149,25 @@ class RestApiImpl implements RestApi {
   Future<dynamic> streamResponse(
     HttpRequestMethod type,
     StreamedResponse streamedResponse,
-    String requestAPIName,
     void Function(int)? onStatusCodeError,
     Response response,
   ) {
     if (type == HttpRequestMethod.upload || type == HttpRequestMethod.download) {
       return handleStreamResponse(
         response: streamedResponse,
-        requestAPIName: requestAPIName,
         onStatusCodeError: onStatusCodeError,
       );
     } else {
       return handleResponse(
         response: response,
-        requestAPIName: requestAPIName,
         onStatusCodeError: onStatusCodeError,
       );
     }
   }
 }
 
-void printResponse(String requestAPIName, Response response) {
+void printResponse(Response response) {
   log('\n____________________________________________________\n');
-  log('REQUEST API --> $requestAPIName');
   log('REQUEST URL --> ${response.request?.url}');
   log('REQUEST METHOD --> ${response.request?.method}');
   log('REQUEST HEADERS --> ${response.request?.headers}');
@@ -185,12 +176,10 @@ void printResponse(String requestAPIName, Response response) {
   log('RESPONSE REASON PHRASE --> ${response.reasonPhrase}');
   log('RESPONSE BODY --> ${response.body}');
   log('____________________________________________________\n\n\n');
-  setValue(requestAPIName, response.body);
 }
 
-void printLogMessage(String requestAPIName, StreamedResponse response) {
+void printLogMessage(StreamedResponse response) {
   log('\n____________________________________________________\n');
-  log('REQUEST API --> $requestAPIName');
   log('REQUEST URL --> ${response.request?.url}');
   log('REQUEST METHOD --> ${response.request?.method}');
   log('REQUEST HEADERS --> ${response.request?.headers}');

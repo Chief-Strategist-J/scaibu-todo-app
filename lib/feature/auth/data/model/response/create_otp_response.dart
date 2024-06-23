@@ -1,0 +1,83 @@
+/// message : "done"
+/// status : true
+/// data : {"success":true,"message":"OTP Is Sent Successfully.","otp":"142038"}
+
+class CreateOtpResponse {
+  CreateOtpResponse({
+    this.message,
+    this.status,
+    this.data,
+  });
+
+  CreateOtpResponse.fromJson(dynamic json) {
+    message = json['message'];
+    status = json['status'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  }
+
+  String? message;
+  bool? status;
+  Data? data;
+
+  CreateOtpResponse copyWith({
+    String? message,
+    bool? status,
+    Data? data,
+  }) =>
+      CreateOtpResponse(
+        message: message ?? this.message,
+        status: status ?? this.status,
+        data: data ?? this.data,
+      );
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['message'] = message;
+    map['status'] = status;
+    if (data != null) {
+      map['data'] = data?.toJson();
+    }
+    return map;
+  }
+}
+
+/// success : true
+/// message : "OTP Is Sent Successfully."
+/// otp : "142038"
+
+class Data {
+  Data({
+    this.success,
+    this.message,
+    this.otp,
+  });
+
+  Data.fromJson(dynamic json) {
+    success = json['success'];
+    message = json['message'];
+    otp = json['otp'];
+  }
+
+  bool? success;
+  String? message;
+  String? otp;
+
+  Data copyWith({
+    bool? success,
+    String? message,
+    String? otp,
+  }) =>
+      Data(
+        success: success ?? this.success,
+        message: message ?? this.message,
+        otp: otp ?? this.otp,
+      );
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['success'] = success;
+    map['message'] = message;
+    map['otp'] = otp;
+    return map;
+  }
+}
