@@ -1,9 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
-abstract interface class AuthRepository {
+abstract interface class UserBaseApi {
   Future<UserEntity> registerUser(Map<String, dynamic> userData);
 
-  Future<LoginEntity> standardSignIn(Map<String, dynamic> loginCred);
+  Future<LoginEntity> standardLogin(Map<String, dynamic> loginCred);
 
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred);
 

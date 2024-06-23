@@ -1,5 +1,5 @@
 import 'package:path_provider/path_provider.dart';
-import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/core/app_library.dart';
 
 InitialSetup initialSetup = InitialSetup();
 

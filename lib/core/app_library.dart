@@ -73,3 +73,10 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.variant.dart';
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
+
+
+export 'package:todo_app/feature/auth/domain/repository/auth_repository.dart';
+export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
+export 'package:todo_app/feature/auth/data/model/response/login_response.dart';
+export 'package:todo_app/feature/auth/domain/entity/login_entity.dart';
+export 'package:todo_app/feature/auth/domain/entity/user_entity.dart';

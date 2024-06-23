@@ -1,4 +1,4 @@
-import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/core/app_library.dart';
 
 class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
   final TodoRepository databaseRepo;

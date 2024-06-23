@@ -1,4 +1,4 @@
-import 'package:todo_app/core/todo_library.dart';
+import 'package:todo_app/core/app_library.dart';
 
 class TodoPage extends StatelessWidget {
   const TodoPage({super.key});
