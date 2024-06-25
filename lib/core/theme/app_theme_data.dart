@@ -5,8 +5,12 @@ class AppThemeData {
   static final Color shadowColor = Colors.grey.withOpacity(0.5);
 
   static InputBorder get _getInputBoarder {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: cardColor.withOpacity(0.3)),
+    return OutlineInputBorder(
+      gapPadding: 16,
+      borderRadius: BorderRadius.circular(23),
+      borderSide: BorderSide(
+        color: cardColor.withOpacity(0.3),
+      ),
     );
   }
 
@@ -35,6 +39,10 @@ class AppThemeData {
       appBarTheme: appBarTheme,
       inputDecorationTheme: InputDecorationTheme(
         focusColor: cardColor,
+        filled: true,
+        isDense: true,
+        contentPadding: const EdgeInsets.all(16),
+        fillColor: shadowColor.withOpacity(0.1),
         enabledBorder: _getInputBoarder,
         focusedBorder: _getInputBoarder,
       ),
@@ -62,7 +70,6 @@ class MyTransitions {
   }
 }
 
-
 class FadePageRoute<T> extends PageRouteBuilder<T> {
   final WidgetBuilder builder;
 
@@ -84,13 +91,13 @@ class CustomPageRoute<T> extends PageRouteBuilder<T> {
   final WidgetBuilder builder;
   final Duration duration;
   final Curve curve;
-  final bool opaque;
+
 
   CustomPageRoute({
     required this.builder,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.ease,
-    this.opaque = true,
+    super.opaque = true,
   }) : super(
           pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => builder(context),
           transitionDuration: duration,
@@ -100,6 +107,6 @@ class CustomPageRoute<T> extends PageRouteBuilder<T> {
               child: child,
             );
           },
-          opaque: opaque,
+
         );
 }

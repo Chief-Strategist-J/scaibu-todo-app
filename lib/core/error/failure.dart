@@ -4,7 +4,7 @@ abstract class Failure extends Equatable {
 
 }
 
-final String messageConnectionFailure = 'messageConnectionFailure';
+const messageConnectionFailure = 'messageConnectionFailure';
 
 class ServerFailure extends Failure {
   final String errorMessage;

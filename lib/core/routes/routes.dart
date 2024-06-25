@@ -15,6 +15,7 @@ final router = GoRouter(
       name: ApplicationPaths.loginPage,
       path: ApplicationPaths.loginPage,
       builder: (context, state) {
+
         return const LoginPage();
       },
     ),

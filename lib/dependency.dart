@@ -1,5 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:todo_app/feature/auth/data/dataSource/remote/user_database_impl.dart';
+import 'package:todo_app/feature/auth/data/repository/auth_repository_impl.dart';
+import 'package:todo_app/feature/auth/domain/useCases/login_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -21,6 +23,20 @@ class Dependency {
   }
 
   static void authDependency() {
+    getIt.registerSingleton<RestApi>(RestApiImpl());
+
+    getIt.registerSingleton<UserBaseApi>(
+      UserDatabaseImpl(restApi: getIt<RestApi>()),
+    );
+
+    getIt.registerSingleton<AuthRepository>(
+      AuthRepositoryImpl(baseApi: getIt<UserBaseApi>()),
+    );
+
+    getIt.registerSingleton<LoginUseCase>(
+      LoginUseCase(getIt<AuthRepository>()),
+    );
+
     getIt.registerFactory(() {
       return AuthBloc();
     });

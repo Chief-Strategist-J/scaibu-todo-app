@@ -1,6 +1,4 @@
-/// message : "done"
-/// status : true
-/// data : {"success":true,"message":"OTP Is Sent Successfully.","otp":"142038"}
+
 
 class CreateOtpResponse {
   CreateOtpResponse({

@@ -14,7 +14,7 @@ class TodoListComponent extends StatelessWidget {
       return;
     }
 
-    if (todoBloc(context).state == LoadingState) {
+    if (todoBloc(context).state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -47,7 +47,7 @@ class TodoListComponent extends StatelessWidget {
       toast("Connect to the internet to perform this action");
       return;
     }
-    if (todoBloc(context).state == LoadingState) {
+    if (todoBloc(context).state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -66,7 +66,7 @@ class TodoListComponent extends StatelessWidget {
       return;
     }
 
-    if (todoBloc(context).state == LoadingState) {
+    if (todoBloc(context).state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -84,7 +84,6 @@ class TodoListComponent extends StatelessWidget {
         isUpdatingExistingTodo: true,
       ),
     );
-    todoBloc(context).add(InitEvent(const [], isListUpdated: true));
   }
 
   Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
@@ -141,6 +140,7 @@ class TodoListComponent extends StatelessWidget {
                   },
                   onTapOfEdit: () {
                     _onTapOfEdit(context, todoData);
+                    todoBloc(context).add(InitEvent(const [], isListUpdated: true));
                   },
                 );
               },

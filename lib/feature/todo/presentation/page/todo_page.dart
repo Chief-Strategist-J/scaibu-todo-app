@@ -5,11 +5,14 @@ class TodoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
+
     return SafeArea(
       child: PopScope(
         canPop: false,
         child: Scaffold(
           body: BlocBuilder<TodoBloc, TodoState>(
+            bloc: todoBloc,
             builder: (_, state) {
               if (state is LoadingState) return const LoadingWidget();
 
@@ -37,6 +40,7 @@ class TodoPage extends StatelessWidget {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
+            bloc: todoBloc,
             builder: (context, state) {
               if (state is LoadingState) return const Offstage();
               if (state is NoInternetConnectionState) return const Offstage();

@@ -48,16 +48,18 @@ class ManageTodoPage extends StatelessWidget {
 
   String get getButtonText => getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
 
-  Future<void> _onTapOfManageTodo(ManageTodoPageParam todoDetail, BuildContext context) async {
-    final bloc = context.read<TodoBloc>();
-
+  Future<void> _onTapOfManageTodo(
+    ManageTodoPageParam todoDetail,
+    BuildContext context,
+    TodoBloc todoBloc,
+  ) async {
     if (!isInternetConnected) {
-      bloc.add(NoInternetConnectionEvent());
+      todoBloc.add(NoInternetConnectionEvent());
       toast('connect_to_the_internet_to_perform_this_operation'.tr());
       return;
     }
 
-    if (bloc.state is LoadingState) {
+    if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -72,9 +74,9 @@ class ManageTodoPage extends StatelessWidget {
     bool isUpdatingTodo = isNotNullTodo || isUpdatingExistingTodo;
 
     if (isUpdatingTodo) {
-      await bloc.onEditPageUpdateTodo(todoDetail);
+      await todoBloc.onEditPageUpdateTodo(todoDetail);
     } else {
-      await bloc.createTodo(todoDetail: todoDetail);
+      await todoBloc.createTodo(todoDetail: todoDetail);
     }
   }
 
@@ -89,6 +91,7 @@ class ManageTodoPage extends StatelessWidget {
           descriptionController: TextEditingController(text: '-'),
         );
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
+    final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
 
     return SafeArea(
       child: Scaffold(
@@ -165,6 +168,7 @@ class ManageTodoPage extends StatelessWidget {
                 left: 16,
                 right: 16,
                 child: BlocBuilder<TodoBloc, TodoState>(
+                  bloc: todoBloc,
                   builder: (_, state) {
                     if (context.read<TodoBloc>().state is LoadingState) return const Offstage();
                     if (context.read<TodoBloc>().state is NoInternetConnectionState) return const Offstage();
@@ -173,7 +177,7 @@ class ManageTodoPage extends StatelessWidget {
                       return CustomButton(
                         data: getButtonText,
                         onTap: () {
-                          _onTapOfManageTodo(localTodoData, context).then((value) {
+                          _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
                             context.go(ApplicationPaths.todoListViewPage);
                           });
                         },

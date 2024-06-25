@@ -1,6 +1,3 @@
-/// message : "done"
-/// status : true
-/// data : [{"id":2,"title":"Test","description":"Done","notes":"notes","firebase_todo_id":"K5pxiGp3AL8ZIID5rcUB"}]
 
 class TodoListResponse {
   TodoListResponse({

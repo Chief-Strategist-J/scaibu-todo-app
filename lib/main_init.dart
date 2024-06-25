@@ -6,10 +6,10 @@ InitialSetup initialSetup = InitialSetup();
 class InitialSetup {
   final String path = translationPath;
 
-  final Locale fallbackLocale = Locale('en', 'US');
+  final Locale fallbackLocale = const Locale('en', 'US');
 
   final List<Locale> supportedLocales = [
-    Locale('en'),
+    const Locale('en'),
   ];
 
   Future<void> firebaseInit() async {
