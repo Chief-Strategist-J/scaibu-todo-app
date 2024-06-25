@@ -1,23 +1,51 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/core/constants/images.dart';
-import 'package:todo_app/feature/auth/domain/useCases/login_use_case.dart';
-import 'package:todo_app/feature/auth/presentation/bloc/auth/auth_state.dart';
-import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_custom_button.dart';
+
+class AuthFormState extends ChangeNotifier {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final userNameFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    userNameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
+}
 
 class LoginPage extends HookWidget {
   const LoginPage({super.key});
 
+  Future<void> onLoginOrSignUpTap(
+    AuthBloc authBloc,
+    AuthFormState authFormState,
+    bool isSignUp,
+  ) async {
+    final loginUseCase = getIt<LoginUseCase>();
+
+    final Map<String, dynamic> loginReq = {
+      "name": authFormState.nameController.text,
+      "email": authFormState.emailController.text,
+      "password": authFormState.passwordController.text,
+      "is_sign_up": isSignUp,
+    };
+
+    await loginUseCase.call(loginReq);
+    Future.microtask(() => authBloc.add(AuthInitEvent()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userNameController = useTextEditingController();
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-
-    final userNameFocusNode = useFocusNode();
-    final emailFocusNode = useFocusNode();
-    final passwordFocusNode = useFocusNode();
-
     final authBloc = useMemoized(() => GetIt.instance<AuthBloc>(), []);
+    final authFormState = useMemoized(() => Provider.of<AuthFormState>(context));
 
     useEffect(() {
       Future.microtask(() => authBloc.add(AuthSingUpEvent()));
@@ -41,8 +69,8 @@ class LoginPage extends HookWidget {
                       if (state is SignUpState)
                         AppTextField(
                           textFieldType: TextFieldType.NAME,
-                          controller: userNameController,
-                          focus: userNameFocusNode,
+                          controller: authFormState.nameController,
+                          focus: authFormState.userNameFocusNode,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.name,
                           enableSuggestions: true,
@@ -62,8 +90,8 @@ class LoginPage extends HookWidget {
                       24.height,
                       AppTextField(
                         textFieldType: TextFieldType.EMAIL,
-                        controller: emailController,
-                        focus: emailFocusNode,
+                        controller: authFormState.emailController,
+                        focus: authFormState.emailFocusNode,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         enableSuggestions: true,
@@ -81,8 +109,8 @@ class LoginPage extends HookWidget {
                       24.height,
                       AppTextField(
                         textFieldType: TextFieldType.PASSWORD,
-                        controller: passwordController,
-                        focus: passwordFocusNode,
+                        controller: authFormState.passwordController,
+                        focus: authFormState.passwordFocusNode,
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           label: Text(
@@ -95,30 +123,22 @@ class LoginPage extends HookWidget {
                       if (state is SignUpState)
                         AuthCustomButton(
                           text: 'Sign-Up',
-                          onPress: () {
-                            //
+                          onPress: () async {
+                            await onLoginOrSignUpTap(authBloc, authFormState, true);
                           },
                         ),
                       if (state is SignUpState) 12.height,
-                      if (state is SignUpState) _customDivider(context),
+                      if (state is SignUpState) const CustomDivider(),
                       12.height,
                       AuthCustomButton(
                         text: 'Sign-In',
                         onPress: () async {
                           authBloc.add(AuthSignInEvent());
-                          final loginUseCase = getIt<LoginUseCase>();
-                          // await loginUseCase.call(
-                          //   {
-                          //     "name": userNameController.text,
-                          //     "email": emailController.text,
-                          //     "password": passwordController.text,
-                          //     "is_sign_up": false,
-                          //   },
-                          // );
+                          await onLoginOrSignUpTap(authBloc, authFormState, false);
                         },
                       ),
                       24.height,
-                      _customDivider(context),
+                      const CustomDivider(),
                       24.height,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -138,27 +158,6 @@ class LoginPage extends HookWidget {
           );
         },
       ),
-    );
-  }
-
-  Row _customDivider(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: context.width() * 0.3,
-          color: context.dividerColor,
-          height: 0.5,
-        ),
-        8.width,
-        Text("or", style: primaryTextStyle(size: 12)),
-        8.width,
-        Container(
-          width: context.width() * 0.3,
-          color: context.dividerColor,
-          height: 0.5,
-        ),
-      ],
     );
   }
 }

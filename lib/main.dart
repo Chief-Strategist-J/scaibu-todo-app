@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:todo_app/core/app_library.dart';
 
 Future<void> main() async {
@@ -5,6 +6,7 @@ Future<void> main() async {
   await initialSetup.firebaseInit();
   await initialSetup.languageInit();
   await initialSetup.localStorageInit();
+  Provider.debugCheckInvalidValueType = null;
 
   Dependency.setup();
 
@@ -62,25 +64,32 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  List<SingleChildWidget> get providers {
+  List<SingleChildWidget> get blocProviders {
     return [
       BlocProvider(create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent(const []))),
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
     ];
   }
 
+  List<SingleChildWidget> providers = [
+    Provider(create: (context) => AuthFormState()),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: providers,
-      child: MaterialApp.router(
-        title: 'TODO Application',
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        theme: AppThemeData.lightTheme,
-        debugShowCheckedModeBanner: false,
-        routerConfig: router,
+      providers: blocProviders,
+      child: MultiProvider(
+        providers: providers,
+        child: MaterialApp.router(
+          title: 'TODO Application',
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          theme: AppThemeData.lightTheme,
+          debugShowCheckedModeBanner: false,
+          routerConfig: router,
+        ),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/auth/data/dataSource/local/user_credentials.dart';
 
 class SplashPage extends HookWidget {
   const SplashPage({super.key});

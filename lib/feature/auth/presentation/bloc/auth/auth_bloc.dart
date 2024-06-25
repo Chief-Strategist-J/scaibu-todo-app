@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     final accessToken = await UserCredentials.getUserAccessToken;
+
     emit(AuthInitState(userEntity: userEntity, accessToken: accessToken.validate()));
   }
 
