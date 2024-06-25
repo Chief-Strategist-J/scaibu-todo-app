@@ -70,7 +70,8 @@ class ContentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         16.height,
-        Text(_title, style: const TextStyle(color: gray, fontSize: 14, fontWeight: FontWeight.w500)),
+        Text(_title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        4.height,
         GestureDetector(
           onTap: () async {
             await _onTapOfInputField(context);

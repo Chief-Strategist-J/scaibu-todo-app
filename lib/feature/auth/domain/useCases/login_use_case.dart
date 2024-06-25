@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/auth/data/dataSource/local/user_credentials.dart';
 
 class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   final AuthRepository authRepository;
@@ -14,7 +13,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
       Box<dynamic> box = await UserCredentials.getUserBox;
 
       box.put(UserCredentials.email, auth.email);
-      box.put(UserCredentials.email, auth.id);
+      box.put(UserCredentials.id, auth.id);
       box.put(UserCredentials.userName, auth.name);
       box.put(UserCredentials.accessToken, auth.accessToken);
 

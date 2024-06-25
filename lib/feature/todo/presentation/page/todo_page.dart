@@ -1,11 +1,16 @@
 import 'package:todo_app/core/app_library.dart';
 
-class TodoPage extends StatelessWidget {
+class TodoPage extends HookWidget {
   const TodoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
+
+    useEffect(() {
+      todoBloc.add(InitEvent(const []));
+      return null;
+    }, [todoBloc]);
 
     return SafeArea(
       child: PopScope(
@@ -51,11 +56,12 @@ class TodoPage extends StatelessWidget {
                   onPressed: () async {
                     if (!isInternetConnected) {
                       toast("connect_to_the_internet_to_create_a_to_do_list".tr());
-                      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+                      todoBloc.add(NoInternetConnectionEvent());
                       return;
                     }
 
                     context.go(ApplicationPaths.manageTodoPage, extra: null);
+                    todoBloc.add(InitEvent(const []));
                   },
                 );
               }

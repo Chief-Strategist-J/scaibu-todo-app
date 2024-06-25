@@ -45,6 +45,8 @@ class AppThemeData {
         fillColor: shadowColor.withOpacity(0.1),
         enabledBorder: _getInputBoarder,
         focusedBorder: _getInputBoarder,
+        errorBorder:_getInputBoarder,
+          disabledBorder: _getInputBoarder,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {

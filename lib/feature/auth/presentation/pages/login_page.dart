@@ -9,6 +9,8 @@ class AuthFormState extends ChangeNotifier {
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
 
+  final validatorKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     nameController.dispose();
@@ -24,11 +26,12 @@ class AuthFormState extends ChangeNotifier {
 class LoginPage extends HookWidget {
   const LoginPage({super.key});
 
-  Future<void> onLoginOrSignUpTap(
-    AuthBloc authBloc,
-    AuthFormState authFormState,
-    bool isSignUp,
-  ) async {
+  Future<void> onLoginOrSignUpTap(AuthBloc authBloc, AuthFormState authFormState, bool isSignUp) async {
+    if (!authFormState.validatorKey.currentState!.validate()) {
+      toast("Please fill the details");
+      return;
+    }
+
     final loginUseCase = getIt<LoginUseCase>();
 
     final Map<String, dynamic> loginReq = {
@@ -39,7 +42,7 @@ class LoginPage extends HookWidget {
     };
 
     await loginUseCase.call(loginReq);
-    Future.microtask(() => authBloc.add(AuthInitEvent()));
+    authBloc.add(AuthInitEvent());
   }
 
   @override
@@ -62,95 +65,103 @@ class LoginPage extends HookWidget {
             padding: const EdgeInsets.all(16),
             child: CustomScrollView(
               slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      64.height,
-                      if (state is SignUpState)
+                Form(
+                  key: authFormState.validatorKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        64.height,
+                        if (state is SignUpState)
+                          AppTextField(
+                            textFieldType: TextFieldType.NAME,
+                            controller: authFormState.nameController,
+                            focus: authFormState.userNameFocusNode,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.name,
+                            enableSuggestions: true,
+                            autoFillHints: const [
+                              AutofillHints.name,
+                              AutofillHints.familyName,
+                              AutofillHints.namePrefix,
+                              AutofillHints.nameSuffix,
+                            ],
+                            decoration: InputDecoration(
+                              label: Text(
+                                'User name',
+                                style: boldTextStyle(size: 10),
+                              ),
+                            ),
+                          ),
+                        24.height,
                         AppTextField(
-                          textFieldType: TextFieldType.NAME,
-                          controller: authFormState.nameController,
-                          focus: authFormState.userNameFocusNode,
+                          textFieldType: TextFieldType.EMAIL,
+                          controller: authFormState.emailController,
+                          focus: authFormState.emailFocusNode,
                           textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.name,
+                          keyboardType: TextInputType.emailAddress,
                           enableSuggestions: true,
                           autoFillHints: const [
                             AutofillHints.name,
-                            AutofillHints.familyName,
-                            AutofillHints.namePrefix,
-                            AutofillHints.nameSuffix,
+                            AutofillHints.email,
                           ],
                           decoration: InputDecoration(
                             label: Text(
-                              'User name',
+                              'Email',
                               style: boldTextStyle(size: 10),
                             ),
                           ),
                         ),
-                      24.height,
-                      AppTextField(
-                        textFieldType: TextFieldType.EMAIL,
-                        controller: authFormState.emailController,
-                        focus: authFormState.emailFocusNode,
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
-                        enableSuggestions: true,
-                        autoFillHints: const [
-                          AutofillHints.name,
-                          AutofillHints.email,
-                        ],
-                        decoration: InputDecoration(
-                          label: Text(
-                            'Email',
-                            style: boldTextStyle(size: 10),
+                        24.height,
+                        AppTextField(
+                          textFieldType: TextFieldType.PASSWORD,
+                          controller: authFormState.passwordController,
+                          focus: authFormState.passwordFocusNode,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Password',
+                              style: boldTextStyle(size: 10),
+                            ),
                           ),
                         ),
-                      ),
-                      24.height,
-                      AppTextField(
-                        textFieldType: TextFieldType.PASSWORD,
-                        controller: authFormState.passwordController,
-                        focus: authFormState.passwordFocusNode,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          label: Text(
-                            'Password',
-                            style: boldTextStyle(size: 10),
+                        24.height,
+                        if (state is SignUpState)
+                          AuthCustomButton(
+                            text: 'Sign-Up',
+                            onPress: () async {
+                              onLoginOrSignUpTap(authBloc, authFormState, true).then((value) {
+                                context.pushReplacement(ApplicationPaths.registrationPage);
+                              });
+                            },
                           ),
-                        ),
-                      ),
-                      24.height,
-                      if (state is SignUpState)
+                        if (state is SignUpState) 12.height,
+                        if (state is SignUpState) const CustomDivider(),
+                        12.height,
                         AuthCustomButton(
-                          text: 'Sign-Up',
+                          text: 'Sign-In',
                           onPress: () async {
-                            await onLoginOrSignUpTap(authBloc, authFormState, true);
+                            authBloc.add(AuthSignInEvent());
+                            onLoginOrSignUpTap(authBloc, authFormState, false).then((value) {
+                              context.pushReplacement(ApplicationPaths.todoListViewPage);
+                            });
                           },
                         ),
-                      if (state is SignUpState) 12.height,
-                      if (state is SignUpState) const CustomDivider(),
-                      12.height,
-                      AuthCustomButton(
-                        text: 'Sign-In',
-                        onPress: () async {
-                          authBloc.add(AuthSignInEvent());
-                          await onLoginOrSignUpTap(authBloc, authFormState, false);
-                        },
-                      ),
-                      24.height,
-                      const CustomDivider(),
-                      24.height,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(googleLogo, width: 60, height: 60).cornerRadiusWithClipRRect(60),
-                          16.width,
-                          Text("or", style: primaryTextStyle(size: 12)),
-                          16.width,
-                          Image.asset(facebookLogo, width: 60, height: 60).cornerRadiusWithClipRRect(60),
-                        ],
-                      ),
-                    ],
+                        24.height,
+                        const CustomDivider(),
+                        24.height,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(googleLogo, width: 60, height: 60).cornerRadiusWithClipRRect(60),
+                            16.width,
+                            Text("or", style: primaryTextStyle(size: 12)),
+                            16.width,
+                            Image.asset(facebookLogo, width: 60, height: 60).cornerRadiusWithClipRRect(60),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

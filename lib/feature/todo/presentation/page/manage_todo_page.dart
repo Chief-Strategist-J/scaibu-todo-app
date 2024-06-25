@@ -37,7 +37,7 @@ class ManageTodoPageParam {
   });
 }
 
-class ManageTodoPage extends StatelessWidget {
+class ManageTodoPage extends HookWidget {
   final ManageTodoPageParam? todoPage;
 
   const ManageTodoPage({super.key, this.todoPage});

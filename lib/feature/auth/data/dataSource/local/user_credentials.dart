@@ -3,7 +3,7 @@ import 'package:todo_app/core/app_library.dart';
 class UserCredentials {
   static const userName = 'name';
   static const email = 'email';
-  static const id = 'email';
+  static const id = 'id';
   static const accessToken = 'accessToken';
 
   static Future<Box<dynamic>> get getUserBox async {
