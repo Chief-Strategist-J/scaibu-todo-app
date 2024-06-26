@@ -67,6 +67,14 @@ class TimeService {
     return time;
   }
 
+  String convertToDate(DateTime date){
+    return _dateFormat.format(date);
+  }
+  String convertToTime(DateTime dateTime){
+    final timeOfDay = TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);;
+    return _formatTimeOfDay(timeOfDay);
+  }
+
   Future<DateTime?> _datePicker(BuildContext context) async {
     return await showDatePicker(
       context: context,

@@ -1,13 +1,13 @@
 import 'package:todo_app/core/app_library.dart';
 
-class TodoListItemComponent extends StatelessWidget {
+class TodoListItemComponent extends HookWidget {
   final TodoEntity todoData;
   final ValueChanged<bool?>? onChanged;
   final DismissDirectionCallback? onDismissed;
   final GestureTapCallback onTapOfEdit;
   final TodoListItemComponentVariant variant;
   final VoidCallback? onPress;
-
+  final TodoBloc todoBloc;
 
   final ValueKey uniqueKey;
 
@@ -16,6 +16,7 @@ class TodoListItemComponent extends StatelessWidget {
     required this.todoData,
     required this.onChanged,
     required this.uniqueKey,
+    required this.todoBloc,
     this.onDismissed,
     required this.onTapOfEdit,
     this.variant = TodoListItemComponentVariant.primary,
@@ -24,7 +25,7 @@ class TodoListItemComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = TodoListItemComponentStyle(variant: variant);
+    final style = useMemoized(() => TodoListItemComponentStyle(variant: variant), []);
 
     return Dismissible(
       key: uniqueKey,
@@ -37,6 +38,7 @@ class TodoListItemComponent extends StatelessWidget {
         child: Row(
           children: [
             BlocBuilder<TodoBloc, TodoState>(
+              bloc: todoBloc,
               builder: (context, state) {
                 if (state is NoInternetConnectionState) return const Offstage();
 
@@ -69,6 +71,7 @@ class TodoListItemComponent extends StatelessWidget {
               children: [
                 const Icon(Icons.flag, size: 22),
                 BlocBuilder<TodoBloc, TodoState>(
+                  bloc: todoBloc,
                   builder: (context, state) {
                     if (state is NoInternetConnectionState) return const Offstage();
 

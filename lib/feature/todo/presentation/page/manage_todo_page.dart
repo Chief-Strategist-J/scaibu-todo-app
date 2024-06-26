@@ -1,58 +1,17 @@
 import 'package:todo_app/core/app_library.dart';
 
-class ManageTodoPageParam {
-  final FocusNode titleNode = FocusNode();
-  final FocusNode dateNode = FocusNode();
-  final FocusNode startTimeNode = FocusNode();
-  final FocusNode endTimeNode = FocusNode();
-  final FocusNode descriptionNode = FocusNode();
-  final validatorKey = GlobalKey<FormState>();
-
-  final TextEditingController titleController;
-  final TextEditingController dateController;
-  final TextEditingController startTimeController;
-  final TextEditingController endTimeController;
-  final TextEditingController descriptionController;
-
-  TimeServiceModel? date;
-  TimeServiceModel? startTime;
-  TimeServiceModel? endTime;
-
-  final String? firebaseTodoId;
-  final String? todoId;
-  final bool isUpdatingExistingTodo;
-
-  ManageTodoPageParam({
-    this.firebaseTodoId,
-    this.todoId,
-    required this.titleController,
-    required this.dateController,
-    required this.startTimeController,
-    required this.endTimeController,
-    required this.descriptionController,
-    this.date,
-    this.startTime,
-    this.endTime,
-    this.isUpdatingExistingTodo = false,
-  });
-}
-
 class ManageTodoPage extends HookWidget {
   final ManageTodoPageParam? todoPage;
 
   const ManageTodoPage({super.key, this.todoPage});
 
-  bool get getIsUpdateTodo => todoPage?.isUpdatingExistingTodo ?? false;
+  bool get _getIsUpdateTodo => todoPage?.isUpdatingExistingTodo ?? false;
 
-  String get getTitle => getIsUpdateTodo ? 'update_task'.tr() : 'new_task'.tr();
+  String get _getTitle => _getIsUpdateTodo ? 'update_task'.tr() : 'new_task'.tr();
 
-  String get getButtonText => getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
+  String get _getButtonText => _getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
 
-  Future<void> _onTapOfManageTodo(
-    ManageTodoPageParam todoDetail,
-    BuildContext context,
-    TodoBloc todoBloc,
-  ) async {
+  Future<void> _onTapOfManageTodo(ManageTodoPageParam todoDetail, BuildContext context, TodoBloc todoBloc) async {
     if (!isInternetConnected) {
       todoBloc.add(NoInternetConnectionEvent());
       toast('connect_to_the_internet_to_perform_this_operation'.tr());
@@ -70,7 +29,7 @@ class ManageTodoPage extends HookWidget {
     }
 
     bool isNotNullTodo = todoPage != null;
-    bool isUpdatingExistingTodo = getIsUpdateTodo;
+    bool isUpdatingExistingTodo = _getIsUpdateTodo;
     bool isUpdatingTodo = isNotNullTodo || isUpdatingExistingTodo;
 
     if (isUpdatingTodo) {
@@ -82,16 +41,10 @@ class ManageTodoPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localTodoData = todoPage ??
-        ManageTodoPageParam(
-          titleController: TextEditingController(text: 'Task'),
-          dateController: TextEditingController(),
-          startTimeController: TextEditingController(),
-          endTimeController: TextEditingController(),
-          descriptionController: TextEditingController(text: '-'),
-        );
-    final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
+    final localTodoData = useMemoized(() => todoPage ?? ManageTodoPageParam(), [todoPage]);
     final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
+
+    final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
 
     return SafeArea(
       child: Scaffold(
@@ -107,17 +60,17 @@ class ManageTodoPage extends HookWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: Text(getTitle, style: boldTextStyle(size: 28))),
+                      Expanded(child: Text(_getTitle, style: boldTextStyle(size: 28))),
                     ],
                   ),
                   ContentWidget(
                     title: 'task'.tr(),
-                    controller: localTodoData.titleController,
+                    controller: localTodoData.title,
                     focusNode: localTodoData.titleNode,
                   ),
                   ContentWidget(
                     title: 'descriptions'.tr(),
-                    controller: localTodoData.descriptionController,
+                    controller: localTodoData.description,
                     focusNode: localTodoData.descriptionNode,
                     textInputAction: TextInputAction.done,
                   ),
@@ -157,6 +110,13 @@ class ManageTodoPage extends HookWidget {
                       ),
                     ],
                   ),
+                  ContentWidget(
+                    title: "Notes",
+                    textFieldType: TextFieldType.MULTILINE,
+                    lines: 5,
+                    controller: localTodoData.note,
+                    focusNode: localTodoData.notesNode,
+                  ),
                 ],
               ),
             ),
@@ -170,15 +130,16 @@ class ManageTodoPage extends HookWidget {
                 child: BlocBuilder<TodoBloc, TodoState>(
                   bloc: todoBloc,
                   builder: (_, state) {
-                    if (context.read<TodoBloc>().state is LoadingState) return const Offstage();
-                    if (context.read<TodoBloc>().state is NoInternetConnectionState) return const Offstage();
+                    if (todoBloc.state is LoadingState) return const Offstage();
+                    if (todoBloc.state is NoInternetConnectionState) return const Offstage();
 
-                    if (context.read<TodoBloc>().state is InitTodoState) {
+                    if (todoBloc.state is InitTodoState) {
                       return CustomButton(
-                        data: getButtonText,
+                        data: _getButtonText,
                         onTap: () {
                           _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
                             context.go(ApplicationPaths.todoListViewPage);
+                            todoBloc.add(InitEvent(const []));
                           });
                         },
                       );
@@ -192,5 +153,61 @@ class ManageTodoPage extends HookWidget {
         ),
       ),
     );
+  }
+}
+
+class ManageTodoPageParam {
+  final FocusNode titleNode = FocusNode();
+  final FocusNode dateNode = FocusNode();
+  final FocusNode startTimeNode = FocusNode();
+  final FocusNode endTimeNode = FocusNode();
+  final FocusNode descriptionNode = FocusNode();
+  final FocusNode notesNode = FocusNode();
+
+  final validatorKey = GlobalKey<FormState>();
+
+  final TextEditingController title = TextEditingController(text: 'Task');
+  final TextEditingController description = TextEditingController(text: '-');
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController startTimeController = TextEditingController();
+  final TextEditingController endTimeController = TextEditingController();
+  final TextEditingController note = TextEditingController();
+
+  TimeServiceModel? date;
+  TimeServiceModel? startTime;
+  TimeServiceModel? endTime;
+
+  final String? firebaseTodoId;
+  final String? todoId;
+  final bool isUpdatingExistingTodo;
+
+  ManageTodoPageParam({
+    this.firebaseTodoId,
+    this.todoId,
+    this.date,
+    this.startTime,
+    this.endTime,
+    this.isUpdatingExistingTodo = false,
+  });
+
+  factory ManageTodoPageParam.fromTodoEntity(
+    TodoEntity todoData, {
+    bool isUpdatingExistingTodo = true,
+  }) {
+    ManageTodoPageParam param = ManageTodoPageParam(
+      firebaseTodoId: todoData.firebaseTodoId.validate(),
+      todoId: todoData.todoId.validate().toString(),
+      isUpdatingExistingTodo: isUpdatingExistingTodo,
+    );
+
+    if (todoData.date != null) param.dateController.text = timeService.convertToDate(todoData.date!);
+    if (todoData.startTime != null) param.startTimeController.text = timeService.convertToTime(todoData.startTime!);
+    if (todoData.endTime != null) param.endTimeController.text = timeService.convertToTime(todoData.endTime!);
+
+    param.note.text = todoData.notes.validate();
+    param.title.text = todoData.title.validate();
+    param.description.text = todoData.description.validate();
+
+    return param;
   }
 }

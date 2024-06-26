@@ -2,52 +2,56 @@ import 'package:todo_app/core/app_library.dart';
 
 class TodoListComponent extends StatelessWidget {
   final List<TodoEntity> todoList;
+  final TodoBloc todoBloc;
 
-  const TodoListComponent({super.key, required this.todoList});
+  const TodoListComponent({
+    super.key,
+    required this.todoList,
+    required this.todoBloc,
+  });
 
-  TodoBloc todoBloc(BuildContext context) => context.read<TodoBloc>();
 
   void _onUpdateCheckBoxValue(BuildContext context, {bool? checked, required TodoEntity todoData}) {
     if (!isInternetConnected) {
-      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+      todoBloc.add(NoInternetConnectionEvent());
       toast("Connect to the internet");
       return;
     }
 
-    if (todoBloc(context).state is LoadingState) {
+    if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
 
-    todoBloc(context).updateCheckBoxValue(checked: checked.validate(), todoItem: todoData);
+    todoBloc.updateCheckBoxValue(checked: checked.validate(), todoItem: todoData);
   }
 
   Future<void> _deleteTodo(BuildContext context, TodoEntity todoData) async {
-    await todoBloc(context).deleteTodo(todoData: todoData);
+    await todoBloc.deleteTodo(todoData: todoData);
   }
 
   Future<void> _archiveTodo(BuildContext context, TodoEntity todoData) async {
-    await todoBloc(context).archiveTodo(todoItem: todoData);
+    await todoBloc.archiveTodo(todoItem: todoData);
   }
 
   Future<void> _onRefresh(BuildContext context) {
     if (!isInternetConnected) {
-      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+      todoBloc.add(NoInternetConnectionEvent());
       toast("Connect to the internet to perform this action");
       return Future(() => false);
     }
 
-    todoBloc(context).add(InitEvent(const []));
+    todoBloc.add(InitEvent(const []));
     return Future(() => true);
   }
 
   Future<void> _onSwipeOfTodo(DismissDirection direction, BuildContext context, TodoEntity todoData, int index) async {
     if (!isInternetConnected) {
-      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+      todoBloc.add(NoInternetConnectionEvent());
       toast("Connect to the internet to perform this action");
       return;
     }
-    if (todoBloc(context).state is LoadingState) {
+    if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -61,45 +65,27 @@ class TodoListComponent extends StatelessWidget {
 
   Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
     if (!isInternetConnected) {
-      context.read<TodoBloc>().add(NoInternetConnectionEvent());
+      todoBloc.add(NoInternetConnectionEvent());
       toast("Connect to the internet to Edit todo");
       return;
     }
 
-    if (todoBloc(context).state is LoadingState) {
+    if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
 
     await context.push(
       ApplicationPaths.manageTodoPage,
-      extra: ManageTodoPageParam(
-        titleController: TextEditingController(text: todoData.title),
-        dateController: TextEditingController(text: ''),
-        startTimeController: TextEditingController(),
-        endTimeController: TextEditingController(),
-        descriptionController: TextEditingController(text: todoData.description),
-        firebaseTodoId: todoData.firebaseTodoId.validate(),
-        todoId: todoData.todoId.validate().toString(),
-        isUpdatingExistingTodo: true,
-      ),
+      extra: ManageTodoPageParam.fromTodoEntity(todoData),
     );
   }
 
   Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
-    if (todoBloc(context).state is NoInternetConnectionState) {
+    if (todoBloc.state is NoInternetConnectionState) {
       await context.push(
         ApplicationPaths.manageTodoPage,
-        extra: ManageTodoPageParam(
-          titleController: TextEditingController(text: todoData.title),
-          dateController: TextEditingController(text: ''),
-          startTimeController: TextEditingController(),
-          endTimeController: TextEditingController(),
-          descriptionController: TextEditingController(text: todoData.description),
-          firebaseTodoId: todoData.firebaseTodoId.validate(),
-          todoId: todoData.todoId.validate().toString(),
-          isUpdatingExistingTodo: true,
-        ),
+        extra: ManageTodoPageParam.fromTodoEntity(todoData),
       );
     }
   }
@@ -128,6 +114,7 @@ class TodoListComponent extends StatelessWidget {
                 return TodoListItemComponent(
                   key: key,
                   uniqueKey: key,
+                  todoBloc: todoBloc,
                   todoData: todoData,
                   onPress: () {
                     _onTapTodo(context, todoData);
@@ -140,7 +127,7 @@ class TodoListComponent extends StatelessWidget {
                   },
                   onTapOfEdit: () {
                     _onTapOfEdit(context, todoData);
-                    todoBloc(context).add(InitEvent(const [], isListUpdated: true));
+                    todoBloc.add(InitEvent(const [], isListUpdated: true));
                   },
                 );
               },

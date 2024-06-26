@@ -6,6 +6,9 @@ class ContentWidget extends StatelessWidget {
   final bool _isTimeField;
   final bool _isDateField;
 
+  final int? _lines;
+
+
   final String _title;
 
   final TextEditingController _controller;
@@ -30,7 +33,8 @@ class ContentWidget extends StatelessWidget {
     void Function()? onTap,
     TextFieldType textFieldType = TextFieldType.OTHER,
     void Function(TimeServiceModel)? onSelectOfDateOrTime,
-  })  : _onSelectOfDateOrTime = onSelectOfDateOrTime,
+    int? lines,
+  })  : _lines = lines, _onSelectOfDateOrTime = onSelectOfDateOrTime,
         _onTap = onTap,
         _textInputAction = textInputAction,
         _focusNode = focusNode,
@@ -70,7 +74,7 @@ class ContentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         16.height,
-        Text(_title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text(_title, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
         4.height,
         GestureDetector(
           onTap: () async {
@@ -80,6 +84,9 @@ class ContentWidget extends StatelessWidget {
             controller: _controller,
             focus: _focusNode,
             enabled: _isEnabled,
+            maxLines: _lines,
+            minLines: _lines,
+            textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             validator: (value) {
               if (value == null) return "Can't Null";
               if (value.isEmpty) return "Can't Empty";

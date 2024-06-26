@@ -109,10 +109,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
 
     final Map<String, dynamic> todo = {
-      "title": todoDetail.titleController.text,
-      "description": todoDetail.descriptionController.text,
+      "title": todoDetail.title.text,
+      "description": todoDetail.description.text,
       "is_archived": false,
       "is_completed": false,
+      'notes':todoDetail.note.text,
     };
     if (todoDetail.startTime != null) {
       todo.putIfAbsent('start_time', () => todoDetail.startTime?.dateTime.toString());
@@ -158,8 +159,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     final Map<String, dynamic> todoData = {
       'todo_id': todoPage.todoId,
-      'title': todoPage.titleController.text,
-      'description': todoPage.descriptionController.text,
+      'title': todoPage.title.text,
+      'description': todoPage.description.text,
+      'notes':todoPage.note.text,
     };
 
     if (todoPage.startTime != null) {

@@ -28,7 +28,7 @@ class TodoPage extends HookWidget {
                   return EmptyWidget(msg: 'no_to_do_items_available'.tr());
                 }
 
-                return TodoListComponent(todoList: todoList);
+                return TodoListComponent(todoList: todoList, todoBloc: todoBloc);
               }
 
               if (state is NoInternetConnectionState) {
@@ -37,7 +37,7 @@ class TodoPage extends HookWidget {
                 if (state.todoList == null || todoList.isEmpty) {
                   return EmptyWidget(msg: 'no_to_do_items_available'.tr());
                 }
-                return TodoListComponent(todoList: todoList);
+                return TodoListComponent(todoList: todoList, todoBloc: todoBloc);
               }
 
               return EmptyWidget(msg: 'no_to_do_items_available'.tr());

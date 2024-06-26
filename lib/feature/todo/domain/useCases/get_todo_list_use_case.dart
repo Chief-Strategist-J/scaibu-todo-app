@@ -63,6 +63,10 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
           description: element['description'],
           isCompleted: element['is_completed'],
           firebaseTodoId: element['firebase_todo_id'],
+          notes: element['notes'],
+          startTime:element['start_time'],
+          date: element['date'],
+          endTime: element['end_time'],
         );
         offlineList.add(todoEntity);
       },
@@ -82,6 +86,10 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
         'description': element.description,
         'is_completed': element.isCompleted,
         'firebase_todo_id': element.firebaseTodoId,
+        'start_time': element.startTime,
+        'end_time': element.endTime,
+        'date': element.date,
+        'notes': element.notes,
       };
 
       mapTodoList.add(map);

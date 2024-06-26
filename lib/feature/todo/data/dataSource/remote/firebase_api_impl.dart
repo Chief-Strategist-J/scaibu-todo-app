@@ -10,11 +10,11 @@ class FirebaseApiImpl implements BaseApi {
       final docRef = await todoCollection.add(todoData);
       await docRef.update({'firebase_todo_id': docRef.id});
 
-      log('Firebase api: createTodo');
+      log('FIREBASE API: CREATE TODO');
 
       return docRef.id;
     } catch (e) {
-      log('Error creating todo: $e');
+      log('ERROR CREATING TODO: $e');
       return '';
     }
   }
@@ -22,7 +22,7 @@ class FirebaseApiImpl implements BaseApi {
   @override
   Future<void> deleteTodo(String todoId) async {
     await todoCollection.doc(todoId).delete();
-    log('Firebase api: deleteTodo');
+    log('FIREBASE API: DELETE TODO');
   }
 
   @override
@@ -38,6 +38,7 @@ class FirebaseApiImpl implements BaseApi {
           firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
           title: e.data()['title'],
           description: e.data()['description'],
+          notes: e.data()['notes'],
           isCompleted: e.data()['is_completed'] ?? false,
           startTime: DateTime.parse(e.data()['start_time']),
           endTime: DateTime.parse(e.data()['end_time']),
@@ -49,7 +50,7 @@ class FirebaseApiImpl implements BaseApi {
       },
     ).toList();
 
-    log('Firebase api: getListOfTodos');
+    log('FIREBASE API: GET LIST OF TODOS');
 
     return todoList;
   }
@@ -57,6 +58,6 @@ class FirebaseApiImpl implements BaseApi {
   @override
   Future<void> updateTodo(String todoId, Map<String, dynamic> updateTodoData) async {
     await todoCollection.doc(todoId).update(updateTodoData);
-    log('Firebase api: updateTodo');
+    log('FIREBASE API: UPDATE TODO');
   }
 }
