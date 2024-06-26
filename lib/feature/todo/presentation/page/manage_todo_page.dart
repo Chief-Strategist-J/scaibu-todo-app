@@ -42,115 +42,123 @@ class ManageTodoPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final localTodoData = useMemoized(() => todoPage ?? ManageTodoPageParam(), [todoPage]);
-    final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
-
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
 
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            Form(
-              key: localTodoData.validatorKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: AnimatedScrollView(
-                listAnimationType: ListAnimationType.None,
-                padding: const EdgeInsets.all(16),
-                children: [
-                  Row(
-                    children: [
-                      Expanded(child: Text(_getTitle, style: boldTextStyle(size: 28))),
-                    ],
-                  ),
-                  ContentWidget(
-                    title: 'task'.tr(),
-                    controller: localTodoData.title,
-                    focusNode: localTodoData.titleNode,
-                  ),
-                  ContentWidget(
-                    title: 'descriptions'.tr(),
-                    controller: localTodoData.description,
-                    focusNode: localTodoData.descriptionNode,
-                    textInputAction: TextInputAction.done,
-                  ),
-                  ContentWidget(
-                    title: 'date'.tr(),
-                    controller: localTodoData.dateController,
-                    focusNode: localTodoData.dateNode,
-                    isDateField: true,
-                    onSelectOfDateOrTime: (p0) {
-                      localTodoData.date = p0;
-                    },
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: ContentWidget(
-                          title: 'start_time'.tr(),
-                          controller: localTodoData.startTimeController,
-                          focusNode: localTodoData.startTimeNode,
-                          isTimeField: true,
-                          onSelectOfDateOrTime: (p0) {
-                            localTodoData.startTime = p0;
-                          },
-                        ),
-                      ),
-                      16.width,
-                      Flexible(
-                        child: ContentWidget(
-                          title: 'end_time'.tr(),
-                          controller: localTodoData.endTimeController,
-                          focusNode: localTodoData.endTimeNode,
-                          isTimeField: true,
-                          onSelectOfDateOrTime: (p0) {
-                            localTodoData.endTime = p0;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  ContentWidget(
-                    title: "Notes",
-                    textFieldType: TextFieldType.MULTILINE,
-                    lines: 5,
-                    controller: localTodoData.note,
-                    focusNode: localTodoData.notesNode,
-                  ),
-                ],
-              ),
-            ),
-            if (!isKeyboardNotOpened)
-              const Offstage()
-            else
-              Positioned(
-                bottom: 16,
-                left: 16,
-                right: 16,
-                child: BlocBuilder<TodoBloc, TodoState>(
-                  bloc: todoBloc,
-                  builder: (_, state) {
-                    if (todoBloc.state is LoadingState) return const Offstage();
-                    if (todoBloc.state is NoInternetConnectionState) return const Offstage();
+    final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), [isInternetConnected]);
 
-                    if (todoBloc.state is InitTodoState) {
-                      return CustomButton(
-                        data: _getButtonText,
-                        onTap: () {
-                          _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
-                            context.go(ApplicationPaths.todoListViewPage);
-                            todoBloc.add(InitEvent(const []));
-                          });
-                        },
-                      );
-                    }
+    useEffect(() {
+      if (isInternetConnected) {
+        todoBloc.add(InitEvent(const []));
+      } else {
+        todoBloc.add(NoInternetConnectionEvent());
+      }
 
-                    return const Offstage();
+      return null;
+    }, [isInternetConnected]);
+
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Form(
+            key: localTodoData.validatorKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: AnimatedScrollView(
+              listAnimationType: ListAnimationType.None,
+              padding: const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 60),
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: Text(_getTitle, style: boldTextStyle(size: 28))),
+                  ],
+                ),
+                ContentWidget(
+                  title: 'task'.tr(),
+                  controller: localTodoData.title,
+                  focusNode: localTodoData.titleNode,
+                ),
+                ContentWidget(
+                  title: 'descriptions'.tr(),
+                  controller: localTodoData.description,
+                  focusNode: localTodoData.descriptionNode,
+                  textInputAction: TextInputAction.done,
+                ),
+                ContentWidget(
+                  title: 'date'.tr(),
+                  controller: localTodoData.dateController,
+                  focusNode: localTodoData.dateNode,
+                  isDateField: true,
+                  onSelectOfDateOrTime: (p0) {
+                    localTodoData.date = p0;
                   },
                 ),
-              )
-          ],
-        ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: ContentWidget(
+                        title: 'start_time'.tr(),
+                        controller: localTodoData.startTimeController,
+                        focusNode: localTodoData.startTimeNode,
+                        isTimeField: true,
+                        onSelectOfDateOrTime: (p0) {
+                          localTodoData.startTime = p0;
+                        },
+                      ),
+                    ),
+                    16.width,
+                    Flexible(
+                      child: ContentWidget(
+                        title: 'end_time'.tr(),
+                        controller: localTodoData.endTimeController,
+                        focusNode: localTodoData.endTimeNode,
+                        isTimeField: true,
+                        onSelectOfDateOrTime: (p0) {
+                          localTodoData.endTime = p0;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                ContentWidget(
+                  title: "Notes",
+                  textFieldType: TextFieldType.MULTILINE,
+                  lines: 5,
+                  controller: localTodoData.note,
+                  focusNode: localTodoData.notesNode,
+                ),
+              ],
+            ),
+          ),
+          if (!isKeyboardNotOpened)
+            const Offstage()
+          else
+            Positioned(
+              bottom: 16,
+              left: 16,
+              right: 16,
+              child: BlocBuilder<TodoBloc, TodoState>(
+                bloc: todoBloc,
+                builder: (_, state) {
+                  if (todoBloc.state is LoadingState) return const Offstage();
+                  if (todoBloc.state is NoInternetConnectionState) return const Offstage();
+
+                  if (todoBloc.state is InitTodoState) {
+                    return CustomButton(
+                      data: _getButtonText,
+                      onTap: () {
+                        _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
+                          context.go(ApplicationPaths.todoListViewPage);
+                          todoBloc.add(InitEvent(const []));
+                        });
+                      },
+                    );
+                  }
+
+                  return const Offstage();
+                },
+              ),
+            )
+        ],
       ),
     );
   }

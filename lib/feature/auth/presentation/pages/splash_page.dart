@@ -4,7 +4,7 @@ class SplashPage extends HookWidget {
   const SplashPage({super.key});
 
   void init(BuildContext context, AuthBloc authBloc) async {
-    await 3.seconds.delay;
+    await 1.seconds.delay;
     await UserCredentials.getUserAccessToken.then((token) {
       if (token.validate().isNotEmpty) {
         context.pushReplacement(ApplicationPaths.todoListViewPage);

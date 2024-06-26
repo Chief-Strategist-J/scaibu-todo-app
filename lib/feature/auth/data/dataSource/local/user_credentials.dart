@@ -5,6 +5,8 @@ class UserCredentials {
   static const email = 'email';
   static const id = 'id';
   static const accessToken = 'accessToken';
+  static const firebasePhotoUrl = 'firebasePhotoUrl';
+
 
   static Future<Box<dynamic>> get getUserBox async {
     return await Hive.openBox('_UserAuthBox_');
@@ -13,6 +15,11 @@ class UserCredentials {
   static Future<num?> get getUserId async {
     Box<dynamic> box = await getUserBox;
     return box.get(UserCredentials.id);
+  }
+
+  static Future<String?> get getFirebasePhotoUrl async {
+    Box<dynamic> box = await getUserBox;
+    return box.get(UserCredentials.firebasePhotoUrl);
   }
 
   static Future<String?> get getUserName async {

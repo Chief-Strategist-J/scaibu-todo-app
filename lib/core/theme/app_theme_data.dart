@@ -46,6 +46,7 @@ class AppThemeData {
         enabledBorder: _getInputBoarder,
         focusedBorder: _getInputBoarder,
         errorBorder:_getInputBoarder,
+          border: _getInputBoarder,
           disabledBorder: _getInputBoarder,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(

@@ -1,38 +1,12 @@
 import 'package:todo_app/core/app_library.dart';
 
-class AuthFormState extends ChangeNotifier {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  final userNameFocusNode = FocusNode();
-  final emailFocusNode = FocusNode();
-  final passwordFocusNode = FocusNode();
-
-  final validatorKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    userNameFocusNode.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    super.dispose();
-  }
-}
-
 class LoginPage extends HookWidget {
   const LoginPage({super.key});
 
   Future<void> onLoginOrSignUpTap(AuthBloc authBloc, AuthFormState authFormState, bool isSignUp) async {
     if (!authFormState.validatorKey.currentState!.validate()) {
-      toast("Please fill the details");
       return;
     }
-
-    final loginUseCase = getIt<LoginUseCase>();
 
     final Map<String, dynamic> loginReq = {
       "name": authFormState.nameController.text,
@@ -41,7 +15,7 @@ class LoginPage extends HookWidget {
       "is_sign_up": isSignUp,
     };
 
-    await loginUseCase.call(loginReq);
+    await getIt<LoginUseCase>().call(loginReq);
     authBloc.add(AuthInitEvent());
   }
 
@@ -170,5 +144,28 @@ class LoginPage extends HookWidget {
         },
       ),
     );
+  }
+}
+
+class AuthFormState extends ChangeNotifier {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final userNameFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
+  final validatorKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    userNameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
   }
 }

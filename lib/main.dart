@@ -7,6 +7,7 @@ Future<void> main() async {
   await initialSetup.languageInit();
   await initialSetup.localStorageInit();
   Provider.debugCheckInvalidValueType = null;
+  textBoldSizeGlobal = 12;
 
   Dependency.setup();
 
