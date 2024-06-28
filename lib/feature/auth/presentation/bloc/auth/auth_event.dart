@@ -12,7 +12,3 @@ class AuthSignInEvent extends AuthEvent {
   List<Object?> get props => [];
 }
 
-class AuthSingUpEvent extends AuthEvent {
-  @override
-  List<Object?> get props => [];
-}

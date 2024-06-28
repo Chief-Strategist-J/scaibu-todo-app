@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 final getIt = GetIt.instance;
 
 class Dependency {
@@ -100,6 +99,11 @@ class Dependency {
   }
 
   static void registerService() {
+    getIt.registerSingletonAsync<UserCredentials>(() async {
+      log('\n USER-CREDENTIALS SERVICE IN INITIALIZED\n\n');
+      return UserCredentials(await Hive.openBox('_UserAuthBox_'));
+    });
+
     getIt.registerLazySingleton(() {
       log('\n\nLOG SERVICE IN INITIALIZED\n\n');
       return LogService();

@@ -1,39 +1,55 @@
 import 'package:todo_app/core/app_library.dart';
 
+final userCredentials = getIt<UserCredentials>();
+
 class UserCredentials {
   static const userName = 'name';
   static const email = 'email';
   static const id = 'id';
   static const accessToken = 'accessToken';
   static const firebasePhotoUrl = 'firebasePhotoUrl';
+  static const firstName = '_firstName';
+  static const lastName = '_lastName';
+  static const phone = '_phone';
+  static const birthDate = '_birthDate';
+  static const address = '_address';
+  static const city = '_city';
+  static const state = '_state';
+  static const country = '_country';
+  static const zipCode = '_zipCode';
+  static const bio = '_bio';
 
+  final Box<dynamic> box;
 
-  static Future<Box<dynamic>> get getUserBox async {
-    return await Hive.openBox('_UserAuthBox_');
-  }
+  UserCredentials(this.box);
 
-  static Future<num?> get getUserId async {
-    Box<dynamic> box = await getUserBox;
-    return box.get(UserCredentials.id);
-  }
+  num? get getUserId => box.get(UserCredentials.id);
 
-  static Future<String?> get getFirebasePhotoUrl async {
-    Box<dynamic> box = await getUserBox;
-    return box.get(UserCredentials.firebasePhotoUrl);
-  }
+  String? get getFirebasePhotoUrl => box.get(UserCredentials.firebasePhotoUrl);
 
-  static Future<String?> get getUserName async {
-    Box<dynamic> box = await getUserBox;
-    return box.get(UserCredentials.userName);
-  }
+  String? get getUserName => box.get(UserCredentials.userName);
 
-  static Future<String?> get getUserEmail async {
-    Box<dynamic> box = await getUserBox;
-    return box.get(UserCredentials.email);
-  }
+  String? get getUserEmail => box.get(UserCredentials.email);
 
-  static Future<String?> get getUserAccessToken async {
-    Box<dynamic> box = await getUserBox;
-    return box.get(UserCredentials.accessToken);
-  }
+  String? get getUserAccessToken => box.get(UserCredentials.accessToken);
+
+  String? get getFirstName => box.get(UserCredentials.firstName);
+
+  String? get getLastName => box.get(UserCredentials.lastName);
+
+  String? get getPhone => box.get(UserCredentials.phone);
+
+  String? get getBirthDate => box.get(UserCredentials.birthDate);
+
+  String? get getAddress => box.get(UserCredentials.address);
+
+  String? get getCity => box.get(UserCredentials.city);
+
+  String? get getState => box.get(UserCredentials.state);
+
+  String? get getCountry => box.get(UserCredentials.country);
+
+  String? get getZipCode => box.get(UserCredentials.zipCode);
+
+  String? get getBio => box.get(UserCredentials.bio);
 }

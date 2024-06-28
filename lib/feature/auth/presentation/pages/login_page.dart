@@ -25,7 +25,7 @@ class LoginPage extends HookWidget {
     final authFormState = useMemoized(() => Provider.of<AuthFormState>(context));
 
     useEffect(() {
-      Future.microtask(() => authBloc.add(AuthSingUpEvent()));
+      //
       return null;
     }, [
       [authBloc]
@@ -46,28 +46,6 @@ class LoginPage extends HookWidget {
                     delegate: SliverChildListDelegate(
                       [
                         64.height,
-                        if (state is SignUpState)
-                          AppTextField(
-                            textFieldType: TextFieldType.NAME,
-                            controller: authFormState.nameController,
-                            focus: authFormState.userNameFocusNode,
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.name,
-                            enableSuggestions: true,
-                            autoFillHints: const [
-                              AutofillHints.name,
-                              AutofillHints.familyName,
-                              AutofillHints.namePrefix,
-                              AutofillHints.nameSuffix,
-                            ],
-                            decoration: InputDecoration(
-                              label: Text(
-                                'User name',
-                                style: boldTextStyle(size: 10),
-                              ),
-                            ),
-                          ),
-                        24.height,
                         AppTextField(
                           textFieldType: TextFieldType.EMAIL,
                           controller: authFormState.emailController,
@@ -100,18 +78,6 @@ class LoginPage extends HookWidget {
                           ),
                         ),
                         24.height,
-                        if (state is SignUpState)
-                          AuthCustomButton(
-                            text: 'Sign-Up',
-                            onPress: () async {
-                              onLoginOrSignUpTap(authBloc, authFormState, true).then((value) {
-                                context.pushReplacement(ApplicationPaths.registrationPage);
-                              });
-                            },
-                          ),
-                        if (state is SignUpState) 12.height,
-                        if (state is SignUpState) const CustomDivider(),
-                        12.height,
                         AuthCustomButton(
                           text: 'Sign-In',
                           onPress: () async {

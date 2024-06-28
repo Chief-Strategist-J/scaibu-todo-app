@@ -14,6 +14,5 @@ class AuthInitState extends AuthState {
 
 class EmptyState extends AuthState {}
 
-class SignUpState extends AuthState {}
 
 class SignInState extends AuthState {}

@@ -1,7 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
 
 class StartDrawer extends StatelessWidget {
-  const StartDrawer({super.key});
+  final TodoBloc _todoBloc;
+  const StartDrawer({super.key, required TodoBloc todoBloc}) : _todoBloc = todoBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +19,20 @@ class StartDrawer extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      FutureBuilder(
-                        future: UserCredentials.getFirebasePhotoUrl,
-                        builder: (context, snapshot) {
-                          if (snapshot.data == null) return const CircleAvatar(radius: 40);
-                          return Image.network(snapshot.data!, width: 40, height: 40);
+                      Builder(
+
+                        builder: (context) {
+                          if (userCredentials.getFirebasePhotoUrl == null) return const CircleAvatar(radius: 40);
+                          return Image.network(userCredentials.getFirebasePhotoUrl!, width: 40, height: 40);
                         },
                       ),
                       16.height,
-                      FutureBuilder(
-                        future: UserCredentials.getUserEmail,
-                        builder: (context, snapshot) {
-                          if (snapshot.data == null) return const CircleAvatar(radius: 40);
+                      Builder(
+
+                        builder: (context) {
+                          if (userCredentials.getUserEmail == null) return const CircleAvatar(radius: 40);
                           return Text(
-                            snapshot.data!.capitalizeFirstLetter().splitBefore('@'),
+                            userCredentials.getUserEmail!.capitalizeFirstLetter().splitBefore('@'),
                             style: boldTextStyle(),
                           );
                         },
@@ -47,10 +48,11 @@ class StartDrawer extends StatelessWidget {
                 reverse: true,
                 children: [
                   64.height,
-                  GestureDetector(
+                  if(_todoBloc.state is! NoInternetConnectionState) GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
-                      //
+                      finish(context);
+                      context.pushReplacement(ApplicationPaths.loginPage);
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -59,7 +61,7 @@ class StartDrawer extends StatelessWidget {
                     ),
                   ),
                   const Divider(thickness: 0.5),
-                  GestureDetector(
+                  if(_todoBloc.state is! NoInternetConnectionState)GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
                       finish(context);

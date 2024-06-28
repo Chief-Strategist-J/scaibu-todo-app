@@ -5,13 +5,11 @@ class SplashPage extends HookWidget {
 
   void init(BuildContext context, AuthBloc authBloc) async {
     await 1.seconds.delay;
-    await UserCredentials.getUserAccessToken.then((token) {
-      if (token.validate().isNotEmpty) {
-        context.pushReplacement(ApplicationPaths.todoListViewPage);
-      } else {
-        context.pushReplacement(ApplicationPaths.loginPage);
-      }
-    });
+    if (userCredentials.getUserAccessToken.validate().isNotEmpty) {
+      context.pushReplacement(ApplicationPaths.todoListViewPage);
+    } else {
+      context.pushReplacement(ApplicationPaths.loginPage);
+    }
   }
 
   @override

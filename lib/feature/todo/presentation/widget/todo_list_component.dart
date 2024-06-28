@@ -10,14 +10,7 @@ class TodoListComponent extends StatelessWidget {
     required this.todoBloc,
   });
 
-
   void _onUpdateCheckBoxValue(BuildContext context, {bool? checked, required TodoEntity todoData}) {
-    if (!isInternetConnected) {
-      todoBloc.add(NoInternetConnectionEvent());
-      toast("Connect to the internet");
-      return;
-    }
-
     if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
@@ -35,22 +28,11 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onRefresh(BuildContext context) {
-    if (!isInternetConnected) {
-      todoBloc.add(NoInternetConnectionEvent());
-      toast("Connect to the internet to perform this action");
-      return Future(() => false);
-    }
-
     todoBloc.add(InitEvent(const []));
     return Future(() => true);
   }
 
   Future<void> _onSwipeOfTodo(DismissDirection direction, BuildContext context, TodoEntity todoData, int index) async {
-    if (!isInternetConnected) {
-      todoBloc.add(NoInternetConnectionEvent());
-      toast("Connect to the internet to perform this action");
-      return;
-    }
     if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
@@ -64,12 +46,6 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
-    if (!isInternetConnected) {
-      todoBloc.add(NoInternetConnectionEvent());
-      toast("Connect to the internet to Edit todo");
-      return;
-    }
-
     if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;

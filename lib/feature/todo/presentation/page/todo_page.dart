@@ -19,8 +19,8 @@ class TodoPage extends HookWidget {
         canPop: false,
         child: Scaffold(
           key: scaffoldKey,
-          drawer: const StartDrawer(),
-          endDrawer: const StartDrawer(),
+          drawer: StartDrawer(todoBloc: todoBloc),
+          endDrawer: StartDrawer(todoBloc: todoBloc),
           body: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onVerticalDragUpdate: (details) {
@@ -68,19 +68,10 @@ class TodoPage extends HookWidget {
           floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
             bloc: todoBloc,
             builder: (context, state) {
-              if (state is LoadingState) return const Offstage();
-              if (state is NoInternetConnectionState) return const Offstage();
-
               if (state is InitTodoState) {
                 return FloatingActionButton(
                   child: const Icon(Icons.add),
                   onPressed: () async {
-                    if (!isInternetConnected) {
-                      toast("connect_to_the_internet_to_create_a_to_do_list".tr());
-                      todoBloc.add(NoInternetConnectionEvent());
-                      return;
-                    }
-
                     context.push(ApplicationPaths.manageTodoPage, extra: null);
                     todoBloc.add(InitEvent(const []));
                   },

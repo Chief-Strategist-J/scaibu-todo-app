@@ -11,10 +11,8 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
     try {
       final auth = await authRepository.standardSignIn(params);
 
-      Box<dynamic> box = await UserCredentials.getUserBox;
-
       UserCredential user;
-      if (params['is_sign_up']) {
+      if (!auth.isLogin.validate()) {
         user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: params['email'],
           password: params['password'],
@@ -26,11 +24,11 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
         );
       }
 
-      if (user.user != null) box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
-      box.put(UserCredentials.email, auth.email);
-      box.put(UserCredentials.id, auth.id);
-      box.put(UserCredentials.userName, auth.name);
-      box.put(UserCredentials.accessToken, auth.accessToken);
+      if (user.user != null) userCredentials.box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
+      userCredentials.box.put(UserCredentials.email, auth.email);
+      userCredentials.box.put(UserCredentials.id, auth.id);
+      userCredentials.box.put(UserCredentials.userName, auth.name);
+      userCredentials.box.put(UserCredentials.accessToken, auth.accessToken);
 
       return Right(auth);
     } catch (e, s) {
