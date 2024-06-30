@@ -24,6 +24,8 @@ export 'package:todo_app/core/error/error_codes.dart';
 export 'package:todo_app/core/network/network_config.dart';
 export 'package:mix/mix.dart' hide Box;
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+export 'package:freezed_annotation/freezed_annotation.dart';
+
 
 /// CORE
 export 'package:todo_app/dependency.dart';

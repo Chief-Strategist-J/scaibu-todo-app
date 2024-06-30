@@ -1,0 +1,40 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+        # Your freezed options here
+        # copy_with: true
+        # equal: true
+        # to_string: true
+        # from_json: true
+        # to_json: true
+        # map: true
+        # union_key: 'type'
+        # union_value_case: 'snake'
+        # generic_argument_factories: true
+        # create_factory: true
+        # create_to_json: true
+        # constructor: true
+        # explicit_to_json: true
+        # explicit_from_json: true
+        # when: true
+        # when_is: true
+        # create_partner: true
+        # private_setters: true
+        # generate_for:
+        #   # Specific options for individual files/classes
+        #   - lib/models/login_entity.dart:
+        #       copy_with: true
+        #       equal: true
+        #       to_string: true
+        #       from_json: true
+        #       to_json: true
+        #       map: true
+        #       when: true
+        #       union_key: 'type'
+        #       generic_argument_factories: true
+        #       create_factory: true
+        #       create_to_json: true
+        #       constructor: true
+        #       explicit_to_json: true

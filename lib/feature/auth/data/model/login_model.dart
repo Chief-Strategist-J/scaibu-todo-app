@@ -1,35 +1,27 @@
-
 import 'package:todo_app/core/app_library.dart';
 
-class LoginModel extends LoginEntity {
-  LoginModel({
-    super.accessToken,
-    super.email,
-    super.id,
-    super.isLogin,
-    super.isSignUp,
-    super.name,
-  });
+part 'login_model.freezed.dart';
+part 'login_model.g.dart';
 
-  factory LoginModel.fromJson(dynamic json) {
-    return LoginModel(
-      id: json['id'],
-      accessToken: json['access_token'],
-      isSignUp: json['is_sign_up'],
-      isLogin: json['is_login'],
-      email: json['email'],
-      name: json['name'],
-    );
-  }
+@freezed
+class LoginModel with _$LoginModel, LoginEntityMixin {
+  const LoginModel._(); // Add this line
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'email': email,
-      'is_login': isLogin,
-      'is_sign_up': isSignUp,
-      'access_token': accessToken,
-    };
-  }
+  const factory LoginModel({
+    @override bool? isLogin,
+    @override bool? isSignUp,
+    @override String? accessToken,
+    @override num? id,
+    @override String? name,
+    @override String? email,
+  }) = _LoginModel;
+
+  factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
 }
+
+// Yes, if a method's return type is LoginEntity and you're returning a LoginModel, it will work.
+// This is due to the way we've set up the classes using the mixin approach.
+//
+// LoginEntity getLoginInfo() => LoginModel();
+// This is valid because LoginModel has all the properties of LoginEntity
+

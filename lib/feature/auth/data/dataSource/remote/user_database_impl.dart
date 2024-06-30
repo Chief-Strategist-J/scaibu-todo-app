@@ -38,7 +38,7 @@ class UserDatabaseImpl implements UserBaseApi {
     );
   }
 
-  @override
+    @override
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred) async {
     LoginResponse res = LoginResponse.fromJson(
       await restApi.request(
