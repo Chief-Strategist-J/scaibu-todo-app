@@ -1,4 +1,3 @@
-import 'package:provider/provider.dart';
 import 'package:todo_app/core/app_library.dart';
 
 Future<void> main() async {

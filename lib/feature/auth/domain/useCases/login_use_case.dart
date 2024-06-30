@@ -9,6 +9,8 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   @override
   Future<Either<Failure, LoginEntity>> call(Map<String, dynamic> params) async {
     try {
+      toast("Logging ...", bgColor: AppThemeData.cardColor, length: Toast.LENGTH_SHORT);
+
       final auth = await authRepository.standardSignIn(params);
 
       UserCredential user;
@@ -18,11 +20,14 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
           password: params['password'],
         );
       } else {
-        user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          user = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: params['email'],
           password: params['password'],
         );
       }
+
+
+      userCredentials.box.put(UserCredentials.isLogin, true);
 
       if (user.user != null) userCredentials.box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
       userCredentials.box.put(UserCredentials.email, auth.email);
@@ -32,6 +37,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
 
       return Right(auth);
     } catch (e, s) {
+      toast(e.toString());
       logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
       return Left(ServerFailure('Failed to create todo'));
     }

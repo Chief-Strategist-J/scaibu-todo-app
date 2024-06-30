@@ -71,7 +71,7 @@ class TimeService {
     return _dateFormat.format(date);
   }
   String convertToTime(DateTime dateTime){
-    final timeOfDay = TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);;
+    final timeOfDay = TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
     return _formatTimeOfDay(timeOfDay);
   }
 

@@ -7,6 +7,8 @@ class UserCredentials {
   static const email = 'email';
   static const id = 'id';
   static const accessToken = 'accessToken';
+  static const isLogin = '_isLogin';
+
   static const firebasePhotoUrl = 'firebasePhotoUrl';
   static const firstName = '_firstName';
   static const lastName = '_lastName';
@@ -26,6 +28,8 @@ class UserCredentials {
   num? get getUserId => box.get(UserCredentials.id);
 
   String? get getFirebasePhotoUrl => box.get(UserCredentials.firebasePhotoUrl);
+
+  bool? get getIsLogin => box.get(UserCredentials.isLogin);
 
   String? get getUserName => box.get(UserCredentials.userName);
 
@@ -52,4 +56,23 @@ class UserCredentials {
   String? get getZipCode => box.get(UserCredentials.zipCode);
 
   String? get getBio => box.get(UserCredentials.bio);
+
+  void clear() {
+    box.delete(userName);
+    box.delete(email);
+    box.delete(id);
+    box.delete(accessToken);
+    box.delete(isLogin);
+    box.delete(firebasePhotoUrl);
+    box.delete(firstName);
+    box.delete(lastName);
+    box.delete(phone);
+    box.delete(birthDate);
+    box.delete(address);
+    box.delete(city);
+    box.delete(state);
+    box.delete(country);
+    box.delete(zipCode);
+    box.delete(bio);
+  }
 }

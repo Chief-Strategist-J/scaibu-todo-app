@@ -4,12 +4,15 @@ class SplashPage extends HookWidget {
   const SplashPage({super.key});
 
   void init(BuildContext context, AuthBloc authBloc) async {
-    await 1.seconds.delay;
-    if (userCredentials.getUserAccessToken.validate().isNotEmpty) {
-      context.pushReplacement(ApplicationPaths.todoListViewPage);
-    } else {
-      context.pushReplacement(ApplicationPaths.loginPage);
-    }
+    await 1.seconds.delay.then(
+      (value) {
+        if (userCredentials.getUserAccessToken.validate().isNotEmpty) {
+          context.pushReplacement(ApplicationPaths.todoListViewPage);
+        } else {
+          context.pushReplacement(ApplicationPaths.loginPage);
+        }
+      },
+    );
   }
 
   @override

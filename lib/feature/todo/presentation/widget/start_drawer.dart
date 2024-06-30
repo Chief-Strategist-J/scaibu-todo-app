@@ -1,13 +1,31 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/shared/widget/dialogs.dart';
 
 class StartDrawer extends StatelessWidget {
   final TodoBloc _todoBloc;
+
   const StartDrawer({super.key, required TodoBloc todoBloc}) : _todoBloc = todoBloc;
+
+  void _onLogOutTap(BuildContext context) {
+    appShowConfirmDialogCustom(
+      context,
+      title: 'Confirm Log-Out?',
+      dialogType: DialogType.DELETE,
+      backgroundColor:Colors.white,
+      cancelButtonColor: Colors.black,
+      negativeTextColor: Colors.white,
+      positiveText: "Log-Out",
+      onAccept: (p0) {
+        userCredentials.clear();
+        context.pushReplacement(ApplicationPaths.loginPage);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: context.width()*0.5,
+      width: context.width() * 0.5,
       child: SizedBox(
         height: context.height(),
         width: context.width(),
@@ -20,7 +38,6 @@ class StartDrawer extends StatelessWidget {
                   child: Column(
                     children: [
                       Builder(
-
                         builder: (context) {
                           if (userCredentials.getFirebasePhotoUrl == null) return const CircleAvatar(radius: 40);
                           return Image.network(userCredentials.getFirebasePhotoUrl!, width: 40, height: 40);
@@ -28,7 +45,6 @@ class StartDrawer extends StatelessWidget {
                       ),
                       16.height,
                       Builder(
-
                         builder: (context) {
                           if (userCredentials.getUserEmail == null) return const CircleAvatar(radius: 40);
                           return Text(
@@ -48,31 +64,32 @@ class StartDrawer extends StatelessWidget {
                 reverse: true,
                 children: [
                   64.height,
-                  if(_todoBloc.state is! NoInternetConnectionState) GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      finish(context);
-                      context.pushReplacement(ApplicationPaths.loginPage);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                      child: Text("Log-Out", style: boldTextStyle()),
+                  if (_todoBloc.state is! NoInternetConnectionState)
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () async {
+                        _onLogOutTap(context);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                        child: Text("Log-Out", style: boldTextStyle()),
+                      ),
                     ),
-                  ),
                   const Divider(thickness: 0.5),
-                  if(_todoBloc.state is! NoInternetConnectionState)GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      finish(context);
-                      context.push(ApplicationPaths.manageTodoPage, extra: null);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                      child: Text("Add Task", style: boldTextStyle()),
+                  if (_todoBloc.state is! NoInternetConnectionState)
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        finish(context);
+                        context.push(ApplicationPaths.manageTodoPage, extra: null);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                        child: Text("Add Task", style: boldTextStyle()),
+                      ),
                     ),
-                  ),
                   const Divider(thickness: 0.5),
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
