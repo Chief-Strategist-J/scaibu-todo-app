@@ -42,12 +42,35 @@ dependencies:
   provider: ^6.1.2
   firebase_auth: ^5.1.1
   lottie: ^3.1.2
+  # Code generator
+  envied: ^0.5.4+1
+  freezed: ^2.5.2
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+  build_runner: ^2.4.11
+  json_serializable: ^6.8.0
+  envied_generator: ^0.5.4+1
+
+# main command =>  flutter pub run build_runner build --delete-conflicting-outputs
+
+#  Commands
+# 1. build: Runs a single build and exits.
+# 2. watch: Runs a persistent build server that watches the files system for edits and does rebuilds as necessary.
+# 3. serve: Same as watch, but runs a development server as well.
+# 4. test: Runs a single build, creates a merged output directory, and then runs dart run test --precompiled <merged-output-dir>. See below for instructions on passing custom args to the test command.
+
+#  Command Line Options
+# All the above commands support the following arguments:
+# 1. --help: Print usage information for the command.
+# 2. --delete-conflicting-outputs: Assume conflicting outputs in the users package are from previous builds, and skip the user prompt that would usually be provided.
+# 3. --[no-]fail-on-severe: Whether to consider the build a failure on an error logged. By default this is false.
+# 4. --build-filter: Build filters allow you to choose explicitly which files to build instead of building entire directories. See further documentation on this feature here.
 
 
 flutter:

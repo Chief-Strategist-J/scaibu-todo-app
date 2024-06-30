@@ -1,5 +1,4 @@
-import 'package:todo_app/feature/auth/domain/entity/user_entity.dart';
-import 'package:todo_app/feature/auth/domain/repository/auth_user_detail_repository.dart';
+import 'package:todo_app/core/app_library.dart';
 
 class AuthUserDetailRepositoryImpl implements AuthUserDetailRepository {
   @override

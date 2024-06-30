@@ -96,3 +96,4 @@ export 'package:todo_app/feature/auth/presentation/widget/customButton/auth_cust
 export 'package:todo_app/feature/auth/data/dataSource/remote/user_database_impl.dart';
 export 'package:todo_app/feature/auth/data/repository/auth_repository_impl.dart';
 export 'package:todo_app/feature/auth/presentation/widget/custom_divider.dart';
+export 'package:todo_app/feature/auth/domain/repository/auth_user_detail_repository.dart';
