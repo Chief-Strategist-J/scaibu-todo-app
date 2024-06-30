@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/shared/widget/dialogs.dart';
 
 class StartDrawer extends StatelessWidget {
   final TodoBloc _todoBloc;
@@ -17,6 +16,7 @@ class StartDrawer extends StatelessWidget {
       positiveText: "Log-Out",
       onAccept: (p0) {
         userCredentials.clear();
+        OneSignal.logout();
         context.pushReplacement(ApplicationPaths.loginPage);
       },
     );

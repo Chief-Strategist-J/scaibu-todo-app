@@ -25,6 +25,7 @@ export 'package:todo_app/core/network/network_config.dart';
 export 'package:mix/mix.dart' hide Box;
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 export 'package:freezed_annotation/freezed_annotation.dart';
+export 'package:onesignal_flutter/onesignal_flutter.dart';
 
 
 /// CORE
@@ -80,8 +81,8 @@ export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/
 // Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
 export 'package:todo_app/feature/auth/data/model/response/login_response.dart';
-export 'package:todo_app/feature/auth/domain/entity/login_entity.dart';
-export 'package:todo_app/feature/auth/domain/entity/user_entity.dart';
+export 'package:todo_app/feature/auth/domain/entity/loginEntity/login_entity.dart';
+export 'package:todo_app/feature/auth/domain/entity/userEntity/user_entity.dart';
 export 'package:todo_app/feature/auth/domain/repository/auth_repository.dart';
 export 'package:todo_app/feature/auth/presentation/pages/forget_password_page.dart';
 export 'package:todo_app/feature/auth/presentation/pages/login_page.dart';
@@ -99,3 +100,4 @@ export 'package:todo_app/feature/auth/data/dataSource/remote/user_database_impl.
 export 'package:todo_app/feature/auth/data/repository/auth_repository_impl.dart';
 export 'package:todo_app/feature/auth/presentation/widget/custom_divider.dart';
 export 'package:todo_app/feature/auth/domain/repository/auth_user_detail_repository.dart';
+export 'package:todo_app/shared/widget/dialogs.dart';

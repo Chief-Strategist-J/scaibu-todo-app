@@ -4,6 +4,7 @@ Future<void> main() async {
   await initialSetup.utilityInit();
   await initialSetup.firebaseInit();
   await initialSetup.languageInit();
+  await initialSetup.oneSignalInit();
   await initialSetup.localStorageInit();
   Provider.debugCheckInvalidValueType = null;
   textBoldSizeGlobal = 12;

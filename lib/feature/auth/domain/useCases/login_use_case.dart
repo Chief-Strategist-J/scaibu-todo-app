@@ -20,20 +20,14 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
           password: params['password'],
         );
       } else {
-          user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        user = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: params['email'],
           password: params['password'],
         );
       }
 
-
-      userCredentials.box.put(UserCredentials.isLogin, true);
-
-      if (user.user != null) userCredentials.box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
-      userCredentials.box.put(UserCredentials.email, auth.email);
-      userCredentials.box.put(UserCredentials.id, auth.id);
-      userCredentials.box.put(UserCredentials.userName, auth.name);
-      userCredentials.box.put(UserCredentials.accessToken, auth.accessToken);
+      _oneSignalLogin(params);
+      _storeCred(user, auth);
 
       return Right(auth);
     } catch (e, s) {
@@ -41,5 +35,21 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
       logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
       return Left(ServerFailure('Failed to create todo'));
     }
+  }
+
+  void _storeCred(UserCredential user, LoginEntity auth) {
+    userCredentials.box.put(UserCredentials.isLogin, true);
+
+    if (user.user != null) userCredentials.box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
+    userCredentials.box.put(UserCredentials.email, auth.email);
+    userCredentials.box.put(UserCredentials.id, auth.id);
+    userCredentials.box.put(UserCredentials.userName, auth.name);
+    userCredentials.box.put(UserCredentials.accessToken, auth.accessToken);
+  }
+
+  void _oneSignalLogin(Map<String, dynamic> params) {
+    OneSignal.login(params['email']);
+    OneSignal.User.addEmail(params['email']);
+    OneSignal.User.addTags({'email': params['email']});
   }
 }

@@ -6,3 +6,4 @@ linter:
 analyzer:
   errors:
     invalid_annotation_target: ignore
+    override_on_non_overriding_member: ignore

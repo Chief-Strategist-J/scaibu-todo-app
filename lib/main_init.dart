@@ -1,5 +1,7 @@
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/core/secret/env.dart';
 
 InitialSetup initialSetup = InitialSetup();
 
@@ -37,5 +39,17 @@ class InitialSetup {
   Future<void> localStorageInit() async {
     final directory = await getApplicationDocumentsDirectory();
     Hive.init(directory.path);
+  }
+
+  Future<void> oneSignalInit() async{
+    OneSignal.Debug.setAlertLevel(OSLogLevel.none);
+    OneSignal.initialize(Env.oneSignalAppID);
+    OneSignal.consentRequired(true);
+    OneSignal.consentGiven(true);
+
+    OneSignal.Notifications.requestPermission(true);
+    OneSignal.Notifications.clearAll();
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
   }
 }

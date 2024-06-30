@@ -26,7 +26,7 @@ class UserDatabaseImpl implements UserBaseApi {
       ),
     );
 
-    if (res.data == null || res.data?.userInfo == null) return LoginEntity();
+    if (res.data == null || res.data?.userInfo == null) return const LoginEntity();
 
     return LoginEntity(
       name: res.data?.userInfo?.name,
@@ -48,7 +48,7 @@ class UserDatabaseImpl implements UserBaseApi {
       ),
     );
 
-    if (res.data == null || res.data?.userInfo == null) return LoginEntity();
+    if (res.data == null || res.data?.userInfo == null) return const LoginEntity();
 
     return LoginEntity(
       name: res.data?.userInfo?.name,
@@ -107,7 +107,7 @@ class UserDatabaseImpl implements UserBaseApi {
         type: HttpRequestMethod.post,
       ),
     );
-    if (verify.data == null) return UserEntity();
+    if (verify.data == null) return const UserEntity();
 
     return UserEntity(
       id: verify.data?.id,

@@ -42,11 +42,14 @@ dependencies:
   provider: ^6.1.2
   firebase_auth: ^5.1.1
   lottie: ^3.1.2
+
+
   # Code generator
   envied: ^0.5.4+1
   freezed: ^2.5.2
   freezed_annotation: ^2.4.1
   json_annotation: ^4.9.0
+  onesignal_flutter: ^5.2.1
 
 dev_dependencies:
   flutter_test:
