@@ -40,7 +40,9 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   void _storeCred(UserCredential user, LoginEntity auth) {
     userCredentials.box.put(UserCredentials.isLogin, true);
 
-    if (user.user != null) userCredentials.box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
+    if (user.user != null) {
+      userCredentials.box.put(UserCredentials.firebasePhotoUrl, user.user?.photoURL);
+    }
     userCredentials.box.put(UserCredentials.email, auth.email);
     userCredentials.box.put(UserCredentials.id, auth.id);
     userCredentials.box.put(UserCredentials.userName, auth.name);

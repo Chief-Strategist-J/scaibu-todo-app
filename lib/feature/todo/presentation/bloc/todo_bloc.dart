@@ -13,7 +13,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<NoInternetConnectionEvent>(_onNoInternetConnectionUpdate);
   }
 
-  void getInternetConnectionStatus() {
+  void _getInternetConnectionStatus() {
     _internetStatusSubscription = InternetConnection().onStatusChange.listen(_handleInternetStatusChange);
   }
 
@@ -32,11 +32,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _handleInternetStatusChange(InternetStatus status) {
-    (status == InternetStatus.connected) ? add(InitEvent(const [], isListUpdated: false)) : add(NoInternetConnectionEvent());
+    if (status == InternetStatus.connected) {
+      add(InitEvent(const [], isListUpdated: false));
+    } else {
+      add(NoInternetConnectionEvent());
+    }
   }
 
   Future<void> _init(InitEvent event, Emitter<TodoState> emit) async {
-    getInternetConnectionStatus();
+    _getInternetConnectionStatus();
 
     final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
     final res = await getTodoListUseCase(event.isListUpdated);
@@ -51,11 +55,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
     try {
-      if (!isInternetConnected) {
-        add(NoInternetConnectionEvent());
-        return;
-      }
-
       final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
 
       final Map<String, dynamic> todoData = {
@@ -77,11 +76,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> archiveTodo({required TodoEntity todoItem}) async {
-    if (!isInternetConnected) {
-      add(NoInternetConnectionEvent());
-      return;
-    }
-
     try {
       final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
 
@@ -113,8 +107,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       "description": todoDetail.description.text,
       "is_archived": false,
       "is_completed": false,
-      'notes':todoDetail.note.text,
+      'notes': todoDetail.note.text,
     };
+
     if (todoDetail.startTime != null) {
       todo.putIfAbsent('start_time', () => todoDetail.startTime?.dateTime.toString());
     }
@@ -123,6 +118,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
     if (todoDetail.date != null) {
       todo.putIfAbsent('date', () => todoDetail.date?.dateTime.toString());
+    }
+
+    if (userCredentials.getIsLogin.validate()) {
+      todo.putIfAbsent('created_by', () => userCredentials.getUserId);
     }
 
     try {
@@ -150,9 +149,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> onEditPageUpdateTodo(ManageTodoPageParam todoPage) async {
-    if (todoPage.firebaseTodoId.validate().isEmpty || todoPage.todoId.validate().isEmpty) {
-      return;
-    }
+    if (todoPage.firebaseTodoId.validate().isEmpty || todoPage.todoId.validate().isEmpty) return;
+
     add(LoadingEvent());
 
     final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
@@ -161,7 +159,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       'todo_id': todoPage.todoId,
       'title': todoPage.title.text,
       'description': todoPage.description.text,
-      'notes':todoPage.note.text,
+      'notes': todoPage.note.text,
     };
 
     if (todoPage.startTime != null) {
@@ -170,9 +168,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     if (todoPage.endTime != null) {
       todoData.putIfAbsent('end_time', () => todoPage.endTime?.dateTime.toString());
     }
+
+
     if (todoPage.date != null) {
       todoData.putIfAbsent('date', () => todoPage.date?.dateTime.toString());
     }
+
 
     final updateTodo = UpdateTodoParam(
       firebaseID: todoPage.firebaseTodoId.validate(),

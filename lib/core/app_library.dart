@@ -77,6 +77,7 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.variant.dart';
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
 
 // Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';

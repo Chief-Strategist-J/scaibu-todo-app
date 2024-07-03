@@ -47,9 +47,14 @@ class ContentWidget extends StatelessWidget {
   bool get _isEnabled => !((_isTimeField) || (_isDateField));
 
   Future<void> _onTapOfInputField(BuildContext context) async {
-    if (_onTap != null) _onTap?.call();
+    if (_onTap != null) {
+      _onTap?.call();
+      return;
+    }
 
-    if (FocusScope.of(context).hasFocus) hideKeyboard(context);
+    if (FocusScope.of(context).hasFocus) {
+      hideKeyboard(context);
+    }
 
     if (_isTimeField) {
       final TimeServiceModel time = await timeService.selectTime(context);

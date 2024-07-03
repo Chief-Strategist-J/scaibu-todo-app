@@ -12,12 +12,6 @@ class ManageTodoPage extends HookWidget {
   String get _getButtonText => _getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
 
   Future<void> _onTapOfManageTodo(ManageTodoPageParam todoDetail, BuildContext context, TodoBloc todoBloc) async {
-    if (!isInternetConnected) {
-      todoBloc.add(NoInternetConnectionEvent());
-      toast('connect_to_the_internet_to_perform_this_operation'.tr());
-      return;
-    }
-
     if (todoBloc.state is LoadingState) {
       toast("Loading please wait ...");
       return;
@@ -37,6 +31,26 @@ class ManageTodoPage extends HookWidget {
     } else {
       await todoBloc.createTodo(todoDetail: todoDetail);
     }
+  }
+
+  Future<void> _selectDateAndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
+    await timeService.selectDate(context).then((date) async {
+      localTodoData.date = date;
+      localTodoData.dateController.text = date.formatTimeInString;
+      await _selectStartAndEndTime(context, localTodoData);
+    });
+  }
+
+  Future<void> _selectStartAndEndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
+    await timeService.selectTime(context).then((startTime) async {
+      localTodoData.startTime = startTime;
+      localTodoData.startTimeController.text = startTime.formatTimeInString;
+
+      await timeService.selectTime(context).then((endTime) {
+        localTodoData.endTime = endTime;
+        localTodoData.endTimeController.text = endTime.formatTimeInString;
+      });
+    });
   }
 
   @override
@@ -81,7 +95,6 @@ class ManageTodoPage extends HookWidget {
                   title: 'descriptions'.tr(),
                   controller: localTodoData.description,
                   focusNode: localTodoData.descriptionNode,
-                  textInputAction: TextInputAction.done,
                 ),
                 ContentWidget(
                   title: 'date'.tr(),
@@ -91,33 +104,28 @@ class ManageTodoPage extends HookWidget {
                   onSelectOfDateOrTime: (p0) {
                     localTodoData.date = p0;
                   },
+                  onTap: () async {
+                    await _selectDateAndTime(context, localTodoData);
+                  },
                 ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: ContentWidget(
-                        title: 'start_time'.tr(),
-                        controller: localTodoData.startTimeController,
-                        focusNode: localTodoData.startTimeNode,
-                        isTimeField: true,
-                        onSelectOfDateOrTime: (p0) {
-                          localTodoData.startTime = p0;
-                        },
-                      ),
-                    ),
-                    16.width,
-                    Flexible(
-                      child: ContentWidget(
-                        title: 'end_time'.tr(),
-                        controller: localTodoData.endTimeController,
-                        focusNode: localTodoData.endTimeNode,
-                        isTimeField: true,
-                        onSelectOfDateOrTime: (p0) {
-                          localTodoData.endTime = p0;
-                        },
-                      ),
-                    ),
-                  ],
+                ContentWidget(
+                  title: 'start_time'.tr(),
+                  controller: localTodoData.startTimeController,
+                  focusNode: localTodoData.startTimeNode,
+                  isTimeField: true,
+                  onTap: () async {
+                    await _selectStartAndEndTime(context, localTodoData);
+                  },
+                ),
+                16.height,
+                ContentWidget(
+                  title: 'end_time'.tr(),
+                  controller: localTodoData.endTimeController,
+                  focusNode: localTodoData.endTimeNode,
+                  isTimeField: true,
+                  onSelectOfDateOrTime: (p0) {
+                    localTodoData.endTime = p0;
+                  },
                 ),
                 ContentWidget(
                   title: "Notes",
@@ -125,6 +133,7 @@ class ManageTodoPage extends HookWidget {
                   lines: 5,
                   controller: localTodoData.note,
                   focusNode: localTodoData.notesNode,
+                  textInputAction: TextInputAction.done,
                 ),
               ],
             ),
