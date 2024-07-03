@@ -7,13 +7,13 @@ sealed class TodoState extends Equatable {
 
 class LoadingState extends TodoState {}
 
-class NoInternetConnectionState extends TodoState {
+class NoInternetState extends TodoState {
   final List<TodoEntity>? todoList;
 
-  NoInternetConnectionState({required this.todoList});
+  NoInternetState({required this.todoList});
 
-  factory NoInternetConnectionState.init() {
-    return NoInternetConnectionState(todoList: const []);
+  factory NoInternetState.init() {
+    return NoInternetState(todoList: const []);
   }
 
   InitTodoState copyWith({List<TodoEntity>? todoList}) {

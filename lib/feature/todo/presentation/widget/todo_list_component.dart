@@ -58,7 +58,7 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
-    if (todoBloc.state is NoInternetConnectionState) {
+    if (todoBloc.state is NoInternetState) {
       await context.push(
         ApplicationPaths.manageTodoPage,
         extra: ManageTodoPageParam.fromTodoEntity(todoData),

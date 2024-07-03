@@ -1,9 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
-class StartDrawer extends StatelessWidget {
+class DrawerComponent extends StatelessWidget {
   final TodoBloc _todoBloc;
 
-  const StartDrawer({super.key, required TodoBloc todoBloc}) : _todoBloc = todoBloc;
+  const DrawerComponent({super.key, required TodoBloc todoBloc}) : _todoBloc = todoBloc;
 
   void _onLogOutTap(BuildContext context) {
     appShowConfirmDialogCustom(
@@ -64,7 +64,7 @@ class StartDrawer extends StatelessWidget {
                 reverse: true,
                 children: [
                   64.height,
-                  if (_todoBloc.state is! NoInternetConnectionState)
+                  if (_todoBloc.state is! NoInternetState)
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () async {
@@ -77,7 +77,7 @@ class StartDrawer extends StatelessWidget {
                       ),
                     ),
                   const Divider(thickness: 0.5),
-                  if (_todoBloc.state is! NoInternetConnectionState)
+                  if (_todoBloc.state is! NoInternetState)
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {

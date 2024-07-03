@@ -4,6 +4,25 @@ import 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
 class TodoPage extends HookWidget {
   const TodoPage({super.key});
 
+  void _handleDrawerDrag(DragUpdateDetails details, GlobalKey<ScaffoldState> scaffoldKey) {
+    if (details.delta.dx < -5) scaffoldKey.currentState?.openEndDrawer(); // -5 is sensitivity
+  }
+
+  void _addTodoTap(BuildContext context, TodoBloc todoBloc) {
+    context.push(ApplicationPaths.manageTodoPage, extra: null);
+    todoBloc.add(InitEvent(const []));
+  }
+
+  List<TodoEntity> _todoList(TodoState state) {
+    if (state is InitTodoState) {
+      return state.todoList ?? [];
+    }
+    if (state is NoInternetState) {
+      return state.todoList ?? [];
+    }
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
@@ -15,71 +34,47 @@ class TodoPage extends HookWidget {
     }, [todoBloc]);
 
     return SafeArea(
-      child: PopScope(
-        canPop: false,
-        child: Scaffold(
-          key: scaffoldKey,
-          drawer: StartDrawer(todoBloc: todoBloc),
-          endDrawer: StartDrawer(todoBloc: todoBloc),
-          body: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onVerticalDragUpdate: (details) {
-              int sensitivity = 5;
-              if (details.delta.dy > sensitivity) {
-              } else if (details.delta.dy < -sensitivity) {}
-            },
-            onHorizontalDragUpdate: (details) {
-              int sensitivity = 5;
-              if (details.delta.dx > sensitivity) {
-                scaffoldKey.currentState?.openDrawer();
-              } else if (details.delta.dx < -sensitivity) {
-                scaffoldKey.currentState?.openEndDrawer();
-              }
-            },
-            child: SizedBox(
-              height: context.height(),
-              child: BlocBuilder<TodoBloc, TodoState>(
-                bloc: todoBloc,
-                builder: (_, state) {
-                  if (state is LoadingState) return const LoadingWidget();
+      child: Scaffold(
+        key: scaffoldKey,
+        endDrawer: DrawerComponent(todoBloc: todoBloc),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
+          bloc: todoBloc,
+          builder: (context, state) {
+            if (state is! InitTodoState) return const Offstage();
 
-                  if (state is InitTodoState || state is NoInternetConnectionState) {
-                    List<TodoEntity> todoList = [];
+            return FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () async {
+                _addTodoTap(context, todoBloc);
+              },
+            );
+          },
+        ),
+        body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onHorizontalDragUpdate: (details) {
+            _handleDrawerDrag(details, scaffoldKey);
+          },
+          child: SizedBox(
+            height: context.height(),
+            child: BlocBuilder<TodoBloc, TodoState>(
+              bloc: todoBloc,
+              builder: (_, state) {
+                final bool isValidStateForList = (state is InitTodoState || state is NoInternetState);
+                final bool listExists = _todoList(state).isNotEmpty;
 
-                    if (state is InitTodoState) {
-                      todoList = state.todoList ?? [];
-                    } else if (state is NoInternetConnectionState) {
-                      todoList = state.todoList ?? [];
-                    }
+                if (isValidStateForList && listExists) {
+                  return TodoListComponent(todoList: _todoList(state), todoBloc: todoBloc);
+                }
 
-                    if (todoList.isEmpty) {
-                      return EmptyWidget(msg: 'no_to_do_items_available'.tr());
-                    } else {
-                      return TodoListComponent(todoList: todoList, todoBloc: todoBloc);
-                    }
-                  }
+                if (state is LoadingState) {
+                  return const LoadingWidget();
+                }
 
-                  return EmptyWidget(msg: 'no_to_do_items_available'.tr());
-                },
-              ),
+                return EmptyWidget(msg: 'no_to_do_items_available'.tr());
+              },
             ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
-            bloc: todoBloc,
-            builder: (context, state) {
-              if (state is InitTodoState) {
-                return FloatingActionButton(
-                  child: const Icon(Icons.add),
-                  onPressed: () async {
-                    context.push(ApplicationPaths.manageTodoPage, extra: null);
-                    todoBloc.add(InitEvent(const []));
-                  },
-                );
-              }
-
-              return const Offstage();
-            },
           ),
         ),
       ),

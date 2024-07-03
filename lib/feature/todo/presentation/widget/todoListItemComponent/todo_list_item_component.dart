@@ -97,7 +97,7 @@ class TodoItem extends StatelessWidget {
           BlocBuilder<TodoBloc, TodoState>(
             bloc: _todoBloc,
             builder: (context, state) {
-              if (state is NoInternetConnectionState) return const Offstage();
+              if (state is NoInternetState) return const Offstage();
 
               return Checkbox(
                 value: _data.isCompleted ?? false,
@@ -130,7 +130,7 @@ class TodoItem extends StatelessWidget {
               BlocBuilder<TodoBloc, TodoState>(
                 bloc: _todoBloc,
                 builder: (context, state) {
-                  if (state is NoInternetConnectionState) return const Offstage();
+                  if (state is NoInternetState) return const Offstage();
 
                   return GestureDetector(
                     onTap: _onTapOfEdit,

@@ -140,7 +140,7 @@ class ManageTodoPage extends HookWidget {
                 bloc: todoBloc,
                 builder: (_, state) {
                   if (todoBloc.state is LoadingState) return const Offstage();
-                  if (todoBloc.state is NoInternetConnectionState) return const Offstage();
+                  if (todoBloc.state is NoInternetState) return const Offstage();
 
                   if (todoBloc.state is InitTodoState) {
                     return CustomButton(

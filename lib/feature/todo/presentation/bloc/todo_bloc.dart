@@ -24,7 +24,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onNoInternetConnectionUpdate(NoInternetConnectionEvent event, emit) async {
-    emit(NoInternetConnectionState(todoList: _tempTodoList));
+    emit(NoInternetState(todoList: _tempTodoList));
   }
 
   Future<void> _onLoadingEvent(LoadingEvent event, Emitter<TodoState> emit) async {
