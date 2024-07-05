@@ -4,6 +4,7 @@ class TodoListItemComponent extends HookWidget {
   final TodoEntity _data;
   final ValueChanged<bool?>? _onChanged;
   final GestureTapCallback _onTapOfEdit;
+  final void Function()? _onPress;
 
   final DismissDirectionCallback? _onDismissed;
   final TodoListItemComponentVariant _variant;
@@ -27,38 +28,40 @@ class TodoListItemComponent extends HookWidget {
         _onDismissed = onDismissed,
         _onTapOfEdit = onTapOfEdit,
         _onChanged = onChanged,
+        _onPress = onPress,
         _data = todoData;
 
   @override
   Widget build(BuildContext context) {
     final style = useMemoized(() => TodoListItemComponentStyle(variant: _variant), []);
 
-    if (_todoBloc.state is InitTodoState) {
+    if (_todoBloc.state is NoInternetState) {
       // DISMISSIBLE ONLY IF HAS INTERNET
-      return Dismissible(
-        key: _uniqueKey,
-        background: const BackgroundComponent(icon: Icons.archive),
-        secondaryBackground: const BackgroundComponent(
-          variant: BackgroundComponentVariant.delete,
-          icon: Icons.delete,
-        ),
-        onDismissed: _onDismissed,
-        child: TodoItem(
-          todoBloc: _todoBloc,
-          data: _data,
-          onChanged: _onChanged,
-          onTapOfEdit: _onTapOfEdit,
-          style: style,
-        ),
+      return TodoItem(
+        onPress: _onPress,
+        todoBloc: _todoBloc,
+        data: _data,
+        onChanged: _onChanged,
+        onTapOfEdit: _onTapOfEdit,
+        style: style,
       );
     }
 
-    return TodoItem(
-      todoBloc: _todoBloc,
-      data: _data,
-      onChanged: _onChanged,
-      onTapOfEdit: _onTapOfEdit,
-      style: style,
+    return Dismissible(
+      key: _uniqueKey,
+      background: const BackgroundComponent(icon: Icons.archive),
+      secondaryBackground: const BackgroundComponent(
+        variant: BackgroundComponentVariant.delete,
+        icon: Icons.delete,
+      ),
+      onDismissed: _onDismissed,
+      child: TodoItem(
+        todoBloc: _todoBloc,
+        data: _data,
+        onChanged: _onChanged,
+        onTapOfEdit: _onTapOfEdit,
+        style: style,
+      ),
     );
   }
 }

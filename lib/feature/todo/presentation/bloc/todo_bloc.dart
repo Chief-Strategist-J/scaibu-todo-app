@@ -102,26 +102,26 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
 
-    final Map<String, dynamic> todo = {
-      "title": todoDetail.title.text,
-      "description": todoDetail.description.text,
-      "is_archived": false,
-      "is_completed": false,
-      'notes': todoDetail.note.text,
-    };
+      final Map<String, dynamic> todo = {
+        "title": todoDetail.title.text,
+        "description": todoDetail.description.text,
+        "is_archived": false,
+        "is_completed": false,
+        "notes": todoDetail.note.text,
+      };
 
     if (todoDetail.startTime != null) {
-      todo.putIfAbsent('start_time', () => todoDetail.startTime?.dateTime.toString());
+        todo.putIfAbsent("start_time", () => todoDetail.startTime?.dateTime.toString());
     }
     if (todoDetail.endTime != null) {
-      todo.putIfAbsent('end_time', () => todoDetail.endTime?.dateTime.toString());
+      todo.putIfAbsent("end_time", () => todoDetail.endTime?.dateTime.toString());
     }
     if (todoDetail.date != null) {
-      todo.putIfAbsent('date', () => todoDetail.date?.dateTime.toString());
+      todo.putIfAbsent("date", () => todoDetail.date?.dateTime.toString());
     }
 
     if (userCredentials.getIsLogin.validate()) {
-      todo.putIfAbsent('created_by', () => userCredentials.getUserId);
+      todo.putIfAbsent("created_by", () => userCredentials.getUserId);
     }
 
     try {

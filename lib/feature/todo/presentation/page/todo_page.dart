@@ -40,7 +40,9 @@ class TodoPage extends HookWidget {
         floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
           bloc: todoBloc,
           builder: (context, state) {
-            if (state is! InitTodoState) return const Offstage();
+            if (state is NoInternetState) {
+              return const Offstage();
+            }
 
             return FloatingActionButton(
               child: const Icon(Icons.add),

@@ -54,7 +54,8 @@ class TimeService {
   }
 
   DateTime _convertTimeOfDayToDateAndTime(TimeOfDay timeOfDay) {
-    return DateTime.now().add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute));
+    final now = DateTime.now();
+    return DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
   }
 
   Future<TimeServiceModel> selectDate(BuildContext context) async {
@@ -67,10 +68,11 @@ class TimeService {
     return time;
   }
 
-  String convertToDate(DateTime date){
+  String convertToDate(DateTime date) {
     return _dateFormat.format(date);
   }
-  String convertToTime(DateTime dateTime){
+
+  String convertToTime(DateTime dateTime) {
     final timeOfDay = TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
     return _formatTimeOfDay(timeOfDay);
   }
@@ -88,7 +90,6 @@ class TimeService {
     return await showTimePicker(
       context: context,
       initialTime: timeOfDay,
-
       builder: (BuildContext context, Widget? child) {
         if (child == null) return const Offstage();
         final data = MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false);

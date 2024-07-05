@@ -46,7 +46,6 @@ class _MyAppState extends State<MyApp> {
             break;
           case InternetStatus.disconnected:
             isInternetConnected = false;
-
             toast(
               'your_internet_is_not_connected'.tr(),
               length: Toast.LENGTH_LONG,
