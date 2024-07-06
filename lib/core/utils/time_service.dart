@@ -2,11 +2,11 @@ import 'package:todo_app/core/app_library.dart';
 
 class TimeServiceModel {
   final String formatTimeInString;
-  final DateTime? dateTime;
+  final DateTime dateTime;
 
   TimeServiceModel({
     required this.formatTimeInString,
-    this.dateTime,
+    required this.dateTime,
   });
 }
 

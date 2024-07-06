@@ -10,14 +10,14 @@ class DrawerComponent extends StatelessWidget {
       context,
       title: 'Confirm Log-Out?',
       dialogType: DialogType.DELETE,
-      backgroundColor:Colors.white,
+      backgroundColor: Colors.white,
       cancelButtonColor: Colors.black,
       negativeTextColor: Colors.white,
       positiveText: "Log-Out",
       onAccept: (p0) {
         userCredentials.clear();
         OneSignal.logout();
-        context.pushReplacement(ApplicationPaths.loginPage);
+        GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage);
       },
     );
   }
@@ -82,7 +82,7 @@ class DrawerComponent extends StatelessWidget {
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
                         finish(context);
-                        context.push(ApplicationPaths.manageTodoPage, extra: null);
+                        GoRouter.of(context).push(ApplicationPaths.manageTodoPage, extra: null);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -95,7 +95,7 @@ class DrawerComponent extends StatelessWidget {
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
                       finish(context);
-                      context.push(ApplicationPaths.profilePage);
+                      GoRouter.of(context).push(ApplicationPaths.profilePage);
                     },
                     child: Container(
                       alignment: Alignment.center,

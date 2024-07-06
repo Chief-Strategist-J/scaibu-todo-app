@@ -8,7 +8,7 @@ class TodoPage extends HookWidget {
   }
 
   void _addTodoTap(BuildContext context, TodoBloc todoBloc) {
-    context.push(ApplicationPaths.manageTodoPage, extra: null);
+    GoRouter.of(context).push(ApplicationPaths.manageTodoPage, extra: null);
     todoBloc.add(InitEvent(const []));
   }
 

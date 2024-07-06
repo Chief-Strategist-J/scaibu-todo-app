@@ -51,7 +51,7 @@ class TodoListComponent extends StatelessWidget {
       return;
     }
 
-    await context.push(
+    await GoRouter.of(context).push(
       ApplicationPaths.manageTodoPage,
       extra: ManageTodoPageParam.fromTodoEntity(todoData),
     );
@@ -59,7 +59,7 @@ class TodoListComponent extends StatelessWidget {
 
   Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
     if (todoBloc.state is NoInternetState) {
-      await context.push(
+      await GoRouter.of(context).push(
         ApplicationPaths.manageTodoPage,
         extra: ManageTodoPageParam.fromTodoEntity(todoData),
       );

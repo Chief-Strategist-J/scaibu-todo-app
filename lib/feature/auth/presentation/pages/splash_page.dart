@@ -7,9 +7,9 @@ class SplashPage extends HookWidget {
     await 1.seconds.delay.then(
       (value) {
         if (userCredentials.getUserAccessToken.validate().isNotEmpty) {
-          context.pushReplacement(ApplicationPaths.todoListViewPage);
+          GoRouter.of(context).pushReplacement(ApplicationPaths.todoListViewPage);
         } else {
-          context.pushReplacement(ApplicationPaths.loginPage);
+          GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage);
         }
       },
     );

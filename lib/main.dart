@@ -21,48 +21,8 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends HookWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  StreamSubscription<InternetStatus>? listener;
-
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
-
-  void init() {
-    listener = InternetConnection().onStatusChange.listen(
-      (InternetStatus status) {
-        switch (status) {
-          case InternetStatus.connected:
-            isInternetConnected = true;
-            break;
-          case InternetStatus.disconnected:
-            isInternetConnected = false;
-            toast(
-              'your_internet_is_not_connected'.tr(),
-              length: Toast.LENGTH_LONG,
-              bgColor: redColor,
-            );
-
-            break;
-        }
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    listener?.cancel();
-    super.dispose();
-  }
 
   List<SingleChildWidget> get blocProviders {
     return [
@@ -71,12 +31,28 @@ class _MyAppState extends State<MyApp> {
     ];
   }
 
-  List<SingleChildWidget> providers = [
-    Provider(create: (context) => AuthFormState()),
-  ];
+  List<SingleChildWidget> get providers {
+    return [
+      Provider(create: (context) => AuthFormState()),
+    ];
+  }
+
+  Dispose? _checkInternetConnectivity() {
+    final StreamSubscription<InternetStatus> listener = InternetConnection().onStatusChange.listen((InternetStatus status) {
+      isInternetConnected = status == InternetStatus.connected;
+
+      if (!isInternetConnected) {
+        toast('your_internet_is_not_connected'.tr(), bgColor: redColor);
+      }
+    });
+
+    return () => listener.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
+    useEffect(_checkInternetConnectivity, []);
+
     return MultiBlocProvider(
       providers: blocProviders,
       child: MultiProvider(

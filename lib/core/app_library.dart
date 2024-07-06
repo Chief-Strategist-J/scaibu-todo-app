@@ -26,6 +26,7 @@ export 'package:mix/mix.dart' hide Box;
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 export 'package:freezed_annotation/freezed_annotation.dart';
 export 'package:onesignal_flutter/onesignal_flutter.dart';
+export 'package:path_provider/path_provider.dart';
 
 
 /// CORE
@@ -43,6 +44,7 @@ export 'package:todo_app/core/useCases/use_case.dart';
 export 'package:todo_app/core/network/rest_api.dart';
 export 'package:todo_app/core/utils/log_service.dart';
 export 'package:todo_app/core/utils/parse_service.dart';
+export 'package:todo_app/core/secret/env.dart';
 
 /// SHARED
 export 'package:todo_app/shared/widget/empty_widget.dart';
