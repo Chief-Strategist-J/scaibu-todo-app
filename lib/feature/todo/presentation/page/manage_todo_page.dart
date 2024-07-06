@@ -37,9 +37,17 @@ class ManageTodoPage extends HookWidget {
 
   Future<void> _selectDateAndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
     await timeService.selectDate(context).then((date) async {
-      localTodoData.date = date;
-      localTodoData.dateController.text = date.formatTimeInString;
-      await _selectStartAndEndTime(context, localTodoData);
+      final now = DateTime.now();
+      final bool isValidDate = date.dateTime.isAfter(DateTime(now.year, now.month, now.day - 1));
+
+      if (isValidDate) {
+        localTodoData.date = date;
+        localTodoData.dateController.text = date.formatTimeInString;
+        await _selectStartAndEndTime(context, localTodoData);
+      } else {
+        toast("Select a valid date, not one that has passed.", bgColor: redColor);
+        _selectDateAndTime(context, localTodoData);
+      }
     });
   }
 
@@ -50,20 +58,27 @@ class ManageTodoPage extends HookWidget {
       if (isValidStartTime) {
         localTodoData.startTime = startTime;
         localTodoData.startTimeController.text = startTime.formatTimeInString;
-
-        await timeService.selectTime(context).then((endTime) async {
-          final bool endTimeIsMoreTheStartTime = endTime.dateTime.isAfter(startTime.dateTime);
-
-          if (endTimeIsMoreTheStartTime) {
-            localTodoData.endTime = endTime;
-            localTodoData.endTimeController.text = endTime.formatTimeInString;
-          } else {
-            toast("End time must be after start time.\n Please retry.", bgColor: redColor);
-            await _selectStartAndEndTime(context, localTodoData);
-          }
-        });
+        await _selectEndTime(context, startTime, localTodoData);
       } else {
         toast("Choose a valid start time,\n not past.", bgColor: redColor);
+        await _selectStartAndEndTime(context, localTodoData);
+      }
+    });
+  }
+
+  Future<void> _selectEndTime(
+    BuildContext context,
+    TimeServiceModel startTime,
+    ManageTodoPageParam localTodoData,
+  ) async {
+    await timeService.selectTime(context).then((endTime) async {
+      final bool endTimeIsMoreTheStartTime = endTime.dateTime.isAfter(startTime.dateTime);
+
+      if (endTimeIsMoreTheStartTime) {
+        localTodoData.endTime = endTime;
+        localTodoData.endTimeController.text = endTime.formatTimeInString;
+      } else {
+        toast("End time must be after start time.\n Please retry.", bgColor: redColor);
         await _selectStartAndEndTime(context, localTodoData);
       }
     });
@@ -130,7 +145,10 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.startTimeNode,
                   isTimeField: true,
                   onTap: () async {
-                    await _selectStartAndEndTime(context, localTodoData);
+                    if (localTodoData.date == null) {
+                      toast("Please select a date before the start-time", bgColor: redColor);
+                      return;
+                    }
                   },
                 ),
                 16.height,
@@ -139,8 +157,11 @@ class ManageTodoPage extends HookWidget {
                   controller: localTodoData.endTimeController,
                   focusNode: localTodoData.endTimeNode,
                   isTimeField: true,
-                  onSelectOfDateOrTime: (p0) {
-                    localTodoData.endTime = p0;
+                  onTap: () async {
+                    if (localTodoData.startTime == null) {
+                      toast("Please select a start time before the end-time.", bgColor: redColor);
+                      return;
+                    }
                   },
                 ),
                 ContentWidget(
