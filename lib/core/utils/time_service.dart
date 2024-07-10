@@ -3,11 +3,9 @@ import 'package:todo_app/core/app_library.dart';
 class TimeServiceModel {
   final String formatTimeInString;
   final DateTime dateTime;
+  final bool isSelected;
 
-  TimeServiceModel({
-    required this.formatTimeInString,
-    required this.dateTime,
-  });
+  TimeServiceModel({required this.formatTimeInString, required this.dateTime, required this.isSelected});
 }
 
 class TimeService {
@@ -46,6 +44,7 @@ class TimeService {
     final TimeOfDay? value = await _timePicker(context);
 
     final TimeServiceModel time = TimeServiceModel(
+      isSelected: value != null,
       formatTimeInString: (value == null) ? _formatTimeOfDay(timeOfDay) : _formatTimeOfDay(value),
       dateTime: (value == null) ? _convertTimeOfDayToDateAndTime(timeOfDay) : _convertTimeOfDayToDateAndTime(value),
     );
@@ -60,7 +59,9 @@ class TimeService {
 
   Future<TimeServiceModel> selectDate(BuildContext context) async {
     DateTime? picked = await _datePicker(context);
+
     final TimeServiceModel time = TimeServiceModel(
+      isSelected: picked != null,
       formatTimeInString: (picked == null) ? _dateFormat.format(_currentDateTime) : _dateFormat.format(picked),
       dateTime: (picked == null) ? _currentDateTime : picked,
     );

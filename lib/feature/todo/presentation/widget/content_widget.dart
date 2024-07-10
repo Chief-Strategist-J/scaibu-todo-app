@@ -83,6 +83,7 @@ class ContentWidget extends StatelessWidget {
         4.height,
         GestureDetector(
           onTap: () async {
+            if(!isInternetConnected) return;
             await _onTapOfInputField(context);
           },
           child: AppTextField(
@@ -91,6 +92,7 @@ class ContentWidget extends StatelessWidget {
             enabled: _isEnabled,
             maxLines: _lines,
             minLines: _lines,
+            readOnly: !isInternetConnected,
             textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             validator: (value) {
               if (value == null) return "Can't Null";

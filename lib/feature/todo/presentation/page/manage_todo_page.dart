@@ -37,6 +37,7 @@ class ManageTodoPage extends HookWidget {
 
   Future<void> _selectDateAndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
     await timeService.selectDate(context).then((date) async {
+      if (!date.isSelected) return;
       final now = DateTime.now();
       final bool isValidDate = date.dateTime.isAfter(DateTime(now.year, now.month, now.day - 1));
 
@@ -53,6 +54,8 @@ class ManageTodoPage extends HookWidget {
 
   Future<void> _selectStartAndEndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
     await timeService.selectTime(context).then((startTime) async {
+      if (!startTime.isSelected) return;
+
       final bool isValidStartTime = startTime.dateTime.isAfter(DateTime.now());
 
       if (isValidStartTime) {
@@ -72,6 +75,8 @@ class ManageTodoPage extends HookWidget {
     ManageTodoPageParam localTodoData,
   ) async {
     await timeService.selectTime(context).then((endTime) async {
+      if (!endTime.isSelected) return;
+
       final bool endTimeIsMoreTheStartTime = endTime.dateTime.isAfter(startTime.dateTime);
 
       if (endTimeIsMoreTheStartTime) {
@@ -147,7 +152,8 @@ class ManageTodoPage extends HookWidget {
                   onTap: () async {
                     if (localTodoData.date == null) {
                       toast("Please select a date before the start-time", bgColor: redColor);
-                      return;
+                    } else {
+                      await _selectStartAndEndTime(context, localTodoData);
                     }
                   },
                 ),
@@ -160,7 +166,8 @@ class ManageTodoPage extends HookWidget {
                   onTap: () async {
                     if (localTodoData.startTime == null) {
                       toast("Please select a start time before the end-time.", bgColor: redColor);
-                      return;
+                    } else {
+                      await _selectEndTime(context, localTodoData.startTime!, localTodoData);
                     }
                   },
                 ),

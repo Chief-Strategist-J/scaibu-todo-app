@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-Future<void> main() async {
+  Future<void> main() async {
   await initialSetup.utilityInit();
   await initialSetup.firebaseInit();
   await initialSetup.languageInit();

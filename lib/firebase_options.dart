@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -63,6 +60,18 @@ class DefaultFirebaseOptions {
     messagingSenderId: '285842097121',
     projectId: 'scaibu-todo-app',
     storageBucket: 'scaibu-todo-app.appspot.com',
+    iosClientId: '285842097121-bhh10v9sivo5i193l0nf07ni80485dkd.apps.googleusercontent.com',
     iosBundleId: 'com.example.todoApp',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDQ3uwm556uiJn6GmAlGSW6nY-xPkgaLWk',
+    appId: '1:285842097121:web:5e7b2a569b4a344a3a48a0',
+    messagingSenderId: '285842097121',
+    projectId: 'scaibu-todo-app',
+    authDomain: 'scaibu-todo-app.firebaseapp.com',
+    storageBucket: 'scaibu-todo-app.appspot.com',
+    measurementId: 'G-4X10P4DYGW',
+  );
+
 }
