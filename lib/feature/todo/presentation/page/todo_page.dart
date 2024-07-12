@@ -35,6 +35,7 @@ class TodoPage extends HookWidget {
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
+        appBar: AppBar(),
         endDrawer: DrawerComponent(todoBloc: todoBloc),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: BlocBuilder<TodoBloc, TodoState>(

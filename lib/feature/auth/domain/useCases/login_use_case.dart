@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/core/app_library.dart';
 
 class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {

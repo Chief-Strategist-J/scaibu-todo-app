@@ -21,8 +21,13 @@ class FirebaseApiImpl implements BaseApi {
 
   @override
   Future<void> deleteTodo(String todoId) async {
-    await todoCollection.doc(todoId).delete();
-    log('FIREBASE API: DELETE TODO');
+
+    await todoCollection.doc(todoId).delete().then((value) {
+      log('FIREBASE API: DELETE TODO $todoId');
+
+    },).catchError((e){
+      log("Error while deleting firebase todo");
+    });
   }
 
   @override

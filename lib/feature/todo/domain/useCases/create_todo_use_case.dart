@@ -9,19 +9,21 @@ class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
   @override
   Future<Either<Failure, void>> call(Map<String, dynamic> params) async {
     try {
-      final todoId = await firebaseRepo.createTodo(params);
-      final localTodoId = await databaseRep.createTodo(params);
+      return await firebaseRepo.createTodo(params).then((todoId) async {
+        return await databaseRep.createTodo(params).then((localTodoId) async {
+          final Map<String, String> req = {'id': localTodoId};
 
-      /// Update created to-do id
-      final Map<String, String> req = {'id': localTodoId};
-      await firebaseRepo.updateTodoId(id: todoId, request: req);
+          return await firebaseRepo.updateTodoId(id: todoId, request: req).then((value) async {
+            final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
 
-      final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
-      await databaseRep.updateTodoId(id: localTodoId, request: serverReq);
-
-      return const Right(null);
-    } catch (e,s) {
-      logService.crashLog(errorMessage: 'Failed to create todo',e: e, stack: s);
+            return await databaseRep.updateTodoId(id: localTodoId, request: serverReq).then((value) {
+              return const Right(null);
+            });
+          });
+        });
+      });
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
       return Left(ServerFailure('Failed to create todo'));
     }
   }

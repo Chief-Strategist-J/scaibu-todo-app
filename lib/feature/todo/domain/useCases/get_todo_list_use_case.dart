@@ -64,7 +64,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
           isCompleted: element['is_completed'],
           firebaseTodoId: element['firebase_todo_id'],
           notes: element['notes'],
-          startTime:element['start_time'],
+          startTime: element['start_time'],
           date: element['date'],
           endTime: element['end_time'],
         );
@@ -78,6 +78,11 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
   Future<void> _storeInCachedList(List<TodoEntity> todoList) async {
     Box<dynamic> box = await getTodoBox;
     List<Map<String, dynamic>> mapTodoList = [];
+
+    if (todoList.isEmpty) {
+      box.put(todoListCachedKey, []);
+      return;
+    }
 
     for (TodoEntity element in todoList) {
       Map<String, dynamic> map = {
@@ -94,7 +99,5 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
 
       mapTodoList.add(map);
     }
-
-    box.put(todoListCachedKey, mapTodoList);
   }
 }

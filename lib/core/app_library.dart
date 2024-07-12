@@ -27,6 +27,7 @@ export 'package:internet_connection_checker_plus/internet_connection_checker_plu
 export 'package:freezed_annotation/freezed_annotation.dart';
 export 'package:onesignal_flutter/onesignal_flutter.dart';
 export 'package:path_provider/path_provider.dart';
+export 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 
 
 /// CORE

@@ -102,16 +102,16 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
 
-      final Map<String, dynamic> todo = {
-        "title": todoDetail.title.text,
-        "description": todoDetail.description.text,
-        "is_archived": false,
-        "is_completed": false,
-        "notes": todoDetail.note.text,
-      };
+    final Map<String, dynamic> todo = {
+      "title": todoDetail.title.text,
+      "description": todoDetail.description.text,
+      "is_archived": false,
+      "is_completed": false,
+      "notes": todoDetail.note.text,
+    };
 
     if (todoDetail.startTime != null) {
-        todo.putIfAbsent("start_time", () => todoDetail.startTime?.dateTime.toString());
+      todo.putIfAbsent("start_time", () => todoDetail.startTime?.dateTime.toString());
     }
     if (todoDetail.endTime != null) {
       todo.putIfAbsent("end_time", () => todoDetail.endTime?.dateTime.toString());
@@ -141,8 +141,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     );
 
     try {
-      await deleteTodoUseCase(deleteParam);
-      add(InitEvent(const [], isListUpdated: true));
+      await deleteTodoUseCase(deleteParam).then((value) {
+        add(InitEvent(const [], isListUpdated: true));
+      });
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
     }
@@ -169,11 +170,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       todoData.putIfAbsent('end_time', () => todoPage.endTime?.dateTime.toString());
     }
 
-
     if (todoPage.date != null) {
       todoData.putIfAbsent('date', () => todoPage.date?.dateTime.toString());
     }
-
 
     final updateTodo = UpdateTodoParam(
       firebaseID: todoPage.firebaseTodoId.validate(),

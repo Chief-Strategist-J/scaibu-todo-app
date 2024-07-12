@@ -37,22 +37,19 @@ class DrawerComponent extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Builder(
-                        builder: (context) {
-                          if (userCredentials.getFirebasePhotoUrl == null) return const CircleAvatar(radius: 40);
-                          return Image.network(userCredentials.getFirebasePhotoUrl!, width: 40, height: 40);
-                        },
-                      ),
+                      userCredentials.getFirebasePhotoUrl == null
+                          ? const CircleAvatar(radius: 40)
+                          : Image.network(
+                              userCredentials.getFirebasePhotoUrl!,
+                              width: 40,
+                              height: 40,
+                            ),
                       16.height,
-                      Builder(
-                        builder: (context) {
-                          if (userCredentials.getUserEmail == null) return const CircleAvatar(radius: 40);
-                          return Text(
-                            userCredentials.getUserEmail!.capitalizeFirstLetter().splitBefore('@'),
-                            style: boldTextStyle(),
-                          );
-                        },
-                      ),
+                      if (userCredentials.getUserEmail != null)
+                        Text(
+                          userCredentials.getUserEmail!.capitalizeFirstLetter().splitBefore('@'),
+                          style: boldTextStyle(),
+                        ),
                     ],
                   ),
                 ),
@@ -64,7 +61,7 @@ class DrawerComponent extends StatelessWidget {
                 reverse: true,
                 children: [
                   64.height,
-                  if (_todoBloc.state is! NoInternetState)
+                  if (_todoBloc.state is! NoInternetState) ...[
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () async {
@@ -76,8 +73,7 @@ class DrawerComponent extends StatelessWidget {
                         child: Text("Log-Out", style: boldTextStyle()),
                       ),
                     ),
-                  const Divider(thickness: 0.5),
-                  if (_todoBloc.state is! NoInternetState)
+                    const Divider(thickness: 0.5),
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
@@ -90,7 +86,8 @@ class DrawerComponent extends StatelessWidget {
                         child: Text("Add Task", style: boldTextStyle()),
                       ),
                     ),
-                  const Divider(thickness: 0.5),
+                    const Divider(thickness: 0.5),
+                  ],
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
