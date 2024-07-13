@@ -7,9 +7,8 @@ class TodoPage extends HookWidget {
     if (details.delta.dx < -5) scaffoldKey.currentState?.openEndDrawer(); // -5 is sensitivity
   }
 
-  void _addTodoTap(BuildContext context, TodoBloc todoBloc) {
-    GoRouter.of(context).push(ApplicationPaths.manageTodoPage, extra: null);
-    todoBloc.add(InitEvent(const []));
+  Future<void> _addTodoTap(BuildContext context, TodoBloc todoBloc) async {
+    await GoRouter.of(context).push(ApplicationPaths.manageTodoPage);
   }
 
   List<TodoEntity> _todoList(TodoState state) {
@@ -24,7 +23,7 @@ class TodoPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), []);
+    final todoBloc = useMemoized(() => context.read<TodoBloc>(), []);
     final scaffoldKey = useMemoized(() => GlobalKey<ScaffoldState>(), []);
 
     useEffect(() {
@@ -48,7 +47,8 @@ class TodoPage extends HookWidget {
             return FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () async {
-                _addTodoTap(context, todoBloc);
+                await _addTodoTap(context, todoBloc);
+
               },
             );
           },

@@ -54,6 +54,7 @@ class DataBaseApiImpl implements BaseApi {
       TodoModel todo = TodoModel(
         todoId: element.id!.toInt(),
         title: element.title,
+        firebaseTodoId: element.firebaseTodoId,
         description: element.description,
         notes: element.notes,
         date: DateTime.parse(element.date.validate()),

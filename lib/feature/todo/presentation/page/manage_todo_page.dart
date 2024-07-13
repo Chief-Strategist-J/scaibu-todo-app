@@ -30,6 +30,7 @@ class ManageTodoPage extends HookWidget {
       await todoBloc.onEditPageUpdateTodo(todoDetail);
     } else {
       await todoBloc.createTodo(todoDetail: todoDetail);
+
     }
 
     return true;
@@ -94,7 +95,7 @@ class ManageTodoPage extends HookWidget {
     final localTodoData = useMemoized(() => todoPage ?? ManageTodoPageParam(), [todoPage]);
     final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
 
-    final todoBloc = useMemoized(() => GetIt.instance<TodoBloc>(), [isInternetConnected]);
+    final todoBloc = useMemoized(() => context.read<TodoBloc>(), [isInternetConnected]);
 
     useEffect(() {
       if (isInternetConnected) {
@@ -198,12 +199,9 @@ class ManageTodoPage extends HookWidget {
                   if (todoBloc.state is InitTodoState) {
                     return CustomButton(
                       data: _getButtonText,
-                      onTap: () {
-                        _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
-                          if (value) {
-                            GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
-                            todoBloc.add(InitEvent(const []));
-                          }
+                      onTap: () async {
+                        await _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
+                          GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
                         });
                       },
                     );

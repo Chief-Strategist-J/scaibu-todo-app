@@ -1,4 +1,3 @@
-
 class TodoListResponse {
   TodoListResponse({
     this.message,
@@ -36,6 +35,7 @@ class TodoListResponse {
     final map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
+
     if (data != null) {
       map['data'] = data?.map((v) => v.toJson()).toList();
     }
@@ -59,6 +59,7 @@ class Data {
     this.startTime,
     this.endTime,
     this.date,
+    this.createdBy,
   });
 
   Data.fromJson(dynamic json) {
@@ -70,9 +71,11 @@ class Data {
     date = json['date'];
     startTime = json['start_time'];
     endTime = json['end_time'];
+    createdBy = json['created_by'] ?? -1;
   }
 
   num? id;
+  num? createdBy;
   String? title;
   String? description;
   String? notes;
@@ -90,17 +93,20 @@ class Data {
     String? date,
     String? startTime,
     String? endTime,
-  }) =>
-      Data(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        notes: notes ?? this.notes,
-        firebaseTodoId: firebaseTodoId ?? this.firebaseTodoId,
-        date: date ?? this.date,
-        endTime: endTime ?? this.endTime,
-        startTime: startTime ?? this.startTime,
-      );
+    num? createdBy,
+  }) {
+    return Data(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      notes: notes ?? this.notes,
+      firebaseTodoId: firebaseTodoId ?? this.firebaseTodoId,
+      date: date ?? this.date,
+      endTime: endTime ?? this.endTime,
+      startTime: startTime ?? this.startTime,
+      createdBy: createdBy ?? this.createdBy,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -112,6 +118,7 @@ class Data {
     map['date'] = date;
     map['start_time'] = startTime;
     map['end_time'] = endTime;
+    map['created_by'] = createdBy;
     return map;
   }
 }

@@ -6,6 +6,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   StreamSubscription<InternetStatus>? _internetStatusSubscription;
   List<TodoEntity>? _tempTodoList = [];
+  bool _internetConnectionStreamInit = true;
 
   TodoBloc({required this.serverRepo, required this.firebaseRepo}) : super(InitTodoState.init()) {
     on<InitEvent>(_init);
@@ -14,7 +15,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _getInternetConnectionStatus() {
-    _internetStatusSubscription = InternetConnection().onStatusChange.listen(_handleInternetStatusChange);
+    if (_internetConnectionStreamInit) {
+      _internetConnectionStreamInit = false;
+      log('INTERNET CONNECTION STREAM IN INITIALIZE');
+      _internetStatusSubscription = InternetConnection().onStatusChange.listen((status) {
+        if (status == InternetStatus.connected) {
+          add(InitEvent(const [], isListUpdated: false));
+        } else {
+          add(NoInternetConnectionEvent());
+        }
+      });
+    }
   }
 
   @override
@@ -31,32 +42,26 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(LoadingState());
   }
 
-  void _handleInternetStatusChange(InternetStatus status) {
-    if (status == InternetStatus.connected) {
-      add(InitEvent(const [], isListUpdated: false));
-    } else {
-      add(NoInternetConnectionEvent());
-    }
-  }
-
   Future<void> _init(InitEvent event, Emitter<TodoState> emit) async {
-    _getInternetConnectionStatus();
+    try {
+      _getInternetConnectionStatus();
 
-    final getTodoListUseCase = GetIt.instance<GetTodoListUseCase>();
-    final res = await getTodoListUseCase(event.isListUpdated);
-
-    res.fold((failure) {
-      logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
-    }, (todoList) {
-      _tempTodoList = todoList;
-      emit(InitTodoState(todoList: todoList));
-    });
+      log('GETTING THE TODO-LIST');
+      await GetIt.instance<GetTodoListUseCase>()(event.isListUpdated).then((res) {
+        res.fold((failure) {
+          logService.crashLog(errorMessage: 'Failed to fetch todo list', e: Object());
+        }, (todoList) {
+          _tempTodoList = todoList;
+          emit(InitTodoState(todoList: todoList));
+        });
+      });
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Error initializing bloc', e: e, stack: s);
+    }
   }
 
   Future<void> updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
     try {
-      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
-
       final Map<String, dynamic> todoData = {
         'todo_id': todoItem.todoId.toString(),
         'is_completed': checked.validate(),
@@ -68,17 +73,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         todoData: todoData,
       );
 
-      await updateTodoUseCase(updateTodo);
-      add(InitEvent(const [], isListUpdated: true));
+      add(LoadingEvent());
+      await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
+        add(InitEvent(const [], isListUpdated: true));
+      });
     } catch (e, s) {
+      add(InitEvent(const [], isListUpdated: false));
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
   }
 
   Future<void> archiveTodo({required TodoEntity todoItem}) async {
     try {
-      final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
-
       final Map<String, dynamic> todoData = {
         'todo_id': todoItem.todoId.toString(),
         'is_archived': true,
@@ -90,18 +96,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         todoData: todoData,
       );
 
-      await updateTodoUseCase(updateTodo);
-      add(InitEvent(const [], isListUpdated: true));
+      add(LoadingEvent());
+      await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
+        add(InitEvent(const [], isListUpdated: true));
+      });
     } catch (e, s) {
+      add(InitEvent(const [], isListUpdated: false));
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
   }
 
   Future<void> createTodo({required ManageTodoPageParam todoDetail}) async {
-    add(LoadingEvent());
-
-    final createTodoUseCase = GetIt.instance<CreateTodoUseCase>();
-
     final Map<String, dynamic> todo = {
       "title": todoDetail.title.text,
       "description": todoDetail.description.text,
@@ -125,36 +130,35 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
 
     try {
-      await createTodoUseCase(todo);
-      add(InitEvent(const [], isListUpdated: true));
+      add(LoadingEvent());
+      await GetIt.instance<CreateTodoUseCase>()(todo).then((value) async {
+        add(InitEvent(const [], isListUpdated: true));
+      });
     } catch (e, s) {
+      add(InitEvent(const [], isListUpdated: false));
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
     }
   }
 
   Future<void> deleteTodo({required TodoEntity todoData}) async {
-    final deleteTodoUseCase = GetIt.instance<DeleteTodoUseCase>();
-
     DeleteTodoParam deleteParam = DeleteTodoParam(
       firebaseId: todoData.firebaseTodoId.validate(),
       localId: todoData.todoId.validate().toString(),
     );
 
     try {
-      await deleteTodoUseCase(deleteParam).then((value) {
+      add(LoadingEvent());
+      await GetIt.instance<DeleteTodoUseCase>()(deleteParam).then((value) {
         add(InitEvent(const [], isListUpdated: true));
       });
     } catch (e, s) {
+      add(InitEvent(const [], isListUpdated: false));
       logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
     }
   }
 
   Future<void> onEditPageUpdateTodo(ManageTodoPageParam todoPage) async {
     if (todoPage.firebaseTodoId.validate().isEmpty || todoPage.todoId.validate().isEmpty) return;
-
-    add(LoadingEvent());
-
-    final updateTodoUseCase = GetIt.instance<UpdateTodoUseCase>();
 
     final Map<String, dynamic> todoData = {
       'todo_id': todoPage.todoId,
@@ -180,7 +184,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       todoData: todoData,
     );
 
-    await updateTodoUseCase(updateTodo);
-    add(InitEvent(const [], isListUpdated: true));
+    add(LoadingEvent());
+    await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
+      add(InitEvent(const [], isListUpdated: true));
+    });
   }
 }

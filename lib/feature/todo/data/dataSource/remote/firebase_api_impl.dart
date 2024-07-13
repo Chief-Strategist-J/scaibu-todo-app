@@ -21,11 +21,11 @@ class FirebaseApiImpl implements BaseApi {
 
   @override
   Future<void> deleteTodo(String todoId) async {
-
-    await todoCollection.doc(todoId).delete().then((value) {
-      log('FIREBASE API: DELETE TODO $todoId');
-
-    },).catchError((e){
+    await todoCollection.doc(todoId).delete().then(
+      (value) {
+        log('FIREBASE API: DELETE TODO $todoId');
+      },
+    ).catchError((e) {
       log("Error while deleting firebase todo");
     });
   }
@@ -36,24 +36,23 @@ class FirebaseApiImpl implements BaseApi {
 
     final value = await todoCollection.where('is_archived', isEqualTo: false).get();
 
-    value.docs.map(
-      (e) {
-        TodoModel todo = TodoModel(
-          todoId: parseService.parseToInt(e.data()['id']),
-          firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
-          title: e.data()['title'],
-          description: e.data()['description'],
-          notes: e.data()['notes'],
-          isCompleted: e.data()['is_completed'] ?? false,
-          startTime: DateTime.parse(e.data()['start_time']),
-          endTime: DateTime.parse(e.data()['end_time']),
-          date: DateTime.parse(e.data()['date']),
-        );
+    value.docs.map((e) {
+      TodoModel todo = TodoModel(
+        todoId: parseService.parseToInt(e.data()['id']),
+        firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
+        title: e.data()['title'],
+        description: e.data()['description'],
+        notes: e.data()['notes'] ?? -1,
+        createdBy: e.data()['created_by'],
+        isCompleted: e.data()['is_completed'] ?? false,
+        startTime: DateTime.parse(e.data()['start_time']),
+        endTime: DateTime.parse(e.data()['end_time']),
+        date: DateTime.parse(e.data()['date']),
+      );
 
-        todoList.add(todo);
-        return e.data();
-      },
-    ).toList();
+      todoList.add(todo);
+      return e.data();
+    }).toList();
 
     log('FIREBASE API: GET LIST OF TODOS');
 

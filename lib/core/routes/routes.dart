@@ -7,7 +7,6 @@ final router = GoRouter(
       name: ApplicationPaths.splashPage,
       path: ApplicationPaths.splashPage,
       builder: (context, state) {
-
         return const SplashPage();
       },
     ),
@@ -15,7 +14,6 @@ final router = GoRouter(
       name: ApplicationPaths.loginPage,
       path: ApplicationPaths.loginPage,
       builder: (context, state) {
-
         return const LoginPage();
       },
     ),

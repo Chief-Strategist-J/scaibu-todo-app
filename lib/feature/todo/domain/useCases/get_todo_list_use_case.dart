@@ -6,83 +6,79 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
 
   GetTodoListUseCase({required this.databaseRepo, required this.firebaseRepo});
 
-  String get todoListCachedKey => 'todoListCachedKey';
+  String get _todoListCacheKey => 'todoListCachedKey';
 
-  Future<Box<dynamic>> get getTodoBox async {
-    return await Hive.openBox('todoBox');
-  }
+  Future<Box<dynamic>> get _fetchTodoBox async => await Hive.openBox('todoBox');
 
   @override
   Future<Either<Failure, List<TodoEntity>>> call(bool params) async {
     try {
-      List<TodoEntity> todoList = [];
-
       if (params) {
-        todoList = await _getListFromRemote(todoList);
-      } else {
-        todoList = await _getStoredCachedOfflineList();
-
-        if (todoList.isEmpty) {
-          todoList = await _getListFromRemote(todoList);
-        }
+        return await _fetchRemoteList().then((todoList) => Right(todoList));
       }
 
-      return Right(todoList);
+      return await _fetchCachedOfflineList().then((todoList) async {
+        if (todoList.isNotEmpty) return Right(todoList);
+
+        return await _fetchRemoteList().then((value) => Right(todoList));
+      });
     } on Exception catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
-
       return Left(ServerFailure('Error fetching todo list'));
     }
   }
 
-  Future<List<TodoEntity>> _getListFromRemote(List<TodoEntity> todoList) async {
-    todoList = await firebaseRepo.getListOfTodos();
-
-    if (todoList.isEmpty) {
-      todoList = await databaseRepo.getListOfTodos();
+  Future<List<TodoEntity>> _fetchRemoteList() async {
+    try {
+      return await firebaseRepo.getListOfTodos().then((todoList) async {
+        if (todoList.isNotEmpty) {
+          return _storeInCachedList(todoList);
+        } else {
+          return await databaseRepo.getListOfTodos().then((list) async {
+            return await _storeInCachedList(list);
+          });
+        }
+      });
+    } catch (e, s) {
+      logService.crashLog(errorMessage: "something went wrong while retrieving list from firebase", e: e, stack: s);
+      throw 'something went wrong $e';
     }
-
-    await _storeInCachedList(todoList);
-    return todoList;
   }
 
-  Future<List<TodoEntity>> _getStoredCachedOfflineList() async {
-    Box<dynamic> box = await getTodoBox;
-    var mapList = box.get(todoListCachedKey) ?? [];
-    List<TodoEntity> offlineList = [];
+  Future<List<TodoEntity>> _fetchCachedOfflineList() async {
+    try {
+      return await _fetchTodoBox.then((box) {
+        var mapList = box.get(_todoListCacheKey) ?? [];
+        if (mapList == null) return [];
 
-    if (mapList == null || mapList.isEmpty) {
-      return [];
+        List<TodoEntity> offlineList = [];
+
+        for (var element in mapList) {
+          offlineList.add(TodoEntity(
+            todoId: element['id'],
+            title: element['title'],
+            createdBy: element['created_by'],
+            description: element['description'],
+            isCompleted: element['is_completed'],
+            firebaseTodoId: element['firebase_todo_id'],
+            notes: element['notes'],
+            startTime: element['start_time'],
+            date: element['date'],
+            endTime: element['end_time'],
+          ));
+        }
+
+        return offlineList;
+      });
+    } catch (e, s) {
+      logService.crashLog(errorMessage: "something went wrong while retrieving list from firebase", e: e, stack: s);
+      throw 'something went wrong $e';
     }
-
-    mapList.forEach(
-      (element) {
-        final todoEntity = TodoEntity(
-          todoId: element['id'],
-          title: element['title'],
-          description: element['description'],
-          isCompleted: element['is_completed'],
-          firebaseTodoId: element['firebase_todo_id'],
-          notes: element['notes'],
-          startTime: element['start_time'],
-          date: element['date'],
-          endTime: element['end_time'],
-        );
-        offlineList.add(todoEntity);
-      },
-    );
-
-    return offlineList;
   }
 
-  Future<void> _storeInCachedList(List<TodoEntity> todoList) async {
-    Box<dynamic> box = await getTodoBox;
+  Future<List<TodoEntity>> _storeInCachedList(List<TodoEntity> todoList) async {
+    Box<dynamic> box = await _fetchTodoBox;
     List<Map<String, dynamic>> mapTodoList = [];
-
-    if (todoList.isEmpty) {
-      box.put(todoListCachedKey, []);
-      return;
-    }
 
     for (TodoEntity element in todoList) {
       Map<String, dynamic> map = {
@@ -90,6 +86,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
         'title': element.title,
         'description': element.description,
         'is_completed': element.isCompleted,
+        'created_by': element.createdBy,
         'firebase_todo_id': element.firebaseTodoId,
         'start_time': element.startTime,
         'end_time': element.endTime,
@@ -99,5 +96,8 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
 
       mapTodoList.add(map);
     }
+    box.put(_todoListCacheKey, mapTodoList);
+
+    return todoList;
   }
 }
