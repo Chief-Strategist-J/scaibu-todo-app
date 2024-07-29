@@ -6,6 +6,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _init(AuthInitEvent event, Emitter<AuthState> emit) async {
+    await getIt.isReady<UserCredentials>(); // Wait for UserCredentials to be ready
+
     final userEntity = UserEntity(
       email: userCredentials.getUserEmail,
       userId: userCredentials.getUserId,

@@ -9,7 +9,7 @@ import 'package:todo_app/core/app_library.dart';
   Provider.debugCheckInvalidValueType = null;
   textBoldSizeGlobal = 12;
 
-  Dependency.setup();
+  await Dependency.setup();
 
   runApp(
     EasyLocalization(
@@ -26,7 +26,7 @@ class MyApp extends HookWidget {
 
   List<SingleChildWidget> get blocProviders {
     return [
-      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()..add(InitEvent(const []))),
+      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
     ];
   }

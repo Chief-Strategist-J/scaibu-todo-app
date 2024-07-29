@@ -3,59 +3,59 @@ import 'package:todo_app/core/app_library.dart';
 final userCredentials = getIt<UserCredentials>();
 
 class UserCredentials {
-  static const userName = 'name';
-  static const email = 'email';
-  static const id = 'id';
-  static const accessToken = 'accessToken';
-  static const isLogin = '_isLogin';
+  final userName = 'name';
+  final email = 'email';
+  final id = 'id';
+  final accessToken = 'accessToken';
+  final isLogin = '_isLogin';
 
-  static const firebasePhotoUrl = 'firebasePhotoUrl';
-  static const firstName = '_firstName';
-  static const lastName = '_lastName';
-  static const phone = '_phone';
-  static const birthDate = '_birthDate';
-  static const address = '_address';
-  static const city = '_city';
-  static const state = '_state';
-  static const country = '_country';
-  static const zipCode = '_zipCode';
-  static const bio = '_bio';
+  final firebasePhotoUrl = 'firebasePhotoUrl';
+  final firstName = '_firstName';
+  final lastName = '_lastName';
+  final phone = '_phone';
+  final birthDate = '_birthDate';
+  final address = '_address';
+  final city = '_city';
+  final state = '_state';
+  final country = '_country';
+  final zipCode = '_zipCode';
+  final bio = '_bio';
 
   final Box<dynamic> box;
 
   UserCredentials(this.box);
 
-  num? get getUserId => box.get(UserCredentials.id);
+  num? get getUserId => box.get(userCredentials.id);
 
-  String? get getFirebasePhotoUrl => box.get(UserCredentials.firebasePhotoUrl);
+  String? get getFirebasePhotoUrl => box.get(userCredentials.firebasePhotoUrl);
 
-  bool? get getIsLogin => box.get(UserCredentials.isLogin);
+  bool? get getIsLogin => box.get(userCredentials.isLogin);
 
-  String? get getUserName => box.get(UserCredentials.userName);
+  String? get getUserName => box.get(userCredentials.userName);
 
-  String? get getUserEmail => box.get(UserCredentials.email);
+  String? get getUserEmail => box.get(userCredentials.email);
 
-  String? get getUserAccessToken => box.get(UserCredentials.accessToken);
+  String? get getUserAccessToken => box.get(userCredentials.accessToken);
 
-  String? get getFirstName => box.get(UserCredentials.firstName);
+  String? get getFirstName => box.get(userCredentials.firstName);
 
-  String? get getLastName => box.get(UserCredentials.lastName);
+  String? get getLastName => box.get(userCredentials.lastName);
 
-  String? get getPhone => box.get(UserCredentials.phone);
+  String? get getPhone => box.get(userCredentials.phone);
 
-  String? get getBirthDate => box.get(UserCredentials.birthDate);
+  String? get getBirthDate => box.get(userCredentials.birthDate);
 
-  String? get getAddress => box.get(UserCredentials.address);
+  String? get getAddress => box.get(userCredentials.address);
 
-  String? get getCity => box.get(UserCredentials.city);
+  String? get getCity => box.get(userCredentials.city);
 
-  String? get getState => box.get(UserCredentials.state);
+  String? get getState => box.get(userCredentials.state);
 
-  String? get getCountry => box.get(UserCredentials.country);
+  String? get getCountry => box.get(userCredentials.country);
 
-  String? get getZipCode => box.get(UserCredentials.zipCode);
+  String? get getZipCode => box.get(userCredentials.zipCode);
 
-  String? get getBio => box.get(UserCredentials.bio);
+  String? get getBio => box.get(userCredentials.bio);
 
   void clear() {
     box.delete(userName);

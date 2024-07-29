@@ -21,7 +21,7 @@ class LoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = useMemoized(() => GetIt.instance<AuthBloc>(), []);
+    final authBloc = useMemoized(() => context.read<AuthBloc>(), []);
     final authFormState = Provider.of<AuthFormState>(context, listen: true);
     final emailText = useState(authFormState.emailController.text);
 

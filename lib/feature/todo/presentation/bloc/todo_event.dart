@@ -22,7 +22,11 @@ class InitEvent extends TodoEvent {
   List<Object?> get props => [todoList, isListUpdated];
 
   @override
-  bool operator ==(Object other) => identical(this, other) || super == other && other is InitEvent && runtimeType == other.runtimeType && todoList == other.todoList && isListUpdated == other.isListUpdated;
+  bool operator ==(Object other) => identical(this, other) ||
+      super == other && other is InitEvent
+          && runtimeType == other.runtimeType
+          && todoList == other.todoList
+          && isListUpdated == other.isListUpdated;
 
   @override
   int get hashCode => super.hashCode ^ todoList.hashCode;

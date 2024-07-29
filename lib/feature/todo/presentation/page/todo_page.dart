@@ -12,12 +12,8 @@ class TodoPage extends HookWidget {
   }
 
   List<TodoEntity> _todoList(TodoState state) {
-    if (state is InitTodoState) {
-      return state.todoList ?? [];
-    }
-    if (state is NoInternetState) {
-      return state.todoList ?? [];
-    }
+    if (state is InitTodoState) return state.todoList ?? [];
+    if (state is NoInternetState) return state.todoList ?? [];
     return [];
   }
 
@@ -40,15 +36,12 @@ class TodoPage extends HookWidget {
         floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
           bloc: todoBloc,
           builder: (context, state) {
-            if (state is NoInternetState) {
-              return const Offstage();
-            }
+            if (state is NoInternetState) return const Offstage();
 
             return FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () async {
                 await _addTodoTap(context, todoBloc);
-
               },
             );
           },
@@ -70,9 +63,7 @@ class TodoPage extends HookWidget {
                   return TodoListComponent(todoList: _todoList(state), todoBloc: todoBloc);
                 }
 
-                if (state is LoadingState) {
-                  return const LoadingWidget();
-                }
+                if (state is LoadingState) return const LoadingWidget();
 
                 return EmptyWidget(msg: 'no_to_do_items_available'.tr());
               },

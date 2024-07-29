@@ -4,6 +4,7 @@ class SplashPage extends HookWidget {
   const SplashPage({super.key});
 
   void init(BuildContext context, AuthBloc authBloc) async {
+    await getIt.isReady<UserCredentials>();
     await 1.seconds.delay.then(
       (value) {
         if (userCredentials.getUserAccessToken.validate().isNotEmpty) {
@@ -17,7 +18,7 @@ class SplashPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = useMemoized(() => GetIt.instance<AuthBloc>());
+    final authBloc = useMemoized(() => context.read<AuthBloc>());
 
     useEffect(() {
       init(context, authBloc);

@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/core/utils/schedule_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -11,12 +12,14 @@ class Dependency {
 
   static String get serverRepo => 'ServerRepo';
 
-  static void setup() {
+  static Future<void> setup() async {
     registerService();
 
     /// TODOs Dependency
     todoDependency();
     authDependency();
+
+    await getIt.allReady();
   }
 
   static void authDependency() {
@@ -99,9 +102,21 @@ class Dependency {
   }
 
   static void registerService() {
-    getIt.registerSingletonAsync<UserCredentials>(() async {
-      log('\n USER-CREDENTIALS SERVICE IN INITIALIZED\n\n');
-      return UserCredentials(await Hive.openBox('_UserAuthBox_'));
+    getIt.registerSingletonAsync<UserCredentials>(
+      signalsReady: true,
+      () async {
+        log('\n USER-CREDENTIALS SERVICE IN INITIALIZED\n\n');
+        return UserCredentials(await Hive.openBox('_UserAuthBox_'));
+      },
+      dispose: (userCredentials) async {
+        log('\n DISPOSING USER-CREDENTIALS SERVICE\n\n');
+        await userCredentials.box.close();
+      },
+    );
+
+    getIt.registerLazySingleton(() {
+      log('\n\nSCHEDULE SERVICE IN INITIALIZED\n\n');
+      return ScheduleService();
     });
 
     getIt.registerLazySingleton(() {

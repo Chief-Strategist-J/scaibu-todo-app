@@ -42,10 +42,6 @@ final router = GoRouter(
       name: ApplicationPaths.todoListViewPage,
       path: ApplicationPaths.todoListViewPage,
       builder: (context, state) {
-        if (!isInternetConnected) {
-          context.read<TodoBloc>().add(NoInternetConnectionEvent());
-        }
-
         return const TodoPage();
       },
     ),
@@ -53,10 +49,6 @@ final router = GoRouter(
       name: ApplicationPaths.manageTodoPage,
       path: ApplicationPaths.manageTodoPage,
       builder: (context, state) {
-        if (!isInternetConnected) {
-          context.read<TodoBloc>().add(NoInternetConnectionEvent());
-        }
-
         return ManageTodoPage(todoPage: state.extra as ManageTodoPageParam?);
       },
     ),

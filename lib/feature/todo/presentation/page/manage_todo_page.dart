@@ -30,9 +30,7 @@ class ManageTodoPage extends HookWidget {
       await todoBloc.onEditPageUpdateTodo(todoDetail);
     } else {
       await todoBloc.createTodo(todoDetail: todoDetail);
-
     }
-
     return true;
   }
 
@@ -180,6 +178,13 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.notesNode,
                   textInputAction: TextInputAction.done,
                 ),
+                CheckboxListTile(
+                  value: localTodoData.isWantToDeleteTodoAtEndTime,
+                  title: Text("Want to delete at en.d time? ",style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  onChanged: (value) {
+                    localTodoData.isWantToDeleteTodoAtEndTime = value;
+                  },
+                )
               ],
             ),
           ),
@@ -240,16 +245,10 @@ class ManageTodoPageParam {
 
   final String? firebaseTodoId;
   final String? todoId;
+  bool? isWantToDeleteTodoAtEndTime;
   final bool isUpdatingExistingTodo;
 
-  ManageTodoPageParam({
-    this.firebaseTodoId,
-    this.todoId,
-    this.date,
-    this.startTime,
-    this.endTime,
-    this.isUpdatingExistingTodo = false,
-  });
+  ManageTodoPageParam({this.firebaseTodoId, this.todoId, this.date, this.startTime, this.endTime, this.isUpdatingExistingTodo = false, this.isWantToDeleteTodoAtEndTime = false});
 
   factory ManageTodoPageParam.fromTodoEntity(
     TodoEntity todoData, {
