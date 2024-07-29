@@ -12,14 +12,12 @@ class Dependency {
 
   static String get serverRepo => 'ServerRepo';
 
-  static Future<void> setup() async {
+  static void setup() {
     registerService();
 
     /// TODOs Dependency
     todoDependency();
     authDependency();
-
-    await getIt.allReady();
   }
 
   static void authDependency() {
@@ -101,13 +99,13 @@ class Dependency {
     });
   }
 
-  static void registerService() {
-    getIt.registerSingletonAsync<UserCredentials>(
-      signalsReady: true,
+  static void registerService()  {
+    getIt.registerLazySingletonAsync<UserCredentials>(
       () async {
-        log('\n USER-CREDENTIALS SERVICE IN INITIALIZED\n\n');
+        log('\n USER-CREDENTIALS SERVICE IS INITIALIZED\n\n');
         return UserCredentials(await Hive.openBox('_UserAuthBox_'));
       },
+      instanceName: ServiceInstance.userCredentialsKey,
       dispose: (userCredentials) async {
         log('\n DISPOSING USER-CREDENTIALS SERVICE\n\n');
         await userCredentials.box.close();
@@ -134,4 +132,8 @@ class Dependency {
       return TimeService();
     });
   }
+}
+
+class ServiceInstance {
+  static const userCredentialsKey = 'userCredentials';
 }

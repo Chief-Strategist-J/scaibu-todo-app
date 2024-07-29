@@ -39,7 +39,6 @@ class TodoListComponent extends StatelessWidget {
     }
 
     if (direction == DismissDirection.endToStart) {
-      // toast("delete is clicked");
       await _deleteTodo(context, todoData);
     } else if (direction == DismissDirection.startToEnd) {
       await _archiveTodo(context, todoData);

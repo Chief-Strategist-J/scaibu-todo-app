@@ -9,7 +9,7 @@ import 'package:todo_app/core/app_library.dart';
   Provider.debugCheckInvalidValueType = null;
   textBoldSizeGlobal = 12;
 
-  await Dependency.setup();
+   Dependency.setup();
 
   runApp(
     EasyLocalization(
