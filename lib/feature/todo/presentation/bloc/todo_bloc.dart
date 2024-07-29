@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/core/utils/schedule_service.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository? firebaseRepo;
@@ -120,6 +121,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
     if (todoDetail.endTime != null) {
       todo.putIfAbsent("end_time", () => todoDetail.endTime?.dateTime.toString());
+
+      if (todoDetail.isWantToDeleteTodoAtEndTime) {
+        todo.putIfAbsent("is_want_to_delete_todo_at_end_time", () => todoDetail.isWantToDeleteTodoAtEndTime);
+
+        scheduleService.performActionAfterTime(
+          dateTime: todoDetail.endTime!.dateTime,
+          action: () {
+            add(InitEvent(const [], isListUpdated: true));
+          },
+        );
+      }
     }
     if (todoDetail.date != null) {
       todo.putIfAbsent("date", () => todoDetail.date?.dateTime.toString());

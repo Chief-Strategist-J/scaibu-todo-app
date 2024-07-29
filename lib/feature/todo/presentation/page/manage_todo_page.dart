@@ -178,11 +178,21 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.notesNode,
                   textInputAction: TextInputAction.done,
                 ),
-                CheckboxListTile(
-                  value: localTodoData.isWantToDeleteTodoAtEndTime,
-                  title: Text("Want to delete at en.d time? ",style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-                  onChanged: (value) {
-                    localTodoData.isWantToDeleteTodoAtEndTime = value;
+                ValueListenableBuilder(
+                  valueListenable: localTodoData.isWantToDeleteTodoAtEndTimeNotifier,
+                  builder: (context, value, child) {
+                    return CheckboxListTile(
+                      value: value,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text(
+                        "Want to delete at end time? ",
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                      onChanged: (value) {
+                        localTodoData.isWantToDeleteTodoAtEndTime = value ?? false;
+                        localTodoData.isWantToDeleteTodoAtEndTimeNotifier.value = value ?? false;
+                      },
+                    );
                   },
                 )
               ],
@@ -245,10 +255,22 @@ class ManageTodoPageParam {
 
   final String? firebaseTodoId;
   final String? todoId;
-  bool? isWantToDeleteTodoAtEndTime;
+
+  // For single value update we can use value listenable builder
+  final ValueNotifier<bool> isWantToDeleteTodoAtEndTimeNotifier;
+  bool isWantToDeleteTodoAtEndTime;
+
   final bool isUpdatingExistingTodo;
 
-  ManageTodoPageParam({this.firebaseTodoId, this.todoId, this.date, this.startTime, this.endTime, this.isUpdatingExistingTodo = false, this.isWantToDeleteTodoAtEndTime = false});
+  ManageTodoPageParam({
+    this.firebaseTodoId,
+    this.todoId,
+    this.date,
+    this.startTime,
+    this.endTime,
+    this.isUpdatingExistingTodo = false,
+    this.isWantToDeleteTodoAtEndTime = false,
+  }) : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime);
 
   factory ManageTodoPageParam.fromTodoEntity(
     TodoEntity todoData, {
