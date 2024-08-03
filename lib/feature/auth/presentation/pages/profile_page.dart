@@ -11,9 +11,23 @@ class ProfilePage extends StatelessWidget {
     return userCredentials.getFirebasePhotoUrl.validate();
   }
 
+  Future<void> _onTapOfMenu(BuildContext context) async {
+    await GoRouter.of(context).push(ApplicationPaths.forgetPasswordPage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await _onTapOfMenu(context);
+            },
+            icon: const Icon(Icons.more_vert),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: CustomScrollView(
@@ -30,7 +44,6 @@ class ProfilePage extends StatelessWidget {
                   if (userCredentials.getPhone.validate().isNotEmpty) KeyAndValue(label: "Phone", value: userCredentials.getPhone.validate()),
                   if (userCredentials.getBirthDate.validate().isNotEmpty) KeyAndValue(label: "Birth Date", value: userCredentials.getBirthDate.validate()),
                   if (userCredentials.getBio.validate().isNotEmpty) KeyAndValue(label: "Bio", value: userCredentials.getBio.validate()),
-
                   if (userCredentials.getAddress.validate().isNotEmpty) KeyAndValue(label: "Address", value: userCredentials.getAddress.validate()),
                   if (userCredentials.getCity.validate().isNotEmpty) KeyAndValue(label: "City", value: userCredentials.getCity.validate()),
                   if (userCredentials.getState.validate().isNotEmpty) KeyAndValue(label: "State", value: userCredentials.getState.validate()),

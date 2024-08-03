@@ -20,8 +20,9 @@ dependencies:
   # performance optimizations
   get_it: ^8.0.0-pre-5
   equatable: ^2.0.5
-  fpdart: ^1.1.0
+
   nb_utils: ^7.0.3
+  fpdart: ^1.1.0
   go_router: ^14.2.0
   flutter_hooks: ^0.20.5
   http: ^1.2.1

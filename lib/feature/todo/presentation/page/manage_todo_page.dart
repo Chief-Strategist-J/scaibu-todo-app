@@ -178,23 +178,28 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.notesNode,
                   textInputAction: TextInputAction.done,
                 ),
-                ValueListenableBuilder(
-                  valueListenable: localTodoData.isWantToDeleteTodoAtEndTimeNotifier,
-                  builder: (context, value, child) {
-                    return CheckboxListTile(
-                      value: value,
-                      contentPadding: EdgeInsets.zero,
-                      title: const Text(
-                        "Want to delete at end time? ",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                      ),
-                      onChanged: (value) {
-                        localTodoData.isWantToDeleteTodoAtEndTime = value ?? false;
-                        localTodoData.isWantToDeleteTodoAtEndTimeNotifier.value = value ?? false;
-                      },
-                    );
-                  },
-                )
+                if (todoPage == null)
+                  ValueListenableBuilder(
+                    valueListenable: localTodoData.isWantToDeleteTodoAtEndTimeNotifier,
+                    builder: (context, value, child) {
+                      return CheckboxListTile(
+                        value: value,
+                        contentPadding: EdgeInsets.zero,
+                        title: const Text.rich(
+                          TextSpan(text: "Want to delete at end time?", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold), children: [
+                            TextSpan(
+                              text: "\nNote : You cannot modify it later",
+                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.red),
+                            ),
+                          ]),
+                        ),
+                        onChanged: (value) {
+                          localTodoData.isWantToDeleteTodoAtEndTime = value ?? false;
+                          localTodoData.isWantToDeleteTodoAtEndTimeNotifier.value = value ?? false;
+                        },
+                      );
+                    },
+                  )
               ],
             ),
           ),
@@ -269,7 +274,7 @@ class ManageTodoPageParam {
     this.startTime,
     this.endTime,
     this.isUpdatingExistingTodo = false,
-    this.isWantToDeleteTodoAtEndTime = false,
+    this.isWantToDeleteTodoAtEndTime = true,
   }) : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime);
 
   factory ManageTodoPageParam.fromTodoEntity(
