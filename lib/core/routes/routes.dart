@@ -1,7 +1,21 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:todo_app/core/app_library.dart';
 
-final router = GoRouter(
-  initialLocation: ApplicationPaths.splashPage,
+  final router = GoRouter(
+    initialLocation: ApplicationPaths.splashPage,
+    observers: [
+      FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+    ],
+  redirect: (context, state) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'page_view',
+      parameters: {
+        'page_name': state.name ?? 'unknown',
+        'page_path': state.name ?? 'unknown',
+      },
+    );
+    return null; // Return null to continue with the navigation
+  },
   routes: [
     GoRoute(
       name: ApplicationPaths.splashPage,

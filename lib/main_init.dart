@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:todo_app/core/app_library.dart';
 
 InitialSetup initialSetup = InitialSetup();
@@ -22,6 +23,10 @@ class InitialSetup {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
+
+    /// FIREBASE ANALYTICS
+    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logAppOpen();
   }
 
   Future<void> languageInit() async {
@@ -30,7 +35,6 @@ class InitialSetup {
 
   Future<void> utilityInit() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await initialize();
   }
 
   Future<void> localStorageInit() async {

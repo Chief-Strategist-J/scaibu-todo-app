@@ -52,6 +52,13 @@ dependencies:
   json_annotation: ^4.9.0
   onesignal_flutter: ^5.2.1
 
+  clean_architecture_with_state_management: ^1.1.2
+  firebase_analytics: ^11.2.1
+  #  flutter pub run clean_architecture_with_state_management chat -bloc
+
+dependency_overrides:
+  get_it: ^7.6.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

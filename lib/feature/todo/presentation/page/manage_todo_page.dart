@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoro_component.dart';
 
 class ManageTodoPage extends HookWidget {
   final ManageTodoPageParam? todoPage;
@@ -199,7 +200,8 @@ class ManageTodoPage extends HookWidget {
                         },
                       );
                     },
-                  )
+                  ),
+                const PomodoroComponent(),
               ],
             ),
           ),
