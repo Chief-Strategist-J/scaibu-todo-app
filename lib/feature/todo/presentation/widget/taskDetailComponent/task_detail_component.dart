@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/model/priority_model.dart';
 
 enum ChildClassType {
   createPomodoro,
@@ -15,14 +16,17 @@ class TaskDetailComponent extends HookWidget {
     super.key,
   }) : _variant = variant;
 
-  List<IconButtonComponentData> _listOfComponent(
-    int pomodoroCount,
-    BuildContext context,
-    TaskDetailComponentVariantStyle style,
-  ) {
+  List<IconButtonComponentData> _listOfComponent(BuildContext context, TaskDetailComponentVariantStyle style) {
     Future<void> _handleTap(ChildClassType type) async {
       await _onTapIcon(context, style, type: type);
     }
+
+    final int pomodoroCount = context.select(
+      (TaskDetailBloc value) {
+        final state = value.state;
+        return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
+      },
+    );
 
     return [
       IconButtonComponentData(
@@ -82,19 +86,13 @@ class TaskDetailComponent extends HookWidget {
       child: Builder(
         builder: (context) {
           /// Spacial reference
-          final int pomodoroCount = context.select(
-            (TaskDetailBloc value) {
-              final state = value.state;
-              return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
-            },
-          );
 
           return VBox(
             children: [
               16.height,
               Center(
                 child: Wrap(
-                  children: _listOfComponent(pomodoroCount, context, style).map((e) {
+                  children: _listOfComponent(context, style).map((e) {
                     return IconButtonComponent(data: e, style: style);
                   }).toList(),
                 ),

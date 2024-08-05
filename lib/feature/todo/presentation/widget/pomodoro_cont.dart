@@ -1,15 +1,11 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_bloc.dart';
-import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_event.dart';
-import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_state.dart';
-
 class PomodoroCont extends StatelessWidget {
   final int _index;
 
   const PomodoroCont({super.key, required int index}) : _index = index;
 
   void _onTapOfPomodoroCounter(BuildContext context) {
-    context.read<TaskDetailBloc>().add(UpdateTaskDetailEvent(count: _index));
+    context.read<TaskDetailBloc>().add(UpdatePomodoroCounterEvent(count: _index));
     GoRouter.of(context).pop();
   }
 
