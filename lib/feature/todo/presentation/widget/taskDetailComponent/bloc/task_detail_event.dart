@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-sealed class PomodoroContEvent extends Equatable {}
+sealed class TaskDetailEvent extends Equatable {}
 
-class InitTaskDetailEvent extends PomodoroContEvent {
+class InitTaskDetailEvent extends TaskDetailEvent {
   @override
   List<Object?> get props => [];
 }
 
-class UpdateTaskDetailEvent extends PomodoroContEvent {
+class UpdateTaskDetailEvent extends TaskDetailEvent {
   UpdateTaskDetailEvent({required this.count});
 
   final int count;

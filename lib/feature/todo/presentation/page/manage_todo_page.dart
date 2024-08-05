@@ -1,5 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/task_detail_component.dart';
+import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/task_detail_component.dart';
 
 class ManageTodoPage extends HookWidget {
   final ManageTodoPageParam? todoPage;

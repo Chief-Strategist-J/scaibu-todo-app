@@ -1,21 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
-
-class IconButtonComponentData {
-  final String _text;
-  final String? _prefixText;
-  final String _icon;
-  final GestureTapCallback? _onTap;
-
-  IconButtonComponentData({
-    required String text,
-    required String icon,
-    String? prefixText,
-    void Function()? onTap,
-  })  : _onTap = onTap,
-        _icon = icon,
-        _prefixText = prefixText,
-        _text = text;
-}
+import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/model/Icon_button_component_data.dart';
 
 class IconButtonComponent extends StatelessWidget {
   final IconButtonComponentData _data;
@@ -30,11 +14,11 @@ class IconButtonComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = (null == _data._prefixText) ? ButtonUIComponent(data: _data) : ButtonUIWithPrefixTextComponent(data: _data);
+    final child = (null == _data.prefixText) ? ButtonUIComponent(data: _data) : ButtonUIWithPrefixTextComponent(data: _data);
 
     return PressableBox(
       style: _style.buttonStyle(context),
-      onPress: _data._onTap,
+      onPress: _data.onTap,
       child: child,
     );
   }
@@ -52,7 +36,7 @@ class ButtonUIWithPrefixTextComponent extends StatelessWidget {
         Positioned(
           right: 0,
           top: 0,
-          child: Text("${_data._prefixText}", style: boldTextStyle(color: redColor)),
+          child: Text("${_data.prefixText}", style: boldTextStyle(color: redColor)),
         ),
         ButtonUIComponent(data: _data),
       ],
@@ -71,10 +55,10 @@ class ButtonUIComponent extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.all(8),
-          child: SvgPicture.asset(data._icon, height: 32, width: 32, fit: BoxFit.fitWidth),
+          child: SvgPicture.asset(data.icon, height: 32, width: 32, fit: BoxFit.fitWidth),
         ),
         8.height,
-        Text(data._text, style: boldTextStyle(size: 10)),
+        Text(data.text, style: boldTextStyle(size: 10)),
       ],
     );
   }

@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-sealed class PomodoroContState extends Equatable {}
+sealed class TaskDetailState extends Equatable {}
 
-class TaskDetailInitState extends PomodoroContState {
+class TaskDetailInitState extends TaskDetailState {
   @override
   List<Object?> get props => [];
 }
 
-class TaskDetailDataState extends PomodoroContState {
+class TaskDetailDataState extends TaskDetailState {
   final int? _pomodoroCont;
 
   @override

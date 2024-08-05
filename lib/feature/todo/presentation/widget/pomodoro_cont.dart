@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_bloc.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_event.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_state.dart';
+import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_bloc.dart';
+import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_event.dart';
+import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_state.dart';
 
 class PomodoroCont extends StatelessWidget {
   final int _index;
