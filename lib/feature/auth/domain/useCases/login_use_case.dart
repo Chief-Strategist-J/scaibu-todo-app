@@ -8,7 +8,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   @override
   Future<Either<Failure, LoginEntity>> call(Map<String, dynamic> params) async {
     try {
-      toast("Logging ...", bgColor: AppThemeData.cardColor, length: Toast.LENGTH_SHORT);
+      toast("Logging ...", bgColor: cardColor, length: Toast.LENGTH_SHORT);
 
       final auth = await authRepository.standardSignIn(params);
 

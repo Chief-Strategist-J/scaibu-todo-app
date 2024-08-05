@@ -20,7 +20,7 @@ class TodoListItemComponentStyle {
       $box.shadow.blurRadius(5),
       $box.shadow.spreadRadius(1),
       $box.color(context.primaryColor),
-      $box.shadow.color(AppThemeData.shadowColor),
+      $box.shadow.color(shadowColor),
       $text.style.fontWeight(fontWeight),
       $text.style.fontSize(fontSize),
       $text.style.color(textPrimaryColor),

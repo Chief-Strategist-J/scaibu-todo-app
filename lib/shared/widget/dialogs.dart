@@ -128,7 +128,7 @@ Future<bool?> appShowConfirmDialogCustom(
                           Text(
                             positiveText ?? getPositiveText(dialogType),
                             style: boldTextStyle(
-                                color: positiveTextColor ?? Colors.white),
+                                color: positiveTextColor ?? context.primaryColor),
                           ),
                         ],
                       ).fit(),

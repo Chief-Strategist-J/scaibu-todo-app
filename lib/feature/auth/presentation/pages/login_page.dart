@@ -1,6 +1,5 @@
 import 'package:lottie/lottie.dart';
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/generated/assets.dart';
 
 class LoginPage extends HookWidget {
   const LoginPage({super.key});

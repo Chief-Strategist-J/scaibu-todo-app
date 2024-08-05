@@ -2,10 +2,18 @@
 class Assets {
   Assets._();
 
+  static const String iconIcFilledFlag = 'assets/icon/ic_filled_flag.svg';
+  static const String iconIcFilledSun = 'assets/icon/ic_filled_sun.svg';
+  static const String iconIcFilledTag = 'assets/icon/ic_filled_tag.svg';
+  static const String iconIcFlag = 'assets/icon/ic_flag.svg';
+  static const String iconIcMonth = 'assets/icon/ic_month.svg';
+  static const String iconIcOfficeBag = 'assets/icon/ic_office_bag.svg';
+  static const String iconIcPlanned = 'assets/icon/ic_planned.svg';
+  static const String iconIcTag = 'assets/icon/ic_tag.svg';
+  static const String iconIcWeek = 'assets/icon/ic_week.svg';
   static const String imageAppleLogo = 'assets/image/apple-logo.png';
   static const String imageFacebook = 'assets/image/facebook.png';
   static const String imageGoogle = 'assets/image/google.png';
   static const String loginPageAssetsWelcome = 'assets/json/loginPageAssets/welcome.json';
   static const String translationsEn = 'assets/translations/en.json';
-
 }

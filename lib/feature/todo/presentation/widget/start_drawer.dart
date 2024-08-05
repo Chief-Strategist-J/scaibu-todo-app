@@ -10,9 +10,9 @@ class DrawerComponent extends StatelessWidget {
       context,
       title: 'Confirm Log-Out?',
       dialogType: DialogType.DELETE,
-      backgroundColor: Colors.white,
-      cancelButtonColor: Colors.black,
-      negativeTextColor: Colors.white,
+      backgroundColor: context.primaryColor,
+      cancelButtonColor: cancelButtonColor,
+      negativeTextColor: context.primaryColor,
       positiveText: "Log-Out",
       onAccept: (p0) {
         userCredentials.clear();

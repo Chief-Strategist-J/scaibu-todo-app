@@ -1,16 +1,32 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoro_component.variant.dart';
 
-class PomodoroComponentVariantStyle {
-  final PomodoroComponentVariant variant;
+class TaskDetailComponentVariantStyle {
+  final TaskDetailComponentVariant _variant;
 
-  PomodoroComponentVariantStyle({required this.variant});
+  TaskDetailComponentVariantStyle({required TaskDetailComponentVariant variant}) : _variant = variant;
 
   Style rowStyle(
     BuildContext context, {
     double fontSize = 14,
     FontWeight fontWeight = FontWeight.bold,
   }) {
-    return Style().applyVariants([variant]);
+    return Style().applyVariants([_variant]);
+  }
+
+  Style dialogStyle(BuildContext context) {
+    return Style(
+      $box.width(context.width()),
+      $box.padding(16),
+    ).applyVariants([_variant]);
+  }
+
+  Style buttonStyle(BuildContext context) {
+    return Style(
+      $box.borderRadius.circular(8),
+      $box.padding.all(16),
+      $on.press(
+        $box.color.grey.shade200(),
+      ),
+    ).applyVariants([_variant]);
   }
 }

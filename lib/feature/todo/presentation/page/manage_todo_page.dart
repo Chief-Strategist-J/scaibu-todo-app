@@ -97,9 +97,7 @@ class ManageTodoPage extends HookWidget {
     final todoBloc = useMemoized(() => context.read<TodoBloc>(), [isInternetConnected]);
 
     useEffect(() {
-      if (isInternetConnected) {
-        todoBloc.add(InitEvent(const []));
-      } else {
+      if (!isInternetConnected) {
         todoBloc.add(NoInternetConnectionEvent());
       }
 
@@ -190,7 +188,7 @@ class ManageTodoPage extends HookWidget {
                           TextSpan(text: "Want to delete at end time?", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold), children: [
                             TextSpan(
                               text: "\nNote : You cannot modify it later",
-                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.red),
+                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: colorRed),
                             ),
                           ]),
                         ),
@@ -201,7 +199,7 @@ class ManageTodoPage extends HookWidget {
                       );
                     },
                   ),
-                const PomodoroComponent(),
+                const TaskDetailComponent(),
               ],
             ),
           ),

@@ -6,4 +6,5 @@ linter:
 analyzer:
   errors:
     invalid_annotation_target: ignore
+    no_leading_underscores_for_local_identifiers: ignore
     override_on_non_overriding_member: ignore

@@ -1,16 +1,33 @@
 import 'package:todo_app/core/app_library.dart';
 
 class AppThemeData {
-  static const MaterialAccentColor cardColor = Colors.blueAccent;
-  static final Color shadowColor = Colors.grey.withOpacity(0.5);
-
   static InputBorder get _getInputBoarder {
     return OutlineInputBorder(
       gapPadding: 16,
       borderRadius: BorderRadius.circular(23),
-      borderSide: BorderSide(
-        color: cardColor.withOpacity(0.3),
-      ),
+      borderSide: _borderSide,
+    );
+  }
+
+  static BorderSide get _borderSide {
+    return BorderSide(
+      color: cardColor.withOpacity(0.3),
+    );
+  }
+
+  static InputDecoration underLineInputBoarderDecoration(BuildContext context, {String? hintText}) {
+    return InputDecoration(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+      filled: true,
+      fillColor: fillColor,
+      hintText: hintText,
+      hintStyle: primaryTextStyle(size: 20, color: secondaryTextColor),
+      border: UnderlineInputBorder(borderSide: _borderSide),
+      enabledBorder: UnderlineInputBorder(borderSide: _borderSide),
+      disabledBorder: UnderlineInputBorder(borderSide: _borderSide),
+      errorBorder: UnderlineInputBorder(borderSide: _borderSide),
+      focusedBorder: UnderlineInputBorder(borderSide: _borderSide),
+      focusedErrorBorder: UnderlineInputBorder(borderSide: _borderSide),
     );
   }
 
@@ -24,7 +41,7 @@ class AppThemeData {
 
   static AppBarTheme get appBarTheme {
     return const AppBarTheme(
-      color: white,
+      color: primaryColor,
     );
   }
 
@@ -32,9 +49,9 @@ class AppThemeData {
     return ThemeData(
       useMaterial3: true,
       timePickerTheme: const TimePickerThemeData(),
-      primaryColor: white,
+      primaryColor: primaryColor,
       cardColor: cardColor,
-      scaffoldBackgroundColor: white,
+      scaffoldBackgroundColor: primaryColor,
       checkboxTheme: checkboxThemeData,
       appBarTheme: appBarTheme,
       inputDecorationTheme: InputDecorationTheme(
@@ -45,9 +62,9 @@ class AppThemeData {
         fillColor: shadowColor.withOpacity(0.1),
         enabledBorder: _getInputBoarder,
         focusedBorder: _getInputBoarder,
-        errorBorder:_getInputBoarder,
-          border: _getInputBoarder,
-          disabledBorder: _getInputBoarder,
+        errorBorder: _getInputBoarder,
+        border: _getInputBoarder,
+        disabledBorder: _getInputBoarder,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
@@ -95,7 +112,6 @@ class CustomPageRoute<T> extends PageRouteBuilder<T> {
   final Duration duration;
   final Curve curve;
 
-
   CustomPageRoute({
     required this.builder,
     this.duration = const Duration(milliseconds: 300),
@@ -110,6 +126,5 @@ class CustomPageRoute<T> extends PageRouteBuilder<T> {
               child: child,
             );
           },
-
         );
 }

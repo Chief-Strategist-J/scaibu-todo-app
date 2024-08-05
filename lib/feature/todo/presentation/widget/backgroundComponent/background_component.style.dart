@@ -11,7 +11,7 @@ class BackgroundComponentStyle {
       $box.margin.horizontal(16),
       $box.height(56),
       $box.alignment.center(),
-      BackgroundComponentVariant.archive($box.decoration.color(Colors.green)),
+      BackgroundComponentVariant.archive($box.decoration.color(colorGreen)),
       BackgroundComponentVariant.delete($box.decoration.color(redColor)),
       $box.decoration.borderRadius.circular(16),
     ).applyVariants([variant]);

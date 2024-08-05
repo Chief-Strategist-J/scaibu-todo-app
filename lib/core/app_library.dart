@@ -29,7 +29,8 @@ export 'package:onesignal_flutter/onesignal_flutter.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 export 'dart:developer' hide Flow;
-
+export 'package:todo_app/core/constants/colors.dart';
+export 'package:flutter_svg/flutter_svg.dart';
 
 
 /// CORE
@@ -48,6 +49,9 @@ export 'package:todo_app/core/network/rest_api.dart';
 export 'package:todo_app/core/utils/log_service.dart';
 export 'package:todo_app/core/utils/parse_service.dart';
 export 'package:todo_app/core/secret/env.dart';
+
+/// GENERATED
+export 'package:todo_app/generated/assets.dart';
 
 /// SHARED
 export 'package:todo_app/shared/widget/empty_widget.dart';
@@ -83,6 +87,10 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
+export 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoro_component.style.dart';
+export 'package:todo_app/feature/todo/presentation/widget/pomodoro_cont.dart';
+export 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoro_component.variant.dart';
+export 'package:todo_app/feature/todo/presentation/widget/create_pomodoro_component.dart';
 
 // Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
