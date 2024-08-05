@@ -1,8 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/todo/presentation/widget/icon_button_component.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoroCont/pomodoro_cont_bloc.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoroCont/pomodoro_cont_event.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoroCont/pomodoro_cont_state.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_bloc.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_event.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_state.dart';
+
 
 class TaskDetailComponent extends HookWidget {
   final TaskDetailComponentVariant _variant;
@@ -18,7 +19,7 @@ class TaskDetailComponent extends HookWidget {
       isScrollControlled: true,
       builder: (_) {
         return BlocProvider.value(
-          value: context.read<PomodoroContBloc>(),
+          value: context.read<TaskDetailBloc>(),
           child: CreatePomodoroComponent(style: style),
         );
       },
@@ -30,14 +31,14 @@ class TaskDetailComponent extends HookWidget {
     final style = useMemoized(() => TaskDetailComponentVariantStyle(variant: _variant), []);
 
     return BlocProvider(
-      create: (BuildContext context) => PomodoroContBloc()..add(InitPomodoroEvent()),
+      create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent()),
       child: Builder(
         builder: (context) {
           /// Spacial reference
           final int pomodoroCount = context.select(
-            (PomodoroContBloc value) {
+            (TaskDetailBloc value) {
               final state = value.state;
-              return state is PomodoroDataState ? state.pomodoroCont ?? 0 : 0;
+              return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
             },
           );
 

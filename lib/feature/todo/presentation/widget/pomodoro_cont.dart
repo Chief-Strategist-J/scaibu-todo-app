@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoroCont/pomodoro_cont_bloc.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoroCont/pomodoro_cont_event.dart';
-import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/pomodoroCont/pomodoro_cont_state.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_bloc.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_event.dart';
+import 'package:todo_app/feature/todo/presentation/widget/pomodoroComponent/bloc/task_detail_state.dart';
 
 class PomodoroCont extends StatelessWidget {
   final int _index;
@@ -9,16 +9,16 @@ class PomodoroCont extends StatelessWidget {
   const PomodoroCont({super.key, required int index}) : _index = index;
 
   void _onTapOfPomodoroCounter(BuildContext context) {
-    context.read<PomodoroContBloc>().add(UpdatePomodoroEvent(count: _index));
+    context.read<TaskDetailBloc>().add(UpdateTaskDetailEvent(count: _index));
     GoRouter.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final isSelectedIndex = context.select(
-      (PomodoroContBloc value) {
+      (TaskDetailBloc value) {
         final state = value.state;
-        return state is PomodoroDataState ? state.pomodoroCont ?? 0 : 0;
+        return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
       },
     );
 
