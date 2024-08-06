@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/model/priority_model.dart';
 
 enum ChildClassType {
   createPomodoro,
@@ -10,15 +9,22 @@ enum ChildClassType {
 
 class TaskDetailComponent extends HookWidget {
   final TaskDetailComponentVariant _variant;
+  final Function(TaskDetailDataState) onChange;
+  final ManageTodoPageParam localTodoData;
 
   const TaskDetailComponent({
     TaskDetailComponentVariant variant = TaskDetailComponentVariant.primary,
+    required this.onChange,
+    required this.localTodoData,
     super.key,
   }) : _variant = variant;
 
   List<IconButtonComponentData> _listOfComponent(BuildContext context, TaskDetailComponentVariantStyle style) {
     Future<void> _handleTap(ChildClassType type) async {
-      await _onTapIcon(context, style, type: type);
+      await _onTapIcon(context, style, type: type).then((value) {
+        final state = context.read<TaskDetailBloc>().state;
+        if (state is TaskDetailDataState) onChange.call(state);
+      });
     }
 
     final int pomodoroCount = context.select(
@@ -30,15 +36,15 @@ class TaskDetailComponent extends HookWidget {
 
     return [
       IconButtonComponentData(
+        text: "Priority",
+        icon: Assets.iconIcFlag,
+        onTap: () => _handleTap(ChildClassType.createPriority),
+      ),
+      IconButtonComponentData(
         text: "Pomodoro",
         icon: Assets.iconIcFilledSun,
         prefixText: "$pomodoroCount",
         onTap: () => _handleTap(ChildClassType.createPomodoro),
-      ),
-      IconButtonComponentData(
-        text: "Priority",
-        icon: Assets.iconIcFlag,
-        onTap: () => _handleTap(ChildClassType.createPriority),
       ),
       IconButtonComponentData(
         text: "Tags",
@@ -85,15 +91,13 @@ class TaskDetailComponent extends HookWidget {
       create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent()),
       child: Builder(
         builder: (context) {
-          /// Spacial reference
-
           return VBox(
             children: [
               16.height,
               Center(
                 child: Wrap(
-                  children: _listOfComponent(context, style).map((e) {
-                    return IconButtonComponent(data: e, style: style);
+                  children: _listOfComponent(context, style).map((data) {
+                    return IconButtonComponent(data: data, style: style, localTodoData: localTodoData);
                   }).toList(),
                 ),
               ),

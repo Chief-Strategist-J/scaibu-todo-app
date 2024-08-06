@@ -40,7 +40,6 @@ class ManageTodoPage extends HookWidget {
       if (!date.isSelected) return;
       final now = DateTime.now();
       final bool isValidDate = date.dateTime.isAfter(DateTime(now.year, now.month, now.day - 1));
-
       if (isValidDate) {
         localTodoData.date = date;
         localTodoData.dateController.text = date.formatTimeInString;
@@ -55,9 +54,7 @@ class ManageTodoPage extends HookWidget {
   Future<void> _selectStartAndEndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
     await timeService.selectTime(context).then((startTime) async {
       if (!startTime.isSelected) return;
-
       final bool isValidStartTime = startTime.dateTime.isAfter(DateTime.now());
-
       if (isValidStartTime) {
         localTodoData.startTime = startTime;
         localTodoData.startTimeController.text = startTime.formatTimeInString;
@@ -76,9 +73,7 @@ class ManageTodoPage extends HookWidget {
   ) async {
     await timeService.selectTime(context).then((endTime) async {
       if (!endTime.isSelected) return;
-
       final bool endTimeIsMoreTheStartTime = endTime.dateTime.isAfter(startTime.dateTime);
-
       if (endTimeIsMoreTheStartTime) {
         localTodoData.endTime = endTime;
         localTodoData.endTimeController.text = endTime.formatTimeInString;
@@ -87,6 +82,10 @@ class ManageTodoPage extends HookWidget {
         await _selectStartAndEndTime(context, localTodoData);
       }
     });
+  }
+
+  void _onDataChange(TaskDetailDataState p0, ManageTodoPageParam localTodoData) {
+    if (p0.priority != null) localTodoData.priority = p0.priority?.code ?? 'no_priority';
   }
 
   @override
@@ -103,6 +102,24 @@ class ManageTodoPage extends HookWidget {
 
       return null;
     }, [isInternetConnected]);
+
+    final _buttonWidget = context.select(
+      (TodoBloc todoBloc) {
+        if (todoBloc.state is LoadingState) return const Offstage();
+        if (todoBloc.state is NoInternetState) return const Offstage();
+        if (todoBloc.state is InitTodoState) {
+          return CustomButton(
+            data: _getButtonText,
+            onTap: () async {
+              await _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
+                GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
+              });
+            },
+          );
+        }
+        return const Offstage();
+      },
+    );
 
     return Scaffold(
       body: Stack(
@@ -181,56 +198,41 @@ class ManageTodoPage extends HookWidget {
                   ValueListenableBuilder(
                     valueListenable: localTodoData.isWantToDeleteTodoAtEndTimeNotifier,
                     builder: (context, value, child) {
-                      return CheckboxListTile(
-                        value: value,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text.rich(
-                          TextSpan(text: "Want to delete at end time?", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold), children: [
-                            TextSpan(
-                              text: "\nNote : You cannot modify it later",
-                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: colorRed),
-                            ),
-                          ]),
-                        ),
-                        onChanged: (value) {
-                          localTodoData.isWantToDeleteTodoAtEndTime = value ?? false;
-                          localTodoData.isWantToDeleteTodoAtEndTimeNotifier.value = value ?? false;
-                        },
+                      return Column(
+                        children: [
+                          16.height,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Want to delete at end time?",
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                              Checkbox(
+                                value: value,
+                                onChanged: (newValue) {
+                                  localTodoData.isWantToDeleteTodoAtEndTime = newValue ?? false;
+                                  localTodoData.isWantToDeleteTodoAtEndTimeNotifier.value = newValue ?? false;
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2.0),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       );
                     },
                   ),
-                const TaskDetailComponent(),
+                TaskDetailComponent(
+                  localTodoData: localTodoData,
+                  onChange: (p0) => _onDataChange(p0, localTodoData),
+                ),
               ],
             ),
           ),
-          if (!isKeyboardNotOpened)
-            const Offstage()
-          else
-            Positioned(
-              bottom: 16,
-              left: 16,
-              right: 16,
-              child: BlocBuilder<TodoBloc, TodoState>(
-                bloc: todoBloc,
-                builder: (_, state) {
-                  if (todoBloc.state is LoadingState) return const Offstage();
-                  if (todoBloc.state is NoInternetState) return const Offstage();
-
-                  if (todoBloc.state is InitTodoState) {
-                    return CustomButton(
-                      data: _getButtonText,
-                      onTap: () async {
-                        await _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
-                          GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
-                        });
-                      },
-                    );
-                  }
-
-                  return const Offstage();
-                },
-              ),
-            )
+          if (!isKeyboardNotOpened) const Offstage() else Positioned(bottom: 16, left: 16, right: 16, child: _buttonWidget)
         ],
       ),
     );
@@ -260,11 +262,11 @@ class ManageTodoPageParam {
 
   final String? firebaseTodoId;
   final String? todoId;
+  String priority;
 
   // For single value update we can use value listenable builder
   final ValueNotifier<bool> isWantToDeleteTodoAtEndTimeNotifier;
   bool isWantToDeleteTodoAtEndTime;
-
   final bool isUpdatingExistingTodo;
 
   ManageTodoPageParam({
@@ -275,6 +277,7 @@ class ManageTodoPageParam {
     this.endTime,
     this.isUpdatingExistingTodo = false,
     this.isWantToDeleteTodoAtEndTime = true,
+    this.priority = 'no_priority',
   }) : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime);
 
   factory ManageTodoPageParam.fromTodoEntity(
@@ -294,6 +297,7 @@ class ManageTodoPageParam {
     param.note.text = todoData.notes.validate();
     param.title.text = todoData.title.validate();
     param.description.text = todoData.description.validate();
+    param.priority = todoData.priority.validate(value: 'no_priority');
 
     return param;
   }

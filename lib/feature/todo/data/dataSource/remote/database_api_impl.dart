@@ -60,6 +60,7 @@ class DataBaseApiImpl implements BaseApi {
         date: DateTime.parse(element.date.validate()),
         endTime: DateTime.parse(element.endTime.validate()),
         startTime: DateTime.parse(element.startTime.validate()),
+        priority: element.priority
       );
 
       todoList0.add(todo);

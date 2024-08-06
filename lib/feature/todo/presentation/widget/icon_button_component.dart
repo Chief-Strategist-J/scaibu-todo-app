@@ -2,97 +2,71 @@ import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/model/priority_model.dart';
 
 class IconButtonComponent extends StatelessWidget {
-  final IconButtonComponentData _data;
-  final TaskDetailComponentVariantStyle _style;
+  final IconButtonComponentData data;
+  final TaskDetailComponentVariantStyle style;
+  final ManageTodoPageParam localTodoData;
 
   const IconButtonComponent({
     super.key,
-    required IconButtonComponentData data,
-    required TaskDetailComponentVariantStyle style,
-  })  : _style = style,
-        _data = data;
+    required this.data,
+    required this.style,
+    required this.localTodoData,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final child = (null == _data.prefixText) ? ButtonUIComponent(data: _data) : ButtonUIWithPrefixTextComponent(data: _data);
-
     return PressableBox(
-      style: _style.buttonStyle(context),
-      onPress: _data.onTap,
-      child: child,
-    );
-  }
-}
-
-class ButtonUIWithPrefixTextComponent extends StatelessWidget {
-  final IconButtonComponentData _data;
-
-  const ButtonUIWithPrefixTextComponent({super.key, required IconButtonComponentData data}) : _data = data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          right: 0,
-          top: 0,
-          child: Text("${_data.prefixText}", style: boldTextStyle(color: steelBlue)),
-        ),
-        ButtonUIComponent(data: _data),
-      ],
+      style: style.buttonStyle(context),
+      onPress: data.onTap,
+      child: ButtonUIComponent(data: data, localTodoData: localTodoData),
     );
   }
 }
 
 class ButtonUIComponent extends StatelessWidget {
   final IconButtonComponentData data;
+  final ManageTodoPageParam localTodoData;
 
-  const ButtonUIComponent({super.key, required this.data});
+  const ButtonUIComponent({
+    super.key,
+    required this.data,
+    required this.localTodoData,
+  });
+
+  PriorityModel _getSelectedPriority(BuildContext context) {
+    return context.select((TaskDetailBloc value) {
+          final state = value.state;
+          return state is TaskDetailDataState ? state.priority : null;
+        }) ??
+        priorityList.firstWhere(
+          (p) => p.code == localTodoData.priority,
+          orElse: () => PriorityModel(title: 'No Priority', code: 'no_priority', color: slateGray),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Color? color;
-    final String? text;
-    final String? icon;
+    Color? color;
+    String? text;
+    String? icon = data.icon;
 
     if (data.text == "Priority") {
-      final PriorityModel? priority = context.select(
-        (TaskDetailBloc value) {
-          final state = value.state;
-          if (state is TaskDetailDataState) {
-            return state.priority;
-          } else {
-            return null;
-          }
-        },
-      );
-
-      color = priority?.color;
-      text = priority?.title;
+      final selectedPriority = _getSelectedPriority(context);
+      color = selectedPriority.color;
+      text = selectedPriority.title;
       icon = Assets.iconIcFilledFlag;
-    } else {
-      color = null;
-      text = null;
-      icon = null;
+    } else if (data.text == "Pomodoro") {
+      text = "Pomodoro${data.prefixText ?? ''}";
     }
 
     return Column(
       children: [
         Container(
           margin: const EdgeInsets.all(8),
-          child: SvgPicture.asset(
-            icon ?? data.icon,
-            height: 32,
-            width: 32,
-            fit: BoxFit.fitWidth,
-            color: color,
-          ),
+          child: SvgPicture.asset(icon, height: 32, width: 32, fit: BoxFit.fitWidth, color: color),
         ),
-        8.height,
-        Text(
-          text ?? data.text,
-          style: boldTextStyle(size: 10, color: color),
-        ),
+        const SizedBox(height: 8),
+        Text(text ?? data.text, style: boldTextStyle(size: 10, color: color)),
       ],
     );
   }

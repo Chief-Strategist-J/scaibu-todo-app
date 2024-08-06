@@ -60,6 +60,7 @@ class Data {
     this.endTime,
     this.date,
     this.createdBy,
+    this.priority,
   });
 
   Data.fromJson(dynamic json) {
@@ -72,6 +73,7 @@ class Data {
     startTime = json['start_time'];
     endTime = json['end_time'];
     createdBy = json['created_by'] ?? -1;
+    priority = json['priority'];
   }
 
   num? id;
@@ -83,6 +85,7 @@ class Data {
   String? date;
   String? startTime;
   String? endTime;
+  String? priority;
 
   Data copyWith({
     num? id,
@@ -94,6 +97,7 @@ class Data {
     String? startTime,
     String? endTime,
     num? createdBy,
+    String? priority,
   }) {
     return Data(
       id: id ?? this.id,
@@ -105,6 +109,7 @@ class Data {
       endTime: endTime ?? this.endTime,
       startTime: startTime ?? this.startTime,
       createdBy: createdBy ?? this.createdBy,
+      priority: priority ?? this.priority,
     );
   }
 
@@ -119,6 +124,7 @@ class Data {
     map['start_time'] = startTime;
     map['end_time'] = endTime;
     map['created_by'] = createdBy;
+    map['priority'] = priority;
     return map;
   }
 }

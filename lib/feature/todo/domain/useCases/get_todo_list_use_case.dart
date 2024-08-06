@@ -65,6 +65,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
             startTime: element['start_time'],
             date: element['date'],
             endTime: element['end_time'],
+            priority: element['priority']
           ));
         }
 
@@ -92,6 +93,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
         'end_time': element.endTime,
         'date': element.date,
         'notes': element.notes,
+        'priority' : element.priority,
       };
 
       mapTodoList.add(map);

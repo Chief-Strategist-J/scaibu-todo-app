@@ -113,6 +113,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       "is_archived": false,
       "is_completed": false,
       "notes": todoDetail.note.text,
+      "priority": todoDetail.priority.toString(),
     };
 
     if (todoDetail.startTime != null) {
@@ -169,6 +170,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       'title': todoPage.title.text,
       'description': todoPage.description.text,
       'notes': todoPage.note.text,
+      "priority": todoPage.priority.toString(),
     };
 
     if (todoPage.startTime != null) {
