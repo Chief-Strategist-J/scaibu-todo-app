@@ -28,9 +28,34 @@ class ManageTodoPage extends HookWidget {
     bool isUpdatingTodo = isNotNullTodo || isUpdatingExistingTodo;
 
     if (isUpdatingTodo) {
-      await todoBloc.onEditPageUpdateTodo(todoDetail);
+      await todoBloc.onEditPageUpdateTodo(todoDetail).then((value) {
+        GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
+      });
     } else {
-      await todoBloc.createTodo(todoDetail: todoDetail);
+      final isWantToDelete = await appShowConfirmDialogCustom(
+        context,
+        title: "Want to delete todo at end time?",
+        dialogType: DialogType.DELETE,
+        backgroundColor: context.primaryColor,
+        cancelButtonColor: cancelButtonColor,
+        negativeTextColor: context.primaryColor,
+        positiveText: "Delete",
+        onAccept: (p0) => true,
+        onCancel: (p0) => false,
+      );
+
+      if (isWantToDelete.validate()) {
+        todoDetail.isWantToDeleteTodoAtEndTime = isWantToDelete.validate();
+        todoDetail.isWantToDeleteTodoAtEndTimeNotifier.value = isWantToDelete.validate();
+      }else{
+        todoDetail.isWantToDeleteTodoAtEndTime = false;
+        todoDetail.isWantToDeleteTodoAtEndTimeNotifier.value = false;
+      }
+
+      await todoBloc.createTodo(todoDetail: todoDetail).then((value) async {
+        GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
+        await Future.delayed(const Duration(milliseconds: 1000), () => todoDetail.dispose());
+      });
     }
     return true;
   }
@@ -111,9 +136,7 @@ class ManageTodoPage extends HookWidget {
           return CustomButton(
             data: _getButtonText,
             onTap: () async {
-              await _onTapOfManageTodo(localTodoData, context, todoBloc).then((value) {
-                GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
-              });
+              await _onTapOfManageTodo(localTodoData, context, todoBloc);
             },
           );
         }
@@ -194,37 +217,6 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.notesNode,
                   textInputAction: TextInputAction.done,
                 ),
-                if (todoPage == null)
-                  ValueListenableBuilder(
-                    valueListenable: localTodoData.isWantToDeleteTodoAtEndTimeNotifier,
-                    builder: (context, value, child) {
-                      return Column(
-                        children: [
-                          16.height,
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Want to delete at end time?",
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                              ),
-                              Checkbox(
-                                value: value,
-                                onChanged: (newValue) {
-                                  localTodoData.isWantToDeleteTodoAtEndTime = newValue ?? false;
-                                  localTodoData.isWantToDeleteTodoAtEndTimeNotifier.value = newValue ?? false;
-                                },
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  ),
                 TaskDetailComponent(
                   localTodoData: localTodoData,
                   onChange: (p0) => _onDataChange(p0, localTodoData),
@@ -264,7 +256,6 @@ class ManageTodoPageParam {
   final String? todoId;
   String priority;
 
-  // For single value update we can use value listenable builder
   final ValueNotifier<bool> isWantToDeleteTodoAtEndTimeNotifier;
   bool isWantToDeleteTodoAtEndTime;
   final bool isUpdatingExistingTodo;
@@ -279,6 +270,33 @@ class ManageTodoPageParam {
     this.isWantToDeleteTodoAtEndTime = true,
     this.priority = 'no_priority',
   }) : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime);
+
+  void dispose() {
+    title.clear();
+    description.clear();
+    dateController.clear();
+    startTimeController.clear();
+    endTimeController.clear();
+    note.clear();
+
+    titleNode.dispose();
+    dateNode.dispose();
+    startTimeNode.dispose();
+    endTimeNode.dispose();
+    descriptionNode.dispose();
+    notesNode.dispose();
+
+    title.dispose();
+    description.dispose();
+    dateController.dispose();
+    startTimeController.dispose();
+    endTimeController.dispose();
+    note.dispose();
+
+    isWantToDeleteTodoAtEndTimeNotifier.dispose();
+
+    log("DATA IS CLEARED FOR TODO-DETAIL");
+  }
 
   factory ManageTodoPageParam.fromTodoEntity(
     TodoEntity todoData, {

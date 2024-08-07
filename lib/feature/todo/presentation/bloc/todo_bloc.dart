@@ -165,12 +165,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> onEditPageUpdateTodo(ManageTodoPageParam todoPage) async {
     if (todoPage.firebaseTodoId.validate().isEmpty || todoPage.todoId.validate().isEmpty) return;
 
-    final Map<String, dynamic> todoData = {
+      final Map<String, dynamic> todoData = {
       'todo_id': todoPage.todoId,
       'title': todoPage.title.text,
       'description': todoPage.description.text,
       'notes': todoPage.note.text,
-      "priority": todoPage.priority.toString(),
+      "priority": todoPage.priority,
     };
 
     if (todoPage.startTime != null) {

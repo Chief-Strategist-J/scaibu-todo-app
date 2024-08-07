@@ -88,10 +88,10 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
 export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/task_detail_component.style.dart';
-export 'package:todo_app/feature/todo/presentation/widget/pomodoro_cont.dart';
+export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/component/pomodoro_cont.dart';
 export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/task_detail_component.variant.dart';
 export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/component/create_pomodoro_component.dart';
-export 'package:todo_app/feature/todo/presentation/widget/icon_button_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/component/icon_button_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_bloc.dart';
 export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_event.dart';
 export 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/bloc/task_detail_state.dart';

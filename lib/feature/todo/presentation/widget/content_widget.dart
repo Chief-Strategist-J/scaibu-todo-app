@@ -1,3 +1,4 @@
+import 'package:nb_utils/nb_utils.dart';
 import 'package:todo_app/core/app_library.dart';
 
 TimeService timeService = getIt<TimeService>();
@@ -94,9 +95,12 @@ class ContentWidget extends StatelessWidget {
             minLines: _lines,
             readOnly: !isInternetConnected,
             textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            decoration: const InputDecoration(
+              errorStyle:  TextStyle(fontSize: 8, fontWeight: FontWeight.w400,color: redColor)
+            ),
             validator: (value) {
-              if (value == null) return "Can't Null";
-              if (value.isEmpty) return "Can't Empty";
+              if (value == null) return "This Field Can't Be Null";
+              if (value.isEmpty) return "This Field Can't Be Empty";
               return null;
             },
             textInputAction: _textInputAction ?? TextInputAction.next,

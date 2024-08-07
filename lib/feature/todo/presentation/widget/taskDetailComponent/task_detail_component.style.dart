@@ -24,9 +24,14 @@ class TaskDetailComponentVariantStyle {
     return Style(
       $box.borderRadius.circular(8),
       $box.padding.all(16),
-      $on.press(
-        $box.color.grey.shade200(),
-      ),
+      $on.press($box.color.grey.shade200()),
+    ).applyVariants([_variant]);
+  }
+
+  Style taskPriority() {
+    return Style(
+      $box.padding(8),
+      $flex.crossAxisAlignment.center(),
     ).applyVariants([_variant]);
   }
 }

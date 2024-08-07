@@ -3,6 +3,7 @@ import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/mo
 
 class CreateTaskPriorityComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
+
   const CreateTaskPriorityComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
 
   void _onTapOfPriority(BuildContext context, PriorityModel priority) {
@@ -31,23 +32,21 @@ class CreateTaskPriorityComponent extends StatelessWidget {
                 onTap: () {
                   _onTapOfPriority(context, priority);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: priority.color,
-                        child: SvgPicture.asset(
-                          Assets.iconIcFilledFlag,
-                          color: Colors.white,
-                          height: 21,
-                          width: 21,
-                        ),
+                child: HBox(
+                  style: _style.taskPriority(),
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: priority.color,
+                      child: SvgPicture.asset(
+                        Assets.iconIcFilledFlag,
+                        color: Colors.white,
+                        height: 21,
+                        width: 21,
                       ),
-                      16.width,
-                      Text(priority.title),
-                    ],
-                  ),
+                    ),
+                    16.width,
+                    Text(priority.title),
+                  ],
                 ),
               );
             },

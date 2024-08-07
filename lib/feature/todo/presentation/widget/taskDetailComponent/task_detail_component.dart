@@ -67,7 +67,7 @@ class TaskDetailComponent extends HookWidget {
     final widgetMap = {
       ChildClassType.createPomodoro: CreatePomodoroComponent(style: style),
       ChildClassType.createPriority: CreateTaskPriorityComponent(style: style),
-      ChildClassType.createTags: const CreateTaskTagsComponent(),
+      ChildClassType.createTags: CreateTaskTagsComponent(style: style),
       ChildClassType.createProject: const CreateProjectComponent(),
     };
 

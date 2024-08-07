@@ -56,7 +56,7 @@ class ButtonUIComponent extends StatelessWidget {
       text = selectedPriority.title;
       icon = Assets.iconIcFilledFlag;
     } else if (data.text == "Pomodoro") {
-      text = "Pomodoro${data.prefixText ?? ''}";
+      text = "Pomodoro ${data.prefixText ?? ''}";
     }
 
     return Column(
