@@ -1,11 +1,6 @@
 import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
-import 'package:todo_app/feature/tags/domain/repositories/tags_repository.dart';
 
-class TagsRepositoryImpl implements TagsRepository {
-  final TagsRemoteBase base;
-
-  TagsRepositoryImpl({required this.base});
-
+  class TagsRemoteFirebase implements TagsRemoteBase {
   @override
   Future<void> archiveTag(String id) {
     throw UnimplementedError();

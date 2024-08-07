@@ -1,4 +1,4 @@
-abstract interface class TagsRepository<T> {
+abstract interface class TagsRemoteBase<T> {
   Future<List<T>> getAllTags();
 
   Future<T?> getTagById(String id);

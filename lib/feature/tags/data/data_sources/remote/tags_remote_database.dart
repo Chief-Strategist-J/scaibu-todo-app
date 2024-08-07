@@ -1,10 +1,10 @@
+import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
-import 'package:todo_app/feature/tags/domain/repositories/tags_repository.dart';
 
-class TagsRepositoryImpl implements TagsRepository {
-  final TagsRemoteBase base;
+class TagsRemoteDatabase implements TagsRemoteBase {
+  final RestApi restApi;
 
-  TagsRepositoryImpl({required this.base});
+  const TagsRemoteDatabase(this.restApi);
 
   @override
   Future<void> archiveTag(String id) {
@@ -32,12 +32,12 @@ class TagsRepositoryImpl implements TagsRepository {
   }
 
   @override
-  Future<List> getAllTags() {
+  Future<List<dynamic>> getAllTags() {
     throw UnimplementedError();
   }
 
   @override
-  Future getTagById(String id) {
+  Future<dynamic> getTagById(String id) {
     throw UnimplementedError();
   }
 
@@ -47,7 +47,7 @@ class TagsRepositoryImpl implements TagsRepository {
   }
 
   @override
-  Future<List> searchTags(String query) {
+  Future<List<dynamic>> searchTags(String query) {
     throw UnimplementedError();
   }
 
