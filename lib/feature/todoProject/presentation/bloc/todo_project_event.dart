@@ -1,3 +1,3 @@
 abstract class TodoProjectEvent {}
 
-class InitEvent extends TodoProjectEvent {}
+class InitTodoProjectEvent extends TodoProjectEvent {}

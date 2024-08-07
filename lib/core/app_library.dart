@@ -10,7 +10,7 @@ export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:equatable/equatable.dart';
 export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 export 'package:hive/hive.dart';
-export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:cloud_firestore/cloud_firestore.dart' hide kIsWasm;
 export 'package:get_it/get_it.dart';
 export 'package:fpdart/src/either.dart';
 export 'package:firebase_crashlytics/firebase_crashlytics.dart';

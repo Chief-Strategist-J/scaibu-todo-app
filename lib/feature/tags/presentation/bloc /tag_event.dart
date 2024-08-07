@@ -1,3 +1,3 @@
 abstract class TagEvent {}
 
-class InitEvent extends TagEvent {}
+class InitTagEvent extends TagEvent {}

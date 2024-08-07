@@ -5,10 +5,10 @@ import 'tag_state.dart';
 
 class TagBloc extends Bloc<TagEvent, TagState> {
   TagBloc() : super(TagState().init()) {
-    on<InitEvent>(_init);
+    on<InitTagEvent>(_init);
   }
 
-  void _init(InitEvent event, Emitter<TagState> emit) async {
+  void _init(InitTagEvent event, Emitter<TagState> emit) async {
     emit(state.clone());
   }
 }
