@@ -4,8 +4,10 @@ import 'package:todo_app/feature/todoProject/presentation/bloc/todo_project_bloc
 import 'package:todo_app/feature/todoProject/presentation/bloc/todo_project_event.dart';
 
 
-
+// TODO: UPDATE THE
 class TodoProjectPage extends StatelessWidget {
+  const TodoProjectPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -15,9 +17,6 @@ class TodoProjectPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<TodoProjectBloc>(context);
-
     return Container();
   }
 }
-

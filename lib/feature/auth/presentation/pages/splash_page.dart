@@ -6,6 +6,8 @@ class SplashPage extends HookWidget {
   Future<void> init(BuildContext context, AuthBloc authBloc) async {
     try {
       await Future.delayed(const Duration(seconds: 1)).then((value) {
+        if (!context.mounted) return;
+
         if (userCredentials.getUserAccessToken.validate().isNotEmpty) {
           GoRouter.of(context).pushReplacement(ApplicationPaths.todoListViewPage);
         } else {

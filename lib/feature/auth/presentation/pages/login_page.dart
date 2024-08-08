@@ -86,6 +86,7 @@ class LoginPage extends HookWidget {
                             onFieldSubmitted: (p0) {
                               onLoginOrSignUpTap(authBloc, authFormState, false).then((value) {
                                 authFormState.clear();
+                                if(!context.mounted) return;
                                 GoRouter.of(context).pushReplacement(ApplicationPaths.todoListViewPage);
                               });
                             },

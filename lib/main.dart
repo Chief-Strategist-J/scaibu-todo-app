@@ -19,6 +19,10 @@ import 'package:todo_app/core/app_library.dart';
       child: const MyApp(),
     ),
   );
+
+  Future.delayed(const Duration(seconds: 5), () {
+    Dependency.dispose();
+  });
 }
 
 class MyApp extends HookWidget {
@@ -28,6 +32,7 @@ class MyApp extends HookWidget {
     return [
       BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
+      BlocProvider(create: (context) => GetIt.instance<TagBloc>()),
     ];
   }
 

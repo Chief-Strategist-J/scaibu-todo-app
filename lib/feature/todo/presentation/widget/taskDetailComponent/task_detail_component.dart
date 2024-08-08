@@ -22,6 +22,7 @@ class TaskDetailComponent extends HookWidget {
   List<IconButtonComponentData> _listOfComponent(BuildContext context, TaskDetailComponentVariantStyle style) {
     Future<void> _handleTap(ChildClassType type) async {
       await _onTapIcon(context, style, type: type).then((value) {
+        if (!context.mounted) return;
         final state = context.read<TaskDetailBloc>().state;
         if (state is TaskDetailDataState) onChange.call(state);
       });

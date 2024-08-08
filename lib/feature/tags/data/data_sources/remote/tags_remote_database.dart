@@ -1,10 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
 
-class TagsRemoteDatabase implements TagsRemoteBase {
+class TagsRemoteDatabaseApi implements TagsRemoteBase {
   final RestApi restApi;
 
-  const TagsRemoteDatabase(this.restApi);
+  const TagsRemoteDatabaseApi(this.restApi);
 
   @override
   Future<void> archiveTag(String id) {

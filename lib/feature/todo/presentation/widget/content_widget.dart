@@ -1,4 +1,3 @@
-import 'package:nb_utils/nb_utils.dart';
 import 'package:todo_app/core/app_library.dart';
 
 TimeService timeService = getIt<TimeService>();
