@@ -55,6 +55,7 @@ dependencies:
   clean_architecture_with_state_management: ^1.1.2
   firebase_analytics: ^11.2.1
   flutter_svg: ^2.0.10+1
+  tuple: ^2.0.2
   #  flutter pub run clean_architecture_with_state_management chat -bloc
 
 dependency_overrides:

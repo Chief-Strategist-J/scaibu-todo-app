@@ -31,6 +31,8 @@ export 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 export 'dart:developer' hide Flow;
 export 'package:todo_app/core/constants/colors.dart';
 export 'package:flutter_svg/flutter_svg.dart';
+export 'package:tuple/tuple.dart';
+
 
 
 /// CORE
@@ -138,3 +140,4 @@ export 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
 export 'package:todo_app/feature/tags/data/repositories/tags_repository_impl.dart';
 export 'package:todo_app/feature/tags/domain/repositories/tags_repository.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_bloc.dart';
+export 'package:todo_app/feature/tags/domain/entities/tags.dart';
