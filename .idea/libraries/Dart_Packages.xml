@@ -639,6 +639,13 @@
             </list>
           </value>
         </entry>
+        <entry key="mockito">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/mockito-5.4.4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="nb_utils">
           <value>
             <list>
@@ -1121,6 +1128,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/meta-1.15.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mime-1.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mix-1.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mockito-5.4.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nb_utils-7.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nested-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nm-0.5.0/lib" />

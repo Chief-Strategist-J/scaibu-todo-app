@@ -1,8 +1,7 @@
-import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
-import 'package:todo_app/feature/tags/domain/repositories/tags_repository.dart';
+import 'package:todo_app/core/app_library.dart';
 
-class TagsRepositoryImpl implements TagsRepository {
-  final TagsRemoteBase base;
+class TagsRepositoryImpl implements TagsRepository<TagEntity> {
+  final TagsRemoteBase<TagEntity> base;
 
   TagsRepositoryImpl({required this.base});
 
@@ -32,12 +31,12 @@ class TagsRepositoryImpl implements TagsRepository {
   }
 
   @override
-  Future<List> getAllTags() async {
+  Future<List<TagEntity>> getAllTags() async {
     return await base.getAllTags();
   }
 
   @override
-  Future getTagById(String id) async {
+  Future<TagEntity?> getTagById(String id) async {
     return await base.getTagById(id);
   }
 
@@ -47,7 +46,7 @@ class TagsRepositoryImpl implements TagsRepository {
   }
 
   @override
-  Future<List> searchTags(String query) async {
+  Future<List<TagEntity>> searchTags(String query) async {
     return await base.searchTags(query);
   }
 

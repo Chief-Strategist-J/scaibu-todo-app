@@ -7,10 +7,10 @@ class DeleteTagUseCase extends UseCase<void, String> {
   DeleteTagUseCase({required this.tagsFirebaseRepository, required this.tagsDatabaseRepository});
 
   @override
-  Future<Either<Failure, void>> call(String id) async {
+  Future<Either<Failure, void>> call(String params) async {
     try {
-      await tagsFirebaseRepository.deleteTag(id).then((value) async {
-        await tagsDatabaseRepository.deleteTag(id);
+      await tagsFirebaseRepository.deleteTag(params).then((value) async {
+        await tagsDatabaseRepository.deleteTag(params);
       });
       return const Right(null);
     } catch (e) {

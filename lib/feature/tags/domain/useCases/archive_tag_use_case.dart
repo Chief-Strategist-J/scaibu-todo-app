@@ -7,10 +7,10 @@ class ArchiveTagUseCase extends UseCase<void, String> {
   ArchiveTagUseCase({required this.tagsDatabaseRepository,required this.tagsFirebaseRepository});
 
   @override
-  Future<Either<Failure, void>> call(String id) async {
+  Future<Either<Failure, void>> call(String params) async {
     try {
-      await tagsFirebaseRepository.archiveTag(id).then((value) async {
-        await tagsDatabaseRepository.archiveTag(id);
+      await tagsFirebaseRepository.archiveTag(params).then((value) async {
+        await tagsDatabaseRepository.archiveTag(params);
       });
       return const Right(null);
     } catch (e) {

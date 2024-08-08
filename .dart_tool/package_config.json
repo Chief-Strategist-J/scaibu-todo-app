@@ -548,6 +548,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "mockito",
+      "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/mockito-5.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "nb_utils",
       "rootUri": "file:///home/j/.pub-cache/hosted/pub.dev/nb_utils-7.0.3",
       "packageUri": "lib/",
@@ -890,7 +896,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-08-08T14:06:52.728092Z",
+  "generated": "2024-08-08T14:31:40.594955Z",
   "generator": "pub",
   "generatorVersion": "3.5.0",
   "flutterRoot": "file:///home/j/snap/flutter/common/flutter",

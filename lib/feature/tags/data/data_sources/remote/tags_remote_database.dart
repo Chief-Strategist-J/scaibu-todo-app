@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-class TagsRemoteDatabaseApi implements TagsRemoteBase {
+class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity> {
   final RestApi restApi;
 
   const TagsRemoteDatabaseApi(this.restApi);
@@ -31,12 +31,12 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase {
   }
 
   @override
-  Future<List<dynamic>> getAllTags() {
+  Future<List<TagEntity>> getAllTags() {
     throw UnimplementedError();
   }
 
   @override
-  Future<dynamic> getTagById(String id) {
+  Future<TagEntity> getTagById(String id) {
     throw UnimplementedError();
   }
 
@@ -46,7 +46,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase {
   }
 
   @override
-  Future<List<dynamic>> searchTags(String query) {
+  Future<List<TagEntity>> searchTags(String query) {
     throw UnimplementedError();
   }
 

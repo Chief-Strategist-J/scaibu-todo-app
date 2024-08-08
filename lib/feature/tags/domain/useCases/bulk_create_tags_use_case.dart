@@ -7,10 +7,10 @@ class BulkCreateTagsUseCase extends UseCase<void, List<Map<String, dynamic>>> {
   BulkCreateTagsUseCase({required this.tagsFirebaseRepository, required this.tagsDatabaseRepository});
 
   @override
-  Future<Either<Failure, void>> call(List<Map<String, dynamic>> data) async {
+  Future<Either<Failure, void>> call(List<Map<String, dynamic>> params) async {
     try {
-      await tagsFirebaseRepository.bulkCreateTags(data).then((value) async {
-        await tagsDatabaseRepository.bulkCreateTags(data);
+      await tagsFirebaseRepository.bulkCreateTags(params).then((value) async {
+        await tagsDatabaseRepository.bulkCreateTags(params);
       });
       return const Right(null);
     } catch (e) {

@@ -1,6 +1,6 @@
-import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
+import 'package:todo_app/core/app_library.dart';
 
-  class TagsRemoteFirebaseApi implements TagsRemoteBase {
+  class TagsRemoteFirebaseApi implements TagsRemoteBase<TagEntity> {
   @override
   Future<void> archiveTag(String id) {
     throw UnimplementedError();
@@ -27,12 +27,12 @@ import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
   }
 
   @override
-  Future<List> getAllTags() {
+  Future<List<TagEntity>> getAllTags() {
     throw UnimplementedError();
   }
 
   @override
-  Future getTagById(String id) {
+  Future<TagEntity> getTagById(String id) {
     throw UnimplementedError();
   }
 
@@ -42,7 +42,7 @@ import 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
   }
 
   @override
-  Future<List> searchTags(String query) {
+  Future<List<TagEntity>> searchTags(String query) {
     throw UnimplementedError();
   }
 
