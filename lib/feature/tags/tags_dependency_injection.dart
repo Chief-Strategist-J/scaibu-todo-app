@@ -26,13 +26,6 @@ import 'package:todo_app/feature/tags/domain/useCases/update_tag_use_case.dart';
 // and abstract class is used only for declaring parameter
 
 class TagsDependencyInjection {
-  static const tagsRemoteDatabase = 'tags_remote_database';
-  static const tagsRemoteFirebase = 'tags_remote_firebase';
-  static const tagsRemoteDatabaseImplementation = 'tags_remote_database_implementation';
-  static const tagsRemoteFirebaseImplementation = 'tags_remote_firebase_implementation';
-  static const tagsRepositoryImpl = 'tags_repository_impl';
-  static const tagBloc = 'tag_bloc';
-
   static const archiveTagUseCase = 'archive_tag_use_case';
   static const bulkCreateTagsUseCase = 'bulk_create_tags_use_case';
   static const bulkDeleteTagsUseCase = 'bulk_delete_tags_use_case';
@@ -43,6 +36,12 @@ class TagsDependencyInjection {
   static const restoreTagUseCase = 'restore_tag_use_case';
   static const searchTagsUseCase = 'search_tags_use_case';
   static const updateTagUseCase = 'update_tag_use_case';
+  static const tagsRemoteDatabase = 'tags_remote_database';
+  static const tagsRemoteFirebase = 'tags_remote_firebase';
+  static const tagsRemoteDatabaseImplementation = 'tags_remote_database_implementation';
+  static const tagsRemoteFirebaseImplementation = 'tags_remote_firebase_implementation';
+  static const tagsRepositoryImpl = 'tags_repository_impl';
+  static const tagBloc = 'tag_bloc';
 
   static void setupDependencyInjection() {
     getIt.registerSingleton<TagsRemoteBase<TagEntity>>(
@@ -57,16 +56,12 @@ class TagsDependencyInjection {
 
     getIt.registerSingleton<TagsRepository<TagEntity>>(
       instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-      TagsRepositoryImpl(
-        base: getIt<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebase),
-      ),
+      TagsRepositoryImpl(base: getIt<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebase)),
     );
 
     getIt.registerSingleton<TagsRepository<TagEntity>>(
       instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-      TagsRepositoryImpl(
-        base: getIt<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabase),
-      ),
+      TagsRepositoryImpl(base: getIt<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabase)),
     );
 
     // Register TagBloc
@@ -74,143 +69,100 @@ class TagsDependencyInjection {
       instanceName: TagsDependencyInjection.tagBloc,
       () {
         return TagBloc(
-          tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-            instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-          ),
-          tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-            instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-          ),
+          tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+          tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
         );
       },
     );
 
     getIt.registerSingleton<ArchiveTagUseCase>(
-      ArchiveTagUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.archiveTagUseCase,
+      ArchiveTagUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<BulkCreateTagsUseCase>(
-      BulkCreateTagsUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.bulkCreateTagsUseCase,
+      BulkCreateTagsUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<BulkDeleteTagsUseCase>(
-      BulkDeleteTagsUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.bulkDeleteTagsUseCase,
+      BulkDeleteTagsUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<CreateTagUseCase>(
-      CreateTagUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.createTagUseCase,
+      CreateTagUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<DeleteTagUseCase>(
-      DeleteTagUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.deleteTagUseCase,
+      DeleteTagUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<GetAllTagsUseCase>(
-      GetAllTagsUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.getAllTagsUseCase,
+      GetAllTagsUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<GetTagByIdUseCase>(
-      GetTagByIdUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.getTagByIdUseCase,
+      GetTagByIdUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<RestoreTagUseCase>(
-      RestoreTagUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.restoreTagUseCase,
+      RestoreTagUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
 
     getIt.registerSingleton<SearchTagsUseCase>(
+      instanceName: TagsDependencyInjection.searchTagsUseCase,
       SearchTagsUseCase(
         tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
           instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
         ),
       ),
-      instanceName: TagsDependencyInjection.searchTagsUseCase,
     );
 
     getIt.registerSingleton<UpdateTagUseCase>(
-      UpdateTagUseCase(
-        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-        ),
-        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-          instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-        ),
-      ),
       instanceName: TagsDependencyInjection.updateTagUseCase,
+      UpdateTagUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+        tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
+      ),
     );
   }
 
   static void disposeDependencyInjection() {
     getIt.unregister<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabase);
     getIt.unregister<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebase);
-
     getIt.unregister<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation);
     getIt.unregister<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation);
-
     getIt.unregister<TagBloc>(instanceName: TagsDependencyInjection.tagBloc);
-
     getIt.unregister<ArchiveTagUseCase>(instanceName: TagsDependencyInjection.archiveTagUseCase);
     getIt.unregister<BulkCreateTagsUseCase>(instanceName: TagsDependencyInjection.bulkCreateTagsUseCase);
     getIt.unregister<BulkDeleteTagsUseCase>(instanceName: TagsDependencyInjection.bulkDeleteTagsUseCase);

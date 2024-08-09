@@ -1,107 +1,75 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/domain/entities/tags.dart';
 
-class TagsModel extends TagEntity {
-  TagsModel({
-    super.id,
-    super.uuid,
-    super.isActive,
-    super.order,
-    super.version,
-    super.followerCount,
-    super.usageCount,
-    super.relatedPostsCount,
-    super.userInteractionCount,
-    super.popularityScore,
-    super.name,
-    super.slug,
-    super.metaTitle,
-    super.color,
-    super.imageUrl,
-    super.tagType,
-    super.contentType,
-    super.descriptionVector,
-    super.metaDescription,
-    super.description,
-    super.geolocationData,
-    super.metaData,
-    super.deletedAt,
-    super.createdBy,
-    super.parentId,
-    super.todoId,
-    super.lastTrendUpdate,
-    super.lastUsedAt,
-    super.createdAt,
-    super.updatedAt,
-  });
+part 'tags_model.freezed.dart';
+part 'tags_model.g.dart';
 
-  factory TagsModel.fromJson(Map<String, dynamic> json) {
-    return TagsModel(
-      id: json['id'] as int?,
-      uuid: json['uuid'] as String?,
-      isActive: json['is_active'] as bool?,
-      order: json['order'] as int?,
-      version: json['version'] as int?,
-      followerCount: json['follower_count'] as int?,
-      usageCount: json['usage_count'] as int?,
-      relatedPostsCount: json['related_posts_count'] as int?,
-      userInteractionCount: json['user_interaction_count'] as int?,
-      popularityScore: (json['popularity_score'] as num?)?.toDouble(),
-      name: json['name'] as String?,
-      slug: json['slug'] as String?,
-      metaTitle: json['meta_title'] as String?,
-      color: json['color'] as String?,
-      imageUrl: json['image_url'] as String?,
-      tagType: json['tag_type'] as String?,
-      contentType: json['content_type'] as String?,
-      descriptionVector: json['description_vector'] as String?,
-      metaDescription: json['meta_description'] as String?,
-      description: json['description'] as String?,
-      geolocationData: json['geolocation_data'] != null ? jsonDecode(json['geolocation_data']) : null,
-      metaData: json['meta_data'] != null ? jsonDecode(json['meta_data']) : null,
-      deletedAt: json['deleted_at'] != null ? DateTime.parse(json['deleted_at']) : null,
-      createdBy: json['created_by'] as int?,
-      parentId: json['parent_id'] as int?,
-      todoId: json['todo_id'] as int?,
-      lastTrendUpdate: json['last_trend_update'] != null ? DateTime.parse(json['last_trend_update']) : null,
-      lastUsedAt: json['last_used_at'] != null ? DateTime.parse(json['last_used_at']) : null,
-      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
-    );
-  }
+mixin TagEntityMixin {
+  int? get id;
+  String? get uuid;
+  bool? get isActive;
+  int? get order;
+  int? get version;
+  int? get followerCount;
+  int? get usageCount;
+  int? get relatedPostsCount;
+  int? get userInteractionCount;
+  double? get popularityScore;
+  String? get name;
+  String? get slug;
+  String? get metaTitle;
+  String? get color;
+  String? get imageUrl;
+  String? get tagType;
+  String? get contentType;
+  String? get descriptionVector;
+  String? get metaDescription;
+  String? get description;
+  Map<String, dynamic>? get geolocationData;
+  Map<String, dynamic>? get metaData;
+  DateTime? get deletedAt;
+  int? get createdBy;
+  int? get parentId;
+  int? get todoId;
+  DateTime? get lastTrendUpdate;
+  DateTime? get lastUsedAt;
+  DateTime? get createdAt;
+  DateTime? get updatedAt;
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'uuid': uuid,
-      'is_active': isActive,
-      'order': order,
-      'version': version,
-      'follower_count': followerCount,
-      'usage_count': usageCount,
-      'related_posts_count': relatedPostsCount,
-      'user_interaction_count': userInteractionCount,
-      'popularity_score': popularityScore,
-      'name': name,
-      'slug': slug,
-      'meta_title': metaTitle,
-      'color': color,
-      'image_url': imageUrl,
-      'tag_type': tagType,
-      'content_type': contentType,
-      'description_vector': descriptionVector,
-      'meta_description': metaDescription,
-      'description': description,
-      'geolocation_data': geolocationData != null ? jsonEncode(geolocationData) : null,
-      'meta_data': metaData != null ? jsonEncode(metaData) : null,
-      'deleted_at': deletedAt?.toIso8601String(),
-      'created_by': createdBy,
-      'parent_id': parentId,
-      'todo_id': todoId,
-      'last_trend_update': lastTrendUpdate?.toIso8601String(),
-      'last_used_at': lastUsedAt?.toIso8601String(),
-      'created_at': createdAt?.toIso8601String(),
-      'updated_at': updatedAt?.toIso8601String(),
-    };
-  }
+@freezed
+class TagsModel with _$TagsModel, TagEntityMixin {
+  const factory TagsModel({
+    int? id,
+    String? uuid,
+    bool? isActive,
+    int? order,
+    int? version,
+    int? followerCount,
+    int? usageCount,
+    int? relatedPostsCount,
+    int? userInteractionCount,
+    double? popularityScore,
+    String? name,
+    String? slug,
+    String? metaTitle,
+    String? color,
+    String? imageUrl,
+    String? tagType,
+    String? contentType,
+    String? descriptionVector,
+    String? metaDescription,
+    String? description,
+    Map<String, dynamic>? geolocationData,
+    Map<String, dynamic>? metaData,
+    DateTime? deletedAt,
+    int? createdBy,
+    int? parentId,
+    int? todoId,
+    DateTime? lastTrendUpdate,
+    DateTime? lastUsedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _TagsModel;
+
+  factory TagsModel.fromJson(Map<String, dynamic> json) => _$TagsModelFromJson(json);
 }

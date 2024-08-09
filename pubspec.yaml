@@ -58,6 +58,7 @@ dependencies:
   tuple: ^2.0.2
   #  flutter pub run clean_architecture_with_state_management chat -bloc
   mockito: ^5.4.4
+  analyzer: ^6.7.0
 
 dependency_overrides:
   get_it: ^7.6.4
