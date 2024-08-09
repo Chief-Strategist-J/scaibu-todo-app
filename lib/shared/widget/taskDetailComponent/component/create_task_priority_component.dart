@@ -1,9 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/model/priority_model.dart';
 
-class CreateTaskTagsComponent extends StatelessWidget {
+class CreateTaskPriorityComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
-  const CreateTaskTagsComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
+
+  const CreateTaskPriorityComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
 
   void _onTapOfPriority(BuildContext context, PriorityModel priority) {
     context.read<TaskDetailBloc>().add(UpdatePriorityEvent(priority: priority));
@@ -19,7 +19,7 @@ class CreateTaskTagsComponent extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           8.height,
-          Center(child: Text("Tags", style: boldTextStyle(size: 20))),
+          Center(child: Text("Priority", style: boldTextStyle(size: 20))),
           ListView.separated(
             itemCount: priorityList.length,
             shrinkWrap: true,
@@ -31,20 +31,21 @@ class CreateTaskTagsComponent extends StatelessWidget {
                 onTap: () {
                   _onTapOfPriority(context, priority);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        Assets.iconIcFilledTag,
-                        color: priority.color,
+                child: HBox(
+                  style: _style.taskPriority(),
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: priority.color,
+                      child: SvgPicture.asset(
+                        Assets.iconIcFilledFlag,
+                        color: Colors.white,
                         height: 21,
                         width: 21,
                       ),
-                      16.width,
-                      Text(priority.title),
-                    ],
-                  ),
+                    ),
+                    16.width,
+                    Text(priority.title),
+                  ],
                 ),
               );
             },

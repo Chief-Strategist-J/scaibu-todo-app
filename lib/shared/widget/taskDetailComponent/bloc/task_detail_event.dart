@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:todo_app/feature/todo/presentation/widget/taskDetailComponent/model/priority_model.dart';
+import 'package:todo_app/shared/widget/taskDetailComponent/model/priority_model.dart';
 
 sealed class TaskDetailEvent extends Equatable {}
 
