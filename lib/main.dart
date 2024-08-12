@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-  Future<void> main() async {
+Future<void> main() async {
   await initialSetup.utilityInit();
   await initialSetup.firebaseInit();
   await initialSetup.languageInit();
@@ -9,7 +9,7 @@ import 'package:todo_app/core/app_library.dart';
   Provider.debugCheckInvalidValueType = null;
   textBoldSizeGlobal = 12;
 
-   Dependency.setup();
+  Dependency.setup();
 
   runApp(
     EasyLocalization(
@@ -20,9 +20,14 @@ import 'package:todo_app/core/app_library.dart';
     ),
   );
 
-  Future.delayed(const Duration(seconds: 5), () {
-    Dependency.dispose();
-  });
+  WidgetsBinding.instance.addObserver(LifecycleObserver());
+}
+
+class LifecycleObserver extends WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) Dependency.dispose();
+  }
 }
 
 class MyApp extends HookWidget {
@@ -30,8 +35,8 @@ class MyApp extends HookWidget {
 
   List<SingleChildWidget> get blocProviders {
     return [
-      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
+      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
       BlocProvider(create: (context) => GetIt.instance<TagBloc>()),
     ];
   }

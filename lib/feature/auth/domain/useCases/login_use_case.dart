@@ -8,7 +8,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   @override
   Future<Either<Failure, LoginEntity>> call(Map<String, dynamic> params) async {
     try {
-      toast("Logging ...", bgColor: cardColor, length: Toast.LENGTH_SHORT);
+      toast("Logging in...", bgColor: cardColor, length: Toast.LENGTH_SHORT);
 
       final auth = await authRepository.standardSignIn(params);
 
@@ -29,8 +29,27 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
       _storeCred(user, auth);
 
       return Right(auth);
+    } on FirebaseAuthException catch (e, s) {
+      String errorMessage;
+      switch (e.code) {
+        case 'user-not-found':
+          errorMessage = 'No user found for that email.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Wrong password provided.';
+          break;
+        case 'email-already-in-use':
+          errorMessage = 'The account already exists for that email.';
+          break;
+        default:
+          errorMessage = 'Failed to authenticate. Please try again.';
+          break;
+      }
+      toast(errorMessage);
+      logService.crashLog(errorMessage: errorMessage, e: e, stack: s);
+      return Left(ServerFailure(errorMessage));
     } catch (e, s) {
-      toast(e.toString());
+      toast('An unexpected error occurred. Please try again.');
       logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
       return Left(ServerFailure('Failed to create todo'));
     }

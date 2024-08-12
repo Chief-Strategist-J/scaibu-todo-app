@@ -1,4 +1,3 @@
-
 import 'package:todo_app/core/app_library.dart';
 
 enum HttpRequestMethod { get, post, delete, put, patch, upload, download }
@@ -10,6 +9,12 @@ class RestApiImpl implements RestApi {
     Map<String, String> header = {
       HttpHeaders.contentTypeHeader: 'application/json',
     };
+
+    final token = userCredentials.box.get(userCredentials.accessToken);
+    if (token != null) {
+      debugPrint("User Token : $token");
+      header.putIfAbsent(HttpHeaders.authorizationHeader, () => token);
+    }
 
     return header;
   }

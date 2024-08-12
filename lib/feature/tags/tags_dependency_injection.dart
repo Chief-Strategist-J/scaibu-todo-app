@@ -4,6 +4,7 @@ import 'package:todo_app/feature/tags/domain/useCases/bulk_create_tags_use_case.
 import 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/create_tag_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/delete_tag_use_case.dart';
+import 'package:todo_app/feature/tags/domain/useCases/get_all_seeded_tags_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/get_all_tags_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/get_tag_by_id_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/restore_tag_use_case.dart';
@@ -36,10 +37,13 @@ class TagsDependencyInjection {
   static const restoreTagUseCase = 'restore_tag_use_case';
   static const searchTagsUseCase = 'search_tags_use_case';
   static const updateTagUseCase = 'update_tag_use_case';
+  static const getAllSeededTagsUseCase = 'get_all_seeded_tags_use_case';
+
   static const tagsRemoteDatabase = 'tags_remote_database';
   static const tagsRemoteFirebase = 'tags_remote_firebase';
   static const tagsRemoteDatabaseImplementation = 'tags_remote_database_implementation';
   static const tagsRemoteFirebaseImplementation = 'tags_remote_firebase_implementation';
+  static const tagsRemoteDatabaseImplementationWithHelper = 'tags_remote_database_implementation_with_helper';
   static const tagsRepositoryImpl = 'tags_repository_impl';
   static const tagBloc = 'tag_bloc';
 
@@ -62,6 +66,11 @@ class TagsDependencyInjection {
     getIt.registerSingleton<TagsRepository<TagEntity>>(
       instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
       TagsRepositoryImpl(base: getIt<TagsRemoteBase<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabase)),
+    );
+
+    getIt.registerSingleton<HelperTagRepository<TagEntity>>(
+      TagsRemoteDatabaseApi(getIt<RestApi>()),
+      instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper,
     );
 
     // Register TagBloc
@@ -155,6 +164,15 @@ class TagsDependencyInjection {
         tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
       ),
     );
+
+    getIt.registerSingleton<GetAllSeededTagsUseCase>(
+      instanceName: TagsDependencyInjection.getAllSeededTagsUseCase,
+      GetAllSeededTagsUseCase(
+        tagsDatabaseRepository: getIt<HelperTagRepository<TagEntity>>(
+          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper,
+        ),
+      ),
+    );
   }
 
   static void disposeDependencyInjection() {
@@ -173,5 +191,7 @@ class TagsDependencyInjection {
     getIt.unregister<RestoreTagUseCase>(instanceName: TagsDependencyInjection.restoreTagUseCase);
     getIt.unregister<SearchTagsUseCase>(instanceName: TagsDependencyInjection.searchTagsUseCase);
     getIt.unregister<UpdateTagUseCase>(instanceName: TagsDependencyInjection.updateTagUseCase);
+    getIt.unregister<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase);
+    getIt.unregister<HelperTagRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper);
   }
 }

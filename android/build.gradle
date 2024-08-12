@@ -1,3 +1,17 @@
+buildscript {
+    ext.kotlin_version = '1.9.10' // Update to the latest Kotlin version
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0' // Update Gradle plugin version
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.4.0'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -9,8 +23,35 @@ rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
-    project.evaluationDependsOn(':app')
+    afterEvaluate {
+        if (project.hasProperty('android')) {
+            android {
+                compileSdkVersion 34
+
+                defaultConfig {
+                    targetSdkVersion 34
+                    minSdkVersion 23
+                }
+
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
+            }
+        }
+
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+        }
+
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {

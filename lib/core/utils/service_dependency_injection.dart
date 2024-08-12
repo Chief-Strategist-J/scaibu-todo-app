@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/core/utils/utility_service.dart';
 
 class ServiceDependencyInjection {
   static void registerService() {
@@ -30,16 +31,23 @@ class ServiceDependencyInjection {
     });
 
     getIt.registerLazySingleton(() {
+      log('\n\n UTILITY SERVICE IN INITIALIZED\n\n');
+      return UtilityService();
+    });
+
+    getIt.registerLazySingleton(() {
       log('\n\nTIME SERVICE IN INITIALIZED\n\n');
       return TimeService();
     });
   }
 
   static void disposeService() {
+    log('\n\ SERVICE IN DISPOSED\n\n');
     getIt.unregister<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
     getIt.unregister<ScheduleService>();
     getIt.unregister<LogService>();
     getIt.unregister<ParseService>();
     getIt.unregister<TimeService>();
+    getIt.unregister<UtilityService>();
   }
 }

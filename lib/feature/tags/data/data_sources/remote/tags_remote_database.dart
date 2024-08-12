@@ -1,10 +1,12 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/data/models/response/list_of_tags_seeded_tag_response.dart';
 
 class TagEndPoint {
   static const String getAllTags = 'api/v1/tags';
   static const String createTag = '   api/v1/tags';
   static const String updateTag = 'api/v1/tags'; // Adjust if needed for specific tag ID
   static const String deleteTag = 'api/v1/tags'; // Adjust if needed for specific tag ID
+  static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
   static const String bulkCreateTags = 'api/v1/tags/bulk';
   static const String bulkDeleteTags = 'api/v1/tags/bulk';
 
@@ -15,7 +17,7 @@ class TagEndPoint {
   TagEndPoint._(); // Private constructor to prevent instantiation
 }
 
-class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity> {
+class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepository<TagEntity> {
   final RestApi restApi;
 
   const TagsRemoteDatabaseApi(this.restApi);
@@ -151,6 +153,44 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity> {
     } catch (e) {
       debugPrint('Error updating tag: $e');
       throw Exception('Failed to update tag. Please try again later.');
+    }
+  }
+
+  @override
+  Future<List<TagEntity>> getAllSeededTags() async {
+    try {
+      final response = await restApi.request(
+        type: HttpRequestMethod.get,
+        endPoint: TagEndPoint.getAllSeeded,
+        requestBody: {},
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
+
+      if (listOfTagsSeededTagResponse.data == null) throw Exception("data is null");
+      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("data is empty");
+
+      List<TagEntity> tags = [];
+
+      final list = listOfTagsSeededTagResponse.data!;
+      for (TagData element in list) {
+        tags.add(
+          TagEntity(
+            id: element.id?.toInt(),
+            name: element.name,
+            slug: element.slug,
+            createdBy: element.createdBy?.toInt(),
+          ),
+        );
+      }
+
+      return tags;
+    } catch (e) {
+      debugPrint('Error retrieving the seeded  tag: $e');
+      rethrow;
     }
   }
 }

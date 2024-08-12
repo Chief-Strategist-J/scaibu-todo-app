@@ -1,17 +1,20 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/shared/widget/taskDetailComponent/model/priority_model.dart';
+import 'package:todo_app/core/utils/utility_service.dart';
 
-class CreateTaskTagsComponent extends StatelessWidget {
+class CreateTaskTagsComponent extends HookWidget {
   final TaskDetailComponentVariantStyle _style;
-  const CreateTaskTagsComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
 
-  void _onTapOfPriority(BuildContext context, PriorityModel priority) {
-    context.read<TaskDetailBloc>().add(UpdatePriorityEvent(priority: priority));
-    GoRouter.of(context).pop();
-  }
+  const CreateTaskTagsComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
 
   @override
   Widget build(BuildContext context) {
+    final utilityService = useMemoized(() => getIt<UtilityService>());
+
+    final List<TagEntity> _list = context.select((TaskDetailBloc value) {
+      final state = value.state;
+      return state is TaskDetailDataState ? state.tagList : [];
+    });
+
     return PressableBox(
       style: _style.dialogStyle(context),
       child: Column(
@@ -21,15 +24,15 @@ class CreateTaskTagsComponent extends StatelessWidget {
           8.height,
           Center(child: Text("Tags", style: boldTextStyle(size: 20))),
           ListView.separated(
-            itemCount: priorityList.length,
+            itemCount: _list.length,
             shrinkWrap: true,
             separatorBuilder: (context, index) => const Divider(thickness: 0.5),
             itemBuilder: (context, index) {
-              final priority = priorityList[index];
+              final tag = _list[index];
 
               return InkWell(
                 onTap: () {
-                  _onTapOfPriority(context, priority);
+                  //
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8),
@@ -37,12 +40,12 @@ class CreateTaskTagsComponent extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         Assets.iconIcFilledTag,
-                        color: priority.color,
+                        color: utilityService.stringToColor(tag.color ?? '0xFFFFEBEE'),
                         height: 21,
                         width: 21,
                       ),
                       16.width,
-                      Text(priority.title),
+                      Text(tag.name.validate()),
                     ],
                   ),
                 ),

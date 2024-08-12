@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-
 class CreateTaskPriorityComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
 

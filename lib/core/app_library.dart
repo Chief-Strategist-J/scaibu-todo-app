@@ -33,8 +33,6 @@ export 'package:todo_app/core/constants/colors.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:tuple/tuple.dart';
 
-
-
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/firebase_options.dart';
@@ -52,6 +50,9 @@ export 'package:todo_app/core/utils/log_service.dart';
 export 'package:todo_app/core/utils/parse_service.dart';
 export 'package:todo_app/core/secret/env.dart';
 export 'package:todo_app/core/utils/schedule_service.dart';
+export 'dart:ui' show Canvas, Paint, Path, lerpDouble;
+export 'package:rxdart/rxdart.dart';
+export 'package:async/async.dart';
 
 /// Injection
 export 'package:todo_app/core/utils/service_dependency_injection.dart';
@@ -109,7 +110,6 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
 
-
 // Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
 export 'package:todo_app/feature/auth/data/model/response/login_response.dart';
@@ -142,4 +142,4 @@ export 'package:todo_app/feature/tags/data/repositories/tags_repository_impl.dar
 export 'package:todo_app/feature/tags/domain/repositories/tags_repository.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_bloc.dart';
 export 'package:todo_app/feature/tags/domain/entities/tags.dart';
-
+export 'package:todo_app/feature/tags/domain/repositories/helper_tag_repository.dart';
