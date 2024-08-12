@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 enum ChildClassType {
   createPomodoro,
   createPriority,
@@ -93,9 +92,49 @@ class TaskDetailComponent extends HookWidget {
       create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent()),
       child: Builder(
         builder: (context) {
+          final List<TagEntity> _list = context.select((TaskDetailBloc taskDetailBloc) {
+            final state = taskDetailBloc.state;
+            if (state is TaskDetailDataState) {
+              return state.selectedTagList;
+            } else {
+              return [];
+            }
+          });
+
           return VBox(
+            style: Style(
+              $flex.crossAxisAlignment.start(),
+            ),
             children: [
-              16.height,
+              8.height,
+              if (_list.isNotEmpty)
+                Wrap(
+                  children: _list.map((data) {
+                    return Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: getIt<UtilityService>().stringToColor(
+                            data.color.validate(),
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        "#${data.name.validate()} ",
+                        style: boldTextStyle(
+                          size: 12,
+                          color: getIt<UtilityService>().stringToColor(
+                            data.color.validate(),
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+
+               Divider(color: shadowColor,endIndent: 16,indent: 16,thickness: 0.4),
               Center(
                 child: Wrap(
                   children: _listOfComponent(context, style).map((data) {
@@ -103,6 +142,7 @@ class TaskDetailComponent extends HookWidget {
                   }).toList(),
                 ),
               ),
+
             ],
           );
         },

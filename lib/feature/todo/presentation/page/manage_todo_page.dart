@@ -161,7 +161,7 @@ class ManageTodoPage extends HookWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: AnimatedScrollView(
               listAnimationType: ListAnimationType.None,
-              padding: const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 60),
+              padding: const EdgeInsets.only(bottom: 120, right: 16, left: 16, top: 60),
               children: [
                 Row(
                   children: [
