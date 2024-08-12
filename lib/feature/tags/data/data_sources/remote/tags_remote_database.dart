@@ -183,6 +183,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
             name: element.name,
             slug: element.slug,
             createdBy: element.createdBy?.toInt(),
+            color: element.color
           ),
         );
       }

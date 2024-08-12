@@ -1,8 +1,4 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/domain/useCases/get_all_seeded_tags_use_case.dart';
 
 class MockGetAllSeededTagsUseCase extends Mock implements GetAllSeededTagsUseCase {}
 
@@ -18,7 +14,7 @@ void main() {
 
   setUp(() {
     // Clear the previous registrations
-    GetIt.I.reset();
+    getIt.reset();
 
     // Register mocks
     mockGetAllSeededTagsUseCase = MockGetAllSeededTagsUseCase();
@@ -26,16 +22,16 @@ void main() {
     mockRestApi = MockRestApi();
 
     // Register the RestApi
-    GetIt.I.registerSingleton<RestApi>(mockRestApi);
+    getIt.registerSingleton<RestApi>(mockRestApi);
 
     // Register the HelperTagRepository
-    GetIt.I.registerSingleton<HelperTagRepository<TagEntity>>(
+    getIt.registerSingleton<HelperTagRepository<TagEntity>>(
       mockHelperTagRepository,
       instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper,
     );
 
     // Register the GetAllSeededTagsUseCase
-    GetIt.I.registerSingleton<GetAllSeededTagsUseCase>(
+    getIt.registerSingleton<GetAllSeededTagsUseCase>(
       mockGetAllSeededTagsUseCase,
       instanceName: TagsDependencyInjection.getAllSeededTagsUseCase,
     );
@@ -78,6 +74,58 @@ void main() {
       ),
       expect: () => [
         isA<TaskDetailDataState>().having((state) => state.priority?.title, 'priority title', 'High Priority'),
+      ],
+    );
+
+    blocTest<TaskDetailBloc, TaskDetailState>(
+      'emits [TaskDetailDataState] with updated selectedTagList when IsSelectedTagEvent is added',
+      build: () {
+        return taskDetailBloc
+          ..emit(
+            TaskDetailDataState(
+              selectedTagList: const [
+                TagEntity(slug: 'tag1'),
+              ],
+            ),
+          );
+      },
+      act: (bloc) => bloc.add(
+        IsSelectedTagEvent(
+          tag: const TagEntity(slug: 'tag2'),
+        ),
+      ),
+      expect: () => [
+        TaskDetailDataState(
+          selectedTagList: const [
+            TagEntity(slug: 'tag1'),
+            TagEntity(slug: 'tag2'),
+          ],
+        ),
+      ],
+    );
+
+    blocTest<TaskDetailBloc, TaskDetailState>(
+      'removes tag from selectedTagList if it already exists',
+      build: () {
+        return taskDetailBloc
+          ..emit(
+            TaskDetailDataState(
+              selectedTagList: const [
+                TagEntity(slug: 'tag1'),
+                TagEntity(slug: 'tag2'),
+              ],
+            ),
+          );
+      },
+      act: (bloc) => bloc.add(
+        IsSelectedTagEvent(tag: const TagEntity(slug: 'tag2')),
+      ),
+      expect: () => [
+        TaskDetailDataState(
+          selectedTagList: const [
+            TagEntity(slug: 'tag1'),
+          ],
+        ),
       ],
     );
   });

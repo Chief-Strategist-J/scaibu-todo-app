@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/domain/useCases/get_all_seeded_tags_use_case.dart';
 
 class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   bool isSeededTagsRetrieved = false;
@@ -8,6 +7,7 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<InitTaskDetailEvent>(_init);
     on<UpdatePomodoroCounterEvent>(_updatePomodoro);
     on<UpdatePriorityEvent>(_updatePriority);
+    on<IsSelectedTagEvent>(_isTagIsSelected);
   }
 
   @override
@@ -24,7 +24,6 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       result.fold((failure) {
         if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
       }, (tags) {
-        toast(tags.length.validate().toString());
         _emitDataState(emit, tagList: tags, pomodoroCont: 0);
       });
     } else {
@@ -40,19 +39,39 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     _emitDataState(emit, priority: event.priority);
   }
 
-  void _emitDataState(Emitter<TaskDetailState> emit, {List<TagEntity>? tagList, int? pomodoroCont, PriorityModel? priority}) {
+  void _isTagIsSelected(IsSelectedTagEvent event, Emitter<TaskDetailState> emit) async {
     if (state is TaskDetailDataState) {
       final currentState = state as TaskDetailDataState;
-      emit(currentState.copyWith(
-        tagList: tagList ?? currentState.tagList,
-        pomodoroCont: pomodoroCont ?? currentState.pomodoroCont,
-        priority: priority ?? currentState.priority,
-      ));
+      final list = List<TagEntity>.from(currentState.selectedTagList);
+
+      (list.any((element) => element.slug == event.tag.slug)) ? list.remove(event.tag) : list.add(event.tag);
+      _emitDataState(emit, selectedTagList: list);
+    }
+  }
+
+  void _emitDataState(
+    Emitter<TaskDetailState> emit, {
+    List<TagEntity>? tagList,
+    int? pomodoroCont,
+    PriorityModel? priority,
+    List<TagEntity>? selectedTagList,
+  }) {
+    if (state is TaskDetailDataState) {
+      final currentState = state as TaskDetailDataState;
+      emit(
+        currentState.copyWith(
+          tagList: tagList ?? currentState.tagList,
+          pomodoroCont: pomodoroCont ?? currentState.pomodoroCont,
+          priority: priority ?? currentState.priority,
+          selectedTagList: selectedTagList ?? currentState.selectedTagList,
+        ),
+      );
     } else {
       emit(TaskDetailDataState(
         tagList: tagList ?? [],
         pomodoroCont: pomodoroCont ?? 0,
         priority: priority,
+        selectedTagList: selectedTagList ?? [],
       ));
     }
   }

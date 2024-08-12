@@ -57,12 +57,14 @@ class TagData {
     num? id,
     String? name,
     String? slug,
+    String? color,
     num? createdBy,
   }) {
     _id = id;
     _name = name;
     _slug = slug;
     _createdBy = createdBy;
+    _color = color;
   }
 
   TagData.fromJson(dynamic json) {
@@ -70,17 +72,20 @@ class TagData {
     _name = json['name'];
     _slug = json['slug'];
     _createdBy = json['created_by'];
+    _color = json['color'];
   }
 
   num? _id;
   String? _name;
   String? _slug;
+  String? _color;
   num? _createdBy;
 
   TagData copyWith({
     num? id,
     String? name,
     String? slug,
+    String? color,
     num? createdBy,
   }) =>
       TagData(
@@ -88,6 +93,7 @@ class TagData {
         name: name ?? _name,
         slug: slug ?? _slug,
         createdBy: createdBy ?? _createdBy,
+        color: color ?? _color,
       );
 
   num? get id => _id;
@@ -96,7 +102,10 @@ class TagData {
 
   String? get slug => _slug;
 
+  String? get color => _color;
+
   num? get createdBy => _createdBy;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -104,6 +113,7 @@ class TagData {
     map['name'] = _name;
     map['slug'] = _slug;
     map['created_by'] = _createdBy;
+    map['color'] = _color;
     return map;
   }
 }
