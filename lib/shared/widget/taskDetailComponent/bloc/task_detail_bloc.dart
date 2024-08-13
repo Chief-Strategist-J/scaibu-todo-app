@@ -8,6 +8,7 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<UpdatePomodoroCounterEvent>(_updatePomodoro);
     on<UpdatePriorityEvent>(_updatePriority);
     on<IsSelectedTagEvent>(_isTagIsSelected);
+    on<RemoveTagFromListEvent>(_removeTagFromList);
   }
 
   @override
@@ -45,6 +46,15 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       final list = List<TagEntity>.from(currentState.selectedTagList);
 
       (list.any((element) => element.slug == event.tag.slug)) ? list.remove(event.tag) : list.add(event.tag);
+      _emitDataState(emit, selectedTagList: list);
+    }
+  }
+
+  void _removeTagFromList(RemoveTagFromListEvent event, Emitter<TaskDetailState> emit) async {
+    if (state is TaskDetailDataState) {
+      final currentState = state as TaskDetailDataState;
+      final list = List<TagEntity>.from(currentState.selectedTagList);
+      if (list.any((element) => element.slug == event.tag.slug)) list.remove(event.tag);
       _emitDataState(emit, selectedTagList: list);
     }
   }

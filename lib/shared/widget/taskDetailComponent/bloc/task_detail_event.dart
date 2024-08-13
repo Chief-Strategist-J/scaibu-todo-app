@@ -33,3 +33,12 @@ class IsSelectedTagEvent extends TaskDetailEvent {
   @override
   List<Object?> get props => [tag];
 }
+
+class RemoveTagFromListEvent extends TaskDetailEvent {
+  RemoveTagFromListEvent({required this.tag});
+
+  final TagEntity tag;
+
+  @override
+  List<Object?> get props => [tag];
+}

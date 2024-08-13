@@ -29,7 +29,7 @@ class ManageTodoPage extends HookWidget {
 
     if (isUpdatingTodo) {
       await todoBloc.onEditPageUpdateTodo(todoDetail).then((value) {
-        if(!context.mounted) return;
+        if (!context.mounted) return;
         GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
       });
     } else {
@@ -48,13 +48,13 @@ class ManageTodoPage extends HookWidget {
       if (isWantToDelete.validate()) {
         todoDetail.isWantToDeleteTodoAtEndTime = isWantToDelete.validate();
         todoDetail.isWantToDeleteTodoAtEndTimeNotifier.value = isWantToDelete.validate();
-      }else{
+      } else {
         todoDetail.isWantToDeleteTodoAtEndTime = false;
         todoDetail.isWantToDeleteTodoAtEndTimeNotifier.value = false;
       }
 
       await todoBloc.createTodo(todoDetail: todoDetail).then((value) async {
-        if(!context.mounted) return;
+        if (!context.mounted) return;
         GoRouter.of(context).go(ApplicationPaths.todoListViewPage);
         await Future.delayed(const Duration(milliseconds: 1000), () => todoDetail.dispose());
       });
@@ -67,7 +67,7 @@ class ManageTodoPage extends HookWidget {
       if (!date.isSelected) return;
       final now = DateTime.now();
       final bool isValidDate = date.dateTime.isAfter(DateTime(now.year, now.month, now.day - 1));
-      if(!context.mounted) return;
+      if (!context.mounted) return;
 
       if (isValidDate) {
         localTodoData.date = date;
@@ -83,7 +83,7 @@ class ManageTodoPage extends HookWidget {
   Future<void> _selectStartAndEndTime(BuildContext context, ManageTodoPageParam localTodoData) async {
     await timeService.selectTime(context).then((startTime) async {
       if (!startTime.isSelected) return;
-      if(!context.mounted) return;
+      if (!context.mounted) return;
 
       final bool isValidStartTime = startTime.dateTime.isAfter(DateTime.now());
       if (isValidStartTime) {
@@ -103,7 +103,6 @@ class ManageTodoPage extends HookWidget {
     ManageTodoPageParam localTodoData,
   ) async {
     await timeService.selectTime(context).then((endTime) async {
-
       if (!endTime.isSelected) return;
       final bool endTimeIsMoreTheStartTime = endTime.dateTime.isAfter(startTime.dateTime);
       if (endTimeIsMoreTheStartTime) {
@@ -111,14 +110,17 @@ class ManageTodoPage extends HookWidget {
         localTodoData.endTimeController.text = endTime.formatTimeInString;
       } else {
         toast("End time must be after start time.\n Please retry.", bgColor: redColor);
-        if(!context.mounted) return;
+        if (!context.mounted) return;
         await _selectStartAndEndTime(context, localTodoData);
       }
     });
   }
 
   void _onDataChange(TaskDetailDataState p0, ManageTodoPageParam localTodoData) {
-    if (p0.priority != null) localTodoData.priority = p0.priority?.code ?? 'no_priority';
+    if (p0.priority != null) {
+      localTodoData.priority = p0.priority?.code ?? 'no_priority';
+      localTodoData.tags = p0.selectedTagList;
+    }
   }
 
   @override
@@ -263,6 +265,7 @@ class ManageTodoPageParam {
   final String? firebaseTodoId;
   final String? todoId;
   String priority;
+  List<TagEntity> tags = [];
 
   final ValueNotifier<bool> isWantToDeleteTodoAtEndTimeNotifier;
   bool isWantToDeleteTodoAtEndTime;
@@ -277,9 +280,11 @@ class ManageTodoPageParam {
     this.isUpdatingExistingTodo = false,
     this.isWantToDeleteTodoAtEndTime = true,
     this.priority = 'no_priority',
+    this.tags = const [],
   }) : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime);
 
   void dispose() {
+    tags.clear();
     title.clear();
     description.clear();
     dateController.clear();

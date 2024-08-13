@@ -84,7 +84,7 @@ export 'package:todo_app/shared/widget/taskDetailComponent/model/Icon_button_com
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.style.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.variant.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/model/priority_model.dart';
-export 'package:todo_app/shared/widget/taskDetailComponent/component/tag_list_component.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/component/tag_list_item_component.dart';
 
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';

@@ -26,7 +26,7 @@ class CreateTaskTagsComponent extends StatelessWidget {
             separatorBuilder: (context, index) => const Divider(thickness: 0.5),
             itemBuilder: (context, index) {
               final tag = _list[index];
-              return TagListComponent(tag);
+              return TagListItemComponent(tag);
             },
           ),
           16.height,

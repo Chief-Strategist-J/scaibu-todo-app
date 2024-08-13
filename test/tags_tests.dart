@@ -128,5 +128,24 @@ void main() {
         ),
       ],
     );
+
+    blocTest<TaskDetailBloc, TaskDetailState>(
+      'emits updated selectedTagList when RemoveTagFromListEvent is added',
+      build: () {
+        const tagToRemove = TagEntity(slug: 'tag1');
+        return TaskDetailBloc()
+          ..emit(
+            TaskDetailDataState(
+              selectedTagList: const [tagToRemove, TagEntity(slug: 'tag2')],
+            ),
+          );
+      },
+      act: (bloc) => bloc.add(RemoveTagFromListEvent(tag: const TagEntity(slug: 'tag1'))),
+      expect: () {
+        return [
+          isA<TaskDetailDataState>().having((state) => state.selectedTagList, 'selectedTagList', [const TagEntity(slug: 'tag2')]),
+        ];
+      },
+    );
   });
 }

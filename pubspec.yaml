@@ -70,6 +70,8 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # flutter test --coverage --reporter=expanded /home/j/live/scaibutodoapp/test/tags_tests.dart
+  # This will execute the test cases defined in the tags_tests.dart file.
 
   flutter_lints: ^4.0.0
   build_runner: ^2.4.11
