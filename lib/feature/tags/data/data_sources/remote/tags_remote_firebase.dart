@@ -278,4 +278,9 @@ class TagsRemoteFirebaseApi implements TagsRemoteBase<TagEntity> {
       throw Exception('An unexpected error occurred while updating tag.');
     }
   }
+
+  @override
+  Future<List<TagEntity>> getTagByTodoId(String id) {
+    throw UnimplementedError();
+  }
 }

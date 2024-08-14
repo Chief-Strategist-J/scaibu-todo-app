@@ -54,4 +54,9 @@ class TagsRepositoryImpl implements TagsRepository<TagEntity> {
   Future<void> updateTag(String id, Map<String, dynamic> data) async {
     return await base.updateTag(id, data);
   }
+
+  @override
+  Future<List<TagEntity>> getTagByTodoId(String id) async {
+    return await base.getTagByTodoId(id);
+  }
 }

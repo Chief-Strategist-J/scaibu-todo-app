@@ -3,6 +3,8 @@ abstract interface class TagsRepository<T> {
 
   Future<T?> getTagById(String id);
 
+  Future<List<T>> getTagByTodoId(String id);
+
   Future<void> createTag(Map<String, dynamic> data);
 
   Future<void> updateTag(String id, Map<String, dynamic> data);

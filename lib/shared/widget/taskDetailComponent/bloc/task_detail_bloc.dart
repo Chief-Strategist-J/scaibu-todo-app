@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
 
 class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   bool isSeededTagsRetrieved = false;
@@ -9,6 +10,7 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<UpdatePriorityEvent>(_updatePriority);
     on<IsSelectedTagEvent>(_isTagIsSelected);
     on<RemoveTagFromListEvent>(_removeTagFromList);
+    on<AddTagInListEvent>(_addTagInList);
   }
 
   @override
@@ -29,6 +31,20 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       });
     } else {
       _emitDataState(emit, pomodoroCont: 0);
+    }
+
+    if (event.todoId != null) {
+      getIt<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase)(event.todoId.toString()).then((value) {
+        value.fold((l) {
+          debugPrint("No tags found");
+        }, (r) {
+          if (r.isNotEmpty) {
+            for (TagEntity tag in r) {
+              add(AddTagInListEvent(tag: tag));
+            }
+          }
+        });
+      });
     }
   }
 
@@ -55,6 +71,15 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       final currentState = state as TaskDetailDataState;
       final list = List<TagEntity>.from(currentState.selectedTagList);
       if (list.any((element) => element.slug == event.tag.slug)) list.remove(event.tag);
+      _emitDataState(emit, selectedTagList: list);
+    }
+  }
+
+  void _addTagInList(AddTagInListEvent event, Emitter<TaskDetailState> emit) async {
+    if (state is TaskDetailDataState) {
+      final currentState = state as TaskDetailDataState;
+      final list = List<TagEntity>.from(currentState.selectedTagList);
+      list.add(event.tag);
       _emitDataState(emit, selectedTagList: list);
     }
   }

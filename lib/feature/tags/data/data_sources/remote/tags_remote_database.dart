@@ -3,7 +3,7 @@ import 'package:todo_app/feature/tags/data/models/response/list_of_tags_seeded_t
 
 class TagEndPoint {
   static const String getAllTags = 'api/v1/tags';
-  static const String createTag = '   api/v1/tags';
+  static const String createTag = 'api/v1/tags/createTag';
   static const String updateTag = 'api/v1/tags'; // Adjust if needed for specific tag ID
   static const String deleteTag = 'api/v1/tags'; // Adjust if needed for specific tag ID
   static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
@@ -45,7 +45,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       await restApi.request(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.bulkCreateTags,
-        requestBody: {'tags': data}, // Assuming the API expects a 'tags' key
+        requestBody: {'tags': data},
         headers: {
           'Content-Type': 'application/json',
         },
@@ -62,7 +62,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       await restApi.request(
         type: HttpRequestMethod.delete,
         endPoint: TagEndPoint.bulkDeleteTags,
-        requestBody: {'ids': ids}, // Assuming the API expects an 'ids' key
+        requestBody: {'ids': ids},
         headers: {
           'Content-Type': 'application/json',
         },
@@ -178,13 +178,43 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       final list = listOfTagsSeededTagResponse.data!;
       for (TagData element in list) {
         tags.add(
-          TagEntity(
-            id: element.id?.toInt(),
-            name: element.name,
-            slug: element.slug,
-            createdBy: element.createdBy?.toInt(),
-            color: element.color
-          ),
+          TagEntity(id: element.id?.toInt(), name: element.name, slug: element.slug, createdBy: element.createdBy?.toInt(), color: element.color),
+        );
+      }
+
+      return tags;
+    } catch (e) {
+      debugPrint('Error retrieving the seeded  tag: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<TagEntity>> getTagByTodoId(String id) async {
+    try {
+      final response = await restApi.request(
+        type: HttpRequestMethod.post,
+        endPoint: TagEndPoint.getAllTags,
+        requestBody: {
+          'todo_id': id,
+          'page': 1,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
+
+      if (listOfTagsSeededTagResponse.data == null) throw Exception("data is null");
+      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("data is empty");
+
+      List<TagEntity> tags = [];
+
+      final list = listOfTagsSeededTagResponse.data!;
+      for (TagData element in list) {
+        tags.add(
+          TagEntity(id: element.id?.toInt(), name: element.name, slug: element.slug, createdBy: element.createdBy?.toInt(), color: element.color),
         );
       }
 

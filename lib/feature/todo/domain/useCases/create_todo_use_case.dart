@@ -1,13 +1,13 @@
 import 'package:todo_app/core/app_library.dart';
 
-class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
+class CreateTodoUseCase extends UseCase<Map<String, dynamic>, Map<String, dynamic>> {
   final TodoRepository databaseRep;
   final TodoRepository firebaseRepo;
 
   CreateTodoUseCase({required this.databaseRep, required this.firebaseRepo});
 
   @override
-  Future<Either<Failure, void>> call(Map<String, dynamic> params) async {
+  Future<Either<Failure, Map<String, dynamic>>> call(Map<String, dynamic> params) async {
     try {
       return await firebaseRepo.createTodo(params).then((todoId) async {
         return await databaseRep.createTodo(params).then((localTodoId) async {
@@ -17,7 +17,7 @@ class CreateTodoUseCase extends UseCase<void, Map<String, dynamic>> {
             final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
 
             return await databaseRep.updateTodoId(id: localTodoId, request: serverReq).then((value) {
-              return const Right(null);
+              return Right(serverReq);
             });
           });
         });

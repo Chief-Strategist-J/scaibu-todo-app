@@ -3,8 +3,12 @@ import 'package:todo_app/core/app_library.dart';
 sealed class TaskDetailEvent extends Equatable {}
 
 class InitTaskDetailEvent extends TaskDetailEvent {
+  final String? todoId;
+
+  InitTaskDetailEvent({this.todoId});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [todoId];
 }
 
 class UpdatePomodoroCounterEvent extends TaskDetailEvent {
@@ -36,6 +40,15 @@ class IsSelectedTagEvent extends TaskDetailEvent {
 
 class RemoveTagFromListEvent extends TaskDetailEvent {
   RemoveTagFromListEvent({required this.tag});
+
+  final TagEntity tag;
+
+  @override
+  List<Object?> get props => [tag];
+}
+
+class AddTagInListEvent extends TaskDetailEvent {
+  AddTagInListEvent({required this.tag});
 
   final TagEntity tag;
 

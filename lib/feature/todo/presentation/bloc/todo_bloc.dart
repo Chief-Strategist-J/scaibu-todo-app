@@ -137,6 +137,26 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     try {
       add(LoadingEvent());
       await GetIt.instance<CreateTodoUseCase>()(todo).then((value) async {
+        value.fold(
+          (failure) {
+            //
+          },
+          (map) async {
+            final todoId = map['todo_id'];
+            final tagsCreationReq = todoDetail.tags.map(
+              (e) {
+                return {
+                  'todo_id': todoId,
+                  "created_by": userCredentials.getUserId,
+                  "name": e.name,
+                  "color": e.color,
+                };
+              },
+            ).toList();
+            await getIt<BulkCreateTagsUseCase>(instanceName: TagsDependencyInjection.bulkCreateTagsUseCase)(tagsCreationReq);
+          },
+        );
+
         add(InitEvent(const [], isListUpdated: true));
       });
     } catch (e, s) {
@@ -165,7 +185,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> onEditPageUpdateTodo(ManageTodoPageParam todoPage) async {
     if (todoPage.firebaseTodoId.validate().isEmpty || todoPage.todoId.validate().isEmpty) return;
 
-      final Map<String, dynamic> todoData = {
+    final Map<String, dynamic> todoData = {
       'todo_id': todoPage.todoId,
       'title': todoPage.title.text,
       'description': todoPage.description.text,

@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
 
 
 // Decoupling: Your architecture is decoupled, meaning the TagBloc can work with
@@ -22,6 +23,7 @@ class TagsDependencyInjection {
   static const bulkDeleteTagsUseCase = 'bulk_delete_tags_use_case';
   static const createTagUseCase = 'create_tag_use_case';
   static const deleteTagUseCase = 'delete_tag_use_case';
+  static const getTagsByTodoIdUseCase = 'get_tags_by_todo_id_use_case';
   static const getAllTagsUseCase = 'get_all_tags_use_case';
   static const getTagByIdUseCase = 'get_tag_by_id_use_case';
   static const restoreTagUseCase = 'restore_tag_use_case';
@@ -113,6 +115,13 @@ class TagsDependencyInjection {
         tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteFirebaseImplementation),
       ),
     );
+    getIt.registerSingleton<GetTagsByTodoIdUseCase>(
+      instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase,
+      GetTagsByTodoIdUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation),
+      ),
+    );
+
 
     getIt.registerSingleton<GetAllTagsUseCase>(
       instanceName: TagsDependencyInjection.getAllTagsUseCase,
@@ -176,6 +185,7 @@ class TagsDependencyInjection {
     getIt.unregister<BulkDeleteTagsUseCase>(instanceName: TagsDependencyInjection.bulkDeleteTagsUseCase);
     getIt.unregister<CreateTagUseCase>(instanceName: TagsDependencyInjection.createTagUseCase);
     getIt.unregister<DeleteTagUseCase>(instanceName: TagsDependencyInjection.deleteTagUseCase);
+    getIt.unregister<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase);
     getIt.unregister<GetAllTagsUseCase>(instanceName: TagsDependencyInjection.getAllTagsUseCase);
     getIt.unregister<GetTagByIdUseCase>(instanceName: TagsDependencyInjection.getTagByIdUseCase);
     getIt.unregister<RestoreTagUseCase>(instanceName: TagsDependencyInjection.restoreTagUseCase);

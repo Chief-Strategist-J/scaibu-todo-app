@@ -87,9 +87,12 @@ class TaskDetailComponent extends HookWidget {
     final style = useMemoized(() => TaskDetailComponentVariantStyle(variant: _variant), []);
 
     return BlocProvider(
-      create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent()),
+      create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent(todoId: localTodoData.todoId)),
       child: Builder(
         builder: (context) {
+
+
+
           final List<TagEntity> _list = context.select((TaskDetailBloc taskDetailBloc) {
             final state = taskDetailBloc.state;
             return state is TaskDetailDataState ? state.selectedTagList : [];

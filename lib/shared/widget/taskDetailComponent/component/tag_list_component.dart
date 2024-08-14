@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-class TagListComponent extends StatelessWidget {
+class TagListComponent extends HookWidget {
   final List<TagEntity> _list;
 
   const TagListComponent({super.key, required List<TagEntity> list}) : _list = list;
