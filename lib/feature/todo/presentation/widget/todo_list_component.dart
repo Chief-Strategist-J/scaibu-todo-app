@@ -2,38 +2,36 @@ import 'package:todo_app/core/app_library.dart';
 
 class TodoListComponent extends StatelessWidget {
   final List<TodoEntity> todoList;
-  final TodoBloc todoBloc;
 
   const TodoListComponent({
     super.key,
     required this.todoList,
-    required this.todoBloc,
   });
 
   void _onUpdateCheckBoxValue(BuildContext context, {bool? checked, required TodoEntity todoData}) {
-    if (todoBloc.state is LoadingState) {
+    if (todoBloc(context).state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
 
-    todoBloc.updateCheckBoxValue(checked: checked.validate(), todoItem: todoData);
+    todoBloc(context).updateCheckBoxValue(checked: checked.validate(), todoItem: todoData);
   }
 
   Future<void> _deleteTodo(BuildContext context, TodoEntity todoData) async {
-    await todoBloc.deleteTodo(todoData: todoData);
+    await todoBloc(context).deleteTodo(todoData: todoData);
   }
 
   Future<void> _archiveTodo(BuildContext context, TodoEntity todoData) async {
-    await todoBloc.archiveTodo(todoItem: todoData);
+    await todoBloc(context).archiveTodo(todoItem: todoData);
   }
 
   Future<void> _onRefresh(BuildContext context) {
-    todoBloc.add(InitEvent(const []));
+    todoBloc(context).add(InitEvent(const []));
     return Future(() => true);
   }
 
   Future<void> _onSwipeOfTodo(DismissDirection direction, BuildContext context, TodoEntity todoData, int index) async {
-    if (todoBloc.state is LoadingState) {
+    if (todoBloc(context).state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -46,7 +44,7 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onTapOfEdit(BuildContext context, TodoEntity todoData) async {
-    if (todoBloc.state is LoadingState) {
+    if (todoBloc(context).state is LoadingState) {
       toast("Loading please wait ...");
       return;
     }
@@ -58,13 +56,15 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onTapTodo(BuildContext context, TodoEntity todoData) async {
-    if (todoBloc.state is NoInternetState) {
+    if (todoBloc(context).state is NoInternetState) {
       await GoRouter.of(context).push(
         ApplicationPaths.manageTodoPage,
         extra: ManageTodoPageParam.fromTodoEntity(todoData),
       );
     }
   }
+
+  TodoBloc todoBloc(BuildContext context) => context.read<TodoBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,6 @@ class TodoListComponent extends StatelessWidget {
                 return TodoListItemComponent(
                   key: key,
                   uniqueKey: key,
-                  todoBloc: todoBloc,
                   todoData: todoData,
                   onPress: () {
                     _onTapTodo(context, todoData);
@@ -103,7 +102,7 @@ class TodoListComponent extends StatelessWidget {
                   },
                   onTapOfEdit: () {
                     _onTapOfEdit(context, todoData);
-                    todoBloc.add(InitEvent(const [], isListUpdated: true));
+                    todoBloc(context).add(InitEvent(const [], isListUpdated: true));
                   },
                 );
               },

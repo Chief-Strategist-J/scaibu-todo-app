@@ -8,7 +8,7 @@ class TodoListItemComponent extends HookWidget {
 
   final DismissDirectionCallback? _onDismissed;
   final TodoListItemComponentVariant _variant;
-  final TodoBloc _todoBloc;
+
 
   final ValueKey _uniqueKey;
 
@@ -19,11 +19,11 @@ class TodoListItemComponent extends HookWidget {
     required void Function() onTapOfEdit,
     void Function()? onPress,
     required ValueKey<dynamic> uniqueKey,
-    required TodoBloc todoBloc,
+
     void Function(DismissDirection)? onDismissed,
     TodoListItemComponentVariant variant = TodoListItemComponentVariant.primary,
   })  : _uniqueKey = uniqueKey,
-        _todoBloc = todoBloc,
+
         _variant = variant,
         _onDismissed = onDismissed,
         _onTapOfEdit = onTapOfEdit,
@@ -35,11 +35,11 @@ class TodoListItemComponent extends HookWidget {
   Widget build(BuildContext context) {
     final style = useMemoized(() => TodoListItemComponentStyle(variant: _variant), []);
 
-    if (_todoBloc.state is NoInternetState) {
+    if (context.read<TodoBloc>().state is NoInternetState) {
       // DISMISSIBLE ONLY IF HAS INTERNET
       return TodoItem(
         onPress: _onPress,
-        todoBloc: _todoBloc,
+
         data: _data,
         onChanged: _onChanged,
         onTapOfEdit: _onTapOfEdit,
@@ -56,7 +56,6 @@ class TodoListItemComponent extends HookWidget {
       ),
       onDismissed: _onDismissed,
       child: TodoItem(
-        todoBloc: _todoBloc,
         data: _data,
         onChanged: _onChanged,
         onTapOfEdit: _onTapOfEdit,
@@ -67,7 +66,7 @@ class TodoListItemComponent extends HookWidget {
 }
 
 class TodoItem extends StatelessWidget {
-  final TodoBloc _todoBloc;
+
   final TodoEntity _data;
   final ValueChanged<bool?>? _onChanged;
   final VoidCallback? _onPress;
@@ -76,7 +75,7 @@ class TodoItem extends StatelessWidget {
 
   const TodoItem({
     super.key,
-    required TodoBloc todoBloc,
+
     required TodoEntity data,
     required void Function(bool?)? onChanged,
     required void Function() onTapOfEdit,
@@ -87,8 +86,8 @@ class TodoItem extends StatelessWidget {
         _onTapOfEdit = onTapOfEdit,
         _onPress = onPress,
         _onChanged = onChanged,
-        _data = data,
-        _todoBloc = todoBloc;
+        _data = data
+        ;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,6 @@ class TodoItem extends StatelessWidget {
       child: Row(
         children: [
           BlocBuilder<TodoBloc, TodoState>(
-            bloc: _todoBloc,
             builder: (context, state) {
               if (state is NoInternetState) return const Offstage();
 
@@ -131,7 +129,6 @@ class TodoItem extends StatelessWidget {
             children: [
               const Icon(Icons.flag, size: 22),
               BlocBuilder<TodoBloc, TodoState>(
-                bloc: _todoBloc,
                 builder: (context, state) {
                   if (state is NoInternetState) return const Offstage();
 

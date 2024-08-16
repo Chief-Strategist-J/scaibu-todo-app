@@ -60,7 +60,7 @@ class TodoPage extends HookWidget {
                 final bool listExists = _todoList(state).isNotEmpty;
 
                 if (isValidStateForList && listExists) {
-                  return TodoListComponent(todoList: _todoList(state), todoBloc: todoBloc);
+                  return TodoListComponent(todoList: _todoList(state));
                 }
 
                 if (state is LoadingState) return const LoadingWidget();

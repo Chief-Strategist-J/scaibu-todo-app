@@ -21,31 +21,38 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   void _init(InitTaskDetailEvent event, Emitter<TaskDetailState> emit) async {
     if (!isSeededTagsRetrieved) {
       isSeededTagsRetrieved = true;
-      final getAllSeededTagsUseCase = getIt<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase);
-      final result = await getAllSeededTagsUseCase(NoParams());
-
-      result.fold((failure) {
-        if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
-      }, (tags) {
-        _emitDataState(emit, tagList: tags, pomodoroCont: 0);
-      });
+      await _getSeededTags(emit);
     } else {
       _emitDataState(emit, pomodoroCont: 0);
     }
 
     if (event.todoId != null) {
-      getIt<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase)(event.todoId.toString()).then((value) {
-        value.fold((l) {
-          debugPrint("No tags found");
-        }, (r) {
-          if (r.isNotEmpty) {
-            for (TagEntity tag in r) {
-              add(AddTagInListEvent(tag: tag));
-            }
-          }
-        });
-      });
+      _getTagsFromIfTagsList(event);
     }
+  }
+
+  Future<void> _getSeededTags(Emitter<TaskDetailState> emit) async {
+    final result = await getIt<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase)(NoParams());
+
+    result.fold((failure) {
+      if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
+    }, (tags) {
+      _emitDataState(emit, tagList: tags, pomodoroCont: 0);
+    });
+  }
+
+  Future<void> _getTagsFromIfTagsList(InitTaskDetailEvent event) async {
+    final tags = await getIt<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase)(event.todoId.toString());
+
+    tags.fold((failure) {
+      if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
+    }, (tagList) {
+      if (tagList.isNotEmpty) {
+        for (TagEntity tag in tagList) {
+          add(AddTagInListEvent(tag: tag));
+        }
+      }
+    });
   }
 
   void _updatePomodoro(UpdatePomodoroCounterEvent event, Emitter<TaskDetailState> emit) async {

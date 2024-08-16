@@ -121,6 +121,7 @@ class ManageTodoPage extends HookWidget {
     if (p0.priority != null) {
       localTodoData.priority = p0.priority?.code ?? 'no_priority';
       localTodoData.tags = p0.selectedTagList;
+      toast(p0.selectedTagList.length.toString());
     }
   }
 
@@ -230,7 +231,9 @@ class ManageTodoPage extends HookWidget {
                 ),
                 TaskDetailComponent(
                   localTodoData: localTodoData,
-                  onChange: (p0) => _onDataChange(p0, localTodoData),
+                  onChange: (p0) {
+                    _onDataChange(p0, localTodoData);
+                  },
                 ),
               ],
             ),
@@ -321,8 +324,6 @@ class ManageTodoPageParam {
       todoId: todoData.todoId.validate().toString(),
       isUpdatingExistingTodo: isUpdatingExistingTodo,
     );
-
-
 
     if (todoData.date != null) param.dateController.text = timeService.convertToDate(todoData.date!);
     if (todoData.startTime != null) param.startTimeController.text = timeService.convertToTime(todoData.startTime!);

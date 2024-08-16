@@ -4,11 +4,11 @@ import 'package:todo_app/feature/tags/data/models/response/list_of_tags_seeded_t
 class TagEndPoint {
   static const String getAllTags = 'api/v1/tags';
   static const String createTag = 'api/v1/tags/createTag';
-  static const String updateTag = 'api/v1/tags'; // Adjust if needed for specific tag ID
-  static const String deleteTag = 'api/v1/tags'; // Adjust if needed for specific tag ID
+  static const String updateTag = 'api/v1/tags';
+  static const String deleteTag = 'api/v1/tags';
   static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
   static const String bulkCreateTags = 'api/v1/tags/bulk';
-  static const String bulkDeleteTags = 'api/v1/tags/bulk';
+  static const String bulkDeleteTags = 'api/v1/tags/bulkDelete';
 
   static String archiveTag(String tagId) => 'api/v1/tags/$tagId/archive'; // Use string interpolation
   static String restoreTag(String tagId) => 'api/v1/tags/$tagId/restore'; // Use string interpolation
@@ -60,7 +60,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   Future<void> bulkDeleteTags(List<String> ids) async {
     try {
       await restApi.request(
-        type: HttpRequestMethod.delete,
+        type: HttpRequestMethod.post,
         endPoint: TagEndPoint.bulkDeleteTags,
         requestBody: {'ids': ids},
         headers: {
@@ -214,7 +214,13 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       final list = listOfTagsSeededTagResponse.data!;
       for (TagData element in list) {
         tags.add(
-          TagEntity(id: element.id?.toInt(), name: element.name, slug: element.slug, createdBy: element.createdBy?.toInt(), color: element.color),
+          TagEntity(
+            id: element.id?.toInt(),
+            name: element.name,
+            slug: element.slug,
+            createdBy: element.createdBy?.toInt(),
+            color: element.color,
+          ),
         );
       }
 

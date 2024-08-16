@@ -22,11 +22,7 @@ class TaskDetailComponent extends HookWidget {
 
   List<IconButtonComponentData> _listOfComponent(BuildContext context, TaskDetailComponentVariantStyle style) {
     Future<void> _handleTap(ChildClassType type) async {
-      await _onTapIcon(context, style, type: type).then((value) {
-        if (!context.mounted) return;
-        final state = context.read<TaskDetailBloc>().state;
-        if (state is TaskDetailDataState) onChange.call(state);
-      });
+      await _onTapIcon(context, style, type: type);
     }
 
     final int pomodoroCount = context.select(
@@ -90,28 +86,32 @@ class TaskDetailComponent extends HookWidget {
       create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent(todoId: localTodoData.todoId)),
       child: Builder(
         builder: (context) {
-
-
-
           final List<TagEntity> _list = context.select((TaskDetailBloc taskDetailBloc) {
             final state = taskDetailBloc.state;
             return state is TaskDetailDataState ? state.selectedTagList : [];
           });
 
-          return VBox(
-            style: Style($flex.crossAxisAlignment.start()),
-            children: [
-              8.height,
-              if (_list.isNotEmpty) TagListComponent(list: _list),
-              Divider(color: shadowColor, endIndent: 16, indent: 16, thickness: 0.4),
-              Center(
-                child: Wrap(
-                  children: _listOfComponent(context, style).map((data) {
-                    return IconButtonComponent(data: data, style: style, localTodoData: localTodoData);
-                  }).toList(),
+          return BlocListener<TaskDetailBloc, TaskDetailState>(
+            listener: (context, state) {
+              if (state is TaskDetailDataState) {
+                onChange.call(state);
+              }
+            },
+            child: VBox(
+              style: Style($flex.crossAxisAlignment.start()),
+              children: [
+                8.height,
+                if (_list.isNotEmpty) TagListComponent(list: _list),
+                Divider(color: shadowColor, endIndent: 16, indent: 16, thickness: 0.4),
+                Center(
+                  child: Wrap(
+                    children: _listOfComponent(context, style).map((data) {
+                      return IconButtonComponent(data: data, style: style, localTodoData: localTodoData);
+                    }).toList(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

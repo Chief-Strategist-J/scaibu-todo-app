@@ -137,25 +137,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     try {
       add(LoadingEvent());
       await GetIt.instance<CreateTodoUseCase>()(todo).then((value) async {
-        value.fold(
-          (failure) {
-            //
-          },
-          (map) async {
-            final todoId = map['todo_id'];
-            final tagsCreationReq = todoDetail.tags.map(
-              (e) {
-                return {
-                  'todo_id': todoId,
-                  "created_by": userCredentials.getUserId,
-                  "name": e.name,
-                  "color": e.color,
-                };
-              },
-            ).toList();
-            await getIt<BulkCreateTagsUseCase>(instanceName: TagsDependencyInjection.bulkCreateTagsUseCase)(tagsCreationReq);
-          },
-        );
+        value.fold((failure) {
+          //
+        }, (map) async {
+          _createBulkTags(map, todoDetail);
+        });
 
         add(InitEvent(const [], isListUpdated: true));
       });
@@ -163,6 +149,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       add(InitEvent(const [], isListUpdated: false));
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
     }
+  }
+
+  void _createBulkTags(Map<String, dynamic> map, ManageTodoPageParam todoDetail) {
+    final todoId = map['todo_id'];
+
+    final tagsCreationReq = todoDetail.tags.map((e) {
+      return {'todo_id': todoId, "created_by": userCredentials.getUserId, "name": e.name, "color": e.color};
+    }).toList();
+
+    final bulkCreateTags = getIt<BulkCreateTagsUseCase>(instanceName: TagsDependencyInjection.bulkCreateTagsUseCase);
+    bulkCreateTags(tagsCreationReq);
   }
 
   Future<void> deleteTodo({required TodoEntity todoData}) async {
@@ -212,6 +209,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     add(LoadingEvent());
     await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
+      final Map<String, String> map = {'todo_id': todoPage.todoId.validate(), 'firebase_todo_id': todoPage.firebaseTodoId.validate()};
+      _createBulkTags(map, todoPage);
       add(InitEvent(const [], isListUpdated: true));
     });
   }
