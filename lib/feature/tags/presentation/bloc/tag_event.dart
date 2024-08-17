@@ -1,3 +1,9 @@
-abstract class TagEvent {}
+import 'package:equatable/equatable.dart';
 
-class InitTagEvent extends TagEvent {}
+sealed class TagEvent extends Equatable {}
+
+class InitTagEvent extends TagEvent {
+
+  @override
+  List<Object?> get props => [];
+}

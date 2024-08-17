@@ -10,9 +10,12 @@ class CreateTaskTagsComponent extends StatelessWidget {
     super.key,
   }) : _style = style;
 
-  @override
-  Widget build(BuildContext context) {
-    final List<TagEntity> _list = context.select((TaskDetailBloc value) {
+  void _onTapOfCreateTag(BuildContext context) {
+    context.push(ApplicationPaths.createTagPage);
+  }
+
+  List<TagEntity> _tagList(BuildContext context) {
+    return context.select((TaskDetailBloc value) {
       final state = value.state;
       if (state is TaskDetailDataState) {
         localTodoData.tags = state.selectedTagList;
@@ -21,6 +24,11 @@ class CreateTaskTagsComponent extends StatelessWidget {
         return [];
       }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<TagEntity> _list = _tagList(context);
 
     return PressableBox(
       style: _style.dialogStyle(context),
@@ -36,7 +44,7 @@ class CreateTaskTagsComponent extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.add),
                 onPressed: () {
-                  //
+                  _onTapOfCreateTag(context);
                 },
               )
             ],

@@ -58,17 +58,13 @@ class ButtonUIComponent extends StatelessWidget {
       text = "Pomodoro ${data.prefixText ?? ''}";
     }
 
+    color ??= blackColor;
+
     return Column(
       children: [
         Container(
           margin: const EdgeInsets.all(8),
-          child: SvgPicture.asset(
-            icon,
-            height: 32,
-            width: 32,
-            fit: BoxFit.fitWidth,
-            colorFilter: ColorFilter.mode(color ?? Colors.white, BlendMode.srcIn),
-          ),
+          child: SvgPicture.asset(icon, height: 32, width: 32, fit: BoxFit.fitWidth, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
         ),
         const SizedBox(height: 8),
         Text(text ?? data.text, style: boldTextStyle(size: 10, color: color)),

@@ -4,4 +4,5 @@ class CustomButtonVariant extends Variant {
   const CustomButtonVariant._(super.name);
 
   static const primary = CustomButtonVariant._('custom.primary');
+  static const secondary = CustomButtonVariant._('custom.secondary');
 }

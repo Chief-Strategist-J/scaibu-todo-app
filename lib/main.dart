@@ -33,11 +33,12 @@ class LifecycleObserver extends WidgetsBindingObserver {
 class MyApp extends HookWidget {
   const MyApp({super.key});
 
+  // verify that the dependency injection bloc constant is defined and has the correct value.
   List<SingleChildWidget> get blocProviders {
     return [
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
       BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
-      BlocProvider(create: (context) => GetIt.instance<TagBloc>()),
+      BlocProvider(create: (context) => GetIt.instance<TagBloc>(instanceName: TagsDependencyInjection.tagBloc)),
     ];
   }
 

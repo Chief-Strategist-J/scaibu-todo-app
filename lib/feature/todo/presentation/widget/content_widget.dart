@@ -8,7 +8,6 @@ class ContentWidget extends StatelessWidget {
 
   final int? _lines;
 
-
   final String _title;
 
   final TextEditingController _controller;
@@ -22,6 +21,8 @@ class ContentWidget extends StatelessWidget {
   final GestureTapCallback? _onTap;
   final void Function(TimeServiceModel)? _onSelectOfDateOrTime;
 
+  final Widget? _prefixIcon;
+
   const ContentWidget({
     super.key,
     required String title,
@@ -34,7 +35,10 @@ class ContentWidget extends StatelessWidget {
     TextFieldType textFieldType = TextFieldType.OTHER,
     void Function(TimeServiceModel)? onSelectOfDateOrTime,
     int? lines,
-  })  : _lines = lines, _onSelectOfDateOrTime = onSelectOfDateOrTime,
+    Widget? prefixIcon,
+  })  : _prefixIcon = prefixIcon,
+        _lines = lines,
+        _onSelectOfDateOrTime = onSelectOfDateOrTime,
         _onTap = onTap,
         _textInputAction = textInputAction,
         _focusNode = focusNode,
@@ -83,7 +87,7 @@ class ContentWidget extends StatelessWidget {
         4.height,
         GestureDetector(
           onTap: () async {
-            if(!isInternetConnected) return;
+            if (!isInternetConnected) return;
             await _onTapOfInputField(context);
           },
           child: AppTextField(
@@ -94,8 +98,13 @@ class ContentWidget extends StatelessWidget {
             minLines: _lines,
             readOnly: !isInternetConnected,
             textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-            decoration: const InputDecoration(
-              errorStyle:  TextStyle(fontSize: 8, fontWeight: FontWeight.w400,color: redColor)
+            decoration: InputDecoration(
+              prefixIcon: _prefixIcon,
+              errorStyle: const TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w400,
+                color: redColor,
+              ),
             ),
             validator: (value) {
               if (value == null) return "This Field Can't Be Null";
