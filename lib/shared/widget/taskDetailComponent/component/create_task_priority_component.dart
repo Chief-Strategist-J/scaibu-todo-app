@@ -44,10 +44,11 @@ class CreateTaskPriorityComponent extends StatelessWidget {
                       backgroundColor: priority.color,
                       child: SvgPicture.asset(
                         Assets.iconIcFilledFlag,
-                        color: Colors.white,
+                        colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                         height: 21,
                         width: 21,
-                      ),
+                      )
+                      ,
                     ),
                     16.width,
                     Text(priority.title),

@@ -5,6 +5,8 @@ class TagListItemComponent extends StatelessWidget {
 
   const TagListItemComponent(this.tag, {super.key});
 
+  Color get getColor => getIt<UtilityService>().stringToColor(tag.color ?? '0xFFFFEBEE');
+
   @override
   Widget build(BuildContext context) {
     final isTagAlreadySelected = context.select(
@@ -31,7 +33,7 @@ class TagListItemComponent extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     Assets.iconIcFilledTag,
-                    color: getIt<UtilityService>().stringToColor(tag.color ?? '0xFFFFEBEE'),
+                    colorFilter: ColorFilter.mode(getColor, BlendMode.srcIn),
                     height: 21,
                     width: 21,
                   ),
@@ -40,11 +42,7 @@ class TagListItemComponent extends StatelessWidget {
                 ],
               ),
             ),
-            if (isTagAlreadySelected)
-              Icon(
-                Icons.check,
-                color: getIt<UtilityService>().stringToColor(tag.color ?? '0xFFFFEBEE'),
-              )
+            if (isTagAlreadySelected) Icon(Icons.check, color: getColor)
           ],
         ),
       ),

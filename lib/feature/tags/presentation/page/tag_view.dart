@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TagPage extends StatelessWidget {
-  const TagPage({super.key});
+class CreateTagPage extends StatelessWidget {
+  const CreateTagPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,5 +6,6 @@ class ApplicationPaths {
   static const String profilePage = '/profilePage';
   static const String registrationPage = '/registrationPage';
   static const String forgetPasswordPage = '/forgetPasswordPage';
+  static const String createTagPage = '/createTagPage';
   ApplicationPaths._();
 }

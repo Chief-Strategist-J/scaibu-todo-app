@@ -34,8 +34,7 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:tuple/tuple.dart';
 export 'package:flutter_test/flutter_test.dart' ;
 export 'package:todo_app/core/utils/utility_service.dart';
-
-
+export 'package:firebase_analytics/firebase_analytics.dart';
 
 /// CORE
 export 'package:todo_app/dependency.dart';
@@ -161,3 +160,4 @@ export 'package:todo_app/feature/tags/domain/useCases/get_tag_by_id_use_case.dar
 export 'package:todo_app/feature/tags/domain/useCases/restore_tag_use_case.dart';
 export 'package:todo_app/feature/tags/domain/useCases/search_tags_use_case.dart';
 export 'package:todo_app/feature/tags/domain/useCases/update_tag_use_case.dart';
+export 'package:todo_app/feature/tags/presentation/page/tag_view.dart';

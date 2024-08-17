@@ -1,11 +1,11 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:todo_app/core/app_library.dart';
 
-  final router = GoRouter(
-    initialLocation: ApplicationPaths.splashPage,
-    observers: [
-      FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-    ],
+
+final router = GoRouter(
+  initialLocation: ApplicationPaths.splashPage,
+  observers: [
+    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+  ],
   redirect: (context, state) {
     FirebaseAnalytics.instance.logEvent(
       name: 'page_view',
@@ -64,6 +64,13 @@ import 'package:todo_app/core/app_library.dart';
       path: ApplicationPaths.manageTodoPage,
       builder: (context, state) {
         return ManageTodoPage(todoPage: state.extra as ManageTodoPageParam?);
+      },
+    ),
+    GoRoute(
+      name: ApplicationPaths.createTagPage,
+      path: ApplicationPaths.createTagPage,
+      builder: (context, state) {
+        return const CreateTagPage();
       },
     ),
   ],

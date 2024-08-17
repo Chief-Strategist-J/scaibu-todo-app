@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:todo_app/core/app_library.dart';
 
 InitialSetup initialSetup = InitialSetup();

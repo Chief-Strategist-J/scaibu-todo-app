@@ -1,5 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/core/utils/utility_service.dart';
+
 
 class ServiceDependencyInjection {
   static void registerService() {
@@ -42,7 +42,7 @@ class ServiceDependencyInjection {
   }
 
   static void disposeService() {
-    log('\n\ SERVICE IN DISPOSED\n\n');
+    log('\n SERVICE IN DISPOSED\n\n');
     getIt.unregister<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
     getIt.unregister<ScheduleService>();
     getIt.unregister<LogService>();

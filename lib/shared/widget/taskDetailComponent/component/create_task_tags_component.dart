@@ -28,8 +28,19 @@ class CreateTaskTagsComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          8.height,
-          Center(child: Text("Tags", style: boldTextStyle(size: 20))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Offstage(),
+              Text("Tags", style: boldTextStyle(size: 20)),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  //
+                },
+              )
+            ],
+          ),
           ListView.separated(
             itemCount: _list.length,
             shrinkWrap: true,

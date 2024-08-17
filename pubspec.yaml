@@ -63,6 +63,7 @@ dependencies:
   collection: ^1.18.0
   async: ^2.11.0
   bloc_test: ^9.1.7
+  flex_color_picker: ^3.5.1
 
 dependency_overrides:
   get_it: ^7.6.4
