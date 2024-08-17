@@ -71,7 +71,13 @@ class TaskDetailComponent extends HookWidget {
       context: context,
       isScrollControlled: true,
       builder: (_) {
-        return BlocProvider.value(value: context.read<TaskDetailBloc>(), child: widgetMap[type]);
+        return BlocProvider.value(
+          value: context.read<TaskDetailBloc>(),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: widgetMap[type],
+          ),
+        );
       },
     );
   }

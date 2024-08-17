@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/domain/useCases/get_all_tags_by_user_id_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
 
 class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
@@ -30,13 +31,40 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   }
 
   Future<void> _getSeededTags(Emitter<TaskDetailState> emit) async {
-    final result = await getIt<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase)(NoParams());
+    try {
+      final getAllSeededTags = getIt<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase);
+      final getAllTagsByUserId = getIt<GetAllTagsByUserIdUseCase>(instanceName: TagsDependencyInjection.getAllTagsByUserIdUseCase);
 
-    result.fold((failure) {
-      if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
-    }, (tags) {
-      _emitDataState(emit, tagList: tags, pomodoroCont: 0);
-    });
+      final req = {
+        "page": 1,
+        "limit": 50,
+        "userId": userCredentials.getUserId,
+      };
+
+      final results = await Future.wait([
+        getAllSeededTags(NoParams()).then(
+          (result) => result.fold(
+            (failure) => <TagEntity>[],
+            (tags) => tags,
+          ),
+        ),
+        getAllTagsByUserId(req).then(
+          (result) => result.fold(
+            (failure) => <TagEntity>[],
+            (tags) => tags,
+          ),
+        ),
+      ]);
+
+      final seededTags = results[0];
+      final userTags = results[1];
+
+      final combinedTags = [...seededTags, ...userTags];
+
+      _emitDataState(emit, tagList: combinedTags, pomodoroCont: 0);
+    } catch (e) {
+      debugPrint('Unexpected error: $e');
+    }
   }
 
   Future<void> _getTagsFromIfTagsList(InitTaskDetailEvent event) async {

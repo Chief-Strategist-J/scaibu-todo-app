@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/shared/widget/taskDetailComponent/component/pomodoro_cont.dart';
 
 class CreatePomodoroComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
@@ -17,24 +16,63 @@ class CreatePomodoroComponent extends StatelessWidget {
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: PressableBox(
         style: _style.dialogStyle(context),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+        child: AnimatedScrollView(
           children: [
-            Text("Estimated Pomodoro : ", style: boldTextStyle(size: 16)),
-            16.height,
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 15,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return PomodoroCont(index: index + 1);
-                },
-              ),
-            ),
-            16.height,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Estimated Pomodoros : ", style: boldTextStyle(size: 16)),
+                16.height,
+                SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 15,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PomodoroCont(index: index + 1);
+                    },
+                  ),
+                ),
+                16.height,
+                Text("Estimated Pomodoro Time: ", style: boldTextStyle(size: 16)),
+                16.height,
+                SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 15,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PomodoroCont(index: (index + 1) * 10);
+                    },
+                  ),
+                ),
+                Text("Remind Before Pomodoro Complete Time: ", style: boldTextStyle(size: 16)),
+                16.height,
+                SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 15,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PomodoroCont(index: (index + 1) * 5);
+                    },
+                  ),
+                ),
+                16.height,
+                TagButtonComponent(
+                  onTapOfCancel: () {
+                    //
+                  },
+                  onTapOfAdd: () {
+                    //
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),

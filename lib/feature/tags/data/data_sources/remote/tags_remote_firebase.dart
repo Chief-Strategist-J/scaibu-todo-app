@@ -288,4 +288,9 @@ class TagsRemoteFirebaseApi implements TagsRemoteBase<TagEntity> {
   Future<void> bulkDeleteTagsByTodoId(String tagID) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<TagEntity>> getAllTagsByUserId(Map<String, dynamic> data) {
+    throw UnimplementedError();
+  }
 }

@@ -32,33 +32,38 @@ class CreateTaskTagsComponent extends StatelessWidget {
 
     return PressableBox(
       style: _style.dialogStyle(context),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      child: AnimatedScrollView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const Offstage(),
-              Text("Tags", style: boldTextStyle(size: 20)),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {
-                  _onTapOfCreateTag(context);
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Offstage(),
+                  Text("Tags", style: boldTextStyle(size: 20)),
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      _onTapOfCreateTag(context);
+                    },
+                  )
+                ],
+              ),
+              ListView.separated(
+                itemCount: _list.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) => const Divider(thickness: 0.5),
+                itemBuilder: (context, index) {
+                  final tag = _list[index];
+                  return TagListItemComponent(tag);
                 },
-              )
+              ),
+              16.height,
             ],
           ),
-          ListView.separated(
-            itemCount: _list.length,
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => const Divider(thickness: 0.5),
-            itemBuilder: (context, index) {
-              final tag = _list[index];
-              return TagListItemComponent(tag);
-            },
-          ),
-          16.height,
         ],
       ),
     );

@@ -64,4 +64,9 @@ class TagsRepositoryImpl implements TagsRepository<TagEntity> {
   Future<void> bulkDeleteTagsByTodoId(String tagId) async {
     await base.bulkDeleteTagsByTodoId(tagId);
   }
+
+  @override
+  Future<List<TagEntity>> getAllTagsByUserId(Map<String, dynamic> data) async {
+    return await base.getAllTagsByUserId(data);
+  }
 }

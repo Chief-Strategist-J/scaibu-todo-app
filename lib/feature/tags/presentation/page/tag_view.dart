@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
 
 class CreateTagPage extends StatelessWidget {
   CreateTagPage({super.key});
@@ -11,9 +10,7 @@ class CreateTagPage extends StatelessWidget {
   }
 
   void _onAddTag(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
-      context.read<TagBloc>().add(CreateTagEvent());
-    }
+    if (_formKey.currentState!.validate()) context.read<TagBloc>().add(CreateTagEvent());
   }
 
   @override

@@ -164,3 +164,6 @@ export 'package:todo_app/feature/tags/presentation/page/tag_view.dart';
 export 'package:todo_app/feature/tags/presentation/widget/color_picker_component.dart';
 export 'package:todo_app/feature/tags/presentation/widget/tag_button_component.dart';
 export 'package:todo_app/feature/tags/presentation/widget/tag_input_field.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/component/pomodoro_cont.dart';
+export 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
+export 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';

@@ -28,6 +28,7 @@ class CreateTaskPriorityComponent extends StatelessWidget {
           Center(child: Text("Priority", style: boldTextStyle(size: 20))),
           ListView.separated(
             itemCount: priorityList.length,
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (context, index) => const Divider(thickness: 0.5),
             itemBuilder: (context, index) {

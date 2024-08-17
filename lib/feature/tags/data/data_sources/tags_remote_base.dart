@@ -22,4 +22,6 @@ abstract interface class TagsRemoteBase<T> {
   Future<void> archiveTag(String id);
 
   Future<void> restoreTag(String id);
+
+  Future<List<T>> getAllTagsByUserId(Map<String, dynamic> data);
 }

@@ -1,7 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-import 'tag_event.dart';
-import 'tag_state.dart';
+
 
 class TagBloc extends Bloc<TagEvent, TagState> {
   final TagsRepository<TagEntity> tagsDatabaseRepository;
@@ -50,7 +49,7 @@ class TagBloc extends Bloc<TagEvent, TagState> {
       final createTagUseCase = getIt.get<CreateTagUseCase>(instanceName: TagsDependencyInjection.createTagUseCase);
 
       try {
-        await createTagUseCase(createTagReq);
+        await createTagUseCase(createTagReq).then((value) => toast("Tag is added"));
       } catch (e) {
         debugPrint('Error creating tag: $e');
       }

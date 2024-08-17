@@ -7,6 +7,7 @@ class TagEndPoint {
   static const String updateTag = 'api/v1/tags';
   static const String deleteTag = 'api/v1/tags';
   static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
+  static const String getAllTagsByUserId = 'api/v1/tags/getAllTagsByUserId'; // Adjust if needed for specific tag ID
   static const String bulkCreateTags = 'api/v1/tags/bulk';
   static const String bulkDeleteTags = 'api/v1/tags/bulkDelete';
   static const String bulkDeleteTagsByTodoId = 'api/v1/tags/bulkDeleteTagsByTodoId';
@@ -244,5 +245,38 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
         'Content-Type': 'application/json',
       },
     );
+  }
+
+  @override
+  Future<List<TagEntity>> getAllTagsByUserId(Map<String, dynamic> data) async {
+    try {
+      final response = await restApi.request(
+        type: HttpRequestMethod.post,
+        endPoint: TagEndPoint.getAllTagsByUserId,
+        requestBody: data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
+
+      if (listOfTagsSeededTagResponse.data == null) throw Exception("data is null");
+      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("data is empty");
+
+      List<TagEntity> tags = [];
+
+      final list = listOfTagsSeededTagResponse.data!;
+      for (TagData element in list) {
+        tags.add(
+          TagEntity(id: element.id?.toInt(), name: element.name, slug: element.slug, createdBy: element.createdBy?.toInt(), color: element.color),
+        );
+      }
+
+      return tags;
+    } catch (e) {
+      debugPrint('Error retrieving the seeded  tag: $e');
+      rethrow;
+    }
   }
 }
