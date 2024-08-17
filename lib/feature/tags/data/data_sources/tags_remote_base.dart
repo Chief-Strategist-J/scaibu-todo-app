@@ -15,6 +15,8 @@ abstract interface class TagsRemoteBase<T> {
 
   Future<void> bulkCreateTags(List<Map<String, dynamic>> data);
 
+  Future<void> bulkDeleteTagsByTodoId(String tagID);
+
   Future<void> bulkDeleteTags(List<String> ids);
 
   Future<void> archiveTag(String id);

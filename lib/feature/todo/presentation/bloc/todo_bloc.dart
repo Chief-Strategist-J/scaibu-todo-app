@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_by_todo_id_use_case.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository? firebaseRepo;
@@ -140,7 +141,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         value.fold((failure) {
           //
         }, (map) async {
-          _createBulkTags(map, todoDetail);
+          _createAndUpdateTags(map, todoDetail);
         });
 
         add(InitEvent(isListUpdated: true));
@@ -151,19 +152,29 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  void _createBulkTags(Map<String, dynamic> map, ManageTodoPageParam todoDetail) {
+  Future<void> _createAndUpdateTags(Map<String, dynamic> map, ManageTodoPageParam todoDetail) async {
     final todoId = map['todo_id'];
 
-    final tagsCreationReq = todoDetail.tags.map((e) {
-      return {'todo_id': todoId, "created_by": userCredentials.getUserId, "name": e.name, "color": e.color};
-    }).toList();
-
+    final deleteTagsByTodoId = getIt<BulkDeleteTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.bulkDeleteTagsByTodoIdUseCase);
     final bulkCreateTags = getIt<BulkCreateTagsUseCase>(instanceName: TagsDependencyInjection.bulkCreateTagsUseCase);
-    bulkCreateTags(tagsCreationReq);
+
+    final userId = userCredentials.getUserId;
+
+    try {
+      if (todoDetail.tags.isEmpty) {
+        await deleteTagsByTodoId(todoId);
+      } else {
+        final tagsCreationReq = todoDetail.tags.map((tag) {
+          return {'todo_id': todoId, 'created_by': userId, 'name': tag.name, 'color': tag.color};
+        }).toList();
+        await bulkCreateTags(tagsCreationReq);
+      }
+    } catch (e) {
+      toast("An error occurred while managing tags.");
+    }
   }
 
   Future<void> deleteTodo({required TodoEntity todoData}) async {
-    ;
     DeleteTodoParam deleteParam = DeleteTodoParam(
       firebaseId: todoData.firebaseTodoId.validate(),
       localId: todoData.todoId.validate().toString(),
@@ -212,7 +223,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     add(LoadingEvent());
     await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
       final Map<String, String> map = {'todo_id': todoPage.todoId.validate(), 'firebase_todo_id': todoPage.firebaseTodoId.validate()};
-      _createBulkTags(map, todoPage);
+      _createAndUpdateTags(map, todoPage);
       add(InitEvent(isListUpdated: true));
     });
   }

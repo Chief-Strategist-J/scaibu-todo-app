@@ -15,6 +15,8 @@ abstract interface class TagsRepository<T> {
 
   Future<void> bulkCreateTags(List<Map<String, dynamic>> data);
 
+  Future<void> bulkDeleteTagsByTodoId(String tagId);
+
   Future<void> bulkDeleteTags(List<String> ids);
 
   Future<void> archiveTag(String id);

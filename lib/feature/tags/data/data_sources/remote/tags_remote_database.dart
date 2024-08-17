@@ -9,6 +9,7 @@ class TagEndPoint {
   static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
   static const String bulkCreateTags = 'api/v1/tags/bulk';
   static const String bulkDeleteTags = 'api/v1/tags/bulkDelete';
+  static const String bulkDeleteTagsByTodoId = 'api/v1/tags/bulkDeleteTagsByTodoId';
 
   static String archiveTag(String tagId) => 'api/v1/tags/$tagId/archive'; // Use string interpolation
   static String restoreTag(String tagId) => 'api/v1/tags/$tagId/restore'; // Use string interpolation
@@ -229,5 +230,19 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       debugPrint('Error retrieving the seeded  tag: $e');
       rethrow;
     }
+  }
+
+  @override
+  Future<void> bulkDeleteTagsByTodoId(String tagID) async {
+    await restApi.request(
+      type: HttpRequestMethod.post,
+      endPoint: TagEndPoint.bulkDeleteTagsByTodoId,
+      requestBody: {
+        'todo_id': tagID,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
   }
 }

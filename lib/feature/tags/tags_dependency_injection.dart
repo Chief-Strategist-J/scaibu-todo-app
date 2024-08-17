@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_by_todo_id_use_case.dart';
 import 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
-
 
 // Decoupling: Your architecture is decoupled, meaning the TagBloc can work with
 // either TagsRepositoryImpl without knowing the specifics of how they are implemented.
@@ -28,6 +28,7 @@ class TagsDependencyInjection {
   static const getTagByIdUseCase = 'get_tag_by_id_use_case';
   static const restoreTagUseCase = 'restore_tag_use_case';
   static const searchTagsUseCase = 'search_tags_use_case';
+  static const bulkDeleteTagsByTodoIdUseCase = 'bulk_delete_tags_by_todo_id_use_case';
   static const updateTagUseCase = 'update_tag_use_case';
   static const getAllSeededTagsUseCase = 'get_all_seeded_tags_use_case';
 
@@ -122,7 +123,6 @@ class TagsDependencyInjection {
       ),
     );
 
-
     getIt.registerSingleton<GetAllTagsUseCase>(
       instanceName: TagsDependencyInjection.getAllTagsUseCase,
       GetAllTagsUseCase(
@@ -150,6 +150,15 @@ class TagsDependencyInjection {
     getIt.registerSingleton<SearchTagsUseCase>(
       instanceName: TagsDependencyInjection.searchTagsUseCase,
       SearchTagsUseCase(
+        tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
+          instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
+        ),
+      ),
+    );
+
+    getIt.registerSingleton<BulkDeleteTagsByTodoIdUseCase>(
+      instanceName: TagsDependencyInjection.bulkDeleteTagsByTodoIdUseCase,
+      BulkDeleteTagsByTodoIdUseCase(
         tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
           instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementation,
         ),
@@ -190,6 +199,7 @@ class TagsDependencyInjection {
     getIt.unregister<GetTagByIdUseCase>(instanceName: TagsDependencyInjection.getTagByIdUseCase);
     getIt.unregister<RestoreTagUseCase>(instanceName: TagsDependencyInjection.restoreTagUseCase);
     getIt.unregister<SearchTagsUseCase>(instanceName: TagsDependencyInjection.searchTagsUseCase);
+    getIt.unregister<BulkDeleteTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.bulkDeleteTagsByTodoIdUseCase);
     getIt.unregister<UpdateTagUseCase>(instanceName: TagsDependencyInjection.updateTagUseCase);
     getIt.unregister<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase);
     getIt.unregister<HelperTagRepository<TagEntity>>(instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper);
