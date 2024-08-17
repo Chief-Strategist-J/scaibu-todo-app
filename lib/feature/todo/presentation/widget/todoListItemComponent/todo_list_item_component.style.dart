@@ -7,7 +7,7 @@ class TodoListItemComponentStyle {
 
   Style style(
     BuildContext context, {
-    double fontSize = 14,
+    double fontSize = 16,
     FontWeight fontWeight = FontWeight.bold,
   }) {
     return Style(

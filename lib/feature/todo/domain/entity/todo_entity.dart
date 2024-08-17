@@ -35,6 +35,8 @@ class TodoEntity {
   DateTime? endTime;
   DateTime? date;
 
+  List<String>? tagNames;
+
   TodoEntity({
     this.firebaseTodoId,
     this.todoId,
@@ -62,6 +64,7 @@ class TodoEntity {
     this.startTime,
     this.endTime,
     this.date,
+    this.tagNames,
   });
 
   @override
@@ -94,7 +97,8 @@ class TodoEntity {
           isArchived == other.isArchived &&
           startTime == other.startTime &&
           endTime == other.endTime &&
-          date == other.date;
+          date == other.date &&
+          tagNames == other.tagNames;
 
   @override
   int get hashCode =>
@@ -123,7 +127,8 @@ class TodoEntity {
       isArchived.hashCode ^
       startTime.hashCode ^
       endTime.hashCode ^
-      date.hashCode;
+      date.hashCode ^
+      tagNames.hashCode;
 
   TodoEntity copyWith({
     int? todoId,
@@ -152,6 +157,7 @@ class TodoEntity {
     DateTime? startTime,
     DateTime? endTime,
     DateTime? date,
+    List<String>? tagNames,
   }) {
     return TodoEntity(
       todoId: todoId ?? this.todoId,
@@ -180,6 +186,7 @@ class TodoEntity {
       date: date ?? this.date,
       endTime: endTime ?? this.endTime,
       startTime: startTime ?? this.startTime,
+      tagNames: tagNames ?? this.tagNames,
     );
   }
 }

@@ -35,7 +35,6 @@ class TodoListResponse {
     final map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
-
     if (data != null) {
       map['data'] = data?.map((v) => v.toJson()).toList();
     }
@@ -43,88 +42,87 @@ class TodoListResponse {
   }
 }
 
-/// id : 2
-/// title : "Test"
-/// description : "Done"
-/// notes : "notes"
-/// firebase_todo_id : "K5pxiGp3AL8ZIID5rcUB"
-
 class Data {
   Data({
     this.id,
     this.title,
-    this.description,
     this.notes,
+    this.description,
+    this.createdBy,
     this.firebaseTodoId,
     this.startTime,
     this.endTime,
     this.date,
-    this.createdBy,
     this.priority,
+    this.tagNames,
   });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     title = json['title'];
-    description = json['description'];
     notes = json['notes'];
+    description = json['description'];
+    createdBy = json['created_by'];
     firebaseTodoId = json['firebase_todo_id'];
-    date = json['date'];
     startTime = json['start_time'];
     endTime = json['end_time'];
-    createdBy = json['created_by'] ?? -1;
+    date = json['date'];
     priority = json['priority'];
+    tagNames = json['tag_names'] != null ? json['tag_names'].cast<String>() : [];
   }
 
   num? id;
-  num? createdBy;
   String? title;
-  String? description;
   String? notes;
+  String? description;
+  num? createdBy;
   String? firebaseTodoId;
-  String? date;
   String? startTime;
   String? endTime;
+  String? date;
   String? priority;
+  List<String>? tagNames;
 
   Data copyWith({
     num? id,
     String? title,
-    String? description,
     String? notes,
+    String? description,
+    num? createdBy,
     String? firebaseTodoId,
-    String? date,
     String? startTime,
     String? endTime,
-    num? createdBy,
+    String? date,
     String? priority,
-  }) {
-    return Data(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      notes: notes ?? this.notes,
-      firebaseTodoId: firebaseTodoId ?? this.firebaseTodoId,
-      date: date ?? this.date,
-      endTime: endTime ?? this.endTime,
-      startTime: startTime ?? this.startTime,
-      createdBy: createdBy ?? this.createdBy,
-      priority: priority ?? this.priority,
-    );
-  }
+    List<String>? tagNames,
+  }) =>
+      Data(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        notes: notes ?? this.notes,
+        description: description ?? this.description,
+        createdBy: createdBy ?? this.createdBy,
+        firebaseTodoId: firebaseTodoId ?? this.firebaseTodoId,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+        date: date ?? this.date,
+        priority: priority ?? this.priority,
+        tagNames: tagNames ?? this.tagNames,
+      );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['title'] = title;
-    map['description'] = description;
     map['notes'] = notes;
+    map['description'] = description;
+    map['created_by'] = createdBy;
     map['firebase_todo_id'] = firebaseTodoId;
-    map['date'] = date;
     map['start_time'] = startTime;
     map['end_time'] = endTime;
-    map['created_by'] = createdBy;
+    map['date'] = date;
     map['priority'] = priority;
+    map['tag_names'] = tagNames;
     return map;
   }
 }

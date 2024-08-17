@@ -18,9 +18,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
 
   Future<List<TodoEntity>> _fetchRemoteList() async {
     try {
-      return await firebaseRepo.getListOfTodos().then((todoList) async {
-        return todoList.isNotEmpty ? todoList : await databaseRepo.getListOfTodos();
-      });
+      return await databaseRepo.getListOfTodos();
     } catch (e, s) {
       logService.crashLog(errorMessage: "something went wrong while retrieving list from firebase", e: e, stack: s);
       throw 'something went wrong $e';

@@ -82,6 +82,14 @@ class TodoItem extends StatelessWidget {
         _onChanged = onChanged,
         _data = data;
 
+
+  Widget _buildTags(BuildContext context) {
+    if (_data.tagNames.validate().isNotEmpty) {
+      return Wrap(children: _data.tagNames.validate().map((e) => StyledText('#$e ', style: _style.style(context, fontSize: 10))).toList());
+    }
+    return const Offstage();
+  }
+
   @override
   Widget build(BuildContext context) {
     final priority = priorityList.firstWhere(
@@ -110,13 +118,14 @@ class TodoItem extends StatelessWidget {
               style: _style.columnStyleOfStartMin(context),
               children: [
                 StyledText(_data.title ?? '', style: _style.style(context)),
-                StyledText(_data.description ?? '', style: _style.style(context, fontWeight: FontWeight.normal)),
+                _buildTags(context),
                 HBox(
                   style: _style.rawStyleOfStartMin(context, sizeBetweenChildren: 2),
                   children: [
+                    StyledText(timeService.convertToTime(_data.startTime ?? DateTime.now()), style: _style.style(context, fontSize: 10)),
                     const Icon(Icons.calendar_month, size: 12, color: greenColor),
                     2.width,
-                    StyledText(timeService.convertToTime(_data.startTime ?? DateTime.now()), style: _style.style(context, fontSize: 12)),
+                    Icon(Icons.flag, size: 12, color: priority.color),
                   ],
                 ),
               ],
@@ -125,7 +134,6 @@ class TodoItem extends StatelessWidget {
           HBox(
             style: _style.rawStyleOfStartMin(context),
             children: [
-              Icon(Icons.flag, size: 22, color: priority.color),
               BlocBuilder<TodoBloc, TodoState>(
                 builder: (context, state) {
                   if (state is NoInternetState) return const Offstage();
