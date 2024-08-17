@@ -9,10 +9,6 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
   @override
   Future<Either<Failure, List<TodoEntity>>> call(bool params) async {
     try {
-      if (params) {
-        return await _fetchRemoteList().then((todoList) => Right(todoList));
-      }
-
       return await _fetchRemoteList().then((value) => Right(value));
     } on Exception catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
@@ -23,17 +19,11 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
   Future<List<TodoEntity>> _fetchRemoteList() async {
     try {
       return await firebaseRepo.getListOfTodos().then((todoList) async {
-        if (todoList.isNotEmpty) {
-          return todoList;
-        } else {
-          return await databaseRepo.getListOfTodos();
-        }
+        return todoList.isNotEmpty ? todoList : await databaseRepo.getListOfTodos();
       });
     } catch (e, s) {
       logService.crashLog(errorMessage: "something went wrong while retrieving list from firebase", e: e, stack: s);
       throw 'something went wrong $e';
     }
   }
-
-
 }

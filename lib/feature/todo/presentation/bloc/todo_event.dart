@@ -16,7 +16,7 @@ class InitEvent extends TodoEvent {
   final List<TodoEntity>? todoList;
   final bool isListUpdated;
 
-  InitEvent(this.todoList, {this.isListUpdated = false});
+  InitEvent({this.todoList, this.isListUpdated = false});
 
   @override
   List<Object?> get props => [todoList, isListUpdated];

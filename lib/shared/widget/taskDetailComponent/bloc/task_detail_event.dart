@@ -3,12 +3,12 @@ import 'package:todo_app/core/app_library.dart';
 sealed class TaskDetailEvent extends Equatable {}
 
 class InitTaskDetailEvent extends TaskDetailEvent {
-  final String? todoId;
+  final ManageTodoPageParam todoPageData;
 
-  InitTaskDetailEvent({this.todoId});
+  InitTaskDetailEvent({required this.todoPageData});
 
   @override
-  List<Object?> get props => [todoId];
+  List<Object?> get props => [todoPageData];
 }
 
 class UpdatePomodoroCounterEvent extends TaskDetailEvent {

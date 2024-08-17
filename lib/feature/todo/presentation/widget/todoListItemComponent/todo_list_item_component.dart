@@ -9,7 +9,6 @@ class TodoListItemComponent extends HookWidget {
   final DismissDirectionCallback? _onDismissed;
   final TodoListItemComponentVariant _variant;
 
-
   final ValueKey _uniqueKey;
 
   const TodoListItemComponent({
@@ -19,11 +18,9 @@ class TodoListItemComponent extends HookWidget {
     required void Function() onTapOfEdit,
     void Function()? onPress,
     required ValueKey<dynamic> uniqueKey,
-
     void Function(DismissDirection)? onDismissed,
     TodoListItemComponentVariant variant = TodoListItemComponentVariant.primary,
   })  : _uniqueKey = uniqueKey,
-
         _variant = variant,
         _onDismissed = onDismissed,
         _onTapOfEdit = onTapOfEdit,
@@ -39,7 +36,6 @@ class TodoListItemComponent extends HookWidget {
       // DISMISSIBLE ONLY IF HAS INTERNET
       return TodoItem(
         onPress: _onPress,
-
         data: _data,
         onChanged: _onChanged,
         onTapOfEdit: _onTapOfEdit,
@@ -66,7 +62,6 @@ class TodoListItemComponent extends HookWidget {
 }
 
 class TodoItem extends StatelessWidget {
-
   final TodoEntity _data;
   final ValueChanged<bool?>? _onChanged;
   final VoidCallback? _onPress;
@@ -75,7 +70,6 @@ class TodoItem extends StatelessWidget {
 
   const TodoItem({
     super.key,
-
     required TodoEntity data,
     required void Function(bool?)? onChanged,
     required void Function() onTapOfEdit,
@@ -86,11 +80,15 @@ class TodoItem extends StatelessWidget {
         _onTapOfEdit = onTapOfEdit,
         _onPress = onPress,
         _onChanged = onChanged,
-        _data = data
-        ;
+        _data = data;
 
   @override
   Widget build(BuildContext context) {
+    final priority = priorityList.firstWhere(
+      (p) => p.code == _data.priority,
+      orElse: () => PriorityModel(title: 'No Priority', code: 'no_priority', color: slateGray),
+    );
+
     return PressableBox(
       style: _style.style(context),
       onPress: _onPress,
@@ -118,7 +116,7 @@ class TodoItem extends StatelessWidget {
                   children: [
                     const Icon(Icons.calendar_month, size: 12, color: greenColor),
                     2.width,
-                    StyledText('2:00 AM', style: _style.style(context, fontSize: 12)),
+                    StyledText(timeService.convertToTime(_data.startTime ?? DateTime.now()), style: _style.style(context, fontSize: 12)),
                   ],
                 ),
               ],
@@ -127,7 +125,7 @@ class TodoItem extends StatelessWidget {
           HBox(
             style: _style.rawStyleOfStartMin(context),
             children: [
-              const Icon(Icons.flag, size: 22),
+              Icon(Icons.flag, size: 22, color: priority.color),
               BlocBuilder<TodoBloc, TodoState>(
                 builder: (context, state) {
                   if (state is NoInternetState) return const Offstage();

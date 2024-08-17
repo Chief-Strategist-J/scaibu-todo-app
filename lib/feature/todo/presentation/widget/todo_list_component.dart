@@ -26,7 +26,7 @@ class TodoListComponent extends StatelessWidget {
   }
 
   Future<void> _onRefresh(BuildContext context) {
-    todoBloc(context).add(InitEvent(const []));
+    todoBloc(context).add(InitEvent(isListUpdated: true));
     return Future(() => true);
   }
 
@@ -102,7 +102,7 @@ class TodoListComponent extends StatelessWidget {
                   },
                   onTapOfEdit: () {
                     _onTapOfEdit(context, todoData);
-                    todoBloc(context).add(InitEvent(const [], isListUpdated: true));
+                    todoBloc(context).add(InitEvent(isListUpdated: true));
                   },
                 );
               },

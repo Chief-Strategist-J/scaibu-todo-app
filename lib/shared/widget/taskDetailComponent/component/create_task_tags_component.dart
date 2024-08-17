@@ -2,14 +2,24 @@ import 'package:todo_app/core/app_library.dart';
 
 class CreateTaskTagsComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
+  final ManageTodoPageParam localTodoData;
 
-  const CreateTaskTagsComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
+  const CreateTaskTagsComponent({
+    required TaskDetailComponentVariantStyle style,
+    required this.localTodoData,
+    super.key,
+  }) : _style = style;
 
   @override
   Widget build(BuildContext context) {
     final List<TagEntity> _list = context.select((TaskDetailBloc value) {
       final state = value.state;
-      return state is TaskDetailDataState ? state.tagList : [];
+      if (state is TaskDetailDataState) {
+        localTodoData.tags = state.selectedTagList;
+        return state.tagList;
+      } else {
+        return [];
+      }
     });
 
     return PressableBox(

@@ -1,11 +1,18 @@
 import 'package:todo_app/core/app_library.dart';
+
 class CreateTaskPriorityComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
+  final ManageTodoPageParam localTodoData;
 
-  const CreateTaskPriorityComponent({required TaskDetailComponentVariantStyle style, super.key}) : _style = style;
+  const CreateTaskPriorityComponent({
+    required TaskDetailComponentVariantStyle style,
+    required this.localTodoData,
+    super.key,
+  }) : _style = style;
 
   void _onTapOfPriority(BuildContext context, PriorityModel priority) {
     context.read<TaskDetailBloc>().add(UpdatePriorityEvent(priority: priority));
+    localTodoData.priority = priority.code;
     GoRouter.of(context).pop();
   }
 

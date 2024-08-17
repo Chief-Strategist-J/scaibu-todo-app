@@ -11,19 +11,14 @@ class TodoPage extends HookWidget {
     await GoRouter.of(context).push(ApplicationPaths.manageTodoPage);
   }
 
-  List<TodoEntity> _todoList(TodoState state) {
-    if (state is InitTodoState) return state.todoList ?? [];
-    if (state is NoInternetState) return state.todoList ?? [];
-    return [];
-  }
-
   @override
   Widget build(BuildContext context) {
     final todoBloc = useMemoized(() => context.read<TodoBloc>(), []);
+
     final scaffoldKey = useMemoized(() => GlobalKey<ScaffoldState>(), []);
 
     useEffect(() {
-      todoBloc.add(InitEvent(const []));
+      todoBloc.add(InitEvent(isListUpdated: true));
       return null;
     }, [todoBloc]);
 
@@ -56,14 +51,11 @@ class TodoPage extends HookWidget {
             child: BlocBuilder<TodoBloc, TodoState>(
               bloc: todoBloc,
               builder: (_, state) {
-                final bool isValidStateForList = (state is InitTodoState || state is NoInternetState);
-                final bool listExists = _todoList(state).isNotEmpty;
 
-                if (isValidStateForList && listExists) {
-                  return TodoListComponent(todoList: _todoList(state));
+
+                if (todoBloc.tempTodoList.isNotEmpty) {
+                  return TodoListComponent(todoList: todoBloc.tempTodoList);
                 }
-
-                if (state is LoadingState) return const LoadingWidget();
 
                 return EmptyWidget(msg: 'no_to_do_items_available'.tr());
               },

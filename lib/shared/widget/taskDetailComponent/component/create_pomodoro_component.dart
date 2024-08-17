@@ -3,9 +3,11 @@ import 'package:todo_app/shared/widget/taskDetailComponent/component/pomodoro_co
 
 class CreatePomodoroComponent extends StatelessWidget {
   final TaskDetailComponentVariantStyle _style;
+  final ManageTodoPageParam localTodoData;
 
   const CreatePomodoroComponent({
     required TaskDetailComponentVariantStyle style,
+    required this.localTodoData,
     super.key,
   }) : _style = style;
 

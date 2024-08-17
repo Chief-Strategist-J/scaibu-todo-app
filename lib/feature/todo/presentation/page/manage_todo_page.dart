@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
 import 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.dart';
 
 class ManageTodoPage extends HookWidget {
@@ -117,14 +116,6 @@ class ManageTodoPage extends HookWidget {
     });
   }
 
-  void _onDataChange(TaskDetailDataState p0, ManageTodoPageParam localTodoData) {
-    if (p0.priority != null) {
-      localTodoData.priority = p0.priority?.code ?? 'no_priority';
-      localTodoData.tags = p0.selectedTagList;
-      toast(p0.selectedTagList.length.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final localTodoData = useMemoized(() => todoPage ?? ManageTodoPageParam(), [todoPage]);
@@ -229,12 +220,7 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.notesNode,
                   textInputAction: TextInputAction.done,
                 ),
-                TaskDetailComponent(
-                  localTodoData: localTodoData,
-                  onChange: (p0) {
-                    _onDataChange(p0, localTodoData);
-                  },
-                ),
+                TaskDetailComponent(localTodoData: localTodoData),
               ],
             ),
           ),

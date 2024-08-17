@@ -1,9 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
 
 class TagListComponent extends HookWidget {
-  final List<TagEntity> _list;
-
-  const TagListComponent({super.key, required List<TagEntity> list}) : _list = list;
+  final ManageTodoPageParam localTodoData;
+  const TagListComponent({required this.localTodoData,super.key});
 
   UtilityService get _utilityService => getIt<UtilityService>();
 
@@ -13,6 +12,14 @@ class TagListComponent extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<TagEntity> _list = context.select((TaskDetailBloc taskDetailBloc) {
+      final state = taskDetailBloc.state;
+      return state is TaskDetailDataState ? state.selectedTagList : [];
+    });
+    localTodoData.tags = _list;
+
+    if (_list.isEmpty) return const Offstage();
+
     return Wrap(
       children: _list.map(
         (data) {

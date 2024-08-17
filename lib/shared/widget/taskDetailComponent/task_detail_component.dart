@@ -10,12 +10,10 @@ enum ChildClassType {
 
 class TaskDetailComponent extends HookWidget {
   final TaskDetailComponentVariant _variant;
-  final Function(TaskDetailDataState) onChange;
   final ManageTodoPageParam localTodoData;
 
   const TaskDetailComponent({
     TaskDetailComponentVariant variant = TaskDetailComponentVariant.primary,
-    required this.onChange,
     required this.localTodoData,
     super.key,
   }) : _variant = variant;
@@ -63,9 +61,9 @@ class TaskDetailComponent extends HookWidget {
     required ChildClassType type,
   }) async {
     final widgetMap = {
-      ChildClassType.createPomodoro: CreatePomodoroComponent(style: style),
-      ChildClassType.createPriority: CreateTaskPriorityComponent(style: style),
-      ChildClassType.createTags: CreateTaskTagsComponent(style: style),
+      ChildClassType.createPomodoro: CreatePomodoroComponent(style: style, localTodoData: localTodoData),
+      ChildClassType.createPriority: CreateTaskPriorityComponent(style: style, localTodoData: localTodoData),
+      ChildClassType.createTags: CreateTaskTagsComponent(style: style, localTodoData: localTodoData),
       ChildClassType.createProject: const CreateProjectComponent(),
     };
 
@@ -83,35 +81,23 @@ class TaskDetailComponent extends HookWidget {
     final style = useMemoized(() => TaskDetailComponentVariantStyle(variant: _variant), []);
 
     return BlocProvider(
-      create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent(todoId: localTodoData.todoId)),
+      create: (BuildContext context) => TaskDetailBloc()..add(InitTaskDetailEvent(todoPageData: localTodoData)),
       child: Builder(
         builder: (context) {
-          final List<TagEntity> _list = context.select((TaskDetailBloc taskDetailBloc) {
-            final state = taskDetailBloc.state;
-            return state is TaskDetailDataState ? state.selectedTagList : [];
-          });
-
-          return BlocListener<TaskDetailBloc, TaskDetailState>(
-            listener: (context, state) {
-              if (state is TaskDetailDataState) {
-                onChange.call(state);
-              }
-            },
-            child: VBox(
-              style: Style($flex.crossAxisAlignment.start()),
-              children: [
-                8.height,
-                if (_list.isNotEmpty) TagListComponent(list: _list),
-                Divider(color: shadowColor, endIndent: 16, indent: 16, thickness: 0.4),
-                Center(
-                  child: Wrap(
-                    children: _listOfComponent(context, style).map((data) {
-                      return IconButtonComponent(data: data, style: style, localTodoData: localTodoData);
-                    }).toList(),
-                  ),
+          return VBox(
+            style: Style($flex.crossAxisAlignment.start()),
+            children: [
+              8.height,
+              TagListComponent(localTodoData: localTodoData),
+              Divider(color: shadowColor, endIndent: 16, indent: 16, thickness: 0.4),
+              Center(
+                child: Wrap(
+                  children: _listOfComponent(context, style).map((data) {
+                    return IconButtonComponent(data: data, style: style, localTodoData: localTodoData);
+                  }).toList(),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),

@@ -26,9 +26,7 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       _emitDataState(emit, pomodoroCont: 0);
     }
 
-    if (event.todoId != null) {
-      _getTagsFromIfTagsList(event);
-    }
+    _getTagsFromIfTagsList(event);
   }
 
   Future<void> _getSeededTags(Emitter<TaskDetailState> emit) async {
@@ -42,7 +40,10 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   }
 
   Future<void> _getTagsFromIfTagsList(InitTaskDetailEvent event) async {
-    final tags = await getIt<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase)(event.todoId.toString());
+    if (event.todoPageData.todoId == null) return;
+
+    final getTagsByTodoIdUseCase = getIt<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase);
+    final tags = await getTagsByTodoIdUseCase(event.todoPageData.todoId!);
 
     tags.fold((failure) {
       if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
@@ -68,7 +69,7 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       final currentState = state as TaskDetailDataState;
       final list = List<TagEntity>.from(currentState.selectedTagList);
 
-      (list.any((element) => element.slug == event.tag.slug)) ? list.remove(event.tag) : list.add(event.tag);
+      (list.any((element) => element.slug == event.tag.slug)) ? list.removeWhere((element) => element.slug == event.tag.slug) : list.add(event.tag);
       _emitDataState(emit, selectedTagList: list);
     }
   }
