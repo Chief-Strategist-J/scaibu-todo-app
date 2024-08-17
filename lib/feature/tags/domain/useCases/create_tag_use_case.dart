@@ -9,9 +9,7 @@ class CreateTagUseCase extends UseCase<void, Map<String, dynamic>> {
   @override
   Future<Either<Failure, void>> call(Map<String, dynamic> params) async {
     try {
-      await tagsFirebaseRepository.createTag(params).then((value) async {
-        await tagsDatabaseRepository.createTag(params);
-      });
+      tagsDatabaseRepository.createTag(params);
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to create tag'));

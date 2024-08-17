@@ -19,7 +19,11 @@ class CustomButton extends StatelessWidget {
     final style = CustomButtonStyle(variant: _variant);
 
     return PressableBox(
-      onPress: _onTap,
+      onPress: () {
+        if (_onTap != null) {
+          _onTap?.call();
+        }
+      },
       style: style.button(context),
       child: StyledText(_data ?? '', style: style.button(context)),
     );

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 
 sealed class TagState extends Equatable {
@@ -6,16 +8,20 @@ sealed class TagState extends Equatable {
 }
 
 class TagDataState extends TagState {
-  TagDataState();
+  final Color? color;
+
+  TagDataState({this.color});
 
   factory TagDataState.init() {
     return TagDataState();
   }
 
-  TagDataState copyWith() {
-    return TagDataState();
+  TagDataState copyWith({Color? color}) {
+    return TagDataState(
+      color: color ?? this.color,
+    );
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [color];
 }

@@ -1,17 +1,23 @@
-
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
+import 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';
 
 class ColorPickerComponent extends HookWidget {
   const ColorPickerComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenPickerColor = useState(redColor);
+    final Color color = context.select(
+      (TagBloc tagBloc) {
+        final currState = tagBloc.state;
+        return currState is TagDataState ? currState.color ?? Colors.red : Colors.red;
+      },
+    );
 
     return ColorPicker(
-      color: screenPickerColor.value,
+      color: color,
       onColorChanged: (Color color) {
-        screenPickerColor.value = color;
+        context.read<TagBloc>().add(UpdateColorOfTagEvent(color: color));
       },
       width: 44,
       height: 44,
@@ -27,9 +33,9 @@ class ColorPickerComponent extends HookWidget {
       runSpacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
       pickersEnabled: const <ColorPickerType, bool>{
-        ColorPickerType.both: false,
-        ColorPickerType.primary: true,
-        ColorPickerType.accent: true,
+        ColorPickerType.both: true,
+        ColorPickerType.primary: false,
+        ColorPickerType.accent: false,
         ColorPickerType.bw: false,
         ColorPickerType.custom: true,
         ColorPickerType.customSecondary: true,

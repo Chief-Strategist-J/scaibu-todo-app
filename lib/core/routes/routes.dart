@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 final router = GoRouter(
   initialLocation: ApplicationPaths.splashPage,
   observers: [
@@ -70,7 +69,7 @@ final router = GoRouter(
       name: ApplicationPaths.createTagPage,
       path: ApplicationPaths.createTagPage,
       builder: (context, state) {
-        return const CreateTagPage();
+        return CreateTagPage();
       },
     ),
   ],
