@@ -1,8 +1,6 @@
-
-
 import 'package:todo_app/core/app_library.dart';
 
-class PomodoroFirebaseApi implements PomodoroBase<PomodoroModel> {
+class PomodoroFirebaseApi implements PomodoroBase<PomodoroEntity> {
   @override
   Future<void> createPomodoro(Map<String, dynamic> req) {
     throw UnimplementedError();
@@ -14,7 +12,7 @@ class PomodoroFirebaseApi implements PomodoroBase<PomodoroModel> {
   }
 
   @override
-  Future<PomodoroModel> getPomodoroStats(Map<String, dynamic> req) {
+  Future<PomodoroEntity> getPomodoroStats(Map<String, dynamic> req) {
     throw UnimplementedError();
   }
 

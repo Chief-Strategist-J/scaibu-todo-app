@@ -1,8 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
 
-class PomodoroRepositoryImpl implements PomodoroRepository<PomodoroModel> {
-  final PomodoroBase<PomodoroModel> firebaseApi;
-  final PomodoroBase<PomodoroModel> databaseApi;
+class PomodoroRepositoryImpl implements PomodoroRepository<PomodoroEntity> {
+  final PomodoroBase<PomodoroEntity> firebaseApi;
+  final PomodoroBase<PomodoroEntity> databaseApi;
 
   PomodoroRepositoryImpl({required this.firebaseApi, required this.databaseApi});
 
@@ -17,7 +17,7 @@ class PomodoroRepositoryImpl implements PomodoroRepository<PomodoroModel> {
   }
 
   @override
-  Future<PomodoroModel> getPomodoroStats(Map<String, dynamic> req) {
+  Future<PomodoroEntity> getPomodoroStats(Map<String, dynamic> req) {
     throw UnimplementedError();
   }
 

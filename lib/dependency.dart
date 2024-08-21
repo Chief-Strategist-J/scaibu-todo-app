@@ -12,6 +12,7 @@ class Dependency {
     TodoDependencyInjection.todoDependency();
     AuthDependencyInjection.authDependency();
     TagsDependencyInjection.setupDependencyInjection();
+    PomodoroDependencyInjection.setupDependencyInjection();
   }
 
   static void dispose() {
@@ -19,5 +20,6 @@ class Dependency {
     TodoDependencyInjection.disposeDependencyInjection();
     AuthDependencyInjection.disposeDependencyInjection();
     TagsDependencyInjection.disposeDependencyInjection();
+    PomodoroDependencyInjection.disposeDependencyInjection();
   }
 }

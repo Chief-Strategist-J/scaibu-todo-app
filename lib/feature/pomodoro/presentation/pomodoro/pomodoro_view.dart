@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 class PomodoroPage extends StatelessWidget {
   const PomodoroPage({super.key});
 
@@ -13,8 +12,6 @@ class PomodoroPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<PomodoroBloc>(context);
-
     return Container();
   }
 }

@@ -39,6 +39,7 @@ class MyApp extends HookWidget {
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
       BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
       BlocProvider(create: (context) => GetIt.instance<TagBloc>(instanceName: TagsDependencyInjection.tagBloc)),
+      BlocProvider(create: (context) => GetIt.instance<PomodoroBloc>(instanceName: PomodoroDependencyInjection.pomodoroBloc)),
     ];
   }
 

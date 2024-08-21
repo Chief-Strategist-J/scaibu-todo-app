@@ -1,6 +1,10 @@
 import 'package:todo_app/core/app_library.dart';
 
-class PomodoroDatabaseApi implements PomodoroBase<PomodoroModel> {
+class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
+  final RestApi restApi;
+
+  PomodoroDatabaseApi({required this.restApi});
+
   @override
   Future<void> createPomodoro(Map<String, dynamic> req) {
     throw UnimplementedError();
@@ -12,7 +16,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroModel> {
   }
 
   @override
-  Future<PomodoroModel> getPomodoroStats(Map<String, dynamic> req) {
+  Future<PomodoroEntity> getPomodoroStats(Map<String, dynamic> req) {
     throw UnimplementedError();
   }
 
