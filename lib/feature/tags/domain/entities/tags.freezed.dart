@@ -52,8 +52,12 @@ mixin _$TagEntity {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this TagEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TagEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TagEntityCopyWith<TagEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -106,6 +110,8 @@ class _$TagEntityCopyWithImpl<$Res, $Val extends TagEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TagEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -314,6 +320,8 @@ class __$$TagEntityImplCopyWithImpl<$Res>
       _$TagEntityImpl _value, $Res Function(_$TagEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TagEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -652,7 +660,7 @@ class _$TagEntityImpl implements _TagEntity {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -688,7 +696,9 @@ class _$TagEntityImpl implements _TagEntity {
         updatedAt
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TagEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TagEntityImplCopyWith<_$TagEntityImpl> get copyWith =>
@@ -798,8 +808,11 @@ abstract class _TagEntity implements TagEntity {
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
+
+  /// Create a copy of TagEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TagEntityImplCopyWith<_$TagEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

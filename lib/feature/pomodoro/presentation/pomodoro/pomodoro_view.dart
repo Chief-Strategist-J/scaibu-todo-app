@@ -1,9 +1,6 @@
-
-
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
 import 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
-
 
 class PomodoroPage extends StatelessWidget {
   const PomodoroPage({super.key});
@@ -22,4 +19,3 @@ class PomodoroPage extends StatelessWidget {
     return Container();
   }
 }
-
