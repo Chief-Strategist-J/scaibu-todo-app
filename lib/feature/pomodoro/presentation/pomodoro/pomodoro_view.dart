@@ -5,13 +5,6 @@ class PomodoroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => PomodoroBloc()..add(InitPomodoroEvent()),
-      child: Builder(builder: (context) => _buildPage(context)),
-    );
-  }
-
-  Widget _buildPage(BuildContext context) {
     return Container();
   }
 }
