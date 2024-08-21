@@ -1,10 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/pomodoro/domain/repositories/pomodoro_repository.dart';
 
 // TODO : Firebase is not implemented yet
 class StopPomodoroUseCase extends UseCase<void, String> {
-  final PomodoroRepository pomodoroDatabaseRepository;
-  final PomodoroRepository pomodoroFirebaseRepository;
+  final PomodoroRepository<PomodoroEntity> pomodoroDatabaseRepository;
+  final PomodoroRepository<PomodoroEntity> pomodoroFirebaseRepository;
 
   StopPomodoroUseCase({
     required this.pomodoroDatabaseRepository,

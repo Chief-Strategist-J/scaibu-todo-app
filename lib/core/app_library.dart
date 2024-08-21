@@ -167,3 +167,12 @@ export 'package:todo_app/feature/tags/presentation/widget/tag_input_field.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/pomodoro_cont.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';
+
+
+// Pomodoro
+export 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
+export 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
+export 'package:todo_app/feature/pomodoro/data/data_sources/pomodoro_base.dart';
+export 'package:todo_app/feature/pomodoro/data/models/pomodoro_model.dart';
+export 'package:todo_app/feature/pomodoro/domain/repositories/pomodoro_repository.dart';
+export 'package:todo_app/feature/pomodoro/domain/entities/pomodoro_entity.dart';
