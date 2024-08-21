@@ -32,7 +32,7 @@ class DataBaseApiImpl implements BaseApi {
     await restApi.request(
       endPoint: TodoEndPoint.deleteTodo,
       requestBody: {'todo_id': todoId},
-      type: HttpRequestMethod.delete,
+      type: HttpRequestMethod.post,
     );
   }
 
