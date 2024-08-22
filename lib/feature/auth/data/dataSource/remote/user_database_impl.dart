@@ -153,22 +153,22 @@ class UserDatabaseImpl implements UserBaseApi {
         type: HttpRequestMethod.post,
       );
 
-      if (response['status']) {
-        final res = LoginResponse.fromJson(response);
+      if (response['status'] != true) return Left(FailResponse.fromJson(response));
 
-        return Right(LoginEntity(
-          name: res.data?.userInfo?.name,
-          email: res.data?.userInfo?.email,
-          isLogin: res.data?.isLogin,
-          isSignUp: res.data?.isSignUp,
-          accessToken: res.data?.accessToken,
-          id: res.data?.userInfo?.id,
-        ));
-      } else {
-        return Left(FailResponse.fromJson(response));
-      }
+      final res = LoginResponse.fromJson(response);
+      final userInfo = res.data?.userInfo;
+      final loginEntity = LoginEntity(
+        name: userInfo?.name,
+        email: userInfo?.email,
+        isLogin: res.data?.isLogin,
+        isSignUp: res.data?.isSignUp,
+        accessToken: res.data?.accessToken,
+        id: userInfo?.id,
+      );
+
+      return Right(loginEntity);
     } catch (e) {
-      return Left(FailResponse(status: false, message: e.toString()));
+      return Left(FailResponse(status: false, message: 'Error: ${e.toString()}'));
     }
   }
 }
