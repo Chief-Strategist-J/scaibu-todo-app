@@ -10,6 +10,7 @@ class UserAuthEndPoint {
   static const forgetPassword = "api/forgetPassword";
   static const verifyPasswordOtp = "api/verifyPasswordOtp";
   static const updatePassword = 'api/updatePassword';
+  static const signOut = 'api/signOut';
 }
 
 class UserDatabaseImpl implements UserBaseApi {
@@ -71,8 +72,12 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<void> standardLogOut(String userID) {
-    throw UnimplementedError();
+  Future<void> standardLogOut(Map<String,dynamic> req) async {
+    await restApi.request(
+      requestBody: req,
+      endPoint: UserAuthEndPoint.signOut,
+      type: HttpRequestMethod.post,
+    );
   }
 
   @override

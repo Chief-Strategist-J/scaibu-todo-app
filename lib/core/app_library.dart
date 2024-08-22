@@ -141,6 +141,7 @@ export 'package:todo_app/feature/auth/domain/repository/auth_user_detail_reposit
 export 'package:todo_app/shared/widget/dialogs.dart';
 export 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
 export 'package:todo_app/feature/auth/data/model/response/fail_response.dart';
+export 'package:todo_app/feature/auth/domain/useCases/standard_logout_use_case.dart';
 
 
 // Tag Feature

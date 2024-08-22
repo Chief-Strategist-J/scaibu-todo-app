@@ -17,5 +17,5 @@ abstract interface class AuthRepository {
 
   Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred);
 
-  Future<void> standardLogOut(String userID);
+  Future<void> standardLogOut(Map<String, dynamic> req);
 }

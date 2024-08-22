@@ -11,7 +11,7 @@ class GetUserDetailUseCase extends UseCase<Either<FailResponse, LoginEntity>, Ma
       final user = await authRepository.getUserDetail(params);
       user.fold((l) {}, (r) => _storeCred(r));
       return Right(user);
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return Left(ServerFailure(errorMessage));
     }
   }

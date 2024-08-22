@@ -11,8 +11,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> standardLogOut(String userID) {
-    return baseApi.standardLogOut(userID);
+  Future<void> standardLogOut(Map<String, dynamic> req) {
+    return baseApi.standardLogOut(req);
   }
 
   @override

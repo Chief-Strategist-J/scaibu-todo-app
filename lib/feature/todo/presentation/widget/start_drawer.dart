@@ -15,10 +15,17 @@ class DrawerComponent extends StatelessWidget {
       negativeTextColor: context.primaryColor,
       positiveText: "Log-Out",
       onAccept: (p0) async {
-        userCredentials.clear();
+        await getIt<StandardLogoutUseCase>().call(
+          {
+            'user_id': userCredentials.getUserId.toString(),
+            'email': userCredentials.getUserEmail.toString(),
+          },
+        );
         OneSignal.logout();
+        userCredentials.clear();
+
         await 1.seconds.delay;
-        if(!context.mounted) return;
+        if (!context.mounted) return;
         GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage);
       },
     );

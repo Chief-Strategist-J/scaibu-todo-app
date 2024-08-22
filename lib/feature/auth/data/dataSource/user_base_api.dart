@@ -17,5 +17,5 @@ abstract interface class UserBaseApi {
 
   Future<bool> createOpt(Map<String, dynamic> otpCred);
 
-  Future<void> standardLogOut(String userID);
+  Future<void> standardLogOut(Map<String, dynamic> req);
 }
