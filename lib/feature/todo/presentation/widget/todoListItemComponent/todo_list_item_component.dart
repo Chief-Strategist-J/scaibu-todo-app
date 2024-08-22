@@ -4,6 +4,7 @@ class TodoListItemComponent extends HookWidget {
   final TodoEntity _data;
   final ValueChanged<bool?>? _onChanged;
   final GestureTapCallback _onTapOfEdit;
+  final GestureTapCallback _onTapOfSee;
   final void Function()? _onPress;
 
   final DismissDirectionCallback? _onDismissed;
@@ -16,6 +17,7 @@ class TodoListItemComponent extends HookWidget {
     required TodoEntity todoData,
     required void Function(bool?)? onChanged,
     required void Function() onTapOfEdit,
+    required void Function() onTapOfSee,
     void Function()? onPress,
     required ValueKey<dynamic> uniqueKey,
     void Function(DismissDirection)? onDismissed,
@@ -24,6 +26,7 @@ class TodoListItemComponent extends HookWidget {
         _variant = variant,
         _onDismissed = onDismissed,
         _onTapOfEdit = onTapOfEdit,
+        _onTapOfSee = onTapOfSee,
         _onChanged = onChanged,
         _onPress = onPress,
         _data = todoData;
@@ -39,6 +42,7 @@ class TodoListItemComponent extends HookWidget {
         data: _data,
         onChanged: _onChanged,
         onTapOfEdit: _onTapOfEdit,
+        onTapOfSee: _onTapOfSee,
         style: style,
       );
     }
@@ -55,6 +59,7 @@ class TodoListItemComponent extends HookWidget {
         data: _data,
         onChanged: _onChanged,
         onTapOfEdit: _onTapOfEdit,
+        onTapOfSee: _onTapOfSee,
         style: style,
       ),
     );
@@ -66,6 +71,7 @@ class TodoItem extends StatelessWidget {
   final ValueChanged<bool?>? _onChanged;
   final VoidCallback? _onPress;
   final GestureTapCallback _onTapOfEdit;
+  final GestureTapCallback _onTapOfSee;
   final TodoListItemComponentStyle _style;
 
   const TodoItem({
@@ -73,19 +79,25 @@ class TodoItem extends StatelessWidget {
     required TodoEntity data,
     required void Function(bool?)? onChanged,
     required void Function() onTapOfEdit,
+    required void Function() onTapOfSee,
     required TodoListItemComponentStyle style,
     void Function()? onPress,
     TodoListItemComponentVariant variant = TodoListItemComponentVariant.primary,
   })  : _style = style,
         _onTapOfEdit = onTapOfEdit,
+        _onTapOfSee = onTapOfSee,
         _onPress = onPress,
         _onChanged = onChanged,
         _data = data;
 
-
   Widget _buildTags(BuildContext context) {
     if (_data.tagNames.validate().isNotEmpty) {
-      return Wrap(children: _data.tagNames.validate().map((e) => StyledText('#$e ', style: _style.style(context, fontSize: 10))).toList());
+      return Wrap(
+          children: _data.tagNames.validate().map((e) {
+        if (e.isEmpty) return const Offstage();
+
+        return StyledText('#$e ', style: _style.style(context, fontSize: 10));
+      }).toList());
     }
     return const Offstage();
   }
@@ -132,7 +144,7 @@ class TodoItem extends StatelessWidget {
             ),
           ),
           HBox(
-            style: _style.rawStyleOfStartMin(context),
+            style: _style.rawStyleOfStartMin(context, sizeBetweenChildren: 1),
             children: [
               BlocBuilder<TodoBloc, TodoState>(
                 builder: (context, state) {
@@ -143,6 +155,10 @@ class TodoItem extends StatelessWidget {
                     child: const Icon(Icons.edit, size: 22),
                   );
                 },
+              ),
+              IconButton(
+                icon: const Icon(Icons.remove_red_eye, size: 22),
+                onPressed: _onTapOfSee,
               ),
             ],
           ),

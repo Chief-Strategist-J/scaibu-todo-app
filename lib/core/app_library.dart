@@ -102,7 +102,7 @@ export 'package:todo_app/feature/todo/presentation/bloc/todo_bloc.dart';
 export 'package:todo_app/feature/todo/presentation/bloc/todo_event.dart';
 export 'package:todo_app/feature/todo/presentation/bloc/todo_state.dart';
 export 'package:todo_app/feature/todo/presentation/page/todo_page.dart';
-export 'package:todo_app/feature/todo/presentation/widget/todo_list_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/todoListComponent/todo_list_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/content_widget.dart';
 export 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
 export 'package:todo_app/feature/todo/presentation/page/manage_todo_page.dart';
@@ -115,6 +115,7 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_button.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
+export 'package:todo_app/feature/todo/presentation/widget/todoListComponent/controller/todo_action_handler.dart';
 
 // Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
@@ -190,3 +191,4 @@ export 'package:todo_app/feature/pomodoro/domain/use_cases/stop_pomodoro_use_cas
 export 'package:todo_app/feature/pomodoro/data/data_sources/remote/pomodoro_firebase_api.dart';
 export 'package:todo_app/feature/pomodoro/data/repositories/pomodoro_repository_impl.dart';
 export 'package:todo_app/feature/pomodoro/pomodoro_dependency_injection.dart';
+export 'package:todo_app/feature/pomodoro/presentation/pomodoro/pomodoro_view.dart' hide TimerWidget;

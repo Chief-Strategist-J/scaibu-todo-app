@@ -72,5 +72,12 @@ final router = GoRouter(
         return CreateTagPage();
       },
     ),
+    GoRoute(
+      name: ApplicationPaths.pomodoroPage,
+      path: ApplicationPaths.pomodoroPage,
+      builder: (context, state) {
+        return const PomodoroPage();
+      },
+    ),
   ],
 );
