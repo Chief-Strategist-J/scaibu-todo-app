@@ -5,6 +5,8 @@ abstract interface class AuthRepository {
 
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred);
 
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred);
+
   Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred);
 
   Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred);

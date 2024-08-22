@@ -45,4 +45,9 @@ class AuthRepositoryImpl implements AuthRepository {
     // TODO: implement createOpt
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred) async {
+    return await baseApi.getUserDetail(loginCred);
+  }
 }

@@ -4,6 +4,7 @@ import 'package:todo_app/feature/auth/data/model/response/verify_otp_for_forget_
 
 class UserAuthEndPoint {
   static const loginOrSignUp = "api/loginOrSignUp";
+  static const getUserDetail = "api/getUserDetail";
   static const createOtp = "api/createOtp";
   static const verifyOtp = "api/verifyOtp";
   static const forgetPassword = "api/forgetPassword";
@@ -38,7 +39,7 @@ class UserDatabaseImpl implements UserBaseApi {
     );
   }
 
-    @override
+  @override
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred) async {
     LoginResponse res = LoginResponse.fromJson(
       await restApi.request(
@@ -141,5 +142,33 @@ class UserDatabaseImpl implements UserBaseApi {
     if (createTodoResponse.data == null) return false;
 
     return createTodoResponse.data!.success.validate();
+  }
+
+  @override
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred) async {
+    try {
+      final response = await restApi.request(
+        requestBody: loginCred,
+        endPoint: UserAuthEndPoint.getUserDetail,
+        type: HttpRequestMethod.post,
+      );
+
+      if (response['status']) {
+        final res = LoginResponse.fromJson(response);
+
+        return Right(LoginEntity(
+          name: res.data?.userInfo?.name,
+          email: res.data?.userInfo?.email,
+          isLogin: res.data?.isLogin,
+          isSignUp: res.data?.isSignUp,
+          accessToken: res.data?.accessToken,
+          id: res.data?.userInfo?.id,
+        ));
+      } else {
+        return Left(FailResponse.fromJson(response));
+      }
+    } catch (e) {
+      return Left(FailResponse(status: false, message: e.toString()));
+    }
   }
 }

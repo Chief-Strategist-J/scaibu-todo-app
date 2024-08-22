@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
 
 class AuthDependencyInjection {
   static void authDependency() {
@@ -16,6 +17,10 @@ class AuthDependencyInjection {
       LoginUseCase(getIt<AuthRepository>()),
     );
 
+    getIt.registerSingleton<GetUserDetailUseCase>(
+      GetUserDetailUseCase(getIt<AuthRepository>()),
+    );
+
     getIt.registerFactory(() {
       return AuthBloc();
     });
@@ -26,6 +31,7 @@ class AuthDependencyInjection {
     getIt.unregister<UserBaseApi>();
     getIt.unregister<AuthRepository>();
     getIt.unregister<LoginUseCase>();
+    getIt.unregister<GetUserDetailUseCase>();
     getIt.unregister<AuthBloc>();
   }
 }

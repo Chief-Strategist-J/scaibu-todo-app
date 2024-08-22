@@ -139,6 +139,9 @@ export 'package:todo_app/feature/auth/data/repository/auth_repository_impl.dart'
 export 'package:todo_app/feature/auth/presentation/widget/custom_divider.dart';
 export 'package:todo_app/feature/auth/domain/repository/auth_user_detail_repository.dart';
 export 'package:todo_app/shared/widget/dialogs.dart';
+export 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
+export 'package:todo_app/feature/auth/data/model/response/fail_response.dart';
+
 
 // Tag Feature
 export 'package:todo_app/feature/tags/data/data_sources/remote/tags_remote_database.dart';

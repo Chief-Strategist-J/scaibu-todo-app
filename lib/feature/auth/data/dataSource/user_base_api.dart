@@ -5,6 +5,8 @@ abstract interface class UserBaseApi {
 
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred);
 
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred);
+
   Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred);
 
   Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred);
@@ -12,8 +14,8 @@ abstract interface class UserBaseApi {
   Future<void> updatePassword(Map<String, dynamic> updatePasswordCred);
 
   Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred);
-  Future<bool> createOpt(Map<String, dynamic> otpCred);
 
+  Future<bool> createOpt(Map<String, dynamic> otpCred);
 
   Future<void> standardLogOut(String userID);
 }
