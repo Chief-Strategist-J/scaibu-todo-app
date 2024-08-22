@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class TodoEndPoint {
-  static const String createTodo = 'api/todo';
+  static const String createTodo = 'api/todo/store';
   static const String getTodoList = 'api/todo';
   static const String updateTodo = 'api/updateTodo';
   static const String deleteTodo = 'api/todo/deleteTodo';
