@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:todo_app/core/app_library.dart';
 
@@ -33,7 +31,7 @@ class PomodoroPage extends StatelessWidget {
         children: [
           TimerWidget(
             sessionCount: 2,
-            sessionDuration: Duration(minutes: 1),
+            sessionDuration: const Duration(minutes: 1),
             onSessionEnd: (e) {
               toast("value");
             },
@@ -79,7 +77,7 @@ class TimerWidget extends HookWidget {
         isRunning.value = false;
       } else {
         isRunning.value = true;
-        timer.value = Timer.periodic(Duration(seconds: 1), (timer) {
+        timer.value = Timer.periodic(const Duration(seconds: 1), (timer) {
           if (secondsRemaining.value > 0) {
             secondsRemaining.value--;
           } else {
@@ -136,7 +134,7 @@ class TimerWidget extends HookWidget {
         children: [
           Container(
             color: context.cardColor,
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
             ),
@@ -150,7 +148,7 @@ class TimerWidget extends HookWidget {
                 height: context.height() * 0.4,
                 decoration: BoxDecoration(
                   color: context.primaryColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.elliptical(600, 200),
                     topLeft: Radius.elliptical(600, 200),
                   ),
@@ -169,7 +167,7 @@ class TimerWidget extends HookWidget {
                             text: isRunning.value ? 'Pause' : 'Start',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -179,7 +177,7 @@ class TimerWidget extends HookWidget {
                             text: 'Reset',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -189,7 +187,7 @@ class TimerWidget extends HookWidget {
                             text: 'Skip',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -199,7 +197,7 @@ class TimerWidget extends HookWidget {
                             text: 'Add Session',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -226,12 +224,12 @@ class TimerWidget extends HookWidget {
                     color: shadowColor,
                     spreadRadius: 1,
                     blurRadius: 5,
-                    offset: Offset(0, 4), // Shadow position
+                    offset: const Offset(0, 4), // Shadow position
                   ),
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(600)),
+                borderRadius: const BorderRadius.all(Radius.circular(600)),
                 child: CircularPercentIndicator(
                   arcBackgroundColor: context.primaryColor,
                   fillColor: context.primaryColor,
@@ -250,15 +248,15 @@ class TimerWidget extends HookWidget {
                     children: [
                       Text(
                         timerText(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         '${currentSession.value} of ${dynamicSessionCount.value} sessions',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   ),
