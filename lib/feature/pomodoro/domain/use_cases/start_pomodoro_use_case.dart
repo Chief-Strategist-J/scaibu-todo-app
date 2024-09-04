@@ -11,6 +11,7 @@ class StartPomodoroUseCase extends UseCase<void, String> {
     required this.pomodoroFirebaseRepository,
   });
 
+
   @override
   Future<Either<Failure, void>> call(String params) async {
     try {

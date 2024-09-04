@@ -98,4 +98,15 @@ class TimeService {
       },
     );
   }
+
+  DateTime parseDateTimeISO8601(String dateTimeString) {
+    if(dateTimeString.isEmpty){
+      return DateTime.now();
+    }
+
+    if (dateTimeString.endsWith('Z')) {
+      dateTimeString = '${dateTimeString.substring(0, dateTimeString.length - 1)}+00:00';
+    }
+    return DateTime.parse(dateTimeString);
+  }
 }

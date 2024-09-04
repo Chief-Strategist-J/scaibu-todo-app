@@ -47,12 +47,12 @@ class Data {
     this.id,
     this.title,
     this.notes,
-    this.description,
     this.createdBy,
     this.firebaseTodoId,
     this.startTime,
     this.endTime,
     this.date,
+    this.description,
     this.priority,
     this.tagNames,
   });
@@ -61,12 +61,12 @@ class Data {
     id = json['id'];
     title = json['title'];
     notes = json['notes'];
-    description = json['description'];
     createdBy = json['created_by'];
     firebaseTodoId = json['firebase_todo_id'];
     startTime = json['start_time'];
     endTime = json['end_time'];
     date = json['date'];
+    description = json['description'];
     priority = json['priority'];
     tagNames = json['tag_names'] != null ? json['tag_names'].cast<String>() : [];
   }
@@ -74,12 +74,12 @@ class Data {
   num? id;
   String? title;
   String? notes;
-  String? description;
   num? createdBy;
-  String? firebaseTodoId;
+  dynamic firebaseTodoId;
   String? startTime;
   String? endTime;
   String? date;
+  String? description;
   String? priority;
   List<String>? tagNames;
 
@@ -87,12 +87,12 @@ class Data {
     num? id,
     String? title,
     String? notes,
-    String? description,
     num? createdBy,
-    String? firebaseTodoId,
+    dynamic firebaseTodoId,
     String? startTime,
     String? endTime,
     String? date,
+    String? description,
     String? priority,
     List<String>? tagNames,
   }) =>
@@ -100,12 +100,12 @@ class Data {
         id: id ?? this.id,
         title: title ?? this.title,
         notes: notes ?? this.notes,
-        description: description ?? this.description,
         createdBy: createdBy ?? this.createdBy,
         firebaseTodoId: firebaseTodoId ?? this.firebaseTodoId,
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
-        date: date ?? this.date,
+        date: date ?? this.date ?? '',
+        description: description ?? this.description,
         priority: priority ?? this.priority,
         tagNames: tagNames ?? this.tagNames,
       );
@@ -115,12 +115,12 @@ class Data {
     map['id'] = id;
     map['title'] = title;
     map['notes'] = notes;
-    map['description'] = description;
     map['created_by'] = createdBy;
     map['firebase_todo_id'] = firebaseTodoId;
     map['start_time'] = startTime;
     map['end_time'] = endTime;
-    map['date'] = date;
+    map['date'] = date ?? '';
+    map['description'] = description;
     map['priority'] = priority;
     map['tag_names'] = tagNames;
     return map;

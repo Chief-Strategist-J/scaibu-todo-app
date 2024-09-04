@@ -6,7 +6,6 @@ class PomodoroCont extends StatelessWidget {
 
   void _onTapOfPomodoroCounter(BuildContext context) {
     context.read<TaskDetailBloc>().add(UpdatePomodoroCounterEvent(count: _index));
-    GoRouter.of(context).pop();
   }
 
   @override

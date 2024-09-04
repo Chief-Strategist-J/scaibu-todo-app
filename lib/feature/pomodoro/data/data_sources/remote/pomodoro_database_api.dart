@@ -23,8 +23,6 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
       requestBody: req,
       type: HttpRequestMethod.post,
     );
-
-    throw UnimplementedError();
   }
 
   @override

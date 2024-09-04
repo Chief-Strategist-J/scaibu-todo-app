@@ -45,9 +45,9 @@ class FirebaseApiImpl implements BaseApi {
         notes: e.data()['notes'] ?? -1,
         createdBy: e.data()['created_by'],
         isCompleted: e.data()['is_completed'] ?? false,
-        startTime: DateTime.parse(e.data()['start_time']),
-        endTime: DateTime.parse(e.data()['end_time']),
-        date: DateTime.parse(e.data()['date']),
+        startTime:timeService.parseDateTimeISO8601(e.data()['start_time']),
+        endTime:timeService.parseDateTimeISO8601(e.data()['end_time']),
+        date:timeService.parseDateTimeISO8601(e.data()['date']),
         priority: e.data()['priority'],
       );
 

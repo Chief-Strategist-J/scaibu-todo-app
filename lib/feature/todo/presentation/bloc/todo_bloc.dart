@@ -61,7 +61,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void> updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
+  Future<void>  updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
     try {
       final Map<String, dynamic> todoData = {
         'todo_id': todoItem.todoId.toString(),

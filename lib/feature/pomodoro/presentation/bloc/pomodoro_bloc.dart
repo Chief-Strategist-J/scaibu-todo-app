@@ -8,7 +8,6 @@ class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   }
 
   void _init(PomodoroEvent event, Emitter<PomodoroState> emit) async {
-
     emit(state);
   }
 }

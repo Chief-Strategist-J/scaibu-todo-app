@@ -68,7 +68,17 @@ class CreatePomodoroComponent extends StatelessWidget {
                     //
                   },
                   onTapOfAdd: () {
-                    //
+                    toast("added");
+                    final Map<String, dynamic> request = {
+                      "title": "Focus Session",
+                      "duration": 1,
+                      "status": "pending",
+                      "todo_id": localTodoData.todoId,
+                      "user_id": userCredentials.getUserId,
+                      "number_of_pomodoros": 5,
+                    };
+                    final createPomodoro = getIt<CreatePomodoroUseCase>(instanceName: PomodoroDependencyInjection.createPomodoroUseCase);
+                    createPomodoro(request);
                   },
                 ),
               ],

@@ -1,11 +1,11 @@
 abstract interface class PomodoroRepository<T> {
-  Future<void> startPomodoro(String id);
+  Future<void> startPomodoro(String pomodoroId);
 
-  Future<void> stopPomodoro(String id);
+  Future<void> stopPomodoro(String pomodoroId);
 
-  Future<void> resumePomodoro(String id);
+  Future<void> resumePomodoro(String pomodoroId);
 
-  Future<void> endPomodoro(String id);
+  Future<void> endPomodoro(String pomodoroId);
 
   Future<T> getPomodoroStats(Map<String, dynamic> req);
 

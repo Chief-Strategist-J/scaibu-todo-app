@@ -57,9 +57,9 @@ class DataBaseApiImpl implements BaseApi {
         firebaseTodoId: element.firebaseTodoId,
         description: element.description,
         notes: element.notes,
-        date: DateTime.parse(element.date.validate()),
-        endTime: DateTime.parse(element.endTime.validate()),
-        startTime: DateTime.parse(element.startTime.validate()),
+        date: timeService.parseDateTimeISO8601(element.date.validate()),
+        endTime: timeService.parseDateTimeISO8601(element.endTime.validate()),
+        startTime: timeService.parseDateTimeISO8601(element.startTime.validate()),
         priority: element.priority,
         tagNames: element.tagNames,
       );
