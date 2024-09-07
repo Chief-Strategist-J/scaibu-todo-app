@@ -11,7 +11,7 @@ class TodoListComponent extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       child: RefreshIndicator(
         onRefresh: () {
-          context.read<TodoBloc>().add(InitEvent(isListUpdated: true));
+          context.read<TodoBloc>().add(InitTodoEvent(isListUpdated: true));
           return Future(() => true);
         },
         child: CustomScrollView(

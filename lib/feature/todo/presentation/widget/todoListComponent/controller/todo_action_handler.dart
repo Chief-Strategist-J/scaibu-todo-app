@@ -31,7 +31,7 @@ class TodoActionHandler {
     if (_showLoadingIfNeeded()) return;
 
     await _navigateToManageTodoPage();
-    todoBloc.add(InitEvent(isListUpdated: true));
+    todoBloc.add(InitTodoEvent(isListUpdated: true));
   }
 
   Future<void> onTapTodo() async {

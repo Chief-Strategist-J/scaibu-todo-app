@@ -1,3 +1,3 @@
 abstract class NotificationEvent {}
 
-class InitEvent extends NotificationEvent {}
+class InitNotificationEvent extends NotificationEvent {}

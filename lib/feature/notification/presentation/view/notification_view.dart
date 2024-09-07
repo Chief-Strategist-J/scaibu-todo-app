@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/feature/notification/presentation/bloc/notification_event.dart';
-
-import '../bloc/notification_bloc.dart';
+import 'package:todo_app/core/app_library.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -10,7 +6,7 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => NotificationBloc()..add(InitEvent()),
+      create: (BuildContext context) => NotificationBloc()..add(InitNotificationEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }

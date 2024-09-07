@@ -10,7 +10,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   bool _internetConnectionStreamInit = true;
 
   TodoBloc({required this.serverRepo, required this.firebaseRepo}) : super(InitTodoState.init()) {
-    on<InitEvent>(_init);
+    on<InitTodoEvent>(_init);
     on<LoadingEvent>(_onLoadingEvent);
     on<NoInternetConnectionEvent>(_onNoInternetConnectionUpdate);
   }
@@ -21,7 +21,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       log('INTERNET CONNECTION STREAM IN INITIALIZE');
       _internetStatusSubscription = InternetConnection().onStatusChange.listen((status) {
         if (status == InternetStatus.connected) {
-          add(InitEvent(isListUpdated: false));
+          add(InitTodoEvent(isListUpdated: false));
         } else {
           add(NoInternetConnectionEvent());
         }
@@ -43,7 +43,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(LoadingState());
   }
 
-  Future<void> _init(InitEvent event, Emitter<TodoState> emit) async {
+  Future<void> _init(InitTodoEvent event, Emitter<TodoState> emit) async {
     try {
       _getInternetConnectionStatus();
 
@@ -76,10 +76,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       add(LoadingEvent());
       await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
-        add(InitEvent(isListUpdated: true));
+        add(InitTodoEvent(isListUpdated: true));
       });
     } catch (e, s) {
-      add(InitEvent(isListUpdated: false));
+      add(InitTodoEvent(isListUpdated: false));
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
   }
@@ -99,10 +99,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       add(LoadingEvent());
       await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
-        add(InitEvent(isListUpdated: true));
+        add(InitTodoEvent(isListUpdated: true));
       });
     } catch (e, s) {
-      add(InitEvent(isListUpdated: false));
+      add(InitTodoEvent(isListUpdated: false));
       logService.crashLog(errorMessage: 'Error while updating todo', e: e, stack: s);
     }
   }
@@ -144,10 +144,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           _createAndUpdateTags(map, todoDetail);
         });
 
-        add(InitEvent(isListUpdated: true));
+        add(InitTodoEvent(isListUpdated: true));
       });
     } catch (e, s) {
-      add(InitEvent(isListUpdated: false));
+      add(InitTodoEvent(isListUpdated: false));
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
     }
   }
@@ -184,10 +184,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       add(LoadingEvent());
       tempTodoList.remove(todoData);
       await GetIt.instance<DeleteTodoUseCase>()(deleteParam).then((value) {
-        add(InitEvent(isListUpdated: true));
+        add(InitTodoEvent(isListUpdated: true));
       });
     } catch (e, s) {
-      add(InitEvent(isListUpdated: false));
+      add(InitTodoEvent(isListUpdated: false));
       logService.crashLog(errorMessage: 'Error while deleting todo', e: e, stack: s);
     }
   }
@@ -224,7 +224,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((value) {
       final Map<String, String> map = {'todo_id': todoPage.todoId.validate(), 'firebase_todo_id': todoPage.firebaseTodoId.validate()};
       _createAndUpdateTags(map, todoPage);
-      add(InitEvent(isListUpdated: true));
+      add(InitTodoEvent(isListUpdated: true));
     });
   }
 }

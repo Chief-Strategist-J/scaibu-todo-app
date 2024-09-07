@@ -18,7 +18,7 @@ class TodoPage extends HookWidget {
     final scaffoldKey = useMemoized(() => GlobalKey<ScaffoldState>(), []);
 
     useEffect(() {
-      todoBloc.add(InitEvent(isListUpdated: true));
+      todoBloc.add(InitTodoEvent(isListUpdated: true));
       return null;
     }, [todoBloc]);
 
