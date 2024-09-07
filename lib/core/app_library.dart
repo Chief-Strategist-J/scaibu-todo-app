@@ -197,3 +197,14 @@ export 'package:todo_app/feature/notification/domain/repository/notification_rep
 export 'package:todo_app/feature/notification/domain/repository/push_notification_repository.dart';
 export 'package:todo_app/feature/notification/domain/repository/sms_notification_repository.dart';
 export 'package:todo_app/feature/notification/domain/repository/webhook_notification_repository.dart';
+
+export 'package:todo_app/feature/settings/domain/repository/account_security_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/app_appearance_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/application_settings_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/billing_and_subscription_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/data_analytics_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/date_time_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/linked_accounts_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/payment_account_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/pomodoro_preference_repository.dart';
+export 'package:todo_app/feature/settings/domain/repository/profile_repository.dart';
