@@ -1,0 +1,46 @@
+
+Prompt:
+
+I want to define or update a Dart data model class using the freezed package and include a mixin for shared fields. The model should follow these guidelines:
+
+1. Include Fields: Define all necessary fields with their types and default values where applicable.
+2. Use Mixins: Utilize a mixin to include common field definitions in the model class.
+3. Remove Methods: Ensure that the model does not include additional methods or functions for conversion or other operations.
+4. Serialization/Deserialization: Implement JSON serialization and deserialization using freezed.
+
+Please provide the complete Dart code with the following components:
+
+- Mixin Definition: Create a mixin that lists the fields without any methods.
+- Model Class: Define the model class using freezed, including the mixin, fields, and JSON serialization.
+
+Example Structure:
+
+1. Mixin Definition:
+
+   mixin <MixinName> {
+     // Field definitions
+   }
+
+
+2. Model Class:
+
+   import 'package:freezed_annotation/freezed_annotation.dart';
+   import '<path_to_mixin>'; // Import the mixin file
+
+   part '<model_file_name>.freezed.dart';
+   part '<model_file_name>.g.dart';
+
+   @freezed
+   class <ModelName> with _$<ModelName>, <MixinName> {
+     const factory <ModelName>({
+       // Field definitions with annotations
+     }) = _<ModelName>;
+
+     factory <ModelName>.fromJson(Map<String, dynamic> json) => _$<ModelName>FromJson(json);
+   }
+
+
+Use Case: Adapt this prompt to define data models in Dart using freezed with a clear separation of fields and mixins, while excluding any methods related to conversion or additional logic.
+
+---
+Feel free to adjust the placeholders and details according to your specific use case or requirements!

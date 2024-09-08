@@ -9,7 +9,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => SettingBloc()..add(InitEvent()),
+      create: (BuildContext context) => SettingBloc()..add(InitSettingEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }

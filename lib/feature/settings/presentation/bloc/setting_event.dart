@@ -1,3 +1,8 @@
-abstract class SettingEvent {}
+import 'package:equatable/equatable.dart';
 
-class InitEvent extends SettingEvent {}
+sealed class SettingEvent extends Equatable{}
+
+class InitSettingEvent extends SettingEvent {
+  @override
+  List<Object?> get props => [];
+}

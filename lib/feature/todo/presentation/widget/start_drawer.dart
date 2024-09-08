@@ -100,6 +100,30 @@ class DrawerComponent extends StatelessWidget {
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
+                      //
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                      child: Text("Notifications", style: boldTextStyle()),
+                    ),
+                  ),
+                  const Divider(thickness: 0.5),
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      //
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                      child: Text("Settings", style: boldTextStyle()),
+                    ),
+                  ),
+                  const Divider(thickness: 0.5),
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
                       finish(context);
                       GoRouter.of(context).push(ApplicationPaths.profilePage);
                     },

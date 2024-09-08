@@ -4,11 +4,11 @@ import 'setting_event.dart';
 import 'setting_state.dart';
 
 class SettingBloc extends Bloc<SettingEvent, SettingState> {
-  SettingBloc() : super(SettingState().init()) {
-    on<InitEvent>(_init);
+  SettingBloc() : super(InitSettingState()) {
+    on<InitSettingEvent>(_init);
   }
 
-  void _init(InitEvent event, Emitter<SettingState> emit) async {
-    emit(state.clone());
+  void _init(InitSettingEvent event, Emitter<SettingState> emit) async {
+    emit(InitSettingState());
   }
 }

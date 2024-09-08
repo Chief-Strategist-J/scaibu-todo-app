@@ -1,16 +1,16 @@
-abstract class EmailNotificationRepository {
+abstract class EmailNotificationRepository<T> {
   // Send an email notification
-  Future<void> sendEmail(String subject, String body, String recipientEmail);
+  Future<T> sendEmail(String subject, String body, String recipientEmail);
 
   // Schedule an email notification
-  Future<void> scheduleEmail(String subject, String body, String recipientEmail, DateTime scheduleTime);
+  Future<T> scheduleEmail(String subject, String body, String recipientEmail, DateTime scheduleTime);
 
   // Cancel a scheduled email
-  Future<void> cancelScheduledEmail(String emailId);
+  Future<T> cancelScheduledEmail(String emailId);
 
   // Get status of an email notification
-  Future<String> getEmailStatus(String emailId);
+  Future<T> getEmailStatus(String emailId);
 
   // Get email history for a user
-  Future<List<Map<String, dynamic>>> getEmailHistory(String userId);
+  Future<List<T>> getEmailHistory(String userId);
 }

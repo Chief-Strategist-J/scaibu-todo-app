@@ -1,7 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/notification/domain/repository/notification_analytics_repository.dart'; // Adjust import path as necessary
-
-// Define EngagementReport according to your application's needs
 
 class EngagementReport {
   // Define properties for engagement report
