@@ -1,3 +1,4 @@
+Here's the updated documentation for your script:
 
 ---
 
@@ -175,5 +176,4 @@ To use this script:
 ## Conclusion
 This script simplifies the process of starting a Laravel server and Dart application while ensuring that the configuration reflects the current network settings. By automating the Git pulls and server startup, it enhances productivity during development.
 
---- 
-
+---
