@@ -1,0 +1,1426 @@
+{
+	"info": {
+		"_postman_id": "c6e55ada-fb88-4bcd-abff-ad31cc33c868",
+		"name": "Todo-App-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20517191"
+	},
+	"item": [
+		{
+			"name": "api/getlistOfTodosPagignated?page=3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/getlistOfTodosPagignated?page=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"getlistOfTodosPagignated"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				},
+				"description": "\nThis endpoint allows users to retrieve a paginated list of todos. The request should be made using an HTTP POST method to the specified URL with the \"page\" query parameter to indicate the page number.\n\n### Request Body\nThe request body should include the necessary parameters for authentication or any other required data to retrieve the paginated list of todos.\n\n### Response\nUpon a successful request, the server will respond with the paginated list of todos, including details such as todo title, description, status, and any other relevant information.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "api/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"if (jsonData.status && jsonData.data) {",
+							"    // Store access token",
+							"    var token = String(jsonData.data.access_token).replace(/^Bearer\\s+/i, \"\");",
+							"    pm.collectionVariables.set(\"bearer-token\", token);",
+							"    ",
+							"    // Store user_id",
+							"    var userId = jsonData.data.user_info.id;",
+							"    pm.collectionVariables.set(\"user_id\", userId);",
+							"    ",
+							"    console.log(\"Login successful. Token and user_id stored.\");",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Jaydeep Vagh\",\n    \"email\":\"radharao@gmail.com\",\n    \"password\":\"12345678\",\n    \"is_sign_up\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/loginOrSignUp",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"loginOrSignUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/createOtp",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/createOtp",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"createOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/verifyOtp",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\":1,\n    \"otp\":\"990604\"  \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/verifyOtp",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"verifyOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/registerUserDetails",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\":1,\n    \"first_name\":\"Jaydeep\",\n    \"last_name\":\"Vagh\",\n    \"phone\":\"9664920749\",\n    \"birthdate\":\"12-4-2000\",\n    \"address\":\"444, Suryanagar\",\n    \"city\":\"Navsari\",\n    \"state\":\"Gujarat\",\n    \"country\":\"india\",\n    \"zipcode\":\"396445\",\n    \"avatar\":\"-\",\n    \"bio\":\"No have any bio yet\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/updateUserDetails",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"updateUserDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/getUserDetail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"user_id\":{{user_id}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/getUserDetail",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"getUserDetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/forgetPassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n                \"email\": \"malatipatil919@gmail.com\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/forgetPassword",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"forgetPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/verifyPasswordOtp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"otp\": \"714401\",\n    \"email\": \"malatipatil919@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/verifyPasswordOtp",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"verifyPasswordOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/updatePassword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"malatipatil919@gmail.com\",\n    \"password\": \"123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/updatePassword",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"if (jsonData.status && jsonData.data && jsonData.data.id) {",
+							"    var todoId = jsonData.data.id;",
+							"    ",
+							"    // Store the latest todo_id",
+							"    pm.collectionVariables.set(\"latest_todo_id\", todoId);",
+							"    ",
+							"    // Store in an array of todo_ids",
+							"    var todoIds = pm.collectionVariables.get(\"todo_ids\") || \"[]\";",
+							"    todoIds = JSON.parse(todoIds);",
+							"    todoIds.push(todoId);",
+							"    pm.collectionVariables.set(\"todo_ids\", JSON.stringify(todoIds));",
+							"    ",
+							"    console.log(\"Todo created. ID stored: \" + todoId);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function logMessage(message, type = 'log') {",
+							"    if (type === 'error') {",
+							"        console.error(`Error: ${String(message)}`);",
+							"    } else {",
+							"        console.log(String(message));",
+							"    }",
+							"}",
+							"",
+							"",
+							"function loginOrSignUp(callback) {",
+							"    const baseUrl = String(pm.collectionVariables.get(\"base\"));",
+							"    const requestBody = {",
+							"        \"name\": \"Jaydeep Vagh\",",
+							"        \"email\": \"radharao@gmail.com\",",
+							"        \"password\": \"12345678\",",
+							"        \"is_sign_up\": true",
+							"    };",
+							"",
+							"    pm.sendRequest({",
+							"        url: `${baseUrl}/api/loginOrSignUp`,",
+							"        method: 'POST',",
+							"        header: { 'Content-Type': 'application/json' },",
+							"        body: { mode: 'raw', raw: JSON.stringify(requestBody) }",
+							"    }, callback);",
+							"}",
+							"",
+							"",
+							"function processLoginResponse(err, res) {",
+							"    try {",
+							"        if (err) {",
+							"            throw new Error(`Login request failed: ${String(err)}`);",
+							"        }",
+							"",
+							"        const jsonData = res.json();",
+							"        if (Boolean(jsonData.status) && jsonData.data) {",
+							"            const token = String(jsonData.data.access_token).replace(/^Bearer\\s+/i, \"\");",
+							"            const userId = String(jsonData.data.user_info.id);",
+							"",
+							"            pm.collectionVariables.set(\"bearer-token\", token);",
+							"            pm.collectionVariables.set(\"user_id\", userId);",
+							"",
+							"            logMessage(\"Login successful. Token and user_id stored.\");",
+							"        } else {",
+							"            throw new Error('Login response did not contain the expected data.');",
+							"        }",
+							"    } catch (error) {",
+							"        logMessage(`Error processing login response: ${String(error.message)}`, 'error');",
+							"    }",
+							"}",
+							"",
+							"",
+							"function ensureVariablesSet() {",
+							"    try {",
+							"        const bearerToken = pm.collectionVariables.get(\"bearer-token\");",
+							"        const userId = pm.collectionVariables.get(\"user_id\");",
+							"",
+							"        if (!bearerToken || !userId) {",
+							"            loginOrSignUp(processLoginResponse);",
+							"        } else {",
+							"            logMessage(\"Token and user_id are already set.\");",
+							"        }",
+							"    } catch (error) {",
+							"        logMessage(`Error in pre-request script: ${String(error.message)}`, 'error');",
+							"    }",
+							"}",
+							"",
+							"",
+							"ensureVariablesSet();",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"task title\",\n    \"description\": \"task related description\",\n    \"is_archived\": false,\n    \"is_completed\": false,\n    \"notes\": \"notes\",\n    \"created_by\": {{user_id}},\n    \"start_time\": \"2024-07-06 00:22:00.000\",\n    \"end_time\": \"2024-07-06 00:22:00.000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/todo/store",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"todo",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all tags by todo id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"todo_id\":{{latest_todo_id}},\n   \"page\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk create and update tags api",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tags\": [\n        {\n            \"todo_id\": {{latest_todo_id}},\n            \"created_by\": {{user_id}},\n            \"name\": \"Personal\",\n            \"color\": \"0xFF98FB00\"\n        },\n        {\n            \"todo_id\": {{latest_todo_id}},\n            \"created_by\": {{user_id}},\n            \"name\": \"Important\",\n            \"color\": \"0xFFFF7F50\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/v1/tags/bulk",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update tag by tag ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 594,\n    \"uuid\": \"123e4567-e89b-12d3-a456-426611745\",\n    \"is_active\": true,\n    \"order\": 1,\n    \"version\": 1,\n    \"follower_count\": 10,\n    \"usage_count\": 50,\n    \"related_posts_count\": 10,\n    \"user_interaction_count\": 20,\n    \"popularity_score\": 4.5,\n    \"name\": \"Sample fgj\",\n    \"slug\": \"sample-i\",\n    \"meta_title\": \"Sample Tag Meta Title\",\n    \"color\": \"#ff5733\",\n    \"image_url\": \"https://example.com/image.png\",\n    \"tag_type\": \"example\",\n    \"content_type\": \"post\",\n    \"description_vector\": \"sample description vector\",\n    \"meta_description\": \"This is a sample tag.\",\n    \"description\": \"A brief description of the sample tag.\",\n    \"geolocation_data\": {\n        \"latitude\": 37.7749,\n        \"longitude\": -122.4194\n    },\n    \"meta_data\": {\n        \"key\": \"value\"\n    },\n    \"parent_id\": 2,\n    \"last_trend_update\": \"2024-08-09T12:00:00Z\",\n    \"last_used_at\": \"2024-08-09T12:00:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/tags/getAllSeeded",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"page\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags/getAllSeeded",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"getAllSeeded"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search tags",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"if (jsonData.status && jsonData.data && jsonData.data.length > 0) {",
+							"    var tagId = jsonData.data[0].id;",
+							"    pm.globals.set(\"tag_id\", tagId);",
+							"    console.log(\"Tag ID stored successfully.\");",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Personal\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags/search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulkDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tag_ids\": [{{tag_id}}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags/bulkDelete",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"bulkDelete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restore deleted tags",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tag_id\": {{tag_id}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags/482/restore",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"482",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get tag detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"id\": {{tag_id}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/v1/tags/getTagDetail",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"getTagDetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create tag",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"color\": \"#ff5733\",\n    \"name\": \"test\",\n    \"created_by\": 462\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/tags/createTag",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"createTag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all tags by user id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"page\":1,\n   \"limit\":50,\n   \"userId\":{{user_id}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/v1/tags/getAllTagsByUserId",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"getAllTagsByUserId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create bulk pomodowo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Utility function to log messages",
+							"function logMessage(message, type = 'log') {",
+							"    if (type === 'error') {",
+							"        console.error(`Error: ${String(message)}`);",
+							"    } else {",
+							"        console.log(String(message));",
+							"    }",
+							"}",
+							"",
+							"// Function to make the loginOrSignUp request",
+							"function loginOrSignUp(callback) {",
+							"    const loginUrl = `${pm.collectionVariables.get(\"base\")}/api/loginOrSignUp`;",
+							"    const requestBody = {",
+							"        \"name\": \"Jaydeep Vagh\",",
+							"        \"email\": \"radharao@gmail.com\",",
+							"        \"password\": \"12345678\",",
+							"        \"is_sign_up\": true",
+							"    };",
+							"",
+							"    pm.sendRequest({",
+							"        url: loginUrl,",
+							"        method: 'POST',",
+							"        header: { 'Content-Type': 'application/json' },",
+							"        body: { mode: 'raw', raw: JSON.stringify(requestBody) }",
+							"    }, callback);",
+							"}",
+							"",
+							"// Function to process the login response",
+							"function processLoginResponse(err, res) {",
+							"    try {",
+							"        if (err) {",
+							"            throw new Error(`Login request failed: ${String(err)}`);",
+							"        }",
+							"",
+							"        const jsonData = res.json();",
+							"        if (Boolean(jsonData.status) && jsonData.data) {",
+							"            const token = String(jsonData.data.access_token).replace(/^Bearer\\s+/i, \"\");",
+							"            const userId = String(jsonData.data.user_info.id);",
+							"",
+							"            pm.collectionVariables.set(\"bearer-token\", token);",
+							"            pm.collectionVariables.set(\"user_id\", userId);",
+							"",
+							"            logMessage(\"Login successful. Token and user_id stored.\");",
+							"",
+							"            // Create a new Todo to get latest_todo_id",
+							"            createTodo();",
+							"        } else {",
+							"            throw new Error('Login response did not contain the expected data.');",
+							"        }",
+							"    } catch (error) {",
+							"        logMessage(`Error processing login response: ${String(error.message)}`, 'error');",
+							"    }",
+							"}",
+							"",
+							"// Function to create a new Todo and get the latest_todo_id",
+							"function createTodo() {",
+							"    const createTodoUrl = `${pm.collectionVariables.get(\"base\")}/api/todo/store`;",
+							"    const requestBody = {",
+							"        \"title\": \"task title\",",
+							"        \"description\": \"task related description\",",
+							"        \"is_archived\": false,",
+							"        \"is_completed\": false,",
+							"        \"notes\": \"notes\",",
+							"        \"created_by\": Number(pm.collectionVariables.get(\"user_id\")),",
+							"        \"start_time\": \"2024-07-06 00:22:00.000\",",
+							"        \"end_time\": \"2024-07-06 00:22:00.000\"",
+							"    };",
+							"",
+							"    pm.sendRequest({",
+							"        url: createTodoUrl,",
+							"        method: 'POST',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'Authorization': `Bearer ${pm.collectionVariables.get(\"bearer-token\")}`",
+							"        },",
+							"        body: { mode: 'raw', raw: JSON.stringify(requestBody) }",
+							"    }, function (err, res) {",
+							"        try {",
+							"            if (err) {",
+							"                throw new Error(`Create Todo request failed: ${String(err)}`);",
+							"            }",
+							"",
+							"            const jsonData = res.json();",
+							"            if (Boolean(jsonData.status) && jsonData.data) {",
+							"                const latestTodoId = String(jsonData.data.id);",
+							"                pm.collectionVariables.set(\"latest_todo_id\", latestTodoId);",
+							"",
+							"                logMessage(\"Todo created successfully. latest_todo_id stored.\");",
+							"",
+							"                // Create the Pomodoro",
+							"                createPomodoro();",
+							"            } else {",
+							"                throw new Error('Create Todo response did not contain the expected data.');",
+							"            }",
+							"        } catch (error) {",
+							"            logMessage(`Error processing Create Todo response: ${String(error.message)}`, 'error');",
+							"        }",
+							"    });",
+							"}",
+							"",
+							"",
+							"// Main function to ensure variables are set and then create Pomodoro",
+							"function ensureVariablesAndCreatePomodoro() {",
+							"    try {",
+							"        const bearerToken = pm.collectionVariables.get(\"bearer-token\");",
+							"        const userId = pm.collectionVariables.get(\"user_id\");",
+							"        const latestTodoId = pm.collectionVariables.get(\"latest_todo_id\");",
+							"",
+							"        if (!bearerToken || !userId || !latestTodoId) {",
+							"            loginOrSignUp(processLoginResponse);",
+							"        } else {",
+							"            logMessage(\"Variables are already set. Proceeding to create Pomodoro.\");",
+							"        }",
+							"    } catch (error) {",
+							"        logMessage(`Error in pre-request script: ${String(error.message)}`, 'error');",
+							"    }",
+							"}",
+							"",
+							"// Call the main function",
+							"ensureVariablesAndCreatePomodoro();",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"if (jsonData.status && jsonData.data && jsonData.data.pomodoro) {",
+							"    // Get the Pomodoro details from the response",
+							"    var pomodoro = jsonData.data.pomodoro;",
+							"",
+							"    // Store pomodoro_id",
+							"    var pomodoroId = pomodoro.id;",
+							"    pm.globals.set(\"pomodoro_id\", pomodoroId);",
+							"",
+							"    // Store pomodoro_uuid",
+							"    var pomodoroUuid = pomodoro.uuid;",
+							"    pm.globals.set(\"pomodoro_uuid\", pomodoroUuid);",
+							"",
+							"    // Store list of all Timer IDs associated with the Pomodoro",
+							"    var timerIds = jsonData.data.timers.map(timer => timer.id);",
+							"    pm.globals.set(\"timer_ids\", JSON.stringify(timerIds));",
+							"",
+							"    console.log(\"Pomodoro created. ID and UUID stored: \" + pomodoroId + \", \" + pomodoroUuid);",
+							"    console.log(\"List of Timer IDs stored: \" + timerIds.join(', '));",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Focus Session\",\n    \"duration\": 1,\n    \"status\": \"pending\",\n    \"todo_id\": {{latest_todo_id}},\n    \"user_id\": {{user_id}},\n    \"number_of_pomodoros\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/pomodoro/createBulkPomodoros",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"pomodoro",
+						"createBulkPomodoros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "startPomodoro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pomodoro_id\": {{pomodoro_id}}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/pomodoro/startPomodoro",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"pomodoro",
+						"startPomodoro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stopPomodoro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pomodoro_id\": {{pomodoro_id}}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/pomodoro/stopPomodoro",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"pomodoro",
+						"stopPomodoro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resumePomodoro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pomodoro_id\": {{pomodoro_id}}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/pomodoro/resumePomodoro",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"pomodoro",
+						"resumePomodoro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endPomodoro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pomodoro_id\": {{pomodoro_id}}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/pomodoro/endPomodoro",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"pomodoro",
+						"endPomodoro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPomodoroStats",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": {{user_id}}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/pomodoro/getPomodoroStats",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"pomodoro",
+						"getPomodoroStats"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "3|sNAjJL79HMqRIm3OQJNtuDAKtuUX6gAXbxR427wcf39789f4",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bearer-token",
+			"value": "1512|gNDrQyiwzTaatTqPiQ9il6yPNzmHC2ZMpxiJltk3e620af37",
+			"type": "string"
+		},
+		{
+			"key": "base",
+			"value": "http://192.168.120.99:8000",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "latest_todo_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "todo_ids",
+			"value": ""
+		}
+	]
+}
