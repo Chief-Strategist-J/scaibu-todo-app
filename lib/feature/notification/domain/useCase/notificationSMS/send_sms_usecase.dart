@@ -8,7 +8,7 @@ class SendSMSParams {
 }
 
 class SendSMSUseCase extends UseCase<void, SendSMSParams> {
-  final SMSNotificationRepository smsNotificationRepository;
+  final SMSNotificationRepository<NotificationEntity> smsNotificationRepository;
 
   SendSMSUseCase({required this.smsNotificationRepository});
 

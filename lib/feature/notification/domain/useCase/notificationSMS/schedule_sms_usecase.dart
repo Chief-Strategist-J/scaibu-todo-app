@@ -9,7 +9,7 @@ class ScheduleSMSParams {
 }
 
 class ScheduleSMSUseCase extends UseCase<void, ScheduleSMSParams> {
-  final SMSNotificationRepository<void> smsNotificationRepository;
+  final SMSNotificationRepository<NotificationEntity> smsNotificationRepository;
 
   ScheduleSMSUseCase({required this.smsNotificationRepository});
 

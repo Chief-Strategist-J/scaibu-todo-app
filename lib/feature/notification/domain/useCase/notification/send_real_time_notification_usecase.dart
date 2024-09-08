@@ -9,7 +9,7 @@ class SendRealTimeNotificationParams {
 }
 
 class SendRealTimeNotificationUseCase extends UseCase<void, SendRealTimeNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   SendRealTimeNotificationUseCase({required this.notificationRepository});
 

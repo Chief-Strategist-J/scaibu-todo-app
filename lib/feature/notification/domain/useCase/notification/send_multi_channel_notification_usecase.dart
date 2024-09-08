@@ -13,7 +13,7 @@ class SendMultichannelNotificationParams {
 }
 
 class SendMultichannelNotificationUseCase extends UseCase<void, SendMultichannelNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   SendMultichannelNotificationUseCase({
     required this.notificationRepository,

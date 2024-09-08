@@ -32,10 +32,7 @@ class CommentOperationState extends CommentState {
   final bool isProcessing;
   final String? operationMessage;
 
-  CommentOperationState({
-    this.isProcessing = true,
-    this.operationMessage,
-  });
+  CommentOperationState({this.isProcessing = true, this.operationMessage});
 
   @override
   List<Object?> get props => [isProcessing, operationMessage];
@@ -46,11 +43,7 @@ class CommentDataState extends CommentState {
   final bool hasError;
   final String? errorMessage;
 
-  CommentDataState({
-    this.comments = const [],
-    this.hasError = false,
-    this.errorMessage,
-  });
+  CommentDataState({this.comments = const [], this.hasError = false, this.errorMessage});
 
   @override
   List<Object?> get props => [comments, hasError, errorMessage];

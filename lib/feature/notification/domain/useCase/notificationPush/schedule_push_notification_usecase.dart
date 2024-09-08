@@ -15,7 +15,7 @@ class SchedulePushNotificationParams {
 }
 
 class SchedulePushNotificationUseCase extends UseCase<void, SchedulePushNotificationParams> {
-  final PushNotificationRepository pushNotificationRepository;
+  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
 
   SchedulePushNotificationUseCase({required this.pushNotificationRepository});
 

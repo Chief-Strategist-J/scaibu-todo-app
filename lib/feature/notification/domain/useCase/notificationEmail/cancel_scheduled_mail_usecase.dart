@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 class CancelScheduledEmailParams {
   final String emailId;
 
@@ -8,11 +7,9 @@ class CancelScheduledEmailParams {
 }
 
 class CancelScheduledEmailUseCase extends UseCase<void, CancelScheduledEmailParams> {
-  final EmailNotificationRepository emailNotificationRepository;
+  final EmailNotificationRepository<NotificationEntity> emailNotificationRepository;
 
-  CancelScheduledEmailUseCase({
-    required this.emailNotificationRepository,
-  });
+  CancelScheduledEmailUseCase({required this.emailNotificationRepository});
 
   @override
   Future<Either<Failure, void>> call(CancelScheduledEmailParams params) async {

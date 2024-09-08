@@ -1,0 +1,55 @@
+Prompt:
+
+Given the following Dart classes:
+
+class YourUseCase extends UseCase<ReturnType, Params> {
+  final YourRepository<YourEntity> yourRepository;
+
+  YourUseCase({required this.yourRepository});
+}
+
+class YourRepositoryImpl extends YourRepository<YourEntity> {}
+
+Generate the dependency injection setup code using the get_it package. Ensure you:
+
+Register the repository with a specific instance name.
+Register the use case with the same instance name for the repository.
+Provide setupDependencyInjection and disposeDependencyInjection methods.
+The output should be formatted similarly to the example below:
+
+import 'package:get_it/get_it.dart';
+import 'package:your_package/feature/your_feature/domain/useCases/your_use_case.dart';
+import 'package:your_package/feature/your_feature/domain/repositories/your_repository.dart';
+
+// Instance names for dependency injection
+class YourDependencyInjection {
+  static const yourUseCase = 'your_use_case';
+
+  // Register dependencies
+  static void setupDependencyInjection() {
+    final getIt = GetIt.instance;
+
+    // Register repository
+    getIt.registerSingleton<YourRepository>(
+      YourRepositoryImpl(),
+      instanceName: 'your_repository_impl',
+    );
+
+    // Register use case
+    getIt.registerSingleton<YourUseCase>(
+      YourUseCase(
+        yourRepository: getIt<YourRepository>(instanceName: 'your_repository_impl'),
+      ),
+      instanceName: yourUseCase,
+    );
+  }
+
+  // Dispose dependencies
+  static void disposeDependencyInjection() {
+    final getIt = GetIt.instance;
+    getIt.unregister<YourUseCase>(instanceName: yourUseCase);
+  }
+}
+
+Replace YourUseCase, YourRepository, YourRepositoryImpl, ReturnType, Params,
+and YourEntity with the actual class names and types from your implementation.

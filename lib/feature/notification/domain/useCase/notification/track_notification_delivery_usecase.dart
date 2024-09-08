@@ -7,7 +7,7 @@ class TrackNotificationDeliveryParams {
 }
 
 class TrackNotificationDeliveryUseCase extends UseCase<void, TrackNotificationDeliveryParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   TrackNotificationDeliveryUseCase({required this.notificationRepository});
 

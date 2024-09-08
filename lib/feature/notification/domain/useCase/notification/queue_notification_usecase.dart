@@ -7,7 +7,7 @@ class QueueNotificationParams {
 }
 
 class QueueNotificationUseCase extends UseCase<void, QueueNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   QueueNotificationUseCase({required this.notificationRepository});
 

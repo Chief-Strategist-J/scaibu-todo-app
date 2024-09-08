@@ -7,7 +7,7 @@ class RetryNotificationDeliveryParams {
 }
 
 class RetryNotificationDeliveryUseCase extends UseCase<void, RetryNotificationDeliveryParams> {
-  final NotificationRepository<void> notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   RetryNotificationDeliveryUseCase({required this.notificationRepository});
 

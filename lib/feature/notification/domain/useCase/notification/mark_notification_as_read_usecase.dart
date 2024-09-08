@@ -7,11 +7,9 @@ class MarkNotificationAsReadParams {
 }
 
 class MarkNotificationAsReadUseCase extends UseCase<void, MarkNotificationAsReadParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
-  MarkNotificationAsReadUseCase({
-    required this.notificationRepository,
-  });
+  MarkNotificationAsReadUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(MarkNotificationAsReadParams params) async {

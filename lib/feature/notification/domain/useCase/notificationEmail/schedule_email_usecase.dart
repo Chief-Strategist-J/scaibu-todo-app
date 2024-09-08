@@ -15,16 +15,20 @@ class ScheduleEmailParams {
 }
 
 class ScheduleEmailUseCase extends UseCase<void, ScheduleEmailParams> {
-  final EmailNotificationRepository emailNotificationRepository;
+  final EmailNotificationRepository<NotificationEntity> emailNotificationRepository;
 
-  ScheduleEmailUseCase({
-    required this.emailNotificationRepository,
-  });
+  ScheduleEmailUseCase({required this.emailNotificationRepository});
 
   @override
   Future<Either<Failure, void>> call(ScheduleEmailParams params) async {
     try {
-      await emailNotificationRepository.scheduleEmail(params.subject, params.body, params.recipientEmail, params.scheduleTime);
+      await emailNotificationRepository.scheduleEmail(
+        params.subject,
+        params.body,
+        params.recipientEmail,
+        params.scheduleTime,
+      );
+
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to schedule email'));

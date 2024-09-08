@@ -7,11 +7,9 @@ class TrackNotificationOpenRateParams {
 }
 
 class TrackNotificationOpenRateUseCase extends UseCase<void, TrackNotificationOpenRateParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
-  TrackNotificationOpenRateUseCase({
-    required this.notificationRepository,
-  });
+  TrackNotificationOpenRateUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(TrackNotificationOpenRateParams params) async {

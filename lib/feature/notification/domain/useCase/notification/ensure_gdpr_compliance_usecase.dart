@@ -7,7 +7,7 @@ class EnsureGDPRComplianceParams {
 }
 
 class EnsureGDPRComplianceUseCase extends UseCase<void, EnsureGDPRComplianceParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   EnsureGDPRComplianceUseCase({required this.notificationRepository});
 

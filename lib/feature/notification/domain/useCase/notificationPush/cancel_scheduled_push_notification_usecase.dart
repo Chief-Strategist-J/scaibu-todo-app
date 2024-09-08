@@ -3,13 +3,11 @@ import 'package:todo_app/core/app_library.dart';
 class CancelScheduledPushNotificationParams {
   final String notificationId;
 
-  CancelScheduledPushNotificationParams({
-    required this.notificationId,
-  });
+  CancelScheduledPushNotificationParams({required this.notificationId});
 }
 
 class CancelScheduledPushNotificationUseCase extends UseCase<void, CancelScheduledPushNotificationParams> {
-  final PushNotificationRepository pushNotificationRepository;
+  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
 
   CancelScheduledPushNotificationUseCase({required this.pushNotificationRepository});
 

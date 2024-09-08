@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-class WebhookNotificationImpl extends WebhookNotificationRepository{
+class WebhookNotificationImpl extends WebhookNotificationRepository<NotificationEntity> {
   @override
   Future<void> configureWebhook(String webhookId, Map<String, dynamic> settings) {
     // TODO: implement configureWebhook
@@ -8,13 +8,13 @@ class WebhookNotificationImpl extends WebhookNotificationRepository{
   }
 
   @override
-  Future getWebhookStatus(String webhookId) {
+  Future<NotificationEntity> getWebhookStatus(String webhookId) {
     // TODO: implement getWebhookStatus
     throw UnimplementedError();
   }
 
   @override
-  Future<List> listConfiguredWebhooks() {
+  Future<List<NotificationEntity>> listConfiguredWebhooks() {
     // TODO: implement listConfiguredWebhooks
     throw UnimplementedError();
   }

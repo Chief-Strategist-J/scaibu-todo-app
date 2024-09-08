@@ -7,7 +7,7 @@ class CancelScheduledSMSParams {
 }
 
 class CancelScheduledSMSUseCase extends UseCase<void, CancelScheduledSMSParams> {
-  final SMSNotificationRepository<void> smsNotificationRepository;
+  final SMSNotificationRepository<NotificationEntity> smsNotificationRepository;
 
   CancelScheduledSMSUseCase({required this.smsNotificationRepository});
 

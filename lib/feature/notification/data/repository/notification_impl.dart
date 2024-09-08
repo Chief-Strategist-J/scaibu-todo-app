@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-class NotificationImpl extends NotificationRepository{
+class NotificationImpl extends NotificationRepository<NotificationEntity> {
   @override
   Future<void> categorizeNotification(String notificationId, String category) {
     // TODO: implement categorizeNotification
@@ -32,13 +32,13 @@ class NotificationImpl extends NotificationRepository{
   }
 
   @override
-  Future<List> fetchNotificationHistory(String userId) {
+  Future<List<NotificationEntity>> fetchNotificationHistory(String userId) {
     // TODO: implement fetchNotificationHistory
     throw UnimplementedError();
   }
 
   @override
-  Future<List> getUnreadNotifications(String userId) {
+  Future<List<NotificationEntity>> getUnreadNotifications(String userId) {
     // TODO: implement getUnreadNotifications
     throw UnimplementedError();
   }
@@ -86,7 +86,12 @@ class NotificationImpl extends NotificationRepository{
   }
 
   @override
-  Future<void> sendPersonalizedNotification(String title, String message, recipient, Map<String, dynamic> personalizationData) {
+  Future<void> sendPersonalizedNotification(
+    String title,
+    String message,
+    recipient,
+    Map<String, dynamic> personalizationData,
+  ) {
     // TODO: implement sendPersonalizedNotification
     throw UnimplementedError();
   }

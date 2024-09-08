@@ -7,7 +7,7 @@ class EncryptNotificationParams {
 }
 
 class EncryptNotificationUseCase extends UseCase<void, EncryptNotificationParams> {
-  final NotificationRepository<void> notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   EncryptNotificationUseCase({required this.notificationRepository});
 

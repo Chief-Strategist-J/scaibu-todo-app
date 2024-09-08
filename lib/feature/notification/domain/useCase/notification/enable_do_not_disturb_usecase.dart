@@ -8,7 +8,7 @@ class EnableDoNotDisturbParams {
 }
 
 class EnableDoNotDisturbUseCase extends UseCase<void, EnableDoNotDisturbParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   EnableDoNotDisturbUseCase({
     required this.notificationRepository,

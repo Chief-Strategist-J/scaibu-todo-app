@@ -6,13 +6,13 @@ class GetEmailHistoryParams {
   GetEmailHistoryParams({required this.userId});
 }
 
-class GetEmailHistoryUseCase<T> extends UseCase<List<T>, GetEmailHistoryParams> {
-  final EmailNotificationRepository<T> emailNotificationRepository;
+class GetEmailHistoryUseCase<NotificationEntity> extends UseCase<List<NotificationEntity>, GetEmailHistoryParams> {
+  final EmailNotificationRepository<NotificationEntity> emailNotificationRepository;
 
   GetEmailHistoryUseCase({required this.emailNotificationRepository});
 
   @override
-  Future<Either<Failure, List<T>>> call(GetEmailHistoryParams params) async {
+  Future<Either<Failure, List<NotificationEntity>>> call(GetEmailHistoryParams params) async {
     try {
       final history = await emailNotificationRepository.getEmailHistory(params.userId);
       return Right(history);

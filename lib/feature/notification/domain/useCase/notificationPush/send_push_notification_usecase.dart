@@ -1,12 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 class SendPushNotificationUseCase extends UseCase<void, SendPushNotificationParams> {
-  final PushNotificationRepository pushNotificationRepository;
+  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
 
-  SendPushNotificationUseCase({
-    required this.pushNotificationRepository,
-  });
+  SendPushNotificationUseCase({required this.pushNotificationRepository});
 
   @override
   Future<Either<Failure, void>> call(SendPushNotificationParams params) async {

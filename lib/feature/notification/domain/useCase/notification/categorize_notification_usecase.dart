@@ -8,11 +8,9 @@ class CategorizeNotificationParams {
 }
 
 class CategorizeNotificationUseCase extends UseCase<void, CategorizeNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
-  CategorizeNotificationUseCase({
-    required this.notificationRepository,
-  });
+  CategorizeNotificationUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(CategorizeNotificationParams params) async {

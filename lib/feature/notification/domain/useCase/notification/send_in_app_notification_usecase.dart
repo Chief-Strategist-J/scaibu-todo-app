@@ -13,7 +13,7 @@ class SendInAppNotificationParams {
 }
 
 class SendInAppNotificationUseCase extends UseCase<void, SendInAppNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   SendInAppNotificationUseCase({required this.notificationRepository});
 

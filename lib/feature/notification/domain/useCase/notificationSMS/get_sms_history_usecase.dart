@@ -6,17 +6,13 @@ class GetSMSHistoryParams {
   GetSMSHistoryParams({required this.userId});
 }
 
-class Notification {
-  //
-}
-
-class GetSMSHistoryUseCase extends UseCase<List<Notification>, GetSMSHistoryParams> {
-  final SMSNotificationRepository<Notification> smsNotificationRepository;
+class GetSMSHistoryUseCase extends UseCase<List<NotificationEntity>, GetSMSHistoryParams> {
+  final SMSNotificationRepository<NotificationEntity> smsNotificationRepository;
 
   GetSMSHistoryUseCase({required this.smsNotificationRepository});
 
   @override
-  Future<Either<Failure, List<Notification>>> call(GetSMSHistoryParams params) async {
+  Future<Either<Failure, List<NotificationEntity>>> call(GetSMSHistoryParams params) async {
     try {
       final history = await smsNotificationRepository.getSMSHistory(params.userId);
       return Right(history);

@@ -8,7 +8,7 @@ class IntegrateThirdPartyServiceParams {
 }
 
 class IntegrateThirdPartyServiceUseCase extends UseCase<void, IntegrateThirdPartyServiceParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   IntegrateThirdPartyServiceUseCase({required this.notificationRepository});
 

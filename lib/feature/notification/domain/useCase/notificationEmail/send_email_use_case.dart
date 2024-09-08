@@ -13,7 +13,7 @@ class SendEmailParams {
 }
 
 class SendEmailUseCase extends UseCase<void, SendEmailParams> {
-  final EmailNotificationRepository emailNotificationRepository;
+  final EmailNotificationRepository<NotificationEntity> emailNotificationRepository;
 
   SendEmailUseCase({required this.emailNotificationRepository});
 

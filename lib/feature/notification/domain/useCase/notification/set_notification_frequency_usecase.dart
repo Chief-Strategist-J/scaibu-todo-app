@@ -11,11 +11,9 @@ class SetNotificationFrequencyParams {
 }
 
 class SetNotificationFrequencyUseCase extends UseCase<void, SetNotificationFrequencyParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
-  SetNotificationFrequencyUseCase({
-    required this.notificationRepository,
-  });
+  SetNotificationFrequencyUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(SetNotificationFrequencyParams params) async {

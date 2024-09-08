@@ -7,11 +7,9 @@ class SendBatchNotificationParams {
 }
 
 class SendBatchNotificationUseCase extends UseCase<void, SendBatchNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
-  SendBatchNotificationUseCase({
-    required this.notificationRepository,
-  });
+  SendBatchNotificationUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(SendBatchNotificationParams params) async {

@@ -6,17 +6,13 @@ class GetPushNotificationHistoryParams {
   GetPushNotificationHistoryParams({required this.userId});
 }
 
-class Notification{}
+class GetPushNotificationHistoryUseCase extends UseCase<List<NotificationEntity>, GetPushNotificationHistoryParams> {
+  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
 
-class GetPushNotificationHistoryUseCase extends UseCase<List<Notification>, GetPushNotificationHistoryParams> {
-  final PushNotificationRepository<Notification> pushNotificationRepository;
-
-  GetPushNotificationHistoryUseCase({
-    required this.pushNotificationRepository,
-  });
+  GetPushNotificationHistoryUseCase({required this.pushNotificationRepository});
 
   @override
-  Future<Either<Failure, List<Notification>>> call(GetPushNotificationHistoryParams params) async {
+  Future<Either<Failure, List<NotificationEntity>>> call(GetPushNotificationHistoryParams params) async {
     try {
       final history = await pushNotificationRepository.getPushNotificationHistory(params.userId);
       return Right(history);

@@ -1,32 +1,32 @@
-import 'package:todo_app/feature/notification/domain/repository/email_notification_repository.dart';
+import 'package:todo_app/core/app_library.dart';
 
-class EmailNotificationImpl extends EmailNotificationRepository{
+class EmailNotificationImpl extends EmailNotificationRepository<NotificationEntity> {
   @override
-  Future<void> cancelScheduledEmail(String emailId) {
+  Future<NotificationEntity> cancelScheduledEmail(String emailId) {
     // TODO: implement cancelScheduledEmail
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getEmailHistory(String userId) {
+  Future<List<NotificationEntity>> getEmailHistory(String userId) {
     // TODO: implement getEmailHistory
     throw UnimplementedError();
   }
 
   @override
-  Future<String> getEmailStatus(String emailId) {
+  Future<NotificationEntity> getEmailStatus(String emailId) {
     // TODO: implement getEmailStatus
     throw UnimplementedError();
   }
 
   @override
-  Future<void> scheduleEmail(String subject, String body, String recipientEmail, DateTime scheduleTime) {
+  Future<NotificationEntity> scheduleEmail(String subject, String body, String recipientEmail, DateTime scheduleTime) {
     // TODO: implement scheduleEmail
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendEmail(String subject, String body, String recipientEmail) {
+  Future<NotificationEntity> sendEmail(String subject, String body, String recipientEmail) {
     // TODO: implement sendEmail
     throw UnimplementedError();
   }

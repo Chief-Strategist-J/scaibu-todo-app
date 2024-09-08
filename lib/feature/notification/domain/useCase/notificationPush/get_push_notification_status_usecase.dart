@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-class Notification {}
+
 
 class GetPushNotificationStatusParams {
   final String notificationId;
@@ -8,13 +8,13 @@ class GetPushNotificationStatusParams {
   GetPushNotificationStatusParams({required this.notificationId});
 }
 
-class GetPushNotificationStatusUseCase extends UseCase<Notification, GetPushNotificationStatusParams> {
-  final PushNotificationRepository<Notification> pushNotificationRepository;
+class GetPushNotificationStatusUseCase extends UseCase<NotificationEntity, GetPushNotificationStatusParams> {
+  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
 
   GetPushNotificationStatusUseCase({required this.pushNotificationRepository});
 
   @override
-  Future<Either<Failure, Notification>> call(GetPushNotificationStatusParams params) async {
+  Future<Either<Failure, NotificationEntity>> call(GetPushNotificationStatusParams params) async {
     try {
       final status = await pushNotificationRepository.getPushNotificationStatus(params.notificationId);
       return Right(status);

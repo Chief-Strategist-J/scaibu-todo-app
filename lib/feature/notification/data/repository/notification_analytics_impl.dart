@@ -1,20 +1,20 @@
-import 'package:todo_app/feature/notification/domain/repository/notification_analytics_repository.dart';
+import 'package:todo_app/core/app_library.dart';
 
-class NotificationAnalyticsImpl extends NotificationAnalyticsRepository {
+class NotificationAnalyticsImpl extends NotificationAnalyticsRepository<NotificationEntity> {
   @override
-  Future<List> getHistoricalNotificationData(String userId, DateTime startDate, DateTime endDate) {
+  Future<List<NotificationEntity>> getHistoricalNotificationData(String userId, DateTime startDate, DateTime endDate) {
     // TODO: implement getHistoricalNotificationData
     throw UnimplementedError();
   }
 
   @override
-  Future getNotificationEngagementReport(String userId) {
+  Future<NotificationEntity> getNotificationEngagementReport(String userId) {
     // TODO: implement getNotificationEngagementReport
     throw UnimplementedError();
   }
 
   @override
-  Future getNotificationStatistics(String userId) {
+  Future<NotificationEntity> getNotificationStatistics(String userId) {
     // TODO: implement getNotificationStatistics
     throw UnimplementedError();
   }

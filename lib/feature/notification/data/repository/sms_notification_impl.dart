@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-class SmsNotificationImpl extends SMSNotificationRepository{
+class SmsNotificationImpl extends SMSNotificationRepository<NotificationEntity>{
   @override
   Future<void> cancelScheduledSMS(String smsId) {
     // TODO: implement cancelScheduledSMS
@@ -8,13 +8,13 @@ class SmsNotificationImpl extends SMSNotificationRepository{
   }
 
   @override
-  Future<List> getSMSHistory(String userId) {
+  Future<List<NotificationEntity>> getSMSHistory(String userId) {
     // TODO: implement getSMSHistory
     throw UnimplementedError();
   }
 
   @override
-  Future getSMSStatus(String smsId) {
+  Future<NotificationEntity> getSMSStatus(String smsId) {
     // TODO: implement getSMSStatus
     throw UnimplementedError();
   }

@@ -8,7 +8,7 @@ class ConfigureNotificationSettingsParams {
 }
 
 class ConfigureNotificationSettingsUseCase extends UseCase<void, ConfigureNotificationSettingsParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   ConfigureNotificationSettingsUseCase({
     required this.notificationRepository,

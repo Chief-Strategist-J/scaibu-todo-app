@@ -15,7 +15,7 @@ class SendPersonalizedNotificationParams {
 }
 
 class SendPersonalizedNotificationUseCase extends UseCase<void, SendPersonalizedNotificationParams> {
-  final NotificationRepository notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   SendPersonalizedNotificationUseCase({required this.notificationRepository});
 
