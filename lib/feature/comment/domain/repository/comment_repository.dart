@@ -1,4 +1,4 @@
-abstract class CommentRepository<Comment, CommentMetadata> {
+abstract class CommentRepository<Comment> {
   Future<Comment> getById(int id);
 
   Future<List<Comment>> getAll({int page = 1, int pageSize = 20});
@@ -17,7 +17,7 @@ abstract class CommentRepository<Comment, CommentMetadata> {
 
   Future<bool> createComment(Comment comment);
 
-  Future<bool> updateCommentMetadata(int commentId, CommentMetadata metadata);
+  Future<bool> updateCommentMetadata(int commentId, Map<String,dynamic> metadata);
 
   Future<bool> flagComment(int commentId, String flagReason);
 
