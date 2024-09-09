@@ -12,21 +12,13 @@ class GetHistoricalNotificationDataParams {
   });
 }
 
-// Define HistoricalNotificationData according to your application's needs
+class GetHistoricalNotificationDataUseCase extends UseCase<List<NotificationEntity>, GetHistoricalNotificationDataParams> {
+  final NotificationAnalyticsRepository<NotificationEntity> notificationAnalyticsRepository;
 
-class HistoricalNotificationData {
-  // Define properties for historical notification data
-}
-
-class GetHistoricalNotificationDataUseCase extends UseCase<List<HistoricalNotificationData>, GetHistoricalNotificationDataParams> {
-  final NotificationAnalyticsRepository<HistoricalNotificationData> notificationAnalyticsRepository;
-
-  GetHistoricalNotificationDataUseCase({
-    required this.notificationAnalyticsRepository,
-  });
+  GetHistoricalNotificationDataUseCase({required this.notificationAnalyticsRepository});
 
   @override
-  Future<Either<Failure, List<HistoricalNotificationData>>> call(GetHistoricalNotificationDataParams params) async {
+  Future<Either<Failure, List<NotificationEntity>>> call(GetHistoricalNotificationDataParams params) async {
     try {
       final historicalData = await notificationAnalyticsRepository.getHistoricalNotificationData(params.userId, params.startDate, params.endDate);
       return Right(historicalData);

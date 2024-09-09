@@ -7,7 +7,7 @@ class RetryWebhookNotificationParams {
 }
 
 class RetryWebhookNotificationUseCase extends UseCase<void, RetryWebhookNotificationParams> {
-  final WebhookNotificationRepository webhookNotificationRepository;
+  final WebhookNotificationRepository<NotificationEntity> webhookNotificationRepository;
 
   RetryWebhookNotificationUseCase({required this.webhookNotificationRepository});
 

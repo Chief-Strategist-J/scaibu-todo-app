@@ -8,7 +8,7 @@ class SendWebhookNotificationParams {
 }
 
 class SendWebhookNotificationUseCase extends UseCase<void, SendWebhookNotificationParams> {
-  final WebhookNotificationRepository webhookNotificationRepository;
+  final WebhookNotificationRepository<NotificationEntity> webhookNotificationRepository;
 
   SendWebhookNotificationUseCase({required this.webhookNotificationRepository});
 

@@ -1,26 +1,18 @@
 import 'package:todo_app/core/app_library.dart';
 
-class EngagementReport {
-  // Define properties for engagement report
-}
-
 class GetNotificationEngagementReportParams {
   final String userId;
 
-  GetNotificationEngagementReportParams({
-    required this.userId,
-  });
+  GetNotificationEngagementReportParams({required this.userId});
 }
 
-class GetNotificationEngagementReportUseCase extends UseCase<EngagementReport, GetNotificationEngagementReportParams> {
-  final NotificationAnalyticsRepository<EngagementReport> notificationAnalyticsRepository;
+class GetNotificationEngagementReportUseCase extends UseCase<NotificationEntity, GetNotificationEngagementReportParams> {
+  final NotificationAnalyticsRepository<NotificationEntity> notificationAnalyticsRepository;
 
-  GetNotificationEngagementReportUseCase({
-    required this.notificationAnalyticsRepository,
-  });
+  GetNotificationEngagementReportUseCase({required this.notificationAnalyticsRepository});
 
   @override
-  Future<Either<Failure, EngagementReport>> call(GetNotificationEngagementReportParams params) async {
+  Future<Either<Failure, NotificationEntity>> call(GetNotificationEngagementReportParams params) async {
     try {
       final report = await notificationAnalyticsRepository.getNotificationEngagementReport(params.userId);
       return Right(report);

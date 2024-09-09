@@ -7,7 +7,7 @@ class TrackNotificationOpenRateParams {
 }
 
 class TrackNotificationOpenRateUseCase extends UseCase<void, TrackNotificationOpenRateParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
+  final NotificationAnalyticsRepository<NotificationEntity> notificationRepository;
 
   TrackNotificationOpenRateUseCase({required this.notificationRepository});
 

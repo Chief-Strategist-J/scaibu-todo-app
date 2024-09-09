@@ -15,9 +15,7 @@ class SendMultichannelNotificationParams {
 class SendMultichannelNotificationUseCase extends UseCase<void, SendMultichannelNotificationParams> {
   final NotificationRepository<NotificationEntity> notificationRepository;
 
-  SendMultichannelNotificationUseCase({
-    required this.notificationRepository,
-  });
+  SendMultichannelNotificationUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(SendMultichannelNotificationParams params) async {

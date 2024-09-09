@@ -6,17 +6,13 @@ class GetWebhookStatusParams {
   GetWebhookStatusParams({required this.webhookId});
 }
 
-class Notification {
-  //
-}
-
-class GetWebhookStatusUseCase extends UseCase<Notification, GetWebhookStatusParams> {
-  final WebhookNotificationRepository<Notification> webhookNotificationRepository;
+class GetWebhookStatusUseCase extends UseCase<NotificationEntity, GetWebhookStatusParams> {
+  final WebhookNotificationRepository<NotificationEntity> webhookNotificationRepository;
 
   GetWebhookStatusUseCase({required this.webhookNotificationRepository});
 
   @override
-  Future<Either<Failure, Notification>> call(GetWebhookStatusParams params) async {
+  Future<Either<Failure, NotificationEntity>> call(GetWebhookStatusParams params) async {
     try {
       final status = await webhookNotificationRepository.getWebhookStatus(params.webhookId);
       return Right(status);

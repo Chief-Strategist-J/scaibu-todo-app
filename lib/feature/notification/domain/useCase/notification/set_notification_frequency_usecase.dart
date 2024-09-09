@@ -4,10 +4,7 @@ class SetNotificationFrequencyParams {
   final String userId;
   final String frequency;
 
-  SetNotificationFrequencyParams({
-    required this.userId,
-    required this.frequency,
-  });
+  SetNotificationFrequencyParams({required this.userId, required this.frequency});
 }
 
 class SetNotificationFrequencyUseCase extends UseCase<void, SetNotificationFrequencyParams> {

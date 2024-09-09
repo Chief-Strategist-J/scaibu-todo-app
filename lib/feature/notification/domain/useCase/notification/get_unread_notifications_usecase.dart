@@ -9,9 +9,7 @@ class GetUnreadNotificationsParams {
 class GetUnreadNotificationsUseCase extends UseCase<List<NotificationEntity>, GetUnreadNotificationsParams> {
   final NotificationRepository<NotificationEntity> notificationRepository;
 
-  GetUnreadNotificationsUseCase({
-    required this.notificationRepository,
-  });
+  GetUnreadNotificationsUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, List<NotificationEntity>>> call(GetUnreadNotificationsParams params) async {

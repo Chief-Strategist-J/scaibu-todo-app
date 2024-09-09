@@ -10,9 +10,7 @@ class EnableDoNotDisturbParams {
 class EnableDoNotDisturbUseCase extends UseCase<void, EnableDoNotDisturbParams> {
   final NotificationRepository<NotificationEntity> notificationRepository;
 
-  EnableDoNotDisturbUseCase({
-    required this.notificationRepository,
-  });
+  EnableDoNotDisturbUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(EnableDoNotDisturbParams params) async {

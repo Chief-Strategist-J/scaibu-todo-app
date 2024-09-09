@@ -10,9 +10,7 @@ class ConfigureNotificationSettingsParams {
 class ConfigureNotificationSettingsUseCase extends UseCase<void, ConfigureNotificationSettingsParams> {
   final NotificationRepository<NotificationEntity> notificationRepository;
 
-  ConfigureNotificationSettingsUseCase({
-    required this.notificationRepository,
-  });
+  ConfigureNotificationSettingsUseCase({required this.notificationRepository});
 
   @override
   Future<Either<Failure, void>> call(ConfigureNotificationSettingsParams params) async {

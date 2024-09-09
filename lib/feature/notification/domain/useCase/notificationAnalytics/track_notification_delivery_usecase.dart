@@ -7,11 +7,9 @@ class TrackNotificationDeliveryParams {
 }
 
 class TrackNotificationDeliveryUseCase extends UseCase<void, TrackNotificationDeliveryParams> {
-  final NotificationAnalyticsRepository notificationAnalyticsRepository;
+  final NotificationAnalyticsRepository<NotificationEntity> notificationAnalyticsRepository;
 
-  TrackNotificationDeliveryUseCase({
-    required this.notificationAnalyticsRepository,
-  });
+  TrackNotificationDeliveryUseCase({required this.notificationAnalyticsRepository});
 
   @override
   Future<Either<Failure, void>> call(TrackNotificationDeliveryParams params) async {
