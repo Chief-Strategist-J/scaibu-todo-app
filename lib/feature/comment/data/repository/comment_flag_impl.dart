@@ -2,7 +2,7 @@ import 'package:todo_app/feature/comment/domain/repository/comment_flag_reposito
 
 class CommentFlagImpl extends CommentFlagRepository<CommentFlagRepository> {
   @override
-  Future<bool> addFlagToComment(int commentId, CommentFlagRepository flag) {
+  Future<bool> addFlagToComment(int commentId, Map<String,dynamic> flag) {
     // TODO: implement addFlagToComment
     throw UnimplementedError();
   }
@@ -44,7 +44,7 @@ class CommentFlagImpl extends CommentFlagRepository<CommentFlagRepository> {
   }
 
   @override
-  Future<bool> removeFlagFromComment(int commentId, CommentFlagRepository flag) {
+  Future<bool> removeFlagFromComment(int commentId, Map<String,dynamic> flag) {
     // TODO: implement removeFlagFromComment
     throw UnimplementedError();
   }
