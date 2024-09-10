@@ -34,7 +34,7 @@ class FirebaseApiImpl implements BaseApi {
   Future<List<TodoModel>> getListOfTodos() async {
     final todoList = <TodoModel>[];
 
-    final value = await todoCollection.where('is_archived', isEqualTo: false).get();
+    final value = await todoCollection.where('is_archived', isEqualTo: false).where('created_by', isEqualTo: userCredentials.getUserId).get();
 
     value.docs.map((e) {
       TodoModel todo = TodoModel(
@@ -45,9 +45,9 @@ class FirebaseApiImpl implements BaseApi {
         notes: e.data()['notes'] ?? -1,
         createdBy: e.data()['created_by'],
         isCompleted: e.data()['is_completed'] ?? false,
-        startTime:timeService.parseDateTimeISO8601(e.data()['start_time']),
-        endTime:timeService.parseDateTimeISO8601(e.data()['end_time']),
-        date:timeService.parseDateTimeISO8601(e.data()['date']),
+        startTime: timeService.parseDateTimeISO8601(e.data()['start_time']),
+        endTime: timeService.parseDateTimeISO8601(e.data()['end_time']),
+        date: timeService.parseDateTimeISO8601(e.data()['date']),
         priority: e.data()['priority'],
       );
 
