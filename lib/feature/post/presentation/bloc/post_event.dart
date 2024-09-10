@@ -1,3 +1,8 @@
-abstract class PostEvent {}
+import 'package:equatable/equatable.dart';
 
-class InitEvent extends PostEvent {}
+sealed class PostEvent extends Equatable{}
+
+class InitPostEvent extends PostEvent {
+  @override
+  List<Object?> get props => [];
+}

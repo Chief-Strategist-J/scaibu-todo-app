@@ -14,9 +14,9 @@ class GetUserProfileUseCase extends UseCase<ConcreteUserProfile, String> {
   GetUserProfileUseCase({required this.profileRepository});
 
   @override
-  Future<Either<Failure, ConcreteUserProfile>> call(String userId) async {
+  Future<Either<Failure, ConcreteUserProfile>> call(String params) async {
     try {
-      final profile = await profileRepository.getUserProfile(userId);
+      final profile = await profileRepository.getUserProfile(params);
       return Right(profile);
     } catch (e) {
       return Left(ServerFailure('Failed to get user profile'));

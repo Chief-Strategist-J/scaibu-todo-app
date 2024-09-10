@@ -5,10 +5,10 @@ import 'post_state.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc() : super(InitPostState()) {
-    on<InitEvent>(_init);
+    on<InitPostEvent>(_init);
   }
 
-  void _init(InitEvent event, Emitter<PostState> emit) async {
+  void _init(InitPostEvent event, Emitter<PostState> emit) async {
     emit(InitPostState());
   }
 }

@@ -1,3 +1,8 @@
-abstract class CommentEvent {}
+import 'package:equatable/equatable.dart';
 
-class InitEvent extends CommentEvent {}
+sealed class CommentEvent extends Equatable {}
+
+class InitCommentsEvent extends CommentEvent {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}

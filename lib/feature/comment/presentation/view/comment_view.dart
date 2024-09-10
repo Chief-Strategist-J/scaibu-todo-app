@@ -1,15 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/comment_bloc.dart';
-import '../bloc/comment_event.dart';
-import '../bloc/comment_state.dart';
+
+import 'package:flutter/cupertino.dart';
+import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/comment/presentation/bloc/comment_bloc.dart';
+import 'package:todo_app/feature/comment/presentation/bloc/comment_event.dart';
 
 class CommentPage extends StatelessWidget {
+  const CommentPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => CommentBloc()..add(InitEvent()),
+      create: (BuildContext context) => CommentBloc()..add(InitCommentsEvent()),
       child: Builder(builder: (context) => _buildPage(context)),
     );
   }
