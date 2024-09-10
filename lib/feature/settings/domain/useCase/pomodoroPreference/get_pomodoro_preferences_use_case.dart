@@ -22,9 +22,9 @@ class GetPomodoroPreferencesUseCase extends UseCase<ConcretePomodoroPreferences,
   });
 
   @override
-  Future<Either<Failure, ConcretePomodoroPreferences>> call(String userId) async {
+  Future<Either<Failure, ConcretePomodoroPreferences>> call(String params) async {
     try {
-      final preferences = await pomodoroPreferenceRepository.getPomodoroPreferences(userId);
+      final preferences = await pomodoroPreferenceRepository.getPomodoroPreferences(params);
       return Right(preferences);
     } catch (e) {
       return Left(ServerFailure('Failed to get Pomodoro preferences'));

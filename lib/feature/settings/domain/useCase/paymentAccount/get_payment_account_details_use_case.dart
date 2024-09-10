@@ -15,9 +15,9 @@ class GetPaymentAccountDetailsUseCase extends UseCase<ConcretePaymentAccountDeta
   GetPaymentAccountDetailsUseCase({required this.paymentAccountRepository});
 
   @override
-  Future<Either<Failure, ConcretePaymentAccountDetails>> call(String userId) async {
+  Future<Either<Failure, ConcretePaymentAccountDetails>> call(String params) async {
     try {
-      final details = await paymentAccountRepository.getPaymentAccountDetails(userId);
+      final details = await paymentAccountRepository.getPaymentAccountDetails(params);
       return Right(details);
     } catch (e) {
       return Left(ServerFailure('Failed to get payment account details'));

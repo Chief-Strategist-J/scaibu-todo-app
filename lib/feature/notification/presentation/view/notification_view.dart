@@ -12,9 +12,6 @@ class NotificationPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<NotificationBloc>(context);
-
     return Container();
   }
 }
-

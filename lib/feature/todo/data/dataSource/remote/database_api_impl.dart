@@ -41,8 +41,10 @@ class DataBaseApiImpl implements BaseApi {
     TodoListResponse todoList = TodoListResponse.fromJson(
       await restApi.request(
         endPoint: TodoEndPoint.getTodoList,
-        requestBody: {},
-        type: HttpRequestMethod.get,
+        type: HttpRequestMethod.post,
+        requestBody: {
+          'user_id': userCredentials.getUserId,
+        },
       ),
     );
     if (todoList.data == null) return [];

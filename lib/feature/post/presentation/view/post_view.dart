@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/feature/post/presentation/bloc/post_bloc.dart';
 import 'package:todo_app/feature/post/presentation/bloc/post_event.dart';
 
-
-
 class PostPage extends StatelessWidget {
   const PostPage({super.key});
 
@@ -17,9 +15,6 @@ class PostPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<PostBloc>(context);
-
     return Container();
   }
 }
-

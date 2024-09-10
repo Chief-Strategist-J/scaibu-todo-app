@@ -14,9 +14,9 @@ class GetLinkedAccountsUseCase extends UseCase<List<ConcreteLinkedAccount>, Stri
   GetLinkedAccountsUseCase({required this.linkedAccountsRepository});
 
   @override
-  Future<Either<Failure, List<ConcreteLinkedAccount>>> call(String userId) async {
+  Future<Either<Failure, List<ConcreteLinkedAccount>>> call(String params) async {
     try {
-      final accounts = await linkedAccountsRepository.getLinkedAccounts(userId);
+      final accounts = await linkedAccountsRepository.getLinkedAccounts(params);
       return Right(accounts);
     } catch (e) {
       return Left(ServerFailure('Failed to get linked accounts'));

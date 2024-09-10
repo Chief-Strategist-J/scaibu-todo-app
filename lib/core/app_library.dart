@@ -265,3 +265,5 @@ export 'package:todo_app/feature/settings/domain/repository/payment_account_repo
 export 'package:todo_app/feature/settings/domain/repository/pomodoro_preference_repository.dart';
 export 'package:todo_app/feature/settings/domain/repository/profile_repository.dart';
 
+export 'package:todo_app/feature/comment/presentation/bloc/comment_bloc.dart';
+export 'package:todo_app/feature/comment/presentation/bloc/comment_event.dart';
