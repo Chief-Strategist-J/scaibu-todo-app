@@ -9,10 +9,8 @@ class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
   @override
   Future<Either<Failure, void>> call(UpdateTodoParam params) async {
     try {
-      return await firebaseRepo.updateTodo(params.todoData, params.firebaseID).then((value) async {
-        return await databaseRep.updateTodo(params.todoData, params.localID).then((value) {
-          return const Right(null);
-        });
+      return await databaseRep.updateTodo(params.todoData, params.localID).then((value) {
+        return const Right(null);
       });
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);

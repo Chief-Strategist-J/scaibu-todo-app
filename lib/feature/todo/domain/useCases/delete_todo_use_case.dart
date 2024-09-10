@@ -9,7 +9,6 @@ class DeleteTodoUseCase extends UseCase<void, DeleteTodoParam> {
   @override
   Future<Either<Failure, void>> call(DeleteTodoParam params) async {
     try {
-       await firebaseRepo.deleteTodos(params.firebaseId);
       await databaseRep.deleteTodos(params.localId);
       return const Right(null);
     } catch (e, s) {
