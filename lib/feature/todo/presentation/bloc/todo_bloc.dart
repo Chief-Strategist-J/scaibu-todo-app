@@ -61,7 +61,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  Future<void>  updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
+  Future<void> updateCheckBoxValue({bool checked = false, required TodoEntity todoItem}) async {
     try {
       final Map<String, dynamic> todoData = {
         'todo_id': todoItem.todoId.toString(),
@@ -141,7 +141,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         value.fold((failure) {
           //
         }, (map) async {
-          _createAndUpdateTags(map, todoDetail);
+          // TODO : currently we are making request in part but in future we are going to merge
+          // TODO : all request and making only one request combine todo creating request
+          // TODO : combineTodoCreation = createTodo + createAndUpdateTags + createPomodoros
+          await _createAndUpdateTags(map, todoDetail);
+          await _createPomodoros(todoDetail, map);
         });
 
         add(InitTodoEvent(isListUpdated: true));
@@ -149,6 +153,28 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     } catch (e, s) {
       add(InitTodoEvent(isListUpdated: false));
       logService.crashLog(errorMessage: 'An error occurred: $e', e: e, stack: s);
+    }
+  }
+
+  Future<void> _createPomodoros(ManageTodoPageParam todoDetail, Map<String, dynamic> map) async {
+    final todoId = map['todo_id'];
+
+    if (todoDetail.pomodorowDuration.value == 0 || todoDetail.pomodorowCount.value == 0) return;
+
+    final Map<String, dynamic> request = {
+      "todo_id": todoId,
+      "title": todoDetail.title.text,
+      "user_id": userCredentials.getUserId,
+      "duration": todoDetail.pomodorowDuration.value,
+      "number_of_pomodoros": todoDetail.pomodorowCount.value,
+      "status": "pending",
+    };
+    try {
+      final createPomodoro = getIt<CreatePomodoroUseCase>(instanceName: PomodoroDependencyInjection.createPomodoroUseCase);
+      await createPomodoro(request);
+      toast("added");
+    } catch (e) {
+      logService.crashLog(errorMessage: 'An error occurred: $e', e: e);
     }
   }
 
@@ -165,7 +191,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         await deleteTagsByTodoId(todoId);
       } else {
         final tagsCreationReq = todoDetail.tags.map((tag) {
-          return {'todo_id': todoId, 'created_by': userId, 'name': tag.name, 'color': tag.color};
+          return {
+            'todo_id': todoId,
+            'created_by': userId,
+            'name': tag.name,
+            'color': tag.color,
+          };
         }).toList();
         await bulkCreateTags(tagsCreationReq);
       }

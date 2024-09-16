@@ -10,81 +10,94 @@ class CreatePomodoroComponent extends StatelessWidget {
     super.key,
   }) : _style = style;
 
+  void _onTapOfPomodoro(BuildContext context) {
+    final currState = context.read<TaskDetailBloc>().state;
+    if (currState is TaskDetailDataState) {
+      localTodoData.pomodorowDuration.value = currState.pomodoroDuration.validate();
+      localTodoData.pomodorowCount.value = currState.pomodoroCont.validate();
+    }
+
+    finish(context);
+  }
+
+  void onTapOfPomodowoDuration(BuildContext context, int index) {
+    context.read<TaskDetailBloc>().add(UpdatePomodoroDurationEvent(duration: (index + 1) * 10));
+  }
+
+  void onTapOfPomodowoCont(BuildContext context, int index) {
+    context.read<TaskDetailBloc>().add(UpdatePomodoroCounterEvent(count: index + 1));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: PressableBox(
-        style: _style.dialogStyle(context),
-        child: AnimatedScrollView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("Estimated Pomodoros : ", style: boldTextStyle(size: 16)),
-                16.height,
-                SizedBox(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 15,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PomodoroCont(index: index + 1);
-                    },
-                  ),
-                ),
-                16.height,
-                Text("Estimated Pomodoro Time: ", style: boldTextStyle(size: 16)),
-                16.height,
-                SizedBox(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 15,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PomodoroCont(index: (index + 1) * 10);
-                    },
-                  ),
-                ),
-                Text("Remind Before Pomodoro Complete Time: ", style: boldTextStyle(size: 16)),
-                16.height,
-                SizedBox(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 15,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PomodoroCont(index: (index + 1) * 5);
-                    },
-                  ),
-                ),
-                16.height,
-                TagButtonComponent(
-                  onTapOfCancel: () {
-                    //
+    final isSelectedPomodoroContIndex = context.select(
+      (TaskDetailBloc value) {
+        final state = value.state;
+        return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
+      },
+    );
+
+    final isSelectedPomodoroDurationIndex = context.select(
+      (TaskDetailBloc value) {
+        final state = value.state;
+        return state is TaskDetailDataState ? state.pomodoroDuration ?? 0 : 0;
+      },
+    );
+
+    return PressableBox(
+      style: _style.dialogStyle(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          16.height,
+          Expanded(child: Text("Estimated Pomodoros : ", style: boldTextStyle(size: 16))),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 15,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return PomodoroCont(
+                  index: index + 1,
+                  isSelectedIndex: isSelectedPomodoroContIndex,
+                  onTap: () {
+                    onTapOfPomodowoCont(context, index);
                   },
-                  onTapOfAdd: () {
-                    toast("added");
-                    final Map<String, dynamic> request = {
-                      "title": "Focus Session",
-                      "duration": 1,
-                      "status": "pending",
-                      "todo_id": localTodoData.todoId,
-                      "user_id": userCredentials.getUserId,
-                      "number_of_pomodoros": 5,
-                    };
-                    final createPomodoro = getIt<CreatePomodoroUseCase>(instanceName: PomodoroDependencyInjection.createPomodoroUseCase);
-                    createPomodoro(request);
+                );
+              },
+            ),
+          ),
+          32.height,
+          Expanded(child: Text("Estimated Pomodoro Time: ", style: boldTextStyle(size: 16))),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 15,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return PomodoroCont(
+                  isSelectedIndex: isSelectedPomodoroDurationIndex,
+                  index: (index + 1) * 10,
+                  onTap: () {
+                    onTapOfPomodowoDuration(context, index);
                   },
-                ),
-              ],
-            )
-          ],
-        ),
+                );
+              },
+            ),
+          ),
+          16.height,
+          Expanded(
+            child: TagButtonComponent(
+              onTapOfCancel: () {
+                finish(context);
+              },
+              onTapOfAdd: () {
+                _onTapOfPomodoro(context);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

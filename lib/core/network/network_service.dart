@@ -70,6 +70,9 @@ class RestApiImpl implements RestApi {
       /// SORTING REQUEST TYPE
 
       try {
+        // Record the start time
+        final startTime = DateTime.now();
+
         switch (type) {
           case HttpRequestMethod.get:
             response = await get(url, headers: headers);
@@ -107,13 +110,24 @@ class RestApiImpl implements RestApi {
             return '';
         }
 
+        // Record the end time
+        final endTime = DateTime.now();
+
+        // Calculate the duration
+        final duration = endTime.difference(startTime);
+
+        // Log the performance details
+        log('REQUEST METHOD: $type | URL: $url | DURATION: ${duration.inMilliseconds} ms');
+
         return streamResponse(
           type,
           streamedResponse,
           onStatusCodeError,
           response,
         );
-      } catch (_) {
+      } catch (e) {
+        // Handle and log any errors
+        log('REQUEST ERROR: $e');
         rethrow;
       }
 

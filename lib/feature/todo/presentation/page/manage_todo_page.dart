@@ -254,11 +254,17 @@ class ManageTodoPageParam {
 
   final String? firebaseTodoId;
   final String? todoId;
+
   String priority;
   List<TagEntity> tags = [];
 
   final ValueNotifier<bool> isWantToDeleteTodoAtEndTimeNotifier;
+  final ValueNotifier<int> pomodorowCount;
+  final ValueNotifier<int> pomodorowDuration;
+
   bool isWantToDeleteTodoAtEndTime;
+  final int numberOfPomodorowCount;
+  final int numberOfPomodorowDuration;
   final bool isUpdatingExistingTodo;
 
   ManageTodoPageParam({
@@ -271,7 +277,11 @@ class ManageTodoPageParam {
     this.isWantToDeleteTodoAtEndTime = true,
     this.priority = 'no_priority',
     this.tags = const [],
-  }) : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime);
+    this.numberOfPomodorowCount = 0,
+    this.numberOfPomodorowDuration = 0,
+  })  : isWantToDeleteTodoAtEndTimeNotifier = ValueNotifier(isWantToDeleteTodoAtEndTime),
+        pomodorowCount = ValueNotifier(numberOfPomodorowCount),
+        pomodorowDuration = ValueNotifier(numberOfPomodorowDuration);
 
   void dispose() {
     tags.clear();
@@ -297,6 +307,8 @@ class ManageTodoPageParam {
     note.dispose();
 
     isWantToDeleteTodoAtEndTimeNotifier.dispose();
+    pomodorowCount.dispose();
+    pomodorowDuration.dispose();
 
     log("DATA IS CLEARED FOR TODO-DETAIL");
   }

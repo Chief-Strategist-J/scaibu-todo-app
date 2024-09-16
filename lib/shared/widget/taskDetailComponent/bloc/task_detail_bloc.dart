@@ -7,11 +7,12 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
 
   TaskDetailBloc() : super(TaskDetailInitState()) {
     on<InitTaskDetailEvent>(_init);
-    on<UpdatePomodoroCounterEvent>(_updatePomodoro);
     on<UpdatePriorityEvent>(_updatePriority);
     on<IsSelectedTagEvent>(_isTagIsSelected);
     on<RemoveTagFromListEvent>(_removeTagFromList);
     on<AddTagInListEvent>(_addTagInList);
+    on<UpdatePomodoroCounterEvent>(_updatePomodoroCounter);
+    on<UpdatePomodoroDurationEvent>(_updatePomodoroDuration);
   }
 
   @override
@@ -84,8 +85,12 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     });
   }
 
-  void _updatePomodoro(UpdatePomodoroCounterEvent event, Emitter<TaskDetailState> emit) async {
+  void _updatePomodoroCounter(UpdatePomodoroCounterEvent event, Emitter<TaskDetailState> emit) async {
     _emitDataState(emit, pomodoroCont: event.count);
+  }
+
+  void _updatePomodoroDuration(UpdatePomodoroDurationEvent event, Emitter<TaskDetailState> emit) async {
+    _emitDataState(emit, pomodoroDuration: event.duration);
   }
 
   void _updatePriority(UpdatePriorityEvent event, Emitter<TaskDetailState> emit) async {
@@ -120,10 +125,13 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     }
   }
 
+
+
   void _emitDataState(
     Emitter<TaskDetailState> emit, {
     List<TagEntity>? tagList,
     int? pomodoroCont,
+    int? pomodoroDuration,
     PriorityModel? priority,
     List<TagEntity>? selectedTagList,
   }) {
@@ -135,12 +143,14 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
           pomodoroCont: pomodoroCont ?? currentState.pomodoroCont,
           priority: priority ?? currentState.priority,
           selectedTagList: selectedTagList ?? currentState.selectedTagList,
+          pomodoroDuration: pomodoroDuration ?? currentState.pomodoroDuration,
         ),
       );
     } else {
       emit(TaskDetailDataState(
         tagList: tagList ?? [],
         pomodoroCont: pomodoroCont ?? 0,
+        pomodoroDuration: pomodoroDuration ?? 0,
         priority: priority,
         selectedTagList: selectedTagList ?? [],
       ));

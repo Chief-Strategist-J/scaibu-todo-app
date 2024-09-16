@@ -7,8 +7,8 @@ class PomodoroRepositoryImpl implements PomodoroRepository<PomodoroEntity> {
   PomodoroRepositoryImpl({required this.firebaseApi, required this.databaseApi});
 
   @override
-  Future<void> createPomodoro(Map<String, dynamic> req) {
-    throw UnimplementedError();
+  Future<void> createPomodoro(Map<String, dynamic> req) async {
+    await databaseApi.createPomodoro(req);
   }
 
   @override
