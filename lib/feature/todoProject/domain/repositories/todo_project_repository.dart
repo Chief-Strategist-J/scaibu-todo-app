@@ -3,6 +3,12 @@ abstract interface class TodoProjectRepository<T> {
 
   Future<T?> getProjectById(String id);
 
+  Future<void> assignTodosToProjectsRequest(Map<String, dynamic> data);
+
+  Future<T> getPaginatedProjectsForTodo(Map<String,dynamic> data);
+
+  Future<T> getPaginatedTodosForProject(Map<String,dynamic> data);
+
   Future<void> createProject(Map<String, dynamic> data);
 
   Future<void> updateProject(String id, Map<String, dynamic> data);
