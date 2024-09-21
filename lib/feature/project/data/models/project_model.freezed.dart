@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'todo_project_model.dart';
+part of 'project_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TodoProjectModel _$TodoProjectModelFromJson(Map<String, dynamic> json) {
-  return _TodoProjectModel.fromJson(json);
+ProjectModel _$ProjectModelFromJson(Map<String, dynamic> json) {
+  return _ProjectModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TodoProjectModel {
+mixin _$ProjectModel {
   String? get uuid => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get slug => throw _privateConstructorUsedError;
@@ -67,21 +67,21 @@ mixin _$TodoProjectModel {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
-  /// Serializes this TodoProjectModel to a JSON map.
+  /// Serializes this ProjectModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of TodoProjectModel
+  /// Create a copy of ProjectModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $TodoProjectModelCopyWith<TodoProjectModel> get copyWith =>
+  $ProjectModelCopyWith<ProjectModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TodoProjectModelCopyWith<$Res> {
-  factory $TodoProjectModelCopyWith(
-          TodoProjectModel value, $Res Function(TodoProjectModel) then) =
-      _$TodoProjectModelCopyWithImpl<$Res, TodoProjectModel>;
+abstract class $ProjectModelCopyWith<$Res> {
+  factory $ProjectModelCopyWith(
+          ProjectModel value, $Res Function(ProjectModel) then) =
+      _$ProjectModelCopyWithImpl<$Res, ProjectModel>;
   @useResult
   $Res call(
       {String? uuid,
@@ -133,16 +133,16 @@ abstract class $TodoProjectModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TodoProjectModelCopyWithImpl<$Res, $Val extends TodoProjectModel>
-    implements $TodoProjectModelCopyWith<$Res> {
-  _$TodoProjectModelCopyWithImpl(this._value, this._then);
+class _$ProjectModelCopyWithImpl<$Res, $Val extends ProjectModel>
+    implements $ProjectModelCopyWith<$Res> {
+  _$ProjectModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TodoProjectModel
+  /// Create a copy of ProjectModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -384,11 +384,11 @@ class _$TodoProjectModelCopyWithImpl<$Res, $Val extends TodoProjectModel>
 }
 
 /// @nodoc
-abstract class _$$TodoProjectModelImplCopyWith<$Res>
-    implements $TodoProjectModelCopyWith<$Res> {
-  factory _$$TodoProjectModelImplCopyWith(_$TodoProjectModelImpl value,
-          $Res Function(_$TodoProjectModelImpl) then) =
-      __$$TodoProjectModelImplCopyWithImpl<$Res>;
+abstract class _$$ProjectModelImplCopyWith<$Res>
+    implements $ProjectModelCopyWith<$Res> {
+  factory _$$ProjectModelImplCopyWith(
+          _$ProjectModelImpl value, $Res Function(_$ProjectModelImpl) then) =
+      __$$ProjectModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -441,14 +441,14 @@ abstract class _$$TodoProjectModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TodoProjectModelImplCopyWithImpl<$Res>
-    extends _$TodoProjectModelCopyWithImpl<$Res, _$TodoProjectModelImpl>
-    implements _$$TodoProjectModelImplCopyWith<$Res> {
-  __$$TodoProjectModelImplCopyWithImpl(_$TodoProjectModelImpl _value,
-      $Res Function(_$TodoProjectModelImpl) _then)
+class __$$ProjectModelImplCopyWithImpl<$Res>
+    extends _$ProjectModelCopyWithImpl<$Res, _$ProjectModelImpl>
+    implements _$$ProjectModelImplCopyWith<$Res> {
+  __$$ProjectModelImplCopyWithImpl(
+      _$ProjectModelImpl _value, $Res Function(_$ProjectModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TodoProjectModel
+  /// Create a copy of ProjectModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -500,7 +500,7 @@ class __$$TodoProjectModelImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$TodoProjectModelImpl(
+    return _then(_$ProjectModelImpl(
       uuid: freezed == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -691,8 +691,8 @@ class __$$TodoProjectModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TodoProjectModelImpl implements _TodoProjectModel {
-  const _$TodoProjectModelImpl(
+class _$ProjectModelImpl implements _ProjectModel {
+  const _$ProjectModelImpl(
       {this.uuid,
       this.name,
       this.slug,
@@ -740,8 +740,8 @@ class _$TodoProjectModelImpl implements _TodoProjectModel {
       this.createdAt,
       this.updatedAt});
 
-  factory _$TodoProjectModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TodoProjectModelImplFromJson(json);
+  factory _$ProjectModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProjectModelImplFromJson(json);
 
   @override
   final String? uuid;
@@ -838,14 +838,14 @@ class _$TodoProjectModelImpl implements _TodoProjectModel {
 
   @override
   String toString() {
-    return 'TodoProjectModel(uuid: $uuid, name: $name, slug: $slug, description: $description, status: $status, startDate: $startDate, endDate: $endDate, budget: $budget, currency: $currency, progressPercentage: $progressPercentage, priority: $priority, isPublic: $isPublic, clientName: $clientName, projectManager: $projectManager, estimatedHours: $estimatedHours, actualHours: $actualHours, repositoryUrl: $repositoryUrl, documentationUrl: $documentationUrl, category: $category, isArchived: $isArchived, taskCount: $taskCount, completedTaskCount: $completedTaskCount, teamSize: $teamSize, lastActivityAt: $lastActivityAt, projectCode: $projectCode, riskScore: $riskScore, statusColor: $statusColor, commentCount: $commentCount, attachmentCount: $attachmentCount, completionPercentage: $completionPercentage, mainLanguage: $mainLanguage, isFeatured: $isFeatured, customerSatisfactionScore: $customerSatisfactionScore, revisionCount: $revisionCount, projectType: $projectType, roi: $roi, stakeholderCount: $stakeholderCount, budgetUtilization: $budgetUtilization, projectPhase: $projectPhase, lessonsLearned: $lessonsLearned, createdBy: $createdBy, updatedBy: $updatedBy, departmentId: $departmentId, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProjectModel(uuid: $uuid, name: $name, slug: $slug, description: $description, status: $status, startDate: $startDate, endDate: $endDate, budget: $budget, currency: $currency, progressPercentage: $progressPercentage, priority: $priority, isPublic: $isPublic, clientName: $clientName, projectManager: $projectManager, estimatedHours: $estimatedHours, actualHours: $actualHours, repositoryUrl: $repositoryUrl, documentationUrl: $documentationUrl, category: $category, isArchived: $isArchived, taskCount: $taskCount, completedTaskCount: $completedTaskCount, teamSize: $teamSize, lastActivityAt: $lastActivityAt, projectCode: $projectCode, riskScore: $riskScore, statusColor: $statusColor, commentCount: $commentCount, attachmentCount: $attachmentCount, completionPercentage: $completionPercentage, mainLanguage: $mainLanguage, isFeatured: $isFeatured, customerSatisfactionScore: $customerSatisfactionScore, revisionCount: $revisionCount, projectType: $projectType, roi: $roi, stakeholderCount: $stakeholderCount, budgetUtilization: $budgetUtilization, projectPhase: $projectPhase, lessonsLearned: $lessonsLearned, createdBy: $createdBy, updatedBy: $updatedBy, departmentId: $departmentId, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TodoProjectModelImpl &&
+            other is _$ProjectModelImpl &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.slug, slug) || other.slug == slug) &&
@@ -986,25 +986,24 @@ class _$TodoProjectModelImpl implements _TodoProjectModel {
         updatedAt
       ]);
 
-  /// Create a copy of TodoProjectModel
+  /// Create a copy of ProjectModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$TodoProjectModelImplCopyWith<_$TodoProjectModelImpl> get copyWith =>
-      __$$TodoProjectModelImplCopyWithImpl<_$TodoProjectModelImpl>(
-          this, _$identity);
+  _$$ProjectModelImplCopyWith<_$ProjectModelImpl> get copyWith =>
+      __$$ProjectModelImplCopyWithImpl<_$ProjectModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TodoProjectModelImplToJson(
+    return _$$ProjectModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _TodoProjectModel implements TodoProjectModel {
-  const factory _TodoProjectModel(
+abstract class _ProjectModel implements ProjectModel {
+  const factory _ProjectModel(
       {final String? uuid,
       final String? name,
       final String? slug,
@@ -1050,10 +1049,10 @@ abstract class _TodoProjectModel implements TodoProjectModel {
       final int? departmentId,
       final DateTime? deletedAt,
       final DateTime? createdAt,
-      final DateTime? updatedAt}) = _$TodoProjectModelImpl;
+      final DateTime? updatedAt}) = _$ProjectModelImpl;
 
-  factory _TodoProjectModel.fromJson(Map<String, dynamic> json) =
-      _$TodoProjectModelImpl.fromJson;
+  factory _ProjectModel.fromJson(Map<String, dynamic> json) =
+      _$ProjectModelImpl.fromJson;
 
   @override
   String? get uuid;
@@ -1148,10 +1147,10 @@ abstract class _TodoProjectModel implements TodoProjectModel {
   @override
   DateTime? get updatedAt;
 
-  /// Create a copy of TodoProjectModel
+  /// Create a copy of ProjectModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TodoProjectModelImplCopyWith<_$TodoProjectModelImpl> get copyWith =>
+  _$$ProjectModelImplCopyWith<_$ProjectModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

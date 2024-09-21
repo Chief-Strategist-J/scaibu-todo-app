@@ -6,3 +6,4 @@ class InitPostEvent extends PostEvent {
   @override
   List<Object?> get props => [];
 }
+

@@ -2,7 +2,7 @@ import 'package:todo_app/core/app_library.dart';
 
 class NotificationDependencyInjection {
   static const notificationRepositoryImpl = 'notification_repository_impl';
-  static const notificationAnalyticsRepositoryImpl = 'notification_analytics_repository_impl';
+  static const notificationAnalyticsRepositoryImpl = 'notification_analytics_repository_impl_v1';
 
   static const categorizeNotificationUseCase = 'categorize_notification_use_case';
   static const configureNotificationSettingsUseCase = 'configure_notification_settings_use_case';
@@ -23,6 +23,8 @@ class NotificationDependencyInjection {
   static const setNotificationFrequencyUseCase = 'set_notification_frequency_use_case';
   static const trackNotificationDeliveryUseCase = 'track_notification_delivery_use_case';
   static const trackNotificationOpenRateUseCase = 'track_notification_open_rate_use_case';
+
+  static const notificationBloc = 'notificationBloc';
 
   static void setupDependencyInjection() {
     getIt.registerSingleton<NotificationRepository<NotificationEntity>>(
@@ -57,7 +59,7 @@ class NotificationDependencyInjection {
       instanceName: enableDoNotDisturbUseCase,
       EnableDoNotDisturbUseCase(
         notificationRepository: getIt<NotificationRepository<NotificationEntity>>(
-          instanceName: enableDoNotDisturbUseCase,
+          instanceName: notificationRepositoryImpl,
         ),
       ),
     );
@@ -205,12 +207,16 @@ class NotificationDependencyInjection {
         ),
       ),
     );
+
+    getIt.registerFactory<NotificationBloc>(
+      instanceName: notificationBloc, // You can define a constant for the instance name if needed
+      () => NotificationBloc(),
+    );
   }
 
   static void disposeDependencyInjection() {
     getIt.unregister<NotificationRepository<NotificationEntity>>(instanceName: notificationRepositoryImpl);
     getIt.unregister<NotificationAnalyticsRepository<NotificationEntity>>(instanceName: notificationAnalyticsRepositoryImpl);
-
     getIt.unregister<CategorizeNotificationUseCase>(instanceName: categorizeNotificationUseCase);
     getIt.unregister<ConfigureNotificationSettingsUseCase>(instanceName: configureNotificationSettingsUseCase);
     getIt.unregister<EnableDoNotDisturbUseCase>(instanceName: enableDoNotDisturbUseCase);
@@ -230,16 +236,17 @@ class NotificationDependencyInjection {
     getIt.unregister<SetNotificationFrequencyUseCase>(instanceName: setNotificationFrequencyUseCase);
     getIt.unregister<TrackNotificationDeliveryUseCase>(instanceName: trackNotificationDeliveryUseCase);
     getIt.unregister<TrackNotificationOpenRateUseCase>(instanceName: trackNotificationOpenRateUseCase);
+    getIt.unregister<NotificationBloc>(instanceName: NotificationDependencyInjection.notificationBloc);
   }
 }
 
 class NotificationAnalyticsDependencyInjection {
-  static const notificationAnalyticsRepositoryImpl = 'notification_analytics_repository_impl';
+  static const notificationAnalyticsRepositoryImpl = 'notification_analytics_repository_impl_v2';
   static const getHistoricalNotificationDataUseCase = 'get_historical_notification_data_use_case';
   static const getNotificationEngagementReportUseCase = 'get_notification_engagement_report_use_case';
   static const getNotificationStatisticsUseCase = 'get_notification_statistics_use_case';
-  static const trackNotificationDeliveryUseCase = 'track_notification_delivery_use_case';
-  static const trackNotificationOpenRateUseCase = 'track_notification_open_rate_use_case';
+  static const trackNotificationDeliveryUseCase = 'track_notification_delivery_use_case_v1';
+  static const trackNotificationOpenRateUseCase = 'track_notification_open_rate_use_case_v1';
 
   static void setupDependencyInjection() {
     getIt.registerSingleton<NotificationAnalyticsRepository<NotificationEntity>>(

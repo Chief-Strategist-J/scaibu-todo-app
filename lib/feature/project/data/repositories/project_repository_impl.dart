@@ -1,5 +1,5 @@
-import 'package:todo_app/feature/todoProject/domain/entities/todo_project_entity.dart';
-import 'package:todo_app/feature/todoProject/domain/repositories/todo_project_repository.dart';
+import 'package:todo_app/feature/project/domain/entities/project_entity.dart';
+import 'package:todo_app/feature/project/domain/repositories/project_repository.dart';
 
 class TodoProjectRepositoryImpl implements TodoProjectRepository<ProjectEntity> {
   @override

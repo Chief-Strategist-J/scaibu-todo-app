@@ -79,5 +79,19 @@ final router = GoRouter(
         return const PomodoroPage();
       },
     ),
+    GoRoute(
+      name: ApplicationPaths.notificationPage,
+      path: ApplicationPaths.notificationPage,
+      builder: (context, state) {
+        return const NotificationPage();
+      },
+    ),
+    GoRoute(
+      name: ApplicationPaths.settingPage,
+      path: ApplicationPaths.settingPage,
+      builder: (context, state) {
+        return const SettingPage();
+      },
+    ),
   ],
 );

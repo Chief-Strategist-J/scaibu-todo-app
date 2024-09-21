@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todo_project_entity.dart';
+part of 'project_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProjectEntityImpl _$$ProjectEntityImplFromJson(Map<String, dynamic> json) =>
-    _$ProjectEntityImpl(
+_$ProjectModelImpl _$$ProjectModelImplFromJson(Map<String, dynamic> json) =>
+    _$ProjectModelImpl(
       uuid: json['uuid'] as String?,
       name: json['name'] as String?,
       slug: json['slug'] as String?,
@@ -69,7 +69,7 @@ _$ProjectEntityImpl _$$ProjectEntityImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$ProjectEntityImplToJson(_$ProjectEntityImpl instance) =>
+Map<String, dynamic> _$$ProjectModelImplToJson(_$ProjectModelImpl instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
       'name': instance.name,

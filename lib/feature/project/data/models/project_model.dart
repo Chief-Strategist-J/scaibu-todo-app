@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'todo_project_model.freezed.dart';
-part 'todo_project_model.g.dart';
+part 'project_model.freezed.dart';
+part 'project_model.g.dart';
 
 /// Mixin that defines the common interface for a project model.
 mixin ProjectModelMixin {
@@ -55,8 +55,8 @@ mixin ProjectModelMixin {
 
 
 @freezed
-class TodoProjectModel with _$TodoProjectModel, ProjectModelMixin {
-  const factory TodoProjectModel({
+class ProjectModel with _$ProjectModel, ProjectModelMixin {
+  const factory ProjectModel({
     String? uuid,
     String? name,
     String? slug,
@@ -103,7 +103,7 @@ class TodoProjectModel with _$TodoProjectModel, ProjectModelMixin {
     DateTime? deletedAt,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) = _TodoProjectModel;
+  }) = _ProjectModel;
 
-  factory TodoProjectModel.fromJson(Map<String, dynamic> json) => _$TodoProjectModelFromJson(json);
+  factory ProjectModel.fromJson(Map<String, dynamic> json) => _$ProjectModelFromJson(json);
 }

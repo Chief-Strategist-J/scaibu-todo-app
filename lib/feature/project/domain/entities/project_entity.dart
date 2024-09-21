@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'todo_project_entity.freezed.dart';
-part 'todo_project_entity.g.dart';
+part 'project_entity.freezed.dart';
+part 'project_entity.g.dart';
 
 @freezed
 class ProjectEntity with _$ProjectEntity {

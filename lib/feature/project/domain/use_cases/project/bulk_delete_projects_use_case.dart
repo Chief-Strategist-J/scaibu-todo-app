@@ -1,0 +1,18 @@
+import 'package:todo_app/core/app_library.dart';
+
+class BulkDeleteProjectsUseCase extends UseCase<void, List<String>> {
+  final TodoProjectRepository<ProjectEntity> projectRepository;
+
+  BulkDeleteProjectsUseCase({required this.projectRepository});
+
+  @override
+  Future<Either<Failure, void>> call(List<String> ids) async {
+    try {
+      await projectRepository.bulkDeleteProjects(ids);
+      return const Right(null);
+    } catch (e, s) {
+      logService.crashLog(errorMessage: 'Failed to bulk delete projects', e: e, stack: s);
+      return Left(ServerFailure('Failed to bulk delete projects'));
+    }
+  }
+}

@@ -100,7 +100,7 @@ class DrawerComponent extends StatelessWidget {
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
-                      //
+                      context.push(ApplicationPaths.notificationPage);
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -112,7 +112,7 @@ class DrawerComponent extends StatelessWidget {
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
-                      //
+                      context.push(ApplicationPaths.settingPage);
                     },
                     child: Container(
                       alignment: Alignment.center,

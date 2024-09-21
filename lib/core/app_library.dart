@@ -252,6 +252,7 @@ export 'package:todo_app/feature/notification/domain/useCase/notification/send_m
 export 'package:todo_app/feature/notification/domain/useCase/notification/send_personalized_notification_usecase.dart';
 export 'package:todo_app/feature/notification/domain/useCase/notification/send_real_time_notification_usecase.dart';
 export 'package:todo_app/feature/notification/domain/useCase/notification/set_notification_frequency_usecase.dart';
+export 'package:todo_app/feature/notification/presentation/view/notification_view.dart';
 
 
 export 'package:todo_app/feature/settings/domain/repository/account_security_repository.dart';
@@ -264,6 +265,14 @@ export 'package:todo_app/feature/settings/domain/repository/linked_accounts_repo
 export 'package:todo_app/feature/settings/domain/repository/payment_account_repository.dart';
 export 'package:todo_app/feature/settings/domain/repository/pomodoro_preference_repository.dart';
 export 'package:todo_app/feature/settings/domain/repository/profile_repository.dart';
+export 'package:todo_app/feature/settings/presentation/view/setting_view.dart';
+
 
 export 'package:todo_app/feature/comment/presentation/bloc/comment_bloc.dart';
 export 'package:todo_app/feature/comment/presentation/bloc/comment_event.dart';
+
+export 'package:todo_app/feature/project/domain/entities/project_entity.dart';
+export 'package:todo_app/feature/project/domain/repositories/project_repository.dart';
+export 'package:todo_app/feature/project/data/models/project_model.dart';
+export 'package:todo_app/feature/project/presentation/bloc/project_bloc.dart';
+export 'package:todo_app/feature/project/presentation/bloc/project_event.dart';
