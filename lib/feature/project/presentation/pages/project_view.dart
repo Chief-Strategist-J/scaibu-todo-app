@@ -1,8 +1,8 @@
 // TODO: UPDATE THE
 import 'package:todo_app/core/app_library.dart';
 
-class TodoProjectPage extends StatelessWidget {
-  const TodoProjectPage({super.key});
+class ProjectPage extends StatelessWidget {
+  const ProjectPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -58,7 +58,16 @@ class CreateTaskTagsComponent extends StatelessWidget {
                 separatorBuilder: (context, index) => const Divider(thickness: 0.5),
                 itemBuilder: (context, index) {
                   final tag = _list[index];
-                  return TagListItemComponent(tag);
+                  return ListItemComponent<TagEntity>(
+                    item: tag,
+                    name: tag.name.validate(),
+                    slug: tag.slug.validate(),
+                    isTag: true,
+                    getColor: () => getIt<UtilityService>().stringToColor(tag.color ?? '0xFFFFEBEE'),
+                    onTap: () {
+                      context.read<TaskDetailBloc>().add(IsSelectedTagEvent(tag: tag));
+                    },
+                  );
                 },
               ),
               16.height,

@@ -9,6 +9,7 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<InitTaskDetailEvent>(_init);
     on<UpdatePriorityEvent>(_updatePriority);
     on<IsSelectedTagEvent>(_isTagIsSelected);
+    on<IsSelectedProjectEvent>(_isProjectIsSelected);
     on<RemoveTagFromListEvent>(_removeTagFromList);
     on<AddTagInListEvent>(_addTagInList);
     on<UpdatePomodoroCounterEvent>(_updatePomodoroCounter);
@@ -107,6 +108,16 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     }
   }
 
+  void _isProjectIsSelected(IsSelectedProjectEvent event, Emitter<TaskDetailState> emit) async {
+    if (state is TaskDetailDataState) {
+      final currentState = state as TaskDetailDataState;
+      final list = List<ProjectEntity>.from(currentState.selectedProjectList);
+
+      (list.any((element) => element.slug == event.project.slug)) ? list.removeWhere((element) => element.slug == event.project.slug) : list.add(event.project);
+      _emitDataState(emit, selectedProjectList: list);
+    }
+  }
+
   void _removeTagFromList(RemoveTagFromListEvent event, Emitter<TaskDetailState> emit) async {
     if (state is TaskDetailDataState) {
       final currentState = state as TaskDetailDataState;
@@ -125,15 +136,15 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     }
   }
 
-
-
   void _emitDataState(
     Emitter<TaskDetailState> emit, {
-    List<TagEntity>? tagList,
     int? pomodoroCont,
     int? pomodoroDuration,
     PriorityModel? priority,
+    List<TagEntity>? tagList,
     List<TagEntity>? selectedTagList,
+        List<ProjectEntity>? projectList,
+        List<ProjectEntity>? selectedProjectList,
   }) {
     if (state is TaskDetailDataState) {
       final currentState = state as TaskDetailDataState;
@@ -144,15 +155,22 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
           priority: priority ?? currentState.priority,
           selectedTagList: selectedTagList ?? currentState.selectedTagList,
           pomodoroDuration: pomodoroDuration ?? currentState.pomodoroDuration,
+          selectedProjectList: selectedProjectList ?? currentState.selectedProjectList,
+          projectList: projectList ?? currentState.projectList,
         ),
       );
     } else {
       emit(TaskDetailDataState(
         tagList: tagList ?? [],
+        projectList: projectList ?? [],
         pomodoroCont: pomodoroCont ?? 0,
         pomodoroDuration: pomodoroDuration ?? 0,
         priority: priority,
         selectedTagList: selectedTagList ?? [],
+        selectedProjectList: projectList ?? [
+          ProjectEntity(name: "Demo-1",slug: 'demo_1'),
+          ProjectEntity(name: "Demo-2",slug: 'demo_2')
+        ]
       ));
     }
   }

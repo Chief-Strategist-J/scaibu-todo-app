@@ -64,7 +64,7 @@ class TaskDetailComponent extends HookWidget {
       ChildClassType.createPomodoro: CreatePomodoroComponent(style: style, localTodoData: localTodoData),
       ChildClassType.createPriority: CreateTaskPriorityComponent(style: style, localTodoData: localTodoData),
       ChildClassType.createTags: CreateTaskTagsComponent(style: style, localTodoData: localTodoData),
-      ChildClassType.createProject: const CreateProjectComponent(),
+      ChildClassType.createProject: CreateProjectComponent(style: style, localTodoData: localTodoData),
     };
 
     await showModalBottomSheet(

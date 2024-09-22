@@ -1,5 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
+
 final router = GoRouter(
   initialLocation: ApplicationPaths.splashPage,
   observers: [
@@ -91,6 +92,13 @@ final router = GoRouter(
       path: ApplicationPaths.settingPage,
       builder: (context, state) {
         return const SettingPage();
+      },
+    ),
+    GoRoute(
+      name: ApplicationPaths.projectPage,
+      path: ApplicationPaths.projectPage,
+      builder: (context, state) {
+        return const ProjectPage();
       },
     ),
   ],

@@ -47,6 +47,15 @@ class IsSelectedTagEvent extends TaskDetailEvent {
   List<Object?> get props => [tag];
 }
 
+class IsSelectedProjectEvent extends TaskDetailEvent {
+  IsSelectedProjectEvent({required this.project});
+
+  final ProjectEntity project;
+
+  @override
+  List<Object?> get props => [project];
+}
+
 class RemoveTagFromListEvent extends TaskDetailEvent {
   RemoveTagFromListEvent({required this.tag});
 

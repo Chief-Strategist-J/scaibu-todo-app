@@ -5,7 +5,7 @@ export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:go_router/go_router.dart';
 export 'package:firebase_core/firebase_core.dart';
-export 'package:nb_utils/nb_utils.dart' hide log, isWindows,isMacOS,isLinux;
+export 'package:nb_utils/nb_utils.dart' hide log, isWindows, isMacOS, isLinux;
 export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:equatable/equatable.dart';
 export 'package:easy_localization/easy_localization.dart' hide TextDirection;
@@ -32,10 +32,11 @@ export 'dart:developer' hide Flow;
 export 'package:todo_app/core/constants/colors.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:tuple/tuple.dart';
-export 'package:flutter_test/flutter_test.dart' ;
+export 'package:flutter_test/flutter_test.dart';
 export 'package:todo_app/core/utils/utility_service.dart';
 export 'package:firebase_analytics/firebase_analytics.dart';
 export 'package:flex_color_picker/flex_color_picker.dart';
+
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/firebase_options.dart';
@@ -83,7 +84,7 @@ export 'package:todo_app/shared/widget/taskDetailComponent/model/Icon_button_com
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.style.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.variant.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/model/priority_model.dart';
-export 'package:todo_app/shared/widget/taskDetailComponent/component/tag_list_item_component.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/component/list_item_component.dart';
 
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
@@ -143,7 +144,8 @@ export 'package:todo_app/shared/widget/dialogs.dart';
 export 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
 export 'package:todo_app/feature/auth/data/model/response/fail_response.dart';
 export 'package:todo_app/feature/auth/domain/useCases/standard_logout_use_case.dart';
-
+export 'package:todo_app/feature/todo/presentation/model/manage_todo.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.dart';
 
 // Tag Feature
 export 'package:todo_app/feature/tags/data/data_sources/remote/tags_remote_database.dart';
@@ -172,7 +174,6 @@ export 'package:todo_app/feature/tags/presentation/widget/tag_input_field.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/pomodoro_cont.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';
-
 
 // Pomodoro
 export 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
@@ -254,7 +255,6 @@ export 'package:todo_app/feature/notification/domain/useCase/notification/send_r
 export 'package:todo_app/feature/notification/domain/useCase/notification/set_notification_frequency_usecase.dart';
 export 'package:todo_app/feature/notification/presentation/view/notification_view.dart';
 
-
 export 'package:todo_app/feature/settings/domain/repository/account_security_repository.dart';
 export 'package:todo_app/feature/settings/domain/repository/app_appearance_repository.dart';
 export 'package:todo_app/feature/settings/domain/repository/application_settings_repository.dart';
@@ -267,7 +267,6 @@ export 'package:todo_app/feature/settings/domain/repository/pomodoro_preference_
 export 'package:todo_app/feature/settings/domain/repository/profile_repository.dart';
 export 'package:todo_app/feature/settings/presentation/view/setting_view.dart';
 
-
 export 'package:todo_app/feature/comment/presentation/bloc/comment_bloc.dart';
 export 'package:todo_app/feature/comment/presentation/bloc/comment_event.dart';
 
@@ -276,3 +275,4 @@ export 'package:todo_app/feature/project/domain/repositories/project_repository.
 export 'package:todo_app/feature/project/data/models/project_model.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_bloc.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_event.dart';
+export 'package:todo_app/feature/project/presentation/pages/project_view.dart';
