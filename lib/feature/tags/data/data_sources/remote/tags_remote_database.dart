@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/tags/data/models/response/list_of_tags_seeded_tag_response.dart';
 
 class TagEndPoint {
   static const String getAllTags = 'api/v1/tags';
@@ -173,7 +172,6 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
 
       if (listOfTagsSeededTagResponse.data == null) throw Exception("getAllSeededTags() data is null");
-      if (listOfTagsSeededTagResponse.data.validate().isEmpty) throw Exception("getAllSeededTags() data is empty");
 
       List<TagEntity> tags = [];
 
@@ -215,7 +213,6 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
 
       if (listOfTagsSeededTagResponse.data == null) throw Exception("getTagByTodoId() data is null");
-      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("getTagByTodoId() data is empty");
 
       List<TagEntity> tags = [];
 
@@ -268,7 +265,6 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
       ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
 
       if (listOfTagsSeededTagResponse.data == null) throw Exception("getAllTagsByUserId() data is null");
-      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("getAllTagsByUserId() data is empty");
 
       List<TagEntity> tags = [];
 

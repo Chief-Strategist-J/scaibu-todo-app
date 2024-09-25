@@ -58,7 +58,7 @@ class CreateComponent<T> extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(_model.title, style: boldTextStyle(size: 16), textAlign: TextAlign.center),
+        Text(_model.emptyMessage, style: boldTextStyle(size: 16), textAlign: TextAlign.center),
         16.height,
         SizedBox(
           width: context.width() * 0.5,

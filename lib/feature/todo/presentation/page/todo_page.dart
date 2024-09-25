@@ -51,11 +51,7 @@ class TodoPage extends HookWidget {
             child: BlocBuilder<TodoBloc, TodoState>(
               bloc: todoBloc,
               builder: (_, state) {
-
-
-                if (todoBloc.tempTodoList.isNotEmpty) {
-                  return TodoListComponent(todoList: todoBloc.tempTodoList);
-                }
+                if (todoBloc.tempTodoList.isNotEmpty) return TodoListComponent(todoList: todoBloc.tempTodoList);
 
                 return EmptyWidget(msg: 'no_to_do_items_available'.tr());
               },

@@ -28,11 +28,10 @@ class EntityUtils {
       final currentState = value.state;
 
       if (currentState is TaskDetailDataState) {
-        print("length ${currentState.tagList.length}");
         updateLocalData(currentState);
         return entitySelector(currentState);
       }
-      print("empty");
+
       return <T>[];
     });
   }

@@ -182,6 +182,7 @@ export 'package:todo_app/feature/tags/presentation/widget/tag_input_field.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/pomodoro_cont.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';
+export 'package:todo_app/feature/tags/data/models/response/list_of_tags_seeded_tag_response.dart';
 
 // Pomodoro
 export 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';

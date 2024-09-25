@@ -10,10 +10,6 @@ class EmptyEntityModel<T> {
   final VoidCallback onCreateTap;
   final void Function(BuildContext context, T entity) onTap;
 
-  String? _cachedName;
-  String? _cachedSlug;
-  Color? _cachedColor;
-
   EmptyEntityModel({
     required this.style,
     required this.data,
@@ -25,39 +21,15 @@ class EmptyEntityModel<T> {
     required this.isTag,
   });
 
-  String get getName {
-    return _cachedName ??= _getEntityProperty<String>(
-      forTag: (entity) => entity.name.validate(),
-      forProject: (entity) => entity.name.validate(),
-      defaultValue: "Unknown entity",
-    );
-  }
-
-  String get getSlug {
-    return _cachedSlug ??= _getEntityProperty<String>(
-      forTag: (entity) => entity.slug.validate(),
-      forProject: (entity) => entity.slug.validate(),
-      defaultValue: "Unknown entity",
-    );
-  }
-
-  Color get getColor {
-    return _cachedColor ??= _getEntityProperty<Color>(
-      forTag: (entity) => getIt<UtilityService>().stringToColor(entity.color ?? '0xFFFFEBEE'),
-      forProject: (entity) => blackColor,
-      defaultValue: blackColor,
-    );
-  }
-
   R _getEntityProperty<R>({
-    required R Function(TagEntity entity) forTag,
-    required R Function(ProjectEntity entity) forProject,
+    required R Function() forTag,
+    required R Function() forProject,
     required R defaultValue,
   }) {
-    if (T == TagEntity && data is TagEntity) {
-      return forTag(data as TagEntity);
-    } else if (T == ProjectEntity && data is ProjectEntity) {
-      return forProject(data as ProjectEntity);
+    if (T == TagEntity) {
+      return forTag();
+    } else if (T == ProjectEntity) {
+      return forProject();
     }
     return defaultValue;
   }
@@ -98,8 +70,8 @@ class EmptyEntityModel<T> {
 
   List<T> getList(BuildContext context) {
     return _getEntityProperty(
-      forTag: (entity) => EntityUtils.fetchTags(context, data) as List<T>,
-      forProject: (entity) => EntityUtils.fetchProjects(context, data) as List<T>,
+      forTag: () => EntityUtils.fetchTags(context, data) as List<T>,
+      forProject: () => EntityUtils.fetchProjects(context, data) as List<T>,
       defaultValue: <T>[],
     );
   }
@@ -110,7 +82,7 @@ class EmptyEntityModel<T> {
       ctx: ctx,
       data: data,
       isTag: true,
-      title: "Looks Like There Are No Tags Yet\n Would You Like To Create One?",
+      title: "Tags",
       buttonText: 'Create Tag',
       emptyMsg: "Looks Like There Are No Tags Yet\n Would You Like To Create One?",
       onCreateTap: () {
@@ -128,7 +100,7 @@ class EmptyEntityModel<T> {
       ctx: ctx,
       data: data,
       isTag: false,
-      title: "Looks Like There Are No Projects Yet\n Would You Like To Create One?",
+      title: "Projects",
       buttonText: 'Create Project',
       emptyMsg: "Looks Like There Are No Projects Yet\n Would You Like To Create One?",
       onCreateTap: () {

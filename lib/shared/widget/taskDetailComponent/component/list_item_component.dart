@@ -11,11 +11,11 @@ class ListItemComponent<T> extends StatelessWidget {
       final currentState = taskDetailBloc.state;
       if (currentState is! TaskDetailDataState) return false;
 
-      final slug = emptyEntity.getSlug;
-
       if (emptyEntity.isTag) {
+        final slug = (entity as TagEntity).slug;
         return currentState.selectedTagList.any((element) => element.slug == slug);
       } else {
+        final slug = (entity as ProjectEntity).slug;
         return currentState.selectedProjectList.any((element) => element.slug == slug);
       }
     });
@@ -40,14 +40,18 @@ class ListItemComponent<T> extends StatelessWidget {
                     Assets.iconIcFilledTag,
                     height: 21,
                     width: 21,
-                    colorFilter: ColorFilter.mode(emptyEntity.isTag ? emptyEntity.getColor : blackColor, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                      emptyEntity.isTag ? getIt<UtilityService>().stringToColor((entity as TagEntity).color.validate()) : blackColor,
+                      BlendMode.srcIn,
+                    ),
                   ),
                   16.width,
-                  Text(emptyEntity.getName.validate()),
+                  if (entity is TagEntity) Text((entity as TagEntity).name.validate()),
+                  if (entity is ProjectEntity) Text((entity as ProjectEntity).name.validate()),
                 ],
               ),
             ),
-            if (isItemAlreadySelected) Icon(Icons.check, color: emptyEntity.isTag ? emptyEntity.getColor : blackColor),
+            if (isItemAlreadySelected) Icon(Icons.check, color: emptyEntity.isTag ? getIt<UtilityService>().stringToColor((entity as TagEntity).color.validate()) : blackColor),
           ],
         ),
       ),

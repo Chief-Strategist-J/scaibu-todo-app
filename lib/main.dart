@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:todo_app/core/app_library.dart';
 
 Future<void> main() async {
@@ -10,15 +11,16 @@ Future<void> main() async {
   textBoldSizeGlobal = 12;
 
   Dependency.setup();
-
-  runApp(
-    EasyLocalization(
-      path: initialSetup.path,
-      supportedLocales: initialSetup.supportedLocales,
-      fallbackLocale: initialSetup.fallbackLocale,
-      child: const MyApp(),
-    ),
-  );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((value) {
+    runApp(
+      EasyLocalization(
+        path: initialSetup.path,
+        supportedLocales: initialSetup.supportedLocales,
+        fallbackLocale: initialSetup.fallbackLocale,
+        child: const MyApp(),
+      ),
+    );
+  });
 
   WidgetsBinding.instance.addObserver(LifecycleObserver());
 }
@@ -26,7 +28,9 @@ Future<void> main() async {
 class LifecycleObserver extends WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.detached) Dependency.dispose();
+    if (state == AppLifecycleState.detached) {
+      Dependency.dispose();
+    }
   }
 }
 
