@@ -6,9 +6,9 @@ class RestoreProjectUseCase extends UseCase<void, String> {
   RestoreProjectUseCase({required this.projectRepository});
 
   @override
-  Future<Either<Failure, void>> call(String id) async {
+  Future<Either<Failure, void>> call(String params) async {
     try {
-      await projectRepository.restoreProject(id);
+      await projectRepository.restoreProject(params);
       return const Right(null);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to restore project', e: e, stack: s);

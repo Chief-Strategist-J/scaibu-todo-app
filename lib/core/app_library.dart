@@ -76,15 +76,23 @@ export 'package:todo_app/shared/widget/taskDetailComponent/bloc/task_detail_bloc
 export 'package:todo_app/shared/widget/taskDetailComponent/bloc/task_detail_event.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/bloc/task_detail_state.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/create_pomodoro_component.dart';
-export 'package:todo_app/shared/widget/taskDetailComponent/component/create_project_component.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/create_task_priority_component.dart';
-export 'package:todo_app/shared/widget/taskDetailComponent/component/create_task_tags_component.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/icon_button_component.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/model/Icon_button_component_data.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.style.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.variant.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/model/priority_model.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/component/list_item_component.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/component/create_entity_component.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/component/tag_list_component.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/model/empty_entity_model.dart';
+export 'package:todo_app/shared/widget/taskDetailComponent/component/empty_component.dart';
+export 'package:todo_app/feature/tags/domain/useCases/get_all_tags_by_user_id_use_case.dart';
+export 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
+export 'package:todo_app/shared/service/task_detail_api_service.dart';
+export 'package:todo_app/shared/util/task_detail_selection_util.dart';
+export 'package:todo_app/shared/util/entity_utils.dart';
+
 
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';

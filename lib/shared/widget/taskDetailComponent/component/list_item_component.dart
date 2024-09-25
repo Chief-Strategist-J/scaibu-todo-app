@@ -1,42 +1,34 @@
 import 'package:todo_app/core/app_library.dart';
 
 class ListItemComponent<T> extends StatelessWidget {
-  final T item;
-  final String name;
-  final String slug;
-  final bool isTag;
-  final Color Function() getColor;
-  final void Function() onTap;
+  final T entity;
+  final EmptyEntityModel<T> emptyEntity;
 
-  const ListItemComponent({
-    required this.item,
-    required this.name,
-    required this.slug,
-    required this.isTag,
-    required this.getColor,
-    required this.onTap,
-    super.key,
-  });
+  const ListItemComponent({required this.entity, required this.emptyEntity, super.key});
+
+  bool _isItemSelected(BuildContext context) {
+    return context.select((TaskDetailBloc taskDetailBloc) {
+      final currentState = taskDetailBloc.state;
+      if (currentState is! TaskDetailDataState) return false;
+
+      final slug = emptyEntity.getSlug;
+
+      if (emptyEntity.isTag) {
+        return currentState.selectedTagList.any((element) => element.slug == slug);
+      } else {
+        return currentState.selectedProjectList.any((element) => element.slug == slug);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isItemAlreadySelected = context.select(
-      (TaskDetailBloc taskDetailBloc) {
-        final state = taskDetailBloc.state;
-        if (state is TaskDetailDataState) {
-          if (isTag) {
-            return state.selectedTagList.any((element) => element.slug == slug);
-          } else {
-            return state.selectedProjectList.any((element) => element.slug == slug);
-          }
-        } else {
-          return false;
-        }
-      },
-    );
+    bool isItemAlreadySelected = _isItemSelected(context);
 
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        emptyEntity.onTap(context, entity);
+      },
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Row(
@@ -48,14 +40,14 @@ class ListItemComponent<T> extends StatelessWidget {
                     Assets.iconIcFilledTag,
                     height: 21,
                     width: 21,
-                    colorFilter: ColorFilter.mode(isTag ? getColor() : blackColor, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(emptyEntity.isTag ? emptyEntity.getColor : blackColor, BlendMode.srcIn),
                   ),
                   16.width,
-                  Text(name.validate()),
+                  Text(emptyEntity.getName.validate()),
                 ],
               ),
             ),
-            if (isItemAlreadySelected) Icon(Icons.check, color: isTag ? getColor() : blackColor),
+            if (isItemAlreadySelected) Icon(Icons.check, color: emptyEntity.isTag ? emptyEntity.getColor : blackColor),
           ],
         ),
       ),

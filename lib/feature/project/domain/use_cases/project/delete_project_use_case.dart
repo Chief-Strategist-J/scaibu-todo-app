@@ -6,9 +6,9 @@ class DeleteProjectUseCase extends UseCase<void, String> {
   DeleteProjectUseCase({required this.projectRepository});
 
   @override
-  Future<Either<Failure, void>> call(String id) async {
+  Future<Either<Failure, void>> call(String params) async {
     try {
-      await projectRepository.deleteProject(id);
+      await projectRepository.deleteProject(params);
       return const Right(null);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to delete project', e: e, stack: s);

@@ -1,12 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/shared/widget/taskDetailComponent/component/tag_list_component.dart';
 
-enum ChildClassType {
-  createPomodoro,
-  createPriority,
-  createTags,
-  createProject,
-}
+enum ChildClassType { createPomodoro, createPriority, createTags, createProject }
 
 class TaskDetailComponent extends HookWidget {
   final TaskDetailComponentVariant _variant;
@@ -23,48 +17,15 @@ class TaskDetailComponent extends HookWidget {
       await _onTapIcon(context, style, type: type);
     }
 
-    final int pomodoroCount = context.select(
-      (TaskDetailBloc value) {
-        final state = value.state;
-        return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
-      },
-    );
-
-    return [
-      IconButtonComponentData(
-        text: "Priority",
-        icon: Assets.iconIcFlag,
-        onTap: () => _handleTap(ChildClassType.createPriority),
-      ),
-      IconButtonComponentData(
-        text: "Pomodoro",
-        icon: Assets.iconIcFilledSun,
-        prefixText: "$pomodoroCount",
-        onTap: () => _handleTap(ChildClassType.createPomodoro),
-      ),
-      IconButtonComponentData(
-        text: "Tags",
-        icon: Assets.iconIcTag,
-        onTap: () => _handleTap(ChildClassType.createTags),
-      ),
-      IconButtonComponentData(
-        text: "Project",
-        icon: Assets.iconIcOfficeBag,
-        onTap: () => _handleTap(ChildClassType.createProject),
-      ),
-    ];
+    return IconButtonComponentData.listOfOptions(handleTap: _handleTap, ctx: context);
   }
 
-  Future<void> _onTapIcon(
-    BuildContext context,
-    TaskDetailComponentVariantStyle style, {
-    required ChildClassType type,
-  }) async {
+  Future<void> _onTapIcon(BuildContext context, TaskDetailComponentVariantStyle style, {required ChildClassType type}) async {
     final widgetMap = {
       ChildClassType.createPomodoro: CreatePomodoroComponent(style: style, localTodoData: localTodoData),
       ChildClassType.createPriority: CreateTaskPriorityComponent(style: style, localTodoData: localTodoData),
-      ChildClassType.createTags: CreateTaskTagsComponent(style: style, localTodoData: localTodoData),
-      ChildClassType.createProject: CreateProjectComponent(style: style, localTodoData: localTodoData),
+      ChildClassType.createTags: EmptyEntityModel.getTagComponent(style, context, localTodoData),
+      ChildClassType.createProject: EmptyEntityModel.getProjectComponent(style, context, localTodoData),
     };
 
     await showModalBottomSheet(

@@ -1,23 +1,57 @@
 import 'package:todo_app/core/app_library.dart';
 
 class IconButtonComponentData {
-  final String _text;
-  final String? _prefixText;
-  final String _icon;
-  final GestureTapCallback? _onTap;
+  final String text;
+  final String? prefixText;
+  final String icon;
+  final GestureTapCallback? onTap;
 
   IconButtonComponentData({
-    required String text,
-    required String icon,
-    String? prefixText,
-    void Function()? onTap,
-  })  : _onTap = onTap,
-        _icon = icon,
-        _prefixText = prefixText,
-        _text = text;
+    required this.text,
+    required this.icon,
+    this.prefixText,
+    this.onTap,
+  });
 
-  String get text => _text;
-  String? get prefixText => _prefixText;
-  String get icon => _icon;
-  GestureTapCallback? get onTap => _onTap;
+  static List<IconButtonComponentData> listOfOptions({
+    required void Function(ChildClassType) handleTap,
+    required BuildContext ctx,
+  }) {
+    final int pomodoroCount = _getPomodoroCount(ctx);
+
+    return [
+      _createOption(
+        text: "Priority",
+        icon: Assets.iconIcFlag,
+        onTap: () => handleTap(ChildClassType.createPriority),
+      ),
+      _createOption(
+        text: "Pomodoro",
+        icon: Assets.iconIcFilledSun,
+        prefixText: "$pomodoroCount",
+        onTap: () => handleTap(ChildClassType.createPomodoro),
+      ),
+      _createOption(
+        text: "Tags",
+        icon: Assets.iconIcTag,
+        onTap: () => handleTap(ChildClassType.createTags),
+      ),
+      _createOption(
+        text: "Project",
+        icon: Assets.iconIcOfficeBag,
+        onTap: () => handleTap(ChildClassType.createProject),
+      ),
+    ];
+  }
+
+  static IconButtonComponentData _createOption({required String text, required String icon, String? prefixText, GestureTapCallback? onTap}) {
+    return IconButtonComponentData(text: text, icon: icon, prefixText: prefixText, onTap: onTap);
+  }
+
+  static int _getPomodoroCount(BuildContext ctx) {
+    return ctx.select((TaskDetailBloc value) {
+      final state = value.state;
+      return state is TaskDetailDataState ? state.pomodoroCont ?? 0 : 0;
+    });
+  }
 }

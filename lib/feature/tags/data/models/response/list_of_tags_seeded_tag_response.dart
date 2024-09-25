@@ -1,28 +1,24 @@
 class ListOfTagsSeededTagResponse {
   ListOfTagsSeededTagResponse({
-    String? message,
-    bool? status,
-    List<TagData>? data,
-  }) {
-    _message = message;
-    _status = status;
-    _data = data;
-  }
+    this.message,
+    this.status,
+    this.data,
+  });
 
   ListOfTagsSeededTagResponse.fromJson(dynamic json) {
-    _message = json['message'];
-    _status = json['status'];
+    message = json['message'];
+    status = json['status'];
     if (json['data'] != null) {
-      _data = [];
+      data = [];
       json['data'].forEach((v) {
-        _data?.add(TagData.fromJson(v));
+        data?.add(TagData.fromJson(v));
       });
     }
   }
 
-  String? _message;
-  bool? _status;
-  List<TagData>? _data;
+  String? message;
+  bool? status;
+  List<TagData>? data;
 
   ListOfTagsSeededTagResponse copyWith({
     String? message,
@@ -30,23 +26,17 @@ class ListOfTagsSeededTagResponse {
     List<TagData>? data,
   }) =>
       ListOfTagsSeededTagResponse(
-        message: message ?? _message,
-        status: status ?? _status,
-        data: data ?? _data,
+        message: message ?? this.message,
+        status: status ?? this.status,
+        data: data ?? this.data,
       );
-
-  String? get message => _message;
-
-  bool? get status => _status;
-
-  List<TagData>? get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['message'] = _message;
-    map['status'] = _status;
-    if (_data != null) {
-      map['data'] = _data?.map((v) => v.toJson()).toList();
+    map['message'] = message;
+    map['status'] = status;
+    if (data != null) {
+      map['data'] = data?.map((v) => v.toJson()).toList();
     }
     return map;
   }
@@ -54,66 +44,49 @@ class ListOfTagsSeededTagResponse {
 
 class TagData {
   TagData({
-    num? id,
-    String? name,
-    String? slug,
-    String? color,
-    num? createdBy,
-  }) {
-    _id = id;
-    _name = name;
-    _slug = slug;
-    _createdBy = createdBy;
-    _color = color;
-  }
+    this.id,
+    this.name,
+    this.slug,
+    this.createdBy,
+    this.color,
+  });
 
   TagData.fromJson(dynamic json) {
-    _id = json['id'];
-    _name = json['name'];
-    _slug = json['slug'];
-    _createdBy = json['created_by'];
-    _color = json['color'];
+    id = json['id'];
+    name = json['name'];
+    slug = json['slug'];
+    createdBy = json['created_by'];
+    color = json['color'];
   }
 
-  num? _id;
-  String? _name;
-  String? _slug;
-  String? _color;
-  num? _createdBy;
+  num? id;
+  String? name;
+  String? slug;
+  num? createdBy;
+  String? color;
 
   TagData copyWith({
     num? id,
     String? name,
     String? slug,
-    String? color,
     num? createdBy,
+    String? color,
   }) =>
       TagData(
-        id: id ?? _id,
-        name: name ?? _name,
-        slug: slug ?? _slug,
-        createdBy: createdBy ?? _createdBy,
-        color: color ?? _color,
+        id: id ?? this.id,
+        name: name ?? this.name,
+        slug: slug ?? this.slug,
+        createdBy: createdBy ?? this.createdBy,
+        color: color ?? this.color,
       );
-
-  num? get id => _id;
-
-  String? get name => _name;
-
-  String? get slug => _slug;
-
-  String? get color => _color;
-
-  num? get createdBy => _createdBy;
-
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['name'] = _name;
-    map['slug'] = _slug;
-    map['created_by'] = _createdBy;
-    map['color'] = _color;
+    map['id'] = id;
+    map['name'] = name;
+    map['slug'] = slug;
+    map['created_by'] = createdBy;
+    map['color'] = color;
     return map;
   }
 }

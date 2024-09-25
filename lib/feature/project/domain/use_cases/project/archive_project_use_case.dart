@@ -6,9 +6,9 @@ class ArchiveProjectUseCase extends UseCase<void, String> {
   ArchiveProjectUseCase({required this.projectRepository});
 
   @override
-  Future<Either<Failure, void>> call(String id) async {
+  Future<Either<Failure, void>> call(String params) async {
     try {
-      await projectRepository.archiveProject(id);
+      await projectRepository.archiveProject(params);
       return const Right(null);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to archive project', e: e, stack: s);

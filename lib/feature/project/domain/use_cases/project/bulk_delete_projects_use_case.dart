@@ -6,9 +6,9 @@ class BulkDeleteProjectsUseCase extends UseCase<void, List<String>> {
   BulkDeleteProjectsUseCase({required this.projectRepository});
 
   @override
-  Future<Either<Failure, void>> call(List<String> ids) async {
+  Future<Either<Failure, void>> call(List<String> params) async {
     try {
-      await projectRepository.bulkDeleteProjects(ids);
+      await projectRepository.bulkDeleteProjects(params);
       return const Right(null);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to bulk delete projects', e: e, stack: s);

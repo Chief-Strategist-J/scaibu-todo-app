@@ -6,9 +6,9 @@ class SearchProjectsUseCase extends UseCase<List<ProjectEntity>, String> {
   SearchProjectsUseCase({required this.projectRepository});
 
   @override
-  Future<Either<Failure, List<ProjectEntity>>> call(String query) async {
+  Future<Either<Failure, List<ProjectEntity>>> call(String params) async {
     try {
-      final projects = await projectRepository.searchProjects(query);
+      final projects = await projectRepository.searchProjects(params);
       return Right(projects);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to search projects', e: e, stack: s);

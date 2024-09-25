@@ -6,9 +6,9 @@ class BulkCreateProjectsUseCase extends UseCase<void, List<Map<String, dynamic>>
   BulkCreateProjectsUseCase({required this.projectRepository});
 
   @override
-  Future<Either<Failure, void>> call(List<Map<String, dynamic>> data) async {
+  Future<Either<Failure, void>> call(List<Map<String, dynamic>> params) async {
     try {
-      await projectRepository.bulkCreateProjects(data);
+      await projectRepository.bulkCreateProjects(params);
       return const Right(null);
     } catch (e, s) {
       logService.crashLog(errorMessage: 'Failed to bulk create projects', e: e, stack: s);

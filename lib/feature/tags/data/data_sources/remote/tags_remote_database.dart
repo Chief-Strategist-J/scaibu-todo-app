@@ -172,21 +172,27 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
 
       ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
 
-      if (listOfTagsSeededTagResponse.data == null) throw Exception("data is null");
-      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("data is empty");
+      if (listOfTagsSeededTagResponse.data == null) throw Exception("getAllSeededTags() data is null");
+      if (listOfTagsSeededTagResponse.data.validate().isEmpty) throw Exception("getAllSeededTags() data is empty");
 
       List<TagEntity> tags = [];
 
-      final list = listOfTagsSeededTagResponse.data!;
-      for (TagData element in list) {
+      final list = listOfTagsSeededTagResponse.data;
+      for (TagData element in list.validate()) {
         tags.add(
-          TagEntity(id: element.id?.toInt(), name: element.name, slug: element.slug, createdBy: element.createdBy?.toInt(), color: element.color),
+          TagEntity(
+            id: element.id?.toInt(),
+            name: element.name,
+            slug: element.slug,
+            createdBy: element.createdBy?.toInt(),
+            color: element.color,
+          ),
         );
       }
 
       return tags;
     } catch (e) {
-      debugPrint('Error retrieving the seeded  tag: $e');
+      debugPrint('getAllSeededTags() Error retrieving the seeded  tag: $e');
       rethrow;
     }
   }
@@ -208,8 +214,8 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
 
       ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
 
-      if (listOfTagsSeededTagResponse.data == null) throw Exception("data is null");
-      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("data is empty");
+      if (listOfTagsSeededTagResponse.data == null) throw Exception("getTagByTodoId() data is null");
+      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("getTagByTodoId() data is empty");
 
       List<TagEntity> tags = [];
 
@@ -228,7 +234,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
 
       return tags;
     } catch (e) {
-      debugPrint('Error retrieving the seeded  tag: $e');
+      debugPrint('getTagByTodoId() Error retrieving the seeded tag: $e');
       rethrow;
     }
   }
@@ -261,8 +267,8 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
 
       ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
 
-      if (listOfTagsSeededTagResponse.data == null) throw Exception("data is null");
-      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("data is empty");
+      if (listOfTagsSeededTagResponse.data == null) throw Exception("getAllTagsByUserId() data is null");
+      if (listOfTagsSeededTagResponse.data!.isEmpty) throw Exception("getAllTagsByUserId() data is empty");
 
       List<TagEntity> tags = [];
 
@@ -275,7 +281,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
 
       return tags;
     } catch (e) {
-      debugPrint('Error retrieving the seeded  tag: $e');
+      debugPrint('getAllTagsByUserId() Error retrieving the seeded  tag: $e');
       rethrow;
     }
   }
