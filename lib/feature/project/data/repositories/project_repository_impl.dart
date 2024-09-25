@@ -1,7 +1,8 @@
-import 'package:todo_app/feature/project/domain/entities/project_entity.dart';
-import 'package:todo_app/feature/project/domain/repositories/project_repository.dart';
 
-class TodoProjectRepositoryImpl implements TodoProjectRepository<ProjectEntity> {
+
+import 'package:todo_app/core/app_library.dart';
+
+class ProjectRepositoryImpl implements TodoProjectRepository<ProjectEntity> {
   @override
   Future<void> archiveProject(String id) {
     // TODO: implement archiveProject

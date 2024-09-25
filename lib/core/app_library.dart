@@ -125,6 +125,7 @@ export 'package:todo_app/feature/todo/presentation/widget/customButton/custom_bu
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.dart';
 export 'package:todo_app/feature/todo/presentation/widget/start_drawer.dart';
 export 'package:todo_app/feature/todo/presentation/widget/todoListComponent/controller/todo_action_handler.dart';
+export 'package:todo_app/feature/todo/manage_todo_page_utils.dart';
 
 // Auth Feature
 export 'package:todo_app/feature/auth/data/dataSource/user_base_api.dart';
@@ -152,7 +153,7 @@ export 'package:todo_app/shared/widget/dialogs.dart';
 export 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
 export 'package:todo_app/feature/auth/data/model/response/fail_response.dart';
 export 'package:todo_app/feature/auth/domain/useCases/standard_logout_use_case.dart';
-export 'package:todo_app/feature/todo/presentation/model/manage_todo.dart';
+export 'package:todo_app/feature/todo/data/model/manage_todo.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.dart';
 
 // Tag Feature
@@ -263,6 +264,7 @@ export 'package:todo_app/feature/notification/domain/useCase/notification/send_p
 export 'package:todo_app/feature/notification/domain/useCase/notification/send_real_time_notification_usecase.dart';
 export 'package:todo_app/feature/notification/domain/useCase/notification/set_notification_frequency_usecase.dart';
 export 'package:todo_app/feature/notification/presentation/view/notification_view.dart';
+export 'package:todo_app/feature/notification/notification_dependency_injection.dart';
 
 export 'package:todo_app/feature/settings/domain/repository/account_security_repository.dart';
 export 'package:todo_app/feature/settings/domain/repository/app_appearance_repository.dart';
@@ -281,7 +283,22 @@ export 'package:todo_app/feature/comment/presentation/bloc/comment_event.dart';
 
 export 'package:todo_app/feature/project/domain/entities/project_entity.dart';
 export 'package:todo_app/feature/project/domain/repositories/project_repository.dart';
-export 'package:todo_app/feature/project/data/models/project_model.dart';
+export 'package:todo_app/feature/project/data/models/project_model/project_model.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_bloc.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_event.dart';
 export 'package:todo_app/feature/project/presentation/pages/project_view.dart';
+export 'package:todo_app/feature/project/data/repositories/project_repository_impl.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/archive_project_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/assign_todos_to_project_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/bulk_create_projects_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/bulk_delete_projects_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/create_project_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/delete_project_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/get_all_projects_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/get_paginated_projects_for_todo_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/get_paginated_todos_for_project_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/get_project_by_id_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/restore_project_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/search_projects_use_case.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/update_project_use_case.dart';
+export 'package:todo_app/feature/project/projects_dependency_injection.dart';

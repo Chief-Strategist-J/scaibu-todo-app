@@ -1,5 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/notification/notification_dependency_injection.dart';
+
 
 final getIt = GetIt.instance;
 
@@ -20,6 +20,7 @@ class Dependency {
     NotificationPushDependencyInjection.setupDependencyInjection();
     NotificationSMSDependencyInjection.setupDependencyInjection();
     NotificationWebhookDependencyInjection.setupDependencyInjection();
+    ProjectDependencyInjection.setup();
   }
 
   static void dispose() {
@@ -34,5 +35,6 @@ class Dependency {
     NotificationPushDependencyInjection.disposeDependencyInjection();
     NotificationSMSDependencyInjection.disposeDependencyInjection();
     NotificationWebhookDependencyInjection.disposeDependencyInjection();
+    ProjectDependencyInjection.dispose();
   }
 }
