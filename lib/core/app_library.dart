@@ -308,3 +308,4 @@ export 'package:todo_app/feature/project/data/models/project_page_param.dart';
 export 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_state.dart';
 export 'package:todo_app/feature/project/presentation/widgets/customCheckboxComponent/custom_checkbox_component.dart';
+export 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_component.variant.dart';
