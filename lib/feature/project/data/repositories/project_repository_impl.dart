@@ -1,8 +1,12 @@
-
-
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/project/data/data_sources/remote/base_project_data_source.dart';
+import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
 
-class ProjectRepositoryImpl implements TodoProjectRepository<ProjectEntity> {
+class ProjectRepositoryImpl implements ProjectRepository<ProjectEntity> {
+  final BaseProjectDataSource projectRemoteDataSource;
+
+  ProjectRepositoryImpl(this.projectRemoteDataSource);
+
   @override
   Future<void> archiveProject(String id) {
     // TODO: implement archiveProject
@@ -75,8 +79,12 @@ class ProjectRepositoryImpl implements TodoProjectRepository<ProjectEntity> {
   }
 
   @override
-  Future<ProjectEntity> getPaginatedTodosForProject(Map<String, dynamic> data) {
-    // TODO: implement getPaginatedTodosForProject
-    throw UnimplementedError();
+  Future<ProjectEntity> getPaginatedTodosForProject(Map<String, dynamic> data) async {
+    return await projectRemoteDataSource.getPaginatedTodosForProject(data);
+  }
+
+  @override
+  Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async {
+    return await projectRemoteDataSource.getProjectCategoryData();
   }
 }

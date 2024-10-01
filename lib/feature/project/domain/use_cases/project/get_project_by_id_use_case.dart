@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class GetProjectByIdUseCase extends UseCase<ProjectEntity?, String> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   GetProjectByIdUseCase({required this.projectRepository});
 

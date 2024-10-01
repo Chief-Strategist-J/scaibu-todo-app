@@ -1,4 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
+
+import 'base_project_data_source.dart';
 
 class ProjectEndPoint {
   static const String createProject = 'api/projects';
@@ -12,14 +15,15 @@ class ProjectEndPoint {
   static const String restoreProject = 'api/projects/restore';
   static const String searchProjects = 'api/projects/search';
   static const String updateProject = 'api/projects/updateProject';
+  static const String getProjectCategoryDetail = 'api/getProjectCategoryDetail';
 
   ProjectEndPoint._();
 }
 
-class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel> {
+class ProjectRemoteDataSource implements BaseProjectDataSource {
   final RestApi restApi;
 
-  TodoProjectRemoteDataSource({required this.restApi});
+  ProjectRemoteDataSource({required this.restApi});
 
   @override
   Future<void> archiveProject(String id) async {
@@ -78,7 +82,7 @@ class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel>
   }
 
   @override
-  Future<List<ProjectModel>> getAllProjects() async {
+  Future<List<ProjectEntity>> getAllProjects() async {
     await restApi.request(
       endPoint: ProjectEndPoint.deleteProject,
       type: HttpRequestMethod.post,
@@ -91,7 +95,7 @@ class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel>
   }
 
   @override
-  Future<ProjectModel?> getProjectById(String id) async {
+  Future<ProjectEntity?> getProjectById(String id) async {
     // TODO: implement getProjectById
 
     throw UnimplementedError();
@@ -109,7 +113,7 @@ class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel>
   }
 
   @override
-  Future<List<ProjectModel>> searchProjects(String query) async {
+  Future<List<ProjectEntity>> searchProjects(String query) async {
     await restApi.request(
       endPoint: ProjectEndPoint.searchProjects,
       type: HttpRequestMethod.post,
@@ -167,7 +171,7 @@ class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel>
   }
 
   @override
-  Future<ProjectModel> getPaginatedProjectsForTodo(Map<String, dynamic> data) async {
+  Future<ProjectEntity> getPaginatedProjectsForTodo(Map<String, dynamic> data) async {
     await restApi.request(
       endPoint: ProjectEndPoint.getPaginatedProjectsForTodo,
       type: HttpRequestMethod.post,
@@ -178,11 +182,11 @@ class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel>
       },
     );
 
-    return const ProjectModel();
+    return const ProjectEntity();
   }
 
   @override
-  Future<ProjectModel> getPaginatedTodosForProject(Map<String, dynamic> data) async {
+  Future<ProjectEntity> getPaginatedTodosForProject(Map<String, dynamic> data) async {
     await restApi.request(
       endPoint: ProjectEndPoint.getPaginatedTodosForProject,
       type: HttpRequestMethod.post,
@@ -193,6 +197,18 @@ class TodoProjectRemoteDataSource implements TodoProjectRepository<ProjectModel>
       },
     );
 
-    return const ProjectModel();
+    return const ProjectEntity();
+  }
+
+  @override
+  Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async {
+    final projectCategoryData = ProjectCategoryDataModelEntity.fromJson(
+      await restApi.request(
+        endPoint: ProjectEndPoint.getProjectCategoryDetail,
+        type: HttpRequestMethod.get,
+        requestBody: {},
+      ),
+    );
+    return projectCategoryData;
   }
 }

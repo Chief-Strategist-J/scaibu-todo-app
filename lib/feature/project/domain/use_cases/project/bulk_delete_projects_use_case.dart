@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class BulkDeleteProjectsUseCase extends UseCase<void, List<String>> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   BulkDeleteProjectsUseCase({required this.projectRepository});
 

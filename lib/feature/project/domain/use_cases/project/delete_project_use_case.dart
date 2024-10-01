@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class DeleteProjectUseCase extends UseCase<void, String> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   DeleteProjectUseCase({required this.projectRepository});
 

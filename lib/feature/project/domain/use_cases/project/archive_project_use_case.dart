@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class ArchiveProjectUseCase extends UseCase<void, String> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   ArchiveProjectUseCase({required this.projectRepository});
 

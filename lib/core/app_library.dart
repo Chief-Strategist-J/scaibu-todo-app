@@ -281,9 +281,9 @@ export 'package:todo_app/feature/settings/presentation/view/setting_view.dart';
 export 'package:todo_app/feature/comment/presentation/bloc/comment_bloc.dart';
 export 'package:todo_app/feature/comment/presentation/bloc/comment_event.dart';
 
-export 'package:todo_app/feature/project/domain/entities/project_entity.dart';
+export 'package:todo_app/feature/project/domain/entities/projectEntity/project_entity.dart';
 export 'package:todo_app/feature/project/domain/repositories/project_repository.dart';
-export 'package:todo_app/feature/project/data/models/project_model/project_model.dart';
+export 'package:todo_app/feature/project/data/models/projectModel/project_model.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_bloc.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_event.dart';
 export 'package:todo_app/feature/project/presentation/pages/project_view.dart';

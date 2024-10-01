@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class AssignTodosToProjectUseCase extends UseCase<void, Map<String, dynamic>> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   AssignTodosToProjectUseCase({required this.projectRepository});
 

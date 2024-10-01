@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class SearchProjectsUseCase extends UseCase<List<ProjectEntity>, String> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   SearchProjectsUseCase({required this.projectRepository});
 

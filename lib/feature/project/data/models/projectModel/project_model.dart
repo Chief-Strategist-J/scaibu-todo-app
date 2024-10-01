@@ -53,7 +53,6 @@ mixin ProjectModelMixin {
   DateTime? get updatedAt;
 }
 
-
 @freezed
 class ProjectModel with _$ProjectModel, ProjectModelMixin {
   const factory ProjectModel({

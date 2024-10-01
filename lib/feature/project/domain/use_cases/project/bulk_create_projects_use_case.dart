@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class BulkCreateProjectsUseCase extends UseCase<void, List<Map<String, dynamic>>> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   BulkCreateProjectsUseCase({required this.projectRepository});
 

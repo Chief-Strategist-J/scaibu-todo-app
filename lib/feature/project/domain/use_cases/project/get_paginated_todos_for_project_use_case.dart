@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 class GetPaginatedTodosForProjectUseCase extends UseCase<ProjectEntity, Map<String, dynamic>> {
-  final TodoProjectRepository<ProjectEntity> projectRepository;
+  final ProjectRepository<ProjectEntity> projectRepository;
 
   GetPaginatedTodosForProjectUseCase({required this.projectRepository});
 

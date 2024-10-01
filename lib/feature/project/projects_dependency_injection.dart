@@ -1,4 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/project/data/data_sources/remote/base_project_data_source.dart';
+import 'package:todo_app/feature/project/data/data_sources/remote/project_remote_data_source.dart';
+import 'package:todo_app/feature/project/domain/use_cases/project/get_project_category_data_use_case.dart';
 
 class ProjectDependencyInjection {
   // Project Repository
@@ -17,22 +20,25 @@ class ProjectDependencyInjection {
   static const restoreProjectUseCase = 'restore_project_use_case';
   static const searchProjectsUseCase = 'search_projects_use_case';
   static const updateProjectUseCase = 'update_project_use_case';
+  static const getProjectCategoryDataUseCase = 'get_project_category_data_use_case';
 
   // Bloc
   static const projectBloc = 'project_bloc';
 
   static void setup() {
-    // Register Project Repository
-    getIt.registerSingleton<TodoProjectRepository<ProjectEntity>>(
-      instanceName: projectRepositoryImpl,
-      ProjectRepositoryImpl(), // Assuming ProjectRepositoryImpl is your repository implementation.
+    getIt.registerSingleton<BaseProjectDataSource>(
+      ProjectRemoteDataSource(restApi: getIt<RestApi>()),
     );
 
-    // Register Use Cases
+    getIt.registerSingleton<ProjectRepository<ProjectEntity>>(
+      ProjectRepositoryImpl(getIt<BaseProjectDataSource>()),
+      instanceName: projectRepositoryImpl,
+    );
+
     getIt.registerSingleton<AssignTodosToProjectUseCase>(
       instanceName: assignTodosToProjectUseCase,
       AssignTodosToProjectUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -41,7 +47,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<BulkCreateProjectsUseCase>(
       instanceName: bulkCreateProjectsUseCase,
       BulkCreateProjectsUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -50,7 +56,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<BulkDeleteProjectsUseCase>(
       instanceName: bulkDeleteProjectsUseCase,
       BulkDeleteProjectsUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -59,7 +65,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<CreateProjectUseCase>(
       instanceName: createProjectUseCase,
       CreateProjectUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -68,7 +74,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<DeleteProjectUseCase>(
       instanceName: deleteProjectUseCase,
       DeleteProjectUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -77,7 +83,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<GetAllProjectsUseCase>(
       instanceName: getAllProjectsUseCase,
       GetAllProjectsUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -86,7 +92,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<GetPaginatedProjectsForTodoUseCase>(
       instanceName: getPaginatedProjectsForTodoUseCase,
       GetPaginatedProjectsForTodoUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -95,7 +101,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<GetPaginatedTodosForProjectUseCase>(
       instanceName: getPaginatedTodosForProjectUseCase,
       GetPaginatedTodosForProjectUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -104,7 +110,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<GetProjectByIdUseCase>(
       instanceName: getProjectByIdUseCase,
       GetProjectByIdUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -113,7 +119,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<RestoreProjectUseCase>(
       instanceName: restoreProjectUseCase,
       RestoreProjectUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -122,7 +128,7 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<SearchProjectsUseCase>(
       instanceName: searchProjectsUseCase,
       SearchProjectsUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -131,7 +137,16 @@ class ProjectDependencyInjection {
     getIt.registerSingleton<UpdateProjectUseCase>(
       instanceName: updateProjectUseCase,
       UpdateProjectUseCase(
-        projectRepository: getIt<TodoProjectRepository<ProjectEntity>>(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+          instanceName: projectRepositoryImpl,
+        ),
+      ),
+    );
+
+    getIt.registerSingleton<GetProjectCategoryDataUseCase>(
+      instanceName: getProjectCategoryDataUseCase,
+      GetProjectCategoryDataUseCase(
+        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
@@ -144,7 +159,7 @@ class ProjectDependencyInjection {
   }
 
   static void dispose() {
-    getIt.unregister<TodoProjectRepository<ProjectEntity>>(instanceName: projectRepositoryImpl);
+    getIt.unregister<ProjectRepository<ProjectEntity>>(instanceName: projectRepositoryImpl);
     getIt.unregister<AssignTodosToProjectUseCase>(instanceName: assignTodosToProjectUseCase);
     getIt.unregister<BulkCreateProjectsUseCase>(instanceName: bulkCreateProjectsUseCase);
     getIt.unregister<BulkDeleteProjectsUseCase>(instanceName: bulkDeleteProjectsUseCase);
@@ -157,6 +172,7 @@ class ProjectDependencyInjection {
     getIt.unregister<RestoreProjectUseCase>(instanceName: restoreProjectUseCase);
     getIt.unregister<SearchProjectsUseCase>(instanceName: searchProjectsUseCase);
     getIt.unregister<UpdateProjectUseCase>(instanceName: updateProjectUseCase);
+    getIt.unregister<GetProjectCategoryDataUseCase>(instanceName: getProjectCategoryDataUseCase);
     getIt.unregister<ProjectBloc>(instanceName: projectBloc);
   }
 }

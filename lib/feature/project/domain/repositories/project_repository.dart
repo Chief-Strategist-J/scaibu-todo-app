@@ -1,5 +1,9 @@
-abstract interface class TodoProjectRepository<T> {
+import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
+
+abstract interface class ProjectRepository<T> {
   Future<List<T>> getAllProjects();
+
+  Future<ProjectCategoryDataModelEntity> getProjectCategoryData();
 
   Future<T?> getProjectById(String id);
 
