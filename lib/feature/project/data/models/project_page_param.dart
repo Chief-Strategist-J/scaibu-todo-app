@@ -28,9 +28,9 @@ class ProjectPageParam {
   TextEditingController projectEstimatedHours = TextEditingController(); // time type
   TextEditingController projectActualHours = TextEditingController(); // time type
 
-  TextEditingController projectIsPublic = TextEditingController(); // true/false type
-  TextEditingController projectIsArchived = TextEditingController(); // true/false type
-  TextEditingController projectIsFeatured = TextEditingController(); // true/false type
+  bool isPublic = false;
+  bool isArchived = false;
+  bool isFeatured = false;
 
   FocusNode projectNameNode = FocusNode();
   FocusNode projectDescriptionNode = FocusNode();
@@ -39,20 +39,13 @@ class ProjectPageParam {
   FocusNode projectEndDateNode = FocusNode();
   FocusNode projectBudgetNode = FocusNode();
   FocusNode projectPriorityNode = FocusNode();
-  FocusNode projectIsPublicNode = FocusNode();
+
   FocusNode projectEstimatedHoursNode = FocusNode();
   FocusNode projectActualHoursNode = FocusNode();
   FocusNode projectCategoryNode = FocusNode();
-  FocusNode projectIsArchivedNode = FocusNode();
-  FocusNode projectIsFeaturedNode = FocusNode();
+
   FocusNode projectProjectTypeNode = FocusNode();
   FocusNode projectPhaseNode = FocusNode();
-
-  bool isPublic = false;
-
-  bool isArchived = false;
-
-  bool isFeatured = false;
 
   void dispose() {
     projectName.dispose();
@@ -62,12 +55,9 @@ class ProjectPageParam {
     projectEndDate.dispose();
     projectBudget.dispose();
     projectPriority.dispose();
-    projectIsPublic.dispose();
     projectEstimatedHours.dispose();
     projectActualHours.dispose();
     projectCategory.dispose();
-    projectIsArchived.dispose();
-    projectIsFeatured.dispose();
     projectProjectType.dispose();
     projectPhase.dispose();
 
@@ -78,12 +68,9 @@ class ProjectPageParam {
     projectEndDateNode.dispose();
     projectBudgetNode.dispose();
     projectPriorityNode.dispose();
-    projectIsPublicNode.dispose();
     projectEstimatedHoursNode.dispose();
     projectActualHoursNode.dispose();
     projectCategoryNode.dispose();
-    projectIsArchivedNode.dispose();
-    projectIsFeaturedNode.dispose();
     projectProjectTypeNode.dispose();
     projectPhaseNode.dispose();
   }

@@ -1,14 +1,11 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/data/models/project_page_param.dart';
-import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
-import 'package:todo_app/feature/project/presentation/bloc/project_state.dart';
 
 class ProjectPage extends HookWidget {
   final ProjectPageParam? param;
 
   const ProjectPage({this.param, super.key});
 
-  void useInitProjectEvent(ProjectPageParam param) {
+  void _initProject(ProjectPageParam param) {
     final context = useContext();
 
     useEffect(() {
@@ -49,7 +46,7 @@ class ProjectPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final projectParam = useMemoized(() => param ?? ProjectPageParam(), [param]);
-    useInitProjectEvent(projectParam);
+    _initProject(projectParam);
 
     return Scaffold(
       appBar: AppBar(
@@ -95,12 +92,31 @@ class ProjectPage extends HookWidget {
                 onTap: () async {},
               ),
               ContentWidget(
-                title: 'end_time'.tr(),
+                title: 'Project End Time',
                 controller: TextEditingController(),
                 focusNode: FocusNode(),
                 isTimeField: true,
                 onTap: () async {
                   //
+                },
+              ),
+              16.height,
+              CustomCheckboxComponent(
+                title: "1. Is your project public?",
+                onChanged: (value) {
+                  projectParam.isPublic = value;
+                },
+              ),
+              CustomCheckboxComponent(
+                title: "2. Would you like your project archived?",
+                onChanged: (value) {
+                  projectParam.isArchived = value;
+                },
+              ),
+              CustomCheckboxComponent(
+                title: "3. Is your project featured?",
+                onChanged: (value) {
+                  projectParam.isFeatured = value;
                 },
               ),
             ],
@@ -121,3 +137,5 @@ class ProjectPage extends HookWidget {
     );
   }
 }
+
+// Define the style class for the CustomCheckboxForProject

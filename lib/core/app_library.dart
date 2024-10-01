@@ -302,3 +302,9 @@ export 'package:todo_app/feature/project/domain/use_cases/project/restore_projec
 export 'package:todo_app/feature/project/domain/use_cases/project/search_projects_use_case.dart';
 export 'package:todo_app/feature/project/domain/use_cases/project/update_project_use_case.dart';
 export 'package:todo_app/feature/project/projects_dependency_injection.dart';
+export 'package:todo_app/feature/project/presentation/widgets/customCheckboxComponent/custom_checkbox_component.style.dart';
+export 'package:todo_app/feature/project/presentation/widgets/customCheckboxComponent/custom_checkbox_component.variant.dart';
+export 'package:todo_app/feature/project/data/models/project_page_param.dart';
+export 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
+export 'package:todo_app/feature/project/presentation/bloc/project_state.dart';
+export 'package:todo_app/feature/project/presentation/widgets/customCheckboxComponent/custom_checkbox_component.dart';
