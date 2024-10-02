@@ -1,15 +1,12 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_component.style.dart';
-import 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_selector_component.dart';
+import 'package:todo_app/feature/project/presentation/widgets/project_category_selector_widget.dart';
 
 class ProjectPage extends HookWidget {
   final ProjectPageParam? param;
 
   const ProjectPage({this.param, super.key});
 
-  void _initProject(ProjectPageParam param) {
-    final context = useContext();
-
+  void _initProject(BuildContext context, ProjectPageParam param) {
     useEffect(() {
       final bloc = context.read<ProjectBloc>();
       bloc.add(InitProjectEvent());
@@ -48,7 +45,8 @@ class ProjectPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final projectParam = useMemoized(() => param ?? ProjectPageParam(), [param]);
-    _initProject(projectParam);
+
+    _initProject(context, projectParam);
 
     return Scaffold(
       appBar: AppBar(
@@ -102,41 +100,7 @@ class ProjectPage extends HookWidget {
                   //
                 },
               ),
-              16.height,
-              ContentWidget(
-                title: 'Project End Time',
-                controller: TextEditingController(),
-                focusNode: FocusNode(),
-                isTimeField: true,
-                onTap: () async {
-                  await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (_) {
-                      return BlocProvider.value(
-                        value: context.read<ProjectBloc>(),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          child: ProjectCategorySelectorComponent(
-                            categories: [
-                              CategoryModel(title: 'title', code: 'code'),
-                              CategoryModel(title: 'title1', code: 'code1'),
-                              CategoryModel(title: 'title2', code: 'code2'),
-                              CategoryModel(title: 'title', code: 'code'),
-                              CategoryModel(title: 'title1', code: 'code1'),
-                              CategoryModel(title: 'title2', code: 'code2'),
-                            ],
-                            onCategorySelected: (p0) {
-                              //
-                            },
-                            style: ProjectCategoryComponentVariantStyle(variant: ProjectCategoryComponentVariant.light), // Provide the style instance here
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+              ProjectCategorySelectorWidget(projectParam),
               16.height,
               CustomCheckboxComponent(
                 title: "1. Is your project public?",
@@ -174,5 +138,3 @@ class ProjectPage extends HookWidget {
     );
   }
 }
-
-// Define the style class for the CustomCheckboxForProject

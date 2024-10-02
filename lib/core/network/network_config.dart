@@ -1,2 +1,2 @@
-const baseUrl = 'http://192.168.30.196:8000/';
+const baseUrl = 'http://192.168.3.87:8000/';
 bool isInternetConnected = false;

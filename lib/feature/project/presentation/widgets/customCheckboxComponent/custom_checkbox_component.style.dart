@@ -6,25 +6,20 @@ class CustomCheckboxComponentStyle {
   CustomCheckboxComponentStyle(this.variant);
 
   Style containerStyle(BuildContext context) {
-    Color borderColor;
     Color backgroundColor;
     List<BoxShadow> boxShadow = [];
-
     Gradient? gradient;
 
     /// TODO : make proper variant later
     switch (variant) {
       case CustomCheckboxComponentVariant.light:
         backgroundColor = Colors.white;
-        borderColor = Colors.black87;
         break;
       case CustomCheckboxComponentVariant.dark:
         backgroundColor = Colors.grey[850]!;
-        borderColor = Colors.white;
         break;
       case CustomCheckboxComponentVariant.elevated:
         backgroundColor = Colors.blue[300]!;
-        borderColor = Colors.blue[800]!;
         boxShadow.add(
           const BoxShadow(
             color: Colors.black26,
@@ -36,7 +31,6 @@ class CustomCheckboxComponentStyle {
       case CustomCheckboxComponentVariant.flat:
       default:
         backgroundColor = Colors.transparent;
-        borderColor = Colors.black;
         break;
     }
 

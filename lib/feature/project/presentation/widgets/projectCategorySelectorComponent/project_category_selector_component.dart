@@ -1,34 +1,28 @@
-import 'dart:math' as Math; // Import for random number generation
+import 'dart:math' as math; // Import for random number generation
 
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_component.style.dart';
 
-class CategoryModel {
+class ProjectCategorySelectorComponent<T> extends StatelessWidget {
+  final List<T> items;
   final String title;
-  final String code;
-
-  CategoryModel({required this.title, required this.code});
-}
-
-class ProjectCategorySelectorComponent extends StatelessWidget {
-  final List<CategoryModel> categories; // Assuming you have a CategoryModel
-  final Function(CategoryModel) onCategorySelected;
-  final ProjectCategoryComponentVariantStyle _style; // Updated to the new style class
+  final String Function(T) onItemSelected;
+  final ProjectCategoryComponentVariantStyle _style;
 
   const ProjectCategorySelectorComponent({
-    required this.categories,
-    required this.onCategorySelected,
-    required ProjectCategoryComponentVariantStyle style, // Using the new style
+    required this.items,
+    required this.title,
+    required this.onItemSelected,
+    required ProjectCategoryComponentVariantStyle style,
     super.key,
   }) : _style = style;
 
-  void _onTapOfCategory(BuildContext context, CategoryModel category) {
-    onCategorySelected(category); // Return selected category
-    GoRouter.of(context).pop(); // Navigate back or close the dialog
+  void _onTapOfItem(BuildContext context, T item) {
+    onItemSelected(item);
+    GoRouter.of(context).pop();
   }
 
   Color _getRandomColor() {
-    return Color((Math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 
   @override
@@ -39,40 +33,40 @@ class ProjectCategorySelectorComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 8),
-          Center(child: Text("Select Category", style: boldTextStyle(size: 20))),
+          8.height,
+          Center(child: Text(title, style: boldTextStyle(size: 20))),
+          8.height,
           ListView.separated(
-            itemCount: categories.length,
+            itemCount: items.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (context, index) => const Divider(thickness: 0.5),
             itemBuilder: (context, index) {
-              final category = categories[index];
-
+              final item = items[index];
               return InkWell(
                 onTap: () {
-                  _onTapOfCategory(context, category);
+                  _onTapOfItem(context, item);
                 },
                 child: HBox(
                   style: _style.taskPriority(),
                   children: [
                     CircleAvatar(
-                      backgroundColor: _getRandomColor(), // Random color for the background
+                      backgroundColor: _getRandomColor(),
                       child: SvgPicture.asset(
-                        Assets.iconIcFilledFlag, // Your icon asset
+                        Assets.iconIcFilledFlag,
                         colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                         height: 21,
                         width: 21,
                       ),
                     ),
                     const SizedBox(width: 16),
-                    Text(category.title), // Assuming `title` is a property of CategoryModel
+                    Text(onItemSelected.call(item)),
                   ],
                 ),
               );
             },
           ),
-          const SizedBox(height: 16),
+          16.height,
         ],
       ),
     );

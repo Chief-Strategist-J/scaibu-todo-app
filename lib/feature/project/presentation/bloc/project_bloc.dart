@@ -1,10 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/domain/use_cases/project/get_project_category_data_use_case.dart';
 
-import 'project_state.dart';
+
 
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
-  ProjectBloc() : super(InitProjectState(projectList: [])) {
+  ProjectBloc() : super(InitProjectState(projectList: const [])) {
     on<InitProjectEvent>(_init);
   }
 

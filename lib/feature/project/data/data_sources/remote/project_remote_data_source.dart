@@ -1,7 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
-
-import 'base_project_data_source.dart';
 
 class ProjectEndPoint {
   static const String createProject = 'api/projects';

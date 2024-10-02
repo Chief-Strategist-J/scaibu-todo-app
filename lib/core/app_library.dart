@@ -309,3 +309,10 @@ export 'package:todo_app/feature/project/domain/entities/projectCategoryDataEnti
 export 'package:todo_app/feature/project/presentation/bloc/project_state.dart';
 export 'package:todo_app/feature/project/presentation/widgets/customCheckboxComponent/custom_checkbox_component.dart';
 export 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_component.variant.dart';
+export 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_component.style.dart';
+export 'package:todo_app/feature/project/data/models/project_category_config.dart';
+export 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_selector_component.dart';
+export 'package:todo_app/feature/project/data/data_sources/remote/base_project_data_source.dart';
+export 'package:todo_app/feature/project/domain/use_cases/project/get_project_category_data_use_case.dart';
+export 'package:todo_app/feature/project/data/data_sources/remote/project_remote_data_source.dart';
+export 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_by_todo_id_use_case.dart';
