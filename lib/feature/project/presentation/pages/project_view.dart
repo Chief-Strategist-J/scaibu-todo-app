@@ -9,14 +9,26 @@ class ProjectPage extends HookWidget {
   void _initProject(BuildContext context, ProjectPageParam param) {
     useEffect(() {
       final bloc = context.read<ProjectBloc>();
+      final completer = Completer<void>();
+
       bloc.add(InitProjectEvent());
 
-      final currentState = bloc.state;
-      if (currentState is InitProjectState) {
-        _updateProjectParams(param, currentState.projectCategoryData?.data);
-      }
+      final subscription = bloc.stream.listen((state) {
+        if (state is InitProjectState) {
+          completer.complete();
+        }
+      });
 
-      return null;
+      completer.future.then((_) {
+        final currentState = bloc.state;
+        if (currentState is InitProjectState) {
+          _updateProjectParams(param, currentState.projectCategoryData?.data);
+        }
+      });
+
+      return () {
+        subscription.cancel();
+      };
     }, []);
   }
 

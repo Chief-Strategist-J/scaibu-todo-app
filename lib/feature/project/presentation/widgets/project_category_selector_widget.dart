@@ -9,10 +9,11 @@ class ProjectCategorySelectorWidget extends HookWidget {
     required BuildContext context,
     required String title,
     required List<T> items,
-    required String Function(T) onItemSelected,
+    required String Function(T) getCategoryName,
     required ProjectCategoryComponentVariantStyle style,
+    required TextEditingController controller,
   }) async {
-    await showModalBottomSheet(
+    final result = await showModalBottomSheet<T>(
       context: context,
       isScrollControlled: true,
       builder: (_) {
@@ -23,51 +24,53 @@ class ProjectCategorySelectorWidget extends HookWidget {
             child: ProjectCategorySelectorComponent<T>(
               title: title,
               items: items,
-              onItemSelected: onItemSelected,
+              onItemSelected: (selectedItem) => getCategoryName(selectedItem),
               style: style,
             ),
           ),
         );
       },
     );
+
+    if (result != null) {
+      controller.text = getCategoryName(result);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final projectCategoryConfig = useMemoized(() {
-      return ProjectCategoryConfig(
-        title: '',
-        items: [],
-        controller: TextEditingController(),
-        focusNode: FocusNode(),
-      );
-    }, [param]);
+    final projectCategoryConfig = useMemoized(() => ProjectCategoryConfig(
+      title: '',
+      items: [],
+      controller: TextEditingController(),
+      focusNode: FocusNode(),
+    ), [param]);
+
+    final configList = useMemoized(() => projectCategoryConfig.getList(param), [param]);
 
     return AnimatedScrollView(
       listAnimationType: ListAnimationType.None,
       physics: const NeverScrollableScrollPhysics(),
-      children: [
-        ...projectCategoryConfig.getList(param).map((config) {
-          return ContentWidget(
-            title: config.title,
-            controller: config.controller,
-            focusNode: config.focusNode,
-            isTimeField: true,
-            onTap: () {
-              _showProjectCategorySelector(
-                context: context,
-                title: config.title,
-                items: config.items,
-                onItemSelected: (p0) {
-                  config.controller.text = projectCategoryConfig.getCategoryName(p0);
-                  return config.controller.text;
-                },
-                style: ProjectCategoryComponentVariantStyle(variant: ProjectCategoryComponentVariant.light),
-              );
-            },
-          );
-        })
-      ],
+      children: configList.map((config) {
+        return ContentWidget(
+          title: config.title,
+          controller: config.controller,
+          focusNode: config.focusNode,
+          isTimeField: true,
+          onTap: () {
+            _showProjectCategorySelector(
+              context: context,
+              title: config.title,
+              items: config.items,
+              getCategoryName: projectCategoryConfig.getCategoryName,
+              style: ProjectCategoryComponentVariantStyle(
+                variant: ProjectCategoryComponentVariant.light,
+              ),
+              controller: config.controller,
+            );
+          },
+        );
+      }).toList(),
     );
   }
 }

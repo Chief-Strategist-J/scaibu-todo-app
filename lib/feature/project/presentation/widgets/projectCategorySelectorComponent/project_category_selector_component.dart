@@ -2,7 +2,7 @@ import 'dart:math' as math; // Import for random number generation
 
 import 'package:todo_app/core/app_library.dart';
 
-class ProjectCategorySelectorComponent<T> extends StatelessWidget {
+class ProjectCategorySelectorComponent<T> extends HookWidget {
   final List<T> items;
   final String title;
   final String Function(T) onItemSelected;
@@ -16,17 +16,14 @@ class ProjectCategorySelectorComponent<T> extends StatelessWidget {
     super.key,
   }) : _style = style;
 
-  void _onTapOfItem(BuildContext context, T item) {
-    onItemSelected(item);
-    GoRouter.of(context).pop();
-  }
-
   Color _getRandomColor() {
     return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 
   @override
   Widget build(BuildContext context) {
+    final selectedItem = useState<T?>(null);
+
     return PressableBox(
       style: _style.dialogStyle(context),
       child: AnimatedScrollView(
@@ -43,9 +40,11 @@ class ProjectCategorySelectorComponent<T> extends StatelessWidget {
             separatorBuilder: (context, index) => const Divider(thickness: 0.5),
             itemBuilder: (context, index) {
               final item = items[index];
+              final isSelected = selectedItem.value == item;
               return InkWell(
                 onTap: () {
-                  _onTapOfItem(context, item);
+                  selectedItem.value = item;
+                  Navigator.of(context).pop(selectedItem.value);
                 },
                 child: HBox(
                   style: _style.taskPriority(),
@@ -61,6 +60,8 @@ class ProjectCategorySelectorComponent<T> extends StatelessWidget {
                     ),
                     const SizedBox(width: 16),
                     Text(onItemSelected.call(item)),
+                    const Spacer(),
+                    if (isSelected) const Icon(Icons.check, color: Colors.green),
                   ],
                 ),
               );
