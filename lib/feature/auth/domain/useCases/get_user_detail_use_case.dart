@@ -1,5 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
+
 class GetUserDetailUseCase extends UseCase<Either<FailResponse, LoginEntity>, Map<String, dynamic>> {
   final AuthRepository authRepository;
 

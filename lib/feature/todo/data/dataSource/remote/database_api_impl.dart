@@ -38,12 +38,14 @@ class DataBaseApiImpl implements BaseApi {
 
   @override
   Future<List<TodoModel>> getListOfTodos() async {
+    if (userCredentials?.getUserId == null) return [];
+
     TodoListResponse todoList = TodoListResponse.fromJson(
       await restApi.request(
         endPoint: TodoEndPoint.getTodoList,
         type: HttpRequestMethod.post,
         requestBody: {
-          'user_id': userCredentials.getUserId,
+          'user_id': userCredentials?.getUserId,
         },
       ),
     );

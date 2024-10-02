@@ -32,11 +32,11 @@ export 'dart:developer' hide Flow;
 export 'package:todo_app/core/constants/colors.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:tuple/tuple.dart';
-export 'package:flutter_test/flutter_test.dart';
+
 export 'package:todo_app/core/utils/utility_service.dart';
 export 'package:firebase_analytics/firebase_analytics.dart';
 export 'package:flex_color_picker/flex_color_picker.dart';
-
+export 'package:todo_app/main.dart';
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/firebase_options.dart';

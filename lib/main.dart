@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:todo_app/core/app_library.dart';
 
+UserCredentials userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+
 Future<void> main() async {
   await initialSetup.utilityInit();
   await initialSetup.firebaseInit();
@@ -11,6 +13,9 @@ Future<void> main() async {
   textBoldSizeGlobal = 12;
 
   Dependency.setup();
+  await getIt.isReady<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+  userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((value) {
     runApp(
       EasyLocalization(

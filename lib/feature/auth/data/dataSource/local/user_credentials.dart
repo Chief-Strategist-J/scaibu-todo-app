@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-final userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+
 
 class  UserCredentials {
   final userName = 'name';
