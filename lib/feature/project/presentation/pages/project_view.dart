@@ -57,16 +57,11 @@ class ProjectPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final projectParam = useMemoized(() => param ?? ProjectPageParam(), [param]);
-
     _initProject(context, projectParam);
+    final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "New Project",
-          style: boldTextStyle(size: 16),
-        ),
-      ),
+      appBar: AppBar(title: Text("New Project", style: boldTextStyle(size: 16))),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -80,20 +75,16 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectNameNode,
               ),
               ContentWidget(
-                title: 'Project Description',
-                controller: projectParam.projectDescription,
-                focusNode: projectParam.projectDescriptionNode,
-              ),
-              ContentWidget(
                 title: 'Project Start Date',
                 controller: projectParam.projectStartDate,
                 focusNode: projectParam.projectStartDateNode,
                 isDateField: true,
-                onSelectOfDateOrTime: (p0) {
-                  //
-                },
                 onTap: () async {
-                  //
+                  await timeService.selectDate(context).then((date) async {
+                    if (!context.mounted) return;
+                    projectParam.projectStartDate.text = date.formatTimeInString;
+                    projectParam.startDate = date;
+                  });
                 },
               ),
               ContentWidget(
@@ -101,19 +92,47 @@ class ProjectPage extends HookWidget {
                 controller: projectParam.projectEndDate,
                 focusNode: projectParam.projectEndDateNode,
                 isTimeField: true,
-                onTap: () async {},
+                onTap: () async {
+                  await timeService.selectDate(context).then((date) async {
+                    if (!context.mounted) return;
+                    projectParam.projectEndDate.text = date.formatTimeInString;
+                    projectParam.endDate = date;
+                  });
+                },
               ),
               ContentWidget(
-                title: 'Project End Time',
-                controller: TextEditingController(),
-                focusNode: FocusNode(),
+                title: 'Project Estimated Hours',
+                controller: projectParam.projectEstimatedHours,
+                focusNode: projectParam.projectEstimatedHoursNode,
                 isTimeField: true,
                 onTap: () async {
-                  //
+                  await timeService.selectTime(context).then((time) async {
+                    if (!context.mounted) return;
+                    projectParam.projectEstimatedHours.text = time.formatTimeInString;
+                    projectParam.estimatedHours = time;
+                  });
+                },
+              ),
+              ContentWidget(
+                title: 'Project Actual Hours',
+                controller: projectParam.projectActualHours,
+                focusNode: projectParam.projectActualHoursNode,
+                isTimeField: true,
+                onTap: () async {
+                  await timeService.selectTime(context).then((time) async {
+                    if (!context.mounted) return;
+                    projectParam.projectActualHours.text = time.formatTimeInString;
+                    projectParam.actualHours = time;
+                  });
                 },
               ),
               ProjectCategorySelectorWidget(projectParam),
-              16.height,
+              ContentWidget(
+                title: 'Project Description',
+                controller: projectParam.projectDescription,
+                focusNode: projectParam.projectDescriptionNode,
+                lines: 10,
+              ),
               CustomCheckboxComponent(
                 title: "1. Is your project public?",
                 onChanged: (value) {
@@ -134,17 +153,18 @@ class ProjectPage extends HookWidget {
               ),
             ],
           ),
-          Positioned(
-            bottom: 16,
-            right: 16,
-            left: 16,
-            child: CustomButton(
-              data: "Create Project",
-              onTap: () async {
-                //
-              },
+          if (!isKeyboardVisible)
+            Positioned(
+              bottom: 16,
+              right: 16,
+              left: 16,
+              child: CustomButton(
+                data: "Create Project",
+                onTap: () async {
+                  //
+                },
+              ),
             ),
-          ),
         ],
       ),
     );

@@ -5,7 +5,9 @@ class ProjectPageParam {
   TextEditingController projectDescription = TextEditingController();
 
   TextEditingController projectStartDate = TextEditingController(); // date type
+  TimeServiceModel? startDate;
   TextEditingController projectEndDate = TextEditingController(); // date type
+  TimeServiceModel? endDate;
 
   TextEditingController projectBudget = TextEditingController(); // list type and int type
 
@@ -25,7 +27,10 @@ class ProjectPageParam {
   TextEditingController projectStatus = TextEditingController(); // list type
 
   TextEditingController projectEstimatedHours = TextEditingController(); // time type
+  TimeServiceModel? estimatedHours;
+
   TextEditingController projectActualHours = TextEditingController(); // time type
+  TimeServiceModel? actualHours;
 
   bool isPublic = false;
   bool isArchived = false;

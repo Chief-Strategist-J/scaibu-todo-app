@@ -135,9 +135,7 @@ class ManageTodoPageUtils {
     });
   }
 
-  Future<void> selectEndTime(
-    TimeServiceModel startTime,
-  ) async {
+  Future<void> selectEndTime(TimeServiceModel startTime) async {
     await timeService.selectTime(ctx).then((endTime) async {
       if (!ctx.mounted) return;
 
