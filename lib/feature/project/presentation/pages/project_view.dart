@@ -54,6 +54,22 @@ class ProjectPage extends HookWidget {
     }
   }
 
+  Future<void> _selectEstimatedHours(BuildContext context, ProjectPageParam projectParam) async {
+    await timeService.selectTimeRange(context).then((time) async {
+      if (!context.mounted) return;
+      projectParam.projectEstimatedHours.text = time.formatedStringTimeDuration.validate();
+      projectParam.estimatedHours = time;
+    });
+  }
+
+  Future<void> _selectActualHours(BuildContext context, ProjectPageParam projectParam) async {
+    await timeService.selectTimeRange(context).then((time) async {
+      if (!context.mounted) return;
+      projectParam.projectActualHours.text = time.formatedStringTimeDuration.validate();
+      projectParam.actualHours = time;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final projectParam = useMemoized(() => param ?? ProjectPageParam(), [param]);
@@ -106,11 +122,7 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectEstimatedHoursNode,
                 isTimeField: true,
                 onTap: () async {
-                  await timeService.selectTime(context).then((time) async {
-                    if (!context.mounted) return;
-                    projectParam.projectEstimatedHours.text = time.formatTimeInString;
-                    projectParam.estimatedHours = time;
-                  });
+                  await _selectEstimatedHours(context, projectParam);
                 },
               ),
               ContentWidget(
@@ -119,11 +131,7 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectActualHoursNode,
                 isTimeField: true,
                 onTap: () async {
-                  await timeService.selectTime(context).then((time) async {
-                    if (!context.mounted) return;
-                    projectParam.projectActualHours.text = time.formatTimeInString;
-                    projectParam.actualHours = time;
-                  });
+                  await _selectActualHours(context, projectParam);
                 },
               ),
               ProjectCategorySelectorWidget(projectParam),

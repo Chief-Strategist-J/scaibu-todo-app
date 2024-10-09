@@ -5,13 +5,13 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => NotificationBloc()..add(InitNotificationEvent()),
-      child: Builder(builder: (context) => _buildPage(context)),
-    );
-  }
+    context.read<NotificationBloc>().add(InitNotificationEvent());
 
-  Widget _buildPage(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: Text("Notifications", style: boldTextStyle(size: 16))),
+      body: AnimatedScrollView(
+        children: const [],
+      ),
+    );
   }
 }

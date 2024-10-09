@@ -39,12 +39,14 @@ class ProjectCategorySelectorWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final projectCategoryConfig = useMemoized(() => ProjectCategoryConfig(
-      title: '',
-      items: [],
-      controller: TextEditingController(),
-      focusNode: FocusNode(),
-    ), [param]);
+    final projectCategoryConfig = useMemoized(() {
+      return ProjectCategoryConfig(
+        title: '',
+        items: [],
+        controller: TextEditingController(),
+        focusNode: FocusNode(),
+      );
+    }, [param]);
 
     final configList = useMemoized(() => projectCategoryConfig.getList(param), [param]);
 
@@ -63,9 +65,7 @@ class ProjectCategorySelectorWidget extends HookWidget {
               title: config.title,
               items: config.items,
               getCategoryName: projectCategoryConfig.getCategoryName,
-              style: ProjectCategoryComponentVariantStyle(
-                variant: ProjectCategoryComponentVariant.light,
-              ),
+              style: ProjectCategoryComponentVariantStyle(variant: ProjectCategoryComponentVariant.light),
               controller: config.controller,
             );
           },

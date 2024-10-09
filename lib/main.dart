@@ -44,11 +44,35 @@ class MyApp extends HookWidget {
 
   List<SingleChildWidget> get blocProviders {
     return [
-      BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
-      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
-      BlocProvider(create: (context) => GetIt.instance<TagBloc>(instanceName: TagsDependencyInjection.tagBloc)),
-      BlocProvider(create: (context) => GetIt.instance<PomodoroBloc>(instanceName: PomodoroDependencyInjection.pomodoroBloc)),
-      BlocProvider(create: (context) => GetIt.instance<ProjectBloc>(instanceName: ProjectDependencyInjection.projectBloc)),
+      BlocProvider(
+        create: (context) => GetIt.instance<AuthBloc>()
+          ..add(
+            AuthInitEvent(),
+          ),
+      ),
+      BlocProvider(
+        create: (context) => GetIt.instance<TodoBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => GetIt.instance<TagBloc>(
+          instanceName: TagsDependencyInjection.tagBloc,
+        ),
+      ),
+      BlocProvider(
+        create: (context) => GetIt.instance<PomodoroBloc>(
+          instanceName: PomodoroDependencyInjection.pomodoroBloc,
+        ),
+      ),
+      BlocProvider(
+        create: (context) => GetIt.instance<ProjectBloc>(
+          instanceName: ProjectDependencyInjection.projectBloc,
+        ),
+      ),
+      BlocProvider(
+        create: (context) => GetIt.instance<NotificationBloc>(
+          instanceName: NotificationDependencyInjection.notificationBloc,
+        ),
+      ),
     ];
   }
 
