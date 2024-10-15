@@ -37,7 +37,7 @@ class DataBaseApiImpl implements BaseApi {
   }
 
   @override
-  Future<List<TodoModel>> getListOfTodos() async {
+  Future<List<TodoEntity>> getListOfTodos() async {
     if (userCredentials.getUserId == null) return [];
 
     TodoListResponse todoList = TodoListResponse.fromJson(
@@ -52,10 +52,10 @@ class DataBaseApiImpl implements BaseApi {
     if (todoList.data == null) return [];
     if (todoList.data!.isEmpty) return [];
 
-    final todoList0 = <TodoModel>[];
+    final todoList0 = <TodoEntity>[];
 
     todoList.data?.forEach((element) {
-      TodoModel todo = TodoModel(
+      TodoEntity todo = TodoEntity(
         todoId: element.id!.toInt(),
         title: element.title,
         firebaseTodoId: element.firebaseTodoId,

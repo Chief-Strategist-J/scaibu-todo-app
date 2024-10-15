@@ -16,12 +16,11 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
   // Encryption-related objects
   late encrypt.Encrypter _encrypter;
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
-  final _iv = encrypt.IV.fromLength(16);
+  final _iv = encrypt.IV.fromLength(16); // Static IV for fallback
   Completer<void>? _initializationCompleter;
 
   GetAllSeededTagsUseCase({required this.tagsDatabaseRepository});
 
-  // Initialize the encryption key and encrypter
   Future<void> _initializeEncryption() async {
     if (_initializationCompleter != null) {
       return _initializationCompleter!.future;
@@ -42,40 +41,46 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
     }
   }
 
-  // Generate and store a new encryption key in secure storage
   Future<String> _generateAndStoreKey() async {
     final newKey = base64UrlEncode(List<int>.generate(32, (_) => Random.secure().nextInt(256)));
     await _secureStorage.write(key: _encryptionKeyKey, value: newKey);
     return newKey;
   }
 
-  // Retrieve cached tags, decrypt, and return the list of TagEntity
   Future<List<TagEntity>?> _getCachedTags(Box box) async {
     final encryptedData = box.get(_hiveKey);
     final cacheTime = box.get(_cacheTimeKey);
+    final ivString = box.get('iv_key'); // Retrieve the IV
 
-    if (encryptedData != null && cacheTime != null && !_isCacheExpired(cacheTime)) {
-      final decryptedData = _encrypter.decrypt64(encryptedData, iv: _iv);
-      final List<dynamic> decodedData = jsonDecode(decryptedData);
-      return decodedData.map((e) => TagEntity.fromJson(e)).toList();
+    if (encryptedData != null && cacheTime != null && ivString != null && !_isCacheExpired(cacheTime)) {
+      try {
+        final iv = encrypt.IV.fromBase64(ivString); // Use the stored IV
+        final decryptedData = _encrypter.decrypt64(encryptedData, iv: iv);
+        final List<dynamic> decodedData = jsonDecode(decryptedData);
+        return decodedData.map((e) => TagEntity.fromJson(e)).toList();
+      } catch (e) {
+        // Handle decryption error
+        logService.crashLog(errorMessage: 'Failed to decrypt cached tags', e: e);
+        return null; // or handle the error accordingly
+      }
     }
     return null;
   }
 
-  // Fetch tags from the repository and cache them
   Future<List<TagEntity>> _fetchAndCacheTags(Box box) async {
     final tags = await tagsDatabaseRepository.getAllSeededTags();
     await _cacheTags(box, tags);
     return tags;
   }
 
-  // Cache the tags by encrypting the data and storing it with the cache time
   Future<void> _cacheTags(Box box, List<TagEntity> tags) async {
     final jsonData = jsonEncode(tags.map((e) => e.toJson()).toList());
-    final encryptedData = _encrypter.encrypt(jsonData, iv: _iv).base64;
+    final iv = encrypt.IV.fromLength(16); // Generate a new IV
+    final encryptedData = _encrypter.encrypt(jsonData, iv: iv).base64;
 
     await box.put(_hiveKey, encryptedData);
     await box.put(_cacheTimeKey, DateTime.now().toIso8601String());
+    await box.put('iv_key', iv.base64); // Store the IV with the encrypted data
   }
 
   bool _isCacheExpired(String cacheTimeString) {
@@ -89,7 +94,6 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
       await _initializeEncryption();
 
       final box = await Hive.openBox(_hiveBoxName);
-
       final cachedTags = await _getCachedTags(box) ?? await _fetchAndCacheTags(box);
 
       return Right(cachedTags);

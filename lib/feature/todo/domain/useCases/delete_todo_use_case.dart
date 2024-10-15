@@ -9,6 +9,7 @@ class DeleteTodoUseCase extends UseCase<void, DeleteTodoParam> {
   @override
   Future<Either<Failure, void>> call(DeleteTodoParam params) async {
     try {
+      GetTodoListUseCase.clearEncryptedCache();
       await databaseRep.deleteTodos(params.localId);
       return const Right(null);
     } catch (e, s) {

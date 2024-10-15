@@ -7,5 +7,5 @@ abstract interface class BaseApi {
 
   Future<void> updateTodo(String todoId, Map<String, dynamic> updateTodoData);
 
-  Future<List<TodoModel>> getListOfTodos();
+  Future<List<TodoEntity>> getListOfTodos();
 }

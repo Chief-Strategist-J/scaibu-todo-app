@@ -31,13 +31,13 @@ class FirebaseApiImpl implements BaseApi {
   }
 
   @override
-  Future<List<TodoModel>> getListOfTodos() async {
-    final todoList = <TodoModel>[];
+  Future<List<TodoEntity>> getListOfTodos() async {
+    final todoList = <TodoEntity>[];
 
     final value = await todoCollection.where('is_archived', isEqualTo: false).where('created_by', isEqualTo: userCredentials.getUserId).get();
 
     value.docs.map((e) {
-      TodoModel todo = TodoModel(
+      final todo = TodoEntity(
         todoId: parseService.parseToInt(e.data()['id']),
         firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
         title: e.data()['title'],

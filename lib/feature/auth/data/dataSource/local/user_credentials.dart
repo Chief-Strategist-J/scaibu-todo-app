@@ -1,8 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-
-
-class  UserCredentials {
+class UserCredentials {
   final userName = 'name';
   final email = 'email';
   final id = 'id';
@@ -22,6 +20,8 @@ class  UserCredentials {
   final bio = '_bio';
 
   final Box<dynamic> box;
+
+  final tokenSavedTime = 'tokenSavedTime';
 
   UserCredentials(this.box);
 

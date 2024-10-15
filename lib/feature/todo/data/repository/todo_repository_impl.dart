@@ -6,7 +6,7 @@ class TodoRepositoryImpl implements TodoRepository {
   TodoRepositoryImpl(this.baseApi);
 
   @override
-  Future<List<TodoModel>> getListOfTodos() async {
+  Future<List<TodoEntity>> getListOfTodos() async {
     return await baseApi.getListOfTodos();
   }
 

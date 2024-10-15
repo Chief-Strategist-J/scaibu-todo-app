@@ -9,6 +9,8 @@ class CreateTodoUseCase extends UseCase<Map<String, dynamic>, Map<String, dynami
   @override
   Future<Either<Failure, Map<String, dynamic>>> call(Map<String, dynamic> params) async {
     try {
+      GetTodoListUseCase.clearEncryptedCache();
+
       return await firebaseRepo.createTodo(params).then((todoId) async {
         return await databaseRep.createTodo(params).then((localTodoId) async {
           final Map<String, String> req = {'id': localTodoId};

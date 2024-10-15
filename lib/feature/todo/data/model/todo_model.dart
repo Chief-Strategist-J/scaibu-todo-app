@@ -1,97 +1,94 @@
-import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
+import 'package:todo_app/core/app_library.dart';
 
-class TodoModel extends TodoEntity {
-  TodoModel({
-    super.todoId,
-    super.title,
-    super.description,
-    super.isCompleted,
-    super.dueDate,
-    super.priority,
-    super.assignedTo,
-    super.tags,
-    super.createdBy,
-    super.updatedBy,
-    super.status,
-    super.reminder,
-    super.attachment,
-    super.category,
-    super.estimatedTime,
-    super.actualTime,
-    super.recurring,
-    super.recurringFrequency,
-    super.notes,
-    super.completedAt,
-    super.colorCode,
-    super.isArchived,
-    super.firebaseTodoId,
-    super.date,
-    super.endTime,
-    super.startTime,
-    super.tagNames,
-  });
+part 'todo_model.freezed.dart';
+part 'todo_model.g.dart';
 
-  factory TodoModel.fromJson(Map<String, dynamic> json) {
-    return TodoModel(
-        firebaseTodoId: json['firebase_todo_id'],
-        todoId: json['id'],
-        title: json['title'],
-        description: json['description'],
-        isCompleted: json['is_completed'],
-        dueDate: json['due_date'] != null ? DateTime.parse(json['due_date']) : null,
-        priority: json['priority'],
-        assignedTo: json['assigned_to'],
-        tags: json['tags'],
-        createdBy: json['created_by'],
-        updatedBy: json['updated_by'],
-        status: json['status'],
-        reminder: json['reminder'] != null ? DateTime.parse(json['reminder']) : null,
-        attachment: json['attachment'],
-        category: json['category'],
-        estimatedTime: json['estimated_time'],
-        actualTime: json['actual_time'],
-        recurring: json['recurring'],
-        recurringFrequency: json['recurring_frequency'],
-        notes: json['notes'],
-        completedAt: json['completed_at'] != null ? DateTime.parse(json['completed_at']) : null,
-        colorCode: json['color_code'],
-        isArchived: json['is_archived'],
-        startTime: json['start_time'],
-        endTime: json['end_time'],
-        date: json['date'],
-        tagNames: json['tag_names'] != null ? json['tag_names'].cast<String>() : [],
-    );
-  }
+mixin TodoEntityMixin {
+  int? get todoId;
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': todoId,
-      'title': title,
-      'description': description,
-      'is_completed': isCompleted,
-      'due_date': dueDate.toString(),
-      'priority': priority,
-      'assigned_to': assignedTo,
-      'tags': tags,
-      'created_by': createdBy,
-      'updated_by': updatedBy,
-      'status': status,
-      'reminder': reminder.toString(),
-      'attachment': attachment,
-      'category': category,
-      'estimated_time': estimatedTime,
-      'actual_time': actualTime,
-      'recurring': recurring,
-      'recurring_frequency': recurringFrequency,
-      'notes': notes,
-      'completed_at': completedAt.toString(),
-      'color_code': colorCode,
-      'is_archived': isArchived,
-      'firebase_todo_id': firebaseTodoId,
-      'start_time': startTime,
-      'end_time': endTime,
-      'date': date,
-      'tag_names': tagNames,
-    };
-  }
+  String? get title;
+
+  String? get description;
+
+  bool? get isCompleted;
+
+  DateTime? get dueDate;
+
+  int? get priority;
+
+  String? get assignedTo;
+
+  List<String>? get tags; // Assuming tags is a List<String>
+  int? get createdBy;
+
+  int? get updatedBy;
+
+  String? get status;
+
+  DateTime? get reminder;
+
+  String? get attachment;
+
+  String? get category;
+
+  String? get estimatedTime;
+
+  String? get actualTime;
+
+  bool? get recurring;
+
+  String? get recurringFrequency;
+
+  String? get notes;
+
+  DateTime? get completedAt;
+
+  String? get colorCode;
+
+  bool? get isArchived;
+
+  String? get firebaseTodoId;
+
+  DateTime? get date;
+
+  DateTime? get startTime;
+
+  DateTime? get endTime;
+
+  List<String>? get tagNames;
+}
+
+@freezed
+class TodoModel with _$TodoModel, TodoEntityMixin {
+  const factory TodoModel({
+    int? todoId,
+    String? title,
+    String? description,
+    bool? isCompleted,
+    DateTime? dueDate,
+    int? priority,
+    String? assignedTo,
+    List<String>? tags,
+    int? createdBy,
+    int? updatedBy,
+    String? status,
+    DateTime? reminder,
+    String? attachment,
+    String? category,
+    String? estimatedTime,
+    String? actualTime,
+    bool? recurring,
+    String? recurringFrequency,
+    String? notes,
+    DateTime? completedAt,
+    String? colorCode,
+    bool? isArchived,
+    String? firebaseTodoId,
+    DateTime? date,
+    DateTime? startTime,
+    DateTime? endTime,
+    List<String>? tagNames,
+  }) = _TodoModel;
+
+  factory TodoModel.fromJson(Map<String, dynamic> json) => _$TodoModelFromJson(json);
 }

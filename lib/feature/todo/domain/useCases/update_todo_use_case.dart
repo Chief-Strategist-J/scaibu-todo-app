@@ -9,6 +9,7 @@ class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
   @override
   Future<Either<Failure, void>> call(UpdateTodoParam params) async {
     try {
+      GetTodoListUseCase.clearEncryptedCache();
       return await databaseRep.updateTodo(params.todoData, params.localID).then((value) {
         return const Right(null);
       });
