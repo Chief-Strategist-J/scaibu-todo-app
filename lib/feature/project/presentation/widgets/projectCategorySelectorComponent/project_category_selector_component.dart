@@ -1,4 +1,4 @@
-import 'dart:math' as math; // Import for random number generation
+import 'dart:math' as math;
 
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/project/presentation/widgets/create_category_widget.dart';

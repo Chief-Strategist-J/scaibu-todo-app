@@ -1,7 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
-
 class ProjectRepositoryImpl implements ProjectRepository<ProjectEntity> {
   final BaseProjectDataSource projectRemoteDataSource;
 

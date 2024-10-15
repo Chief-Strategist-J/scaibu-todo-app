@@ -9,9 +9,9 @@ abstract interface class ProjectRepository<T> {
 
   Future<void> assignTodosToProjectsRequest(Map<String, dynamic> data);
 
-  Future<T> getPaginatedProjectsForTodo(Map<String,dynamic> data);
+  Future<T> getPaginatedProjectsForTodo(Map<String, dynamic> data);
 
-  Future<T> getPaginatedTodosForProject(Map<String,dynamic> data);
+  Future<T> getPaginatedTodosForProject(Map<String, dynamic> data);
 
   Future<void> createProject(Map<String, dynamic> data);
 
