@@ -11,6 +11,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
       toast("Logging in...", bgColor: cardColor, length: Toast.LENGTH_SHORT);
 
       final auth = await authRepository.standardSignIn(params);
+      _storeCred(auth);
 
       UserCredential user;
       if (!auth.isLogin.validate()) {
@@ -26,7 +27,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
       }
 
       _oneSignalLogin(params);
-      _storeCred(user, auth);
+      _storeOnFirebaseResponse(user);
 
       return Right(auth);
     } on FirebaseAuthException catch (e, s) {
@@ -55,16 +56,18 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
     }
   }
 
-  void _storeCred(UserCredential user, LoginEntity auth) {
+  void _storeCred(LoginEntity auth) {
     userCredentials.box.put(userCredentials.isLogin, true);
-
-    if (user.user != null) {
-      userCredentials.box.put(userCredentials.firebasePhotoUrl, user.user?.photoURL);
-    }
     userCredentials.box.put(userCredentials.email, auth.email);
     userCredentials.box.put(userCredentials.id, auth.id);
     userCredentials.box.put(userCredentials.userName, auth.name);
     userCredentials.box.put(userCredentials.accessToken, auth.accessToken);
+  }
+
+  void _storeOnFirebaseResponse(UserCredential user) {
+    if (user.user != null) {
+      userCredentials.box.put(userCredentials.firebasePhotoUrl, user.user?.photoURL);
+    }
   }
 
   void _oneSignalLogin(Map<String, dynamic> params) {
