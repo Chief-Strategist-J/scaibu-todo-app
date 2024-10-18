@@ -1,92 +1,130 @@
-import 'dart:math';
-
-import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:todo_app/core/app_library.dart';
 
 class GetProjectCategoryDataUseCase extends UseCase<ProjectCategoryDataModelEntity, NoParams> {
   final ProjectRepository<ProjectEntity> projectRepository;
-
   static const _hiveBoxName = 'project_category_data_cache';
   static const _hiveKey = 'project_category_data';
   static const _cacheTimeKey = 'cache_time';
   static const _cacheDuration = Duration(days: 7);
-  static const _encryptionKeyKey = 'encryption_key';
+  static const _maxRetries = 3;
+  static const _retryDelay = Duration(seconds: 5);
 
-  late encrypt.Encrypter _encrypter;
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
-  final _iv = encrypt.IV.fromLength(16);
-  Completer<void>? _initializationCompleter;
+  Box? _box;
+  final BehaviorSubject<ProjectCategoryDataModelEntity> _dataSubject = BehaviorSubject<ProjectCategoryDataModelEntity>();
+  final Completer<void> _initCompleter = Completer<void>();
+  bool _isDisposed = false;
 
-  GetProjectCategoryDataUseCase({required this.projectRepository});
+  GetProjectCategoryDataUseCase({required this.projectRepository}) {
+    _initBox();
+  }
 
-  Future<void> _initializeEncryption() async {
-    if (_initializationCompleter != null) {
-      return _initializationCompleter!.future;
-    }
-
-    _initializationCompleter = Completer<void>();
+  Future<void> _initBox() async {
+    if (_box != null) return;
 
     try {
-      final storedKey = await _secureStorage.read(key: _encryptionKeyKey) ?? await _generateAndStoreKey();
-      final key = encrypt.Key.fromBase64(storedKey);
-      _encrypter = encrypt.Encrypter(encrypt.AES(key));
-      _initializationCompleter!.complete();
+      _box = await Hive.openBox(_hiveBoxName);
+      if (!_initCompleter.isCompleted) {
+        _initCompleter.complete();
+      }
     } catch (e) {
-      _initializationCompleter!.completeError(e);
-      rethrow;
-    } finally {
-      _initializationCompleter = null;
+      if (!_initCompleter.isCompleted) {
+        _initCompleter.completeError(e);
+      }
+      logService.crashLog(errorMessage: 'Failed to initialize Hive box', e: e);
     }
   }
 
-  Future<String> _generateAndStoreKey() async {
-    final newKey = base64UrlEncode(List<int>.generate(32, (_) => Random.secure().nextInt(256)));
-    await _secureStorage.write(key: _encryptionKeyKey, value: newKey);
-    return newKey;
-  }
+  Future<ProjectCategoryDataModelEntity?> _getCachedData() async {
+    if (_isDisposed || _box == null) return null;
 
-  Future<ProjectCategoryDataModelEntity?> _getCachedData(Box box) async {
-    final encryptedData = box.get(_hiveKey);
-    final cacheTime = box.get(_cacheTimeKey);
+    try {
+      final cachedData = _box?.get(_hiveKey);
+      final cacheTime = _box?.get(_cacheTimeKey);
 
-    if (encryptedData != null && cacheTime != null && !_isCacheExpired(cacheTime)) {
-      final decryptedData = _encrypter.decrypt64(encryptedData, iv: _iv);
-      return ProjectCategoryDataModelEntity.fromJson(jsonDecode(decryptedData));
+      if (cachedData != null && cacheTime != null && !_isCacheExpired(DateTime.parse(cacheTime))) {
+        return ProjectCategoryDataModelEntity.fromJson(jsonDecode(cachedData as String));
+      }
+    } catch (e) {
+      await _clearCache();
     }
     return null;
   }
 
-  Future<ProjectCategoryDataModelEntity> _fetchAndCacheData(Box box) async {
-    final projectCategoryData = await projectRepository.getProjectCategoryData();
-    await _cacheData(box, projectCategoryData);
-    return projectCategoryData;
+  Future<void> _clearCache() async {
+    if (_box != null && !_isDisposed) {
+      await _box?.deleteAll([_hiveKey, _cacheTimeKey]);
+    }
   }
 
-  Future<void> _cacheData(Box box, ProjectCategoryDataModelEntity data) async {
-    final jsonData = jsonEncode(data.toJson());
-    final encryptedData = _encrypter.encrypt(jsonData, iv: _iv).base64;
+  Future<ProjectCategoryDataModelEntity> _fetchDataWithRetry() async {
+    Exception? lastError;
 
-    await box.put(_hiveKey, encryptedData);
-    await box.put(_cacheTimeKey, DateTime.now().toIso8601String());
+    for (int i = 0; i < _maxRetries; i++) {
+      try {
+        final result = await projectRepository.getProjectCategoryData();
+        return result;
+      } catch (e) {
+        lastError = e is Exception ? e : Exception(e.toString());
+        if (i == _maxRetries - 1) break;
+        await Future.delayed(_retryDelay * (i + 1));
+      }
+    }
+
+    throw lastError ?? Exception('Failed to fetch data after $_maxRetries attempts');
   }
 
-  bool _isCacheExpired(String cacheTimeString) {
-    final cacheTime = DateTime.parse(cacheTimeString);
+  Future<void> _cacheData(ProjectCategoryDataModelEntity data) async {
+    if (_isDisposed || _box == null) return;
+
+    try {
+      final jsonData = jsonEncode(data.toJson());
+      await _box?.putAll({
+        _hiveKey: jsonData,
+        _cacheTimeKey: DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      logService.crashLog(errorMessage: 'Failed to cache data', e: e);
+    }
+  }
+
+  bool _isCacheExpired(DateTime cacheTime) {
     return DateTime.now().isAfter(cacheTime.add(_cacheDuration));
+  }
+
+  void dispose() {
+    _isDisposed = true;
+    _dataSubject.close();
+    _box?.close();
+    _box = null;
   }
 
   @override
   Future<Either<Failure, ProjectCategoryDataModelEntity>> call(NoParams params) async {
+    if (_isDisposed) {
+      return Left(ServerFailure('UseCase has been disposed'));
+    }
+
     try {
-      await _initializeEncryption();
+      await _initCompleter.future;
+      ProjectCategoryDataModelEntity? data = await _getCachedData();
 
-      final box = await Hive.openBox(_hiveBoxName);
-      final cachedData = await _getCachedData(box) ?? await _fetchAndCacheData(box);
+      if (data == null) {
+        try {
+          data = await _fetchDataWithRetry();
+          await _cacheData(data);
+        } catch (e) {
+          return Left(ServerFailure(e.toString()));
+        }
+      }
 
-      return Right(cachedData);
-    } catch (e, s) {
-      logService.crashLog(errorMessage: 'Failed to fetch project category data', e: e, stack: s);
-      return Left(ServerFailure('Failed to fetch project category data: ${e.toString()}'));
+      if (!_isDisposed) _dataSubject.add(data);
+
+      return Right(data);
+    } catch (e) {
+      logService.crashLog(errorMessage: 'Error in GetProjectCategoryDataUseCase', e: e);
+      return Left(ServerFailure(e.toString()));
     }
   }
+
+  Stream<ProjectCategoryDataModelEntity> get dataStream => _dataSubject.stream;
 }

@@ -13,10 +13,9 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
   static const _cacheDuration = Duration(days: 7);
   static const _encryptionKeyKey = 'encryption_key';
 
-  // Encryption-related objects
   late encrypt.Encrypter _encrypter;
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
-  final _iv = encrypt.IV.fromLength(16); // Static IV for fallback
+
   Completer<void>? _initializationCompleter;
 
   GetAllSeededTagsUseCase({required this.tagsDatabaseRepository});
