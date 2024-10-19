@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 class ProjectDependencyInjection {
   // Project Repository
   static const projectRepositoryImpl = 'project_repository_impl';
