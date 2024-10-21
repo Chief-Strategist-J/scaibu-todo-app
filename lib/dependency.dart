@@ -8,8 +8,8 @@ class ServiceInstance {
 }
 
 class Dependency {
-  static void setup() {
-    ServiceDependencyInjection.registerService();
+  static Future<void> setup() async {
+    await ServiceDependencyInjection.registerService();
     TodoDependencyInjection.todoDependency();
     AuthDependencyInjection.authDependency();
     TagsDependencyInjection.setupDependencyInjection();

@@ -1,188 +1,279 @@
+import 'package:http/http.dart' as http;
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/core/error/exceptions.dart';
+import 'package:todo_app/core/network/extension/http_client_extension.dart';
+import 'package:todo_app/core/network/extension/rest_api_impl_extension.dart';
+import 'package:todo_app/core/network/helper/file_downloader.dart';
+import 'package:todo_app/core/network/helper/file_uploader.dart';
+import 'package:todo_app/core/network/helper/logger.dart';
+import 'package:todo_app/core/network/helper/network_monitor.dart';
+import 'package:todo_app/core/network/helper/request_metrics.dart';
+import 'package:todo_app/core/network/helper/request_queue.dart';
+import 'package:todo_app/core/network/helper/retry_policy.dart';
+import 'package:todo_app/core/network/helper/token_manager.dart';
+import 'package:todo_app/core/network/model/request_model.dart';
 
-enum HttpRequestMethod { get, post, delete, put, patch, upload, download }
+enum HttpRequestMethod {
+  get,
+  post,
+  put,
+  patch,
+  delete,
+  upload,
+  download,
+}
 
-RestApi restApi = RestApiImpl();
+RestApiImpl restApi = RestApiImpl(baseUrl: baseUrl, userCredentials: userCredentials);
+
+extension StatusCodeExtension on int {
+  bool isSuccessful() => this >= 200 && this < 300;
+}
 
 class RestApiImpl implements RestApi {
-  Map<String, String> createHeader() {
-    Map<String, String> header = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-    };
+  static const Duration _defaultTimeout = Duration(seconds: 30);
+  static const Duration _uploadTimeout = Duration(minutes: 2);
+  static const int _maxConcurrentRequests = 10;
+  static const int _maxRequestsPerMinute = 100;
 
-    final token = userCredentials.box.get(userCredentials.accessToken);
-    if (token != null) {
-      debugPrint("User Token : $token");
-      header.putIfAbsent(HttpHeaders.authorizationHeader, () => token);
-    }
+  final String baseUrl;
+  final UserCredentials userCredentials;
+  final http.Client _httpClient; // Changed from HttpClient to http.Client
+  final RequestQueue _requestQueue;
+  final TokenManager _tokenManager;
+  final NetworkMonitor _networkMonitor;
+  final RetryPolicy _retryPolicy;
+  final Logger _logger;
 
-    return header;
-  }
-
-  Uri createURL({required String endPoint}) {
-    if (!endPoint.startsWith('http')) {
-      return Uri.parse('$baseUrl$endPoint');
-    } else {
-      return Uri.parse('$baseUrl$endPoint');
-    }
-  }
-
-  Future handleStreamResponse({
-    required StreamedResponse response,
-    void Function(int)? onStatusCodeError,
-    HttpResponseType responseType = HttpResponseType.JSON,
-  }) async {
-    printLogMessage(response);
-
-    String streamResponse = await response.stream.bytesToString();
-
-    log('RESPONSE BODY : $streamResponse');
-
-    if (response.statusCode.isSuccessful()) {
-      if (responseType == HttpResponseType.JSON) {
-        return await jsonDecode(streamResponse);
-      } else {
-        return await jsonDecode(streamResponse);
-      }
-    } else {
-      throw handleErrorCode(response.statusCode, onStatusCodeError);
-    }
-  }
+  RestApiImpl({
+    required this.baseUrl,
+    required this.userCredentials,
+    http.Client? httpClient,
+    RequestQueue? requestQueue,
+    TokenManager? tokenManager,
+    NetworkMonitor? networkMonitor,
+    RetryPolicy? retryPolicy,
+    Logger? logger,
+  })  : _httpClient = httpClient ?? http.Client(),
+        _requestQueue = requestQueue ??
+            RequestQueue(
+              maxConcurrent: _maxConcurrentRequests,
+              requestsPerMinute: _maxRequestsPerMinute,
+            ),
+        _tokenManager = tokenManager ?? TokenManager(),
+        _networkMonitor = networkMonitor ?? NetworkMonitor(),
+        _retryPolicy = retryPolicy ?? RetryPolicy(),
+        _logger = logger ?? Logger();
 
   @override
-  Future request({
+  Future<T> request<T>({
     HttpRequestMethod type = HttpRequestMethod.get,
     required String endPoint,
-    required Map<String, dynamic> requestBody,
-    Map<String, dynamic>? headers,
+    Map<String, dynamic> requestBody = const {},
+    Map<String, String>? headers,
     String uploadKey = '',
     String uploadFilePath = '',
     void Function(int)? onStatusCodeError,
+    Duration? timeout,
+    int maxRetries = 3,
+    HttpResponseType responseType = HttpResponseType.JSON,
   }) async {
-    if (await isNetworkAvailable()) {
-      Response response = Response('', 200);
-      StreamedResponse streamedResponse = StreamedResponse(Future(() => <int>[]).asStream(), 200);
+    if (!await _networkMonitor.isNetworkAvailable()) {
+      throw const NetworkException('No network connection available');
+    }
+    final fullUrl = _createFullUrl(endPoint);
 
-      Uri url = createURL(endPoint: endPoint);
+    final request = RequestModel(
+      type: type,
+      url: fullUrl,
+      headers: await _createHeaders(headers),
+      body: requestBody,
+      uploadKey: uploadKey,
+      uploadFilePath: uploadFilePath,
+      timeout: timeout ?? _getDefaultTimeout(type),
+      maxRetries: maxRetries,
+      responseType: responseType,
+      onStatusCodeError: onStatusCodeError,
+    );
 
-      Map<String, String> headers = createHeader();
+    return _requestQueue.enqueue(() => _executeRequest<T>(request));
+  }
 
-      /// SORTING REQUEST TYPE
+  Future<T> _executeRequest<T>(RequestModel request) async {
+    final metrics = RequestMetrics();
+    var attempts = 0;
 
+    while (attempts < request.maxRetries) {
       try {
-        // Record the start time
-        final startTime = DateTime.now();
+        metrics.startAttempt();
+        final response = await _sendRequest(request);
+        metrics.endAttempt();
 
-        switch (type) {
-          case HttpRequestMethod.get:
-            response = await get(url, headers: headers);
-            break;
+        _logger.logRequest(request, response, metrics);
 
-          case HttpRequestMethod.post:
-            log('REQUEST --> $requestBody');
-            response = await post(url, body: json.encode(requestBody), headers: headers);
-            break;
+        return await processResponse<T>(
+          response,
+          request.responseType,
+          request.onStatusCodeError,
+        );
+      } catch (error, stackTrace) {
+        metrics.recordError(error);
 
-          case HttpRequestMethod.delete:
-            log('REQUEST --> $requestBody');
-            response = await delete(url, body: json.encode(requestBody), headers: headers);
-            break;
-
-          case HttpRequestMethod.put:
-            log('REQUEST --> $requestBody');
-            response = await put(url, body: json.encode(requestBody), headers: headers);
-            break;
-
-          case HttpRequestMethod.patch:
-            log('REQUEST API --> $requestBody');
-            response = await patch(url, body: json.encode(requestBody), headers: headers);
-            break;
-
-          case HttpRequestMethod.upload:
-            MultipartRequest request = MultipartRequest('POST', url);
-            request.files.add(await MultipartFile.fromPath(uploadKey, uploadFilePath));
-            request.headers.addAll(headers);
-            streamedResponse = await request.send();
-            break;
-
-          case HttpRequestMethod.download:
-            log('please handle download request');
-            return '';
+        if (!_retryPolicy.shouldRetry(error, attempts)) {
+          _logger.logError(request, error, stackTrace, metrics);
+          rethrow;
         }
 
-        // Record the end time
-        final endTime = DateTime.now();
-
-        // Calculate the duration
-        final duration = endTime.difference(startTime);
-
-        // Log the performance details
-        log('REQUEST METHOD: $type | URL: $url | DURATION: ${duration.inMilliseconds} ms');
-
-        return streamResponse(
-          type,
-          streamedResponse,
-          onStatusCodeError,
-          response,
-        );
-      } catch (e) {
-        // Handle and log any errors
-        log('REQUEST ERROR: $e');
-        rethrow;
+        attempts++;
+        await _retryPolicy.waitBeforeRetry(attempts);
       }
+    }
 
-      /// Handing Response
-    } else {
-      throw errorInternetNotAvailable;
+    throw MaxRetriesException(
+      'Max retry attempts (${request.maxRetries}) exceeded',
+      metrics.errors,
+    );
+  }
+
+  Future<Response> _sendRequest(RequestModel request) async {
+    final uri = Uri.parse(request.url);
+
+    switch (request.type) {
+      case HttpRequestMethod.get:
+        return _httpClient.get(uri, headers: request.headers).timeout(request.timeout);
+
+      case HttpRequestMethod.post:
+      case HttpRequestMethod.put:
+      case HttpRequestMethod.patch:
+      case HttpRequestMethod.delete:
+        return _sendBodyRequest(request);
+
+      case HttpRequestMethod.upload:
+        return _handleUpload(request);
+
+      case HttpRequestMethod.download:
+        return _handleDownload(request);
     }
   }
 
+  Future<Response> _sendBodyRequest(RequestModel request) async {
+    final encodedBody = jsonEncode(request.body);
+    final method = request.type.toString().split('.').last.toUpperCase();
+
+    return _httpClient.sendRequest(
+      method,
+      request.url,
+      body: encodedBody,
+      headers: request.headers,
+      timeout: request.timeout,
+    );
+  }
+
+  Future<http.Response> _handleUpload(RequestModel request) async {
+    final uploader = FileUploader(client: _httpClient);
+    return uploader.uploadFile(
+      url: request.url,
+      filePath: request.uploadFilePath,
+      fileKey: request.uploadKey,
+      headers: request.headers,
+      timeout: request.timeout,
+    );
+  }
+
+  Future<http.Response> _handleDownload(RequestModel request) async {
+    final downloader = FileDownloader(client: _httpClient);
+    return downloader.downloadFile(
+      url: request.url,
+      headers: request.headers,
+      timeout: request.timeout,
+    );
+  }
+
   @override
-  Future handleResponse({
+  Future<T> handleResponse<T>({
     required Response response,
     HttpResponseType responseType = HttpResponseType.JSON,
     void Function(int)? onStatusCodeError,
   }) async {
-    printResponse(response);
+    if (!_isSuccessfulResponse(response)) {
+      _handleErrorResponse(response, onStatusCodeError);
+    }
 
-    if (response.statusCode.isSuccessful()) {
-      if (response.body.isEmpty) {
-        return jsonDecode(response.body);
-      } else {
-        if (responseType == HttpResponseType.JSON) {
-          return jsonDecode(response.body);
-        } else if (responseType == HttpResponseType.FULL_RESPONSE) {
-          return jsonDecode(response.body);
-        } else if (responseType == HttpResponseType.STRING) {
-          return jsonDecode(response.body);
-        } else if (responseType == HttpResponseType.BODY_BYTES) {
-          return jsonDecode(response.body);
-        }
-      }
-    } else {
-      if (response.body.isJson()) log(jsonDecode(response.body));
-      if (response.body.isJson()) throw jsonDecode(response.body);
-      throw handleErrorCode(response.statusCode, onStatusCodeError);
+    return _parseResponse<T>(response, responseType);
+  }
+
+  Future<Map<String, String>> _createHeaders(Map<String, String>? additionalHeaders) async {
+    final token = await _tokenManager.getToken(userCredentials);
+
+    final headers = <String, String>{
+      HttpHeaders.contentTypeHeader: 'application/json',
+      if (token != null) HttpHeaders.authorizationHeader: token,
+      ...?additionalHeaders,
+    };
+
+    return headers;
+  }
+
+  String _createFullUrl(String endPoint) {
+    try {
+      return endPoint.startsWith('http') ? endPoint : '$baseUrl$endPoint';
+    } on FormatException catch (e) {
+      throw InvalidUrlException('Invalid URL format: $endPoint', e);
     }
   }
 
-  Future<dynamic> streamResponse(
-    HttpRequestMethod type,
-    StreamedResponse streamedResponse,
-    void Function(int)? onStatusCodeError,
-    Response response,
-  ) {
-    if (type == HttpRequestMethod.upload || type == HttpRequestMethod.download) {
-      return handleStreamResponse(
-        response: streamedResponse,
-        onStatusCodeError: onStatusCodeError,
-      );
-    } else {
-      return handleResponse(
-        response: response,
-        onStatusCodeError: onStatusCodeError,
+  Duration _getDefaultTimeout(HttpRequestMethod type) {
+    switch (type) {
+      case HttpRequestMethod.upload:
+      case HttpRequestMethod.download:
+        return _uploadTimeout;
+      default:
+        return _defaultTimeout;
+    }
+  }
+
+  T _parseResponse<T>(Response response, HttpResponseType responseType) {
+    if (response.body.isEmpty && T == dynamic) {
+      return null as T;
+    }
+
+    try {
+      switch (responseType) {
+        case HttpResponseType.JSON:
+          return jsonDecode(response.body) as T;
+        case HttpResponseType.STRING:
+          return response.body as T;
+        case HttpResponseType.BODY_BYTES:
+          return response.bodyBytes as T;
+        case HttpResponseType.FULL_RESPONSE:
+          return response as T;
+      }
+    } catch (e) {
+      throw ResponseParseException(
+        'Failed to parse response as $T',
+        response.body,
+        e,
       );
     }
+  }
+
+  bool _isSuccessfulResponse(Response response) {
+    return response.statusCode >= 200 && response.statusCode < 300;
+  }
+
+  void _handleErrorResponse(Response response, void Function(int)? onStatusCodeError) {
+    final statusCode = response.statusCode;
+    onStatusCodeError?.call(statusCode);
+
+    if (response.body.isNotEmpty && _isJsonResponse(response)) {
+      throw ApiException.fromJson(statusCode, jsonDecode(response.body));
+    }
+
+    throw ApiException(statusCode, 'Request failed with status: $statusCode');
+  }
+
+  bool _isJsonResponse(Response response) {
+    final contentType = response.headers['content-type'];
+    return contentType?.contains('application/json') ?? false;
   }
 }
 

@@ -17,7 +17,7 @@ class TodoDependencyInjection {
 
   static void registerTodoApi() {
     getIt.registerSingleton<BaseApi>(FirebaseApiImpl(), instanceName: firebaseApi);
-    getIt.registerSingleton<BaseApi>(DataBaseApiImpl(RestApiImpl()), instanceName: localApi);
+    getIt.registerSingleton<BaseApi>(DataBaseApiImpl(restApi), instanceName: localApi);
   }
 
   static void registerTodoRepository() {

@@ -14,7 +14,7 @@ Future<void> main() async {
 
   Dependency.setup();
   await getIt.isReady<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
-  userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((value) {
     runApp(

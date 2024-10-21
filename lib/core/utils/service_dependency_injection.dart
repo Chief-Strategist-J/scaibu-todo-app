@@ -1,8 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 class ServiceDependencyInjection {
-  static void registerService() {
+  static Future<void> registerService() async {
     getIt.registerLazySingletonAsync<UserCredentials>(
       () async {
         log('\n USER-CREDENTIALS SERVICE IS INITIALIZED\n\n');
@@ -14,6 +13,9 @@ class ServiceDependencyInjection {
         await userCredentials.box.close();
       },
     );
+
+    await getIt.isReady<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+    userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
 
     getIt.registerLazySingleton(() {
       log('\n\nSCHEDULE SERVICE IN INITIALIZED\n\n');

@@ -2,7 +2,12 @@ import 'package:todo_app/core/app_library.dart';
 
 class AuthDependencyInjection {
   static void authDependency() {
-    getIt.registerSingleton<RestApi>(RestApiImpl());
+    getIt.registerSingleton<RestApi>(
+      RestApiImpl(
+        baseUrl: baseUrl,
+        userCredentials: userCredentials,
+      ),
+    );
 
     getIt.registerSingleton<UserBaseApi>(
       UserDatabaseImpl(restApi: getIt<RestApi>()),
