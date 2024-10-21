@@ -1,7 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/core/network/cache/async_clock.dart';
-import 'package:todo_app/core/network/cache/cache_config.dart';
-import 'package:todo_app/core/network/cache/in_memory_cache.dart';
 
 class GetProjectCategoryDataUseCase extends UseCase<ProjectCategoryDataModelEntity, NoParams> {
   Box? _box;
@@ -24,32 +21,6 @@ class GetProjectCategoryDataUseCase extends UseCase<ProjectCategoryDataModelEnti
 
   Future<void> _initializeCache() async {
     _box ??= await Hive.openBox(_config.boxName);
-  }
-
-  @override
-  Future<Either<Failure, ProjectCategoryDataModelEntity>> call(NoParams params) async {
-    return await _lock.synchronized(() async {
-      try {
-        final inMemoryData = _inMemoryCache.validData;
-        if (inMemoryData != null) {
-          return Right(inMemoryData);
-        }
-
-        await _initializeCache();
-        final storedData = await _getStorageCache();
-        if (storedData != null) {
-          _inMemoryCache.setData(storedData);
-          return Right(storedData);
-        }
-
-        final freshData = await projectRepository.getProjectCategoryData();
-        _inMemoryCache.setData(freshData);
-        await _setStorageCache(freshData);
-        return Right(freshData);
-      } catch (e) {
-        return Left(ServerFailure(e.toString()));
-      }
-    });
   }
 
   Future<ProjectCategoryDataModelEntity?> _getStorageCache() async {
@@ -87,5 +58,31 @@ class GetProjectCategoryDataUseCase extends UseCase<ProjectCategoryDataModelEnti
   Future<void> clearCache() async {
     _inMemoryCache.clear();
     await _clearStorageCache();
+  }
+
+  @override
+  Future<Either<Failure, ProjectCategoryDataModelEntity>> call(NoParams params) async {
+    return await _lock.synchronized(() async {
+      try {
+        final inMemoryData = _inMemoryCache.validData;
+        if (inMemoryData != null) {
+          return Right(inMemoryData);
+        }
+
+        await _initializeCache();
+        final storedData = await _getStorageCache();
+        if (storedData != null) {
+          _inMemoryCache.setData(storedData);
+          return Right(storedData);
+        }
+
+        final freshData = await projectRepository.getProjectCategoryData();
+        _inMemoryCache.setData(freshData);
+        await _setStorageCache(freshData);
+        return Right(freshData);
+      } catch (e) {
+        return Left(ServerFailure(e.toString()));
+      }
+    });
   }
 }
