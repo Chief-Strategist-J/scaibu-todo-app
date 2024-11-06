@@ -1,4 +1,5 @@
 library todoLibrary;
+
 export 'dart:collection';
 export 'package:nested/nested.dart';
 export 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ export 'package:todo_app/core/utils/utility_service.dart';
 export 'package:firebase_analytics/firebase_analytics.dart';
 export 'package:flex_color_picker/flex_color_picker.dart';
 export 'package:todo_app/main.dart';
+
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/firebase_options.dart';
@@ -62,6 +64,20 @@ export 'package:rxdart/rxdart.dart';
 export 'package:async/async.dart';
 export 'package:bloc_test/bloc_test.dart';
 export 'package:mockito/mockito.dart';
+
+/// Networking
+export 'package:todo_app/core/error/exceptions.dart';
+export 'package:todo_app/core/network/extension/http_client_extension.dart';
+export 'package:todo_app/core/network/extension/rest_api_impl_extension.dart';
+export 'package:todo_app/core/network/helper/file_downloader.dart';
+export 'package:todo_app/core/network/helper/file_uploader.dart';
+export 'package:todo_app/core/network/helper/logger.dart';
+export 'package:todo_app/core/network/helper/network_monitor.dart';
+export 'package:todo_app/core/network/helper/request_metrics.dart';
+export 'package:todo_app/core/network/helper/request_queue.dart';
+export 'package:todo_app/core/network/helper/retry_policy.dart';
+export 'package:todo_app/core/network/helper/token_manager.dart';
+export 'package:todo_app/core/network/model/request_model.dart';
 
 /// Injection
 export 'package:todo_app/core/utils/service_dependency_injection.dart';
@@ -95,7 +111,6 @@ export 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_ca
 export 'package:todo_app/shared/service/task_detail_api_service.dart';
 export 'package:todo_app/shared/util/task_detail_selection_util.dart';
 export 'package:todo_app/shared/util/entity_utils.dart';
-
 
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';

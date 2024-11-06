@@ -1,27 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/core/error/exceptions.dart';
-import 'package:todo_app/core/network/extension/http_client_extension.dart';
-import 'package:todo_app/core/network/extension/rest_api_impl_extension.dart';
-import 'package:todo_app/core/network/helper/file_downloader.dart';
-import 'package:todo_app/core/network/helper/file_uploader.dart';
-import 'package:todo_app/core/network/helper/logger.dart';
-import 'package:todo_app/core/network/helper/network_monitor.dart';
-import 'package:todo_app/core/network/helper/request_metrics.dart';
-import 'package:todo_app/core/network/helper/request_queue.dart';
-import 'package:todo_app/core/network/helper/retry_policy.dart';
-import 'package:todo_app/core/network/helper/token_manager.dart';
-import 'package:todo_app/core/network/model/request_model.dart';
 
-enum HttpRequestMethod {
-  get,
-  post,
-  put,
-  patch,
-  delete,
-  upload,
-  download,
-}
+enum HttpRequestMethod { get, post, put, patch, delete, upload, download }
 
 RestApiImpl restApi = RestApiImpl(baseUrl: baseUrl, userCredentials: userCredentials);
 
@@ -37,7 +17,7 @@ class RestApiImpl implements RestApi {
 
   final String baseUrl;
   final UserCredentials userCredentials;
-  final http.Client _httpClient; // Changed from HttpClient to http.Client
+  final http.Client _httpClient;
   final RequestQueue _requestQueue;
   final TokenManager _tokenManager;
   final NetworkMonitor _networkMonitor;
