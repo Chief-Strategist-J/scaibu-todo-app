@@ -6,74 +6,63 @@ class ProjectRepositoryImpl implements ProjectRepository<ProjectEntity> {
   ProjectRepositoryImpl(this.projectRemoteDataSource);
 
   @override
-  Future<void> archiveProject(String id) {
-    // TODO: implement archiveProject
-    throw UnimplementedError();
+  Future<void> archiveProject(String id) async {
+    return await projectRemoteDataSource.archiveProject(id);
   }
 
   @override
-  Future<void> bulkCreateProjects(List<Map<String, dynamic>> data) {
-    // TODO: implement bulkCreateProjects
-    throw UnimplementedError();
+  Future<void> bulkCreateProjects(List<Map<String, dynamic>> data) async {
+    return await projectRemoteDataSource.bulkCreateProjects(data);
   }
 
   @override
-  Future<void> bulkDeleteProjects(List<String> ids) {
-    // TODO: implement bulkDeleteProjects
-    throw UnimplementedError();
+  Future<void> bulkDeleteProjects(List<String> ids) async {
+    return await projectRemoteDataSource.bulkDeleteProjects(ids);
   }
 
   @override
-  Future<void> createProject(Map<String, dynamic> data) {
-    // TODO: implement createProject
-    throw UnimplementedError();
+  Future<void> createProject(Map<String, dynamic> data) async {
+    return await projectRemoteDataSource.createProject(data);
   }
 
   @override
-  Future<void> deleteProject(String id) {
-    // TODO: implement deleteProject
-    throw UnimplementedError();
+  Future<void> deleteProject(String id) async {
+    return await projectRemoteDataSource.deleteProject(id);
   }
 
   @override
-  Future<List<ProjectEntity>> getAllProjects() {
-    // TODO: implement getAllProjects
-    throw UnimplementedError();
+  Future<List<ProjectEntity>> getAllProjects() async {
+    return await projectRemoteDataSource.getAllProjects();
   }
 
   @override
-  Future<ProjectEntity?> getProjectById(String id) {
-    // TODO: implement getProjectById
-    throw UnimplementedError();
+  Future<ProjectEntity?> getProjectById(String id) async {
+    return await projectRemoteDataSource.getProjectById(id);
   }
 
   @override
-  Future<void> restoreProject(String id) {
-    // TODO: implement restoreProject
-    throw UnimplementedError();
+  Future<void> restoreProject(String id) async {
+    return await projectRemoteDataSource.restoreProject(id);
   }
 
   @override
-  Future<List<ProjectEntity>> searchProjects(String query) {
-    // TODO: implement searchProjects
-    throw UnimplementedError();
+  Future<List<ProjectEntity>> searchProjects(String query) async {
+    return await projectRemoteDataSource.searchProjects(query);
   }
 
   @override
-  Future<void> updateProject(String id, Map<String, dynamic> data) {
-    // TODO: implement updateProject
-    throw UnimplementedError();
+  Future<void> updateProject(String id, Map<String, dynamic> data) async {
+    return await projectRemoteDataSource.updateProject(id, data);
   }
 
   @override
   Future<void> assignTodosToProjectsRequest(Map<String, dynamic> data) async {
-    // TODO: implement assignTodosToProjectsRequest
+    return await projectRemoteDataSource.assignTodosToProjectsRequest(data);
   }
 
   @override
-  Future<ProjectEntity> getPaginatedProjectsForTodo(Map<String, dynamic> data) {
-    // TODO: implement getPaginatedProjectsForTodo
-    throw UnimplementedError();
+  Future<ProjectEntity> getPaginatedProjectsForTodo(Map<String, dynamic> data) async {
+    return await projectRemoteDataSource.getPaginatedProjectsForTodo(data);
   }
 
   @override

@@ -5,6 +5,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 
   ProjectBloc() : super(InitProjectState(projectList: const [], updatedAt: DateTime.now())) {
     on<InitProjectEvent>(_init);
+    on<CreateProjectEvent>(_createProject);
   }
 
   void _init(InitProjectEvent event, Emitter<ProjectState> emit) async {
@@ -28,5 +29,10 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
       logService.crashLog(errorMessage: 'Error during project category fetch operation', e: e);
       emit(InitProjectState.init()); // Return initial state on error
     }
+  }
+
+  Future<void> _createProject(CreateProjectEvent event, Emitter<ProjectState> emit) async {
+    final createProject = getIt<CreateProjectUseCase>(instanceName: ProjectDependencyInjection.createProjectUseCase);
+    await createProject(event.request);
   }
 }

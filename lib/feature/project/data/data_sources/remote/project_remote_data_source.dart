@@ -63,6 +63,11 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
         "is_public": data["is_public"],
         "created_by": data["created_by"],
         "updated_by": data["updated_by"],
+        "project_category_name": data["project_category_name"],
+        "project_priority_name": data["project_priority_name"],
+        "project_status_name": data["project_status_name"],
+        "project_phase_name": data["project_phase_name"],
+        "project_type_name": data["project_type_name"],
       },
     );
   }

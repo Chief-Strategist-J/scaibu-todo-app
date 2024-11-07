@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/core/error/exceptions.dart';
 
 class RetryPolicy {
   final Set<int> _retryableStatusCodes = {408, 429, 500, 502, 503, 504};

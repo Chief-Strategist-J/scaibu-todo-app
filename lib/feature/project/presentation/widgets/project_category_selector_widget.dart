@@ -60,6 +60,7 @@ class ProjectCategorySelectorWidget extends HookWidget {
           focusNode: config.focusNode,
           isTimeField: true,
           onTap: () {
+            hideKeyboard(context);
             _showProjectCategorySelector(
               context: context,
               title: config.title,

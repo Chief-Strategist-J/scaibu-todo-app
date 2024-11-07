@@ -70,6 +70,24 @@ class ProjectPage extends HookWidget {
     });
   }
 
+  void _createProject(ProjectPageParam projectParam, BuildContext context) {
+    final req = {
+      "name": projectParam.projectName.text,
+      "description": projectParam.projectDescription.text,
+      "status": projectParam.projectStatus.text,
+      "end_date": projectParam.endDate?.dateTime.toIso8601String(),
+      "is_public": projectParam.isPublic,
+      "created_by": userCredentials.getUserId,
+      "updated_by": userCredentials.getUserId,
+      "project_category_name": projectParam.projectCategory.text,
+      "project_phase_name": projectParam.projectPhase.text,
+      "project_status_name": projectParam.projectStatus.text,
+      "project_priority_name": projectParam.projectPriority.text,
+      "project_type_name": projectParam.projectProjectType.text,
+    };
+    context.read<ProjectBloc>().add(CreateProjectEvent(request: req));
+  }
+
   @override
   Widget build(BuildContext context) {
     final projectParam = useMemoized(() => param ?? ProjectPageParam(), [param]);
@@ -96,6 +114,7 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectStartDateNode,
                 isDateField: true,
                 onTap: () async {
+                  hideKeyboard(context);
                   await timeService.selectDate(context).then((date) async {
                     if (!context.mounted) return;
                     projectParam.projectStartDate.text = date.formatTimeInString;
@@ -109,6 +128,7 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectEndDateNode,
                 isTimeField: true,
                 onTap: () async {
+                  hideKeyboard(context);
                   await timeService.selectDate(context).then((date) async {
                     if (!context.mounted) return;
                     projectParam.projectEndDate.text = date.formatTimeInString;
@@ -122,6 +142,7 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectEstimatedHoursNode,
                 isTimeField: true,
                 onTap: () async {
+                  hideKeyboard(context);
                   await _selectEstimatedHours(context, projectParam);
                 },
               ),
@@ -131,6 +152,7 @@ class ProjectPage extends HookWidget {
                 focusNode: projectParam.projectActualHoursNode,
                 isTimeField: true,
                 onTap: () async {
+                  hideKeyboard(context);
                   await _selectActualHours(context, projectParam);
                 },
               ),
@@ -169,7 +191,7 @@ class ProjectPage extends HookWidget {
               child: CustomButton(
                 data: "Create Project",
                 onTap: () async {
-                  //
+                  _createProject(projectParam, context);
                 },
               ),
             ),
