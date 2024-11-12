@@ -18,11 +18,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
           emit(InitProjectState.init());
         },
         (projectCategories) {
-          emit(InitProjectState(
-            projectList: const [], // Ensure a fresh list reference
-            projectCategoryData: projectCategories,
-            updatedAt: DateTime.now(),
-          ));
+          emit(InitProjectState(projectList: const [], projectCategoryData: projectCategories, updatedAt: DateTime.now()));
         },
       );
     } catch (e) {
@@ -33,6 +29,23 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 
   Future<void> _createProject(CreateProjectEvent event, Emitter<ProjectState> emit) async {
     final createProject = getIt<CreateProjectUseCase>(instanceName: ProjectDependencyInjection.createProjectUseCase);
-    await createProject(event.request);
+    final _param = event.request;
+
+    await createProject(
+      {
+        "name": _param.projectName.text,
+        "description": _param.projectDescription.text,
+        "status": _param.projectStatus.text,
+        "end_date": _param.endDate?.dateTime.toIso8601String(),
+        "is_public": _param.isPublic,
+        "created_by": userCredentials.getUserId,
+        "updated_by": userCredentials.getUserId,
+        "project_category_name": _param.projectCategory.text,
+        "project_phase_name": _param.projectPhase.text,
+        "project_status_name": _param.projectStatus.text,
+        "project_priority_name": _param.projectPriority.text,
+        "project_type_name": _param.projectProjectType.text,
+      },
+    );
   }
 }

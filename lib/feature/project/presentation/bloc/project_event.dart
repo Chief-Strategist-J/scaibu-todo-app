@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import 'package:todo_app/core/app_library.dart';
 
 sealed class ProjectEvent extends Equatable {}
 
@@ -8,7 +8,7 @@ class InitProjectEvent extends ProjectEvent {
 }
 
 class CreateProjectEvent extends ProjectEvent {
-  final Map<String, dynamic> request;
+  final ProjectPageParam request;
 
   CreateProjectEvent({required this.request});
 

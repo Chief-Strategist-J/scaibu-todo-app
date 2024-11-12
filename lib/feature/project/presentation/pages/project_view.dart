@@ -71,21 +71,7 @@ class ProjectPage extends HookWidget {
   }
 
   void _createProject(ProjectPageParam projectParam, BuildContext context) {
-    final req = {
-      "name": projectParam.projectName.text,
-      "description": projectParam.projectDescription.text,
-      "status": projectParam.projectStatus.text,
-      "end_date": projectParam.endDate?.dateTime.toIso8601String(),
-      "is_public": projectParam.isPublic,
-      "created_by": userCredentials.getUserId,
-      "updated_by": userCredentials.getUserId,
-      "project_category_name": projectParam.projectCategory.text,
-      "project_phase_name": projectParam.projectPhase.text,
-      "project_status_name": projectParam.projectStatus.text,
-      "project_priority_name": projectParam.projectPriority.text,
-      "project_type_name": projectParam.projectProjectType.text,
-    };
-    context.read<ProjectBloc>().add(CreateProjectEvent(request: req));
+    context.read<ProjectBloc>().add(CreateProjectEvent(request: projectParam));
   }
 
   @override

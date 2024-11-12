@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/core/network/internetConnection/internet_connection_cubit.dart';
 
 UserCredentials userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
 
@@ -14,7 +15,6 @@ Future<void> main() async {
 
   Dependency.setup();
   await getIt.isReady<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
-
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((value) {
     runApp(
@@ -44,35 +44,13 @@ class MyApp extends HookWidget {
 
   List<SingleChildWidget> get blocProviders {
     return [
-      BlocProvider(
-        create: (context) => GetIt.instance<AuthBloc>()
-          ..add(
-            AuthInitEvent(),
-          ),
-      ),
-      BlocProvider(
-        create: (context) => GetIt.instance<TodoBloc>(),
-      ),
-      BlocProvider(
-        create: (context) => GetIt.instance<TagBloc>(
-          instanceName: TagsDependencyInjection.tagBloc,
-        ),
-      ),
-      BlocProvider(
-        create: (context) => GetIt.instance<PomodoroBloc>(
-          instanceName: PomodoroDependencyInjection.pomodoroBloc,
-        ),
-      ),
-      BlocProvider(
-        create: (context) => GetIt.instance<ProjectBloc>(
-          instanceName: ProjectDependencyInjection.projectBloc,
-        ),
-      ),
-      BlocProvider(
-        create: (context) => GetIt.instance<NotificationBloc>(
-          instanceName: NotificationDependencyInjection.notificationBloc,
-        ),
-      ),
+      BlocProvider(create: (context) => InternetConnectionCubit()),
+      BlocProvider(create: (context) => GetIt.instance<AuthBloc>()..add(AuthInitEvent())),
+      BlocProvider(create: (context) => GetIt.instance<TodoBloc>()),
+      BlocProvider(create: (context) => GetIt.instance<TagBloc>(instanceName: TagsDependencyInjection.tagBloc)),
+      BlocProvider(create: (context) => GetIt.instance<PomodoroBloc>(instanceName: PomodoroDependencyInjection.pomodoroBloc)),
+      BlocProvider(create: (context) => GetIt.instance<ProjectBloc>(instanceName: ProjectDependencyInjection.projectBloc)),
+      BlocProvider(create: (context) => GetIt.instance<NotificationBloc>(instanceName: NotificationDependencyInjection.notificationBloc)),
     ];
   }
 

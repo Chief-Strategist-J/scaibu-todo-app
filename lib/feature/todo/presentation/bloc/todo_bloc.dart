@@ -1,13 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository? firebaseRepo;
   final TodoRepository? serverRepo;
-
-  StreamSubscription<InternetStatus>? _internetStatusSubscription;
   List<TodoEntity> tempTodoList = [];
-  bool _internetConnectionStreamInit = true;
 
   TodoBloc({required this.serverRepo, required this.firebaseRepo}) : super(InitTodoState.init()) {
     on<InitTodoEvent>(_init);
@@ -15,25 +11,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<NoInternetConnectionEvent>(_onNoInternetConnectionUpdate);
   }
 
-  void _getInternetConnectionStatus() {
-    if (_internetConnectionStreamInit) {
-      _internetConnectionStreamInit = false;
-      log('INTERNET CONNECTION STREAM IN INITIALIZE');
-      _internetStatusSubscription = InternetConnection().onStatusChange.listen((status) {
-        if (status == InternetStatus.connected) {
-          add(InitTodoEvent(isListUpdated: false));
-        } else {
-          add(NoInternetConnectionEvent());
-        }
-      });
-    }
-  }
-
-  @override
-  Future<void> close() {
-    _internetStatusSubscription?.cancel();
-    return super.close();
-  }
 
   Future<void> _onNoInternetConnectionUpdate(NoInternetConnectionEvent event, emit) async {
     emit(NoInternetState(todoList: tempTodoList));
@@ -45,8 +22,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _init(InitTodoEvent event, Emitter<TodoState> emit) async {
     try {
-      _getInternetConnectionStatus();
-
       log('GETTING THE TODO-LIST');
       await GetIt.instance<GetTodoListUseCase>()(event.isListUpdated).then((res) {
         res.fold((failure) {
