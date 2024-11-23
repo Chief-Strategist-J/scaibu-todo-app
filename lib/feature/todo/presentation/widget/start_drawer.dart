@@ -1,38 +1,28 @@
 import 'package:todo_app/core/app_library.dart';
 
-class DrawerComponent extends StatelessWidget {
-  final TodoBloc _todoBloc;
-
-  const DrawerComponent({super.key, required TodoBloc todoBloc}) : _todoBloc = todoBloc;
-
-  void _onLogOutTap(BuildContext context) {
-    appShowConfirmDialogCustom(
-      context,
-      title: 'Confirm Log-Out?',
-      dialogType: DialogType.DELETE,
-      backgroundColor: context.primaryColor,
-      cancelButtonColor: cancelButtonColor,
-      negativeTextColor: context.primaryColor,
-      positiveText: "Log-Out",
-      onAccept: (p0) async {
-        await getIt<StandardLogoutUseCase>().call(
-          {
-            'user_id': userCredentials.getUserId.toString(),
-            'email': userCredentials.getUserEmail.toString(),
-          },
-        );
-        OneSignal.logout();
-        userCredentials.clear();
-
-        await 1.seconds.delay;
-        if (!context.mounted) return;
-        GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage);
-      },
-    );
-  }
+class DrawerComponent extends HookWidget {
+  const DrawerComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final todoBloc = BlocProvider.of<TodoBloc>(context);
+    final todoState = useStream(todoBloc.stream, initialData: todoBloc.state);
+
+    final _drawerItems = useMemoized(() => DrawerItemModel.itemList(context));
+
+    final visibleItems = useMemoized(
+      () {
+        if (todoState is! NoInternetState) {
+          return _drawerItems;
+        } else {
+          return _drawerItems.where((item) {
+            return item.title != 'Log-Out' && item.title != 'Add Task';
+          }).toList();
+        }
+      },
+      [todoState],
+    );
+
     return Drawer(
       width: context.width() * 0.5,
       child: SizedBox(
@@ -40,102 +30,17 @@ class DrawerComponent extends StatelessWidget {
         width: context.width(),
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: DrawerHeader(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      userCredentials.getFirebasePhotoUrl == null
-                          ? const CircleAvatar(radius: 40)
-                          : Image.network(
-                              userCredentials.getFirebasePhotoUrl!,
-                              width: 40,
-                              height: 40,
-                            ),
-                      16.height,
-                      if (userCredentials.getUserEmail != null)
-                        Text(
-                          userCredentials.getUserEmail!.capitalizeFirstLetter().splitBefore('@'),
-                          style: boldTextStyle(),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            const Expanded(flex: 1, child: DrawerHeaderComponent()),
             Expanded(
               flex: 5,
               child: ListView(
                 reverse: true,
                 children: [
-                  64.height,
-                  if (_todoBloc.state is! NoInternetState) ...[
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () async {
-                        _onLogOutTap(context);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                        child: Text("Log-Out", style: boldTextStyle()),
-                      ),
-                    ),
-                    const Divider(thickness: 0.5),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        finish(context);
-                        GoRouter.of(context).push(ApplicationPaths.manageTodoPage, extra: null);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                        child: Text("Add Task", style: boldTextStyle()),
-                      ),
-                    ),
-                    const Divider(thickness: 0.5),
-                  ],
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      context.push(ApplicationPaths.notificationPage);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                      child: Text("Notifications", style: boldTextStyle()),
-                    ),
-                  ),
-                  const Divider(thickness: 0.5),
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      context.push(ApplicationPaths.settingPage);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                      child: Text("Settings", style: boldTextStyle()),
-                    ),
-                  ),
-                  const Divider(thickness: 0.5),
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      finish(context);
-                      GoRouter.of(context).push(ApplicationPaths.profilePage);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                      child: Text("Profile", style: boldTextStyle()),
-                    ),
-                  ),
+                  const SizedBox(height: 64),
+                  ...visibleItems.map((item) => DrawerItemComponent(title: item.title, onTap: item.onTap)),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),

@@ -5,6 +5,7 @@ class TaskDetailApiService {
   final GetAllTagsByUserIdUseCase _getAllTagsByUserId;
   final GetTagsByTodoIdUseCase _getTagsByTodoId;
 
+
   TaskDetailApiService()
       : _getAllSeededTags = getIt<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase),
         _getAllTagsByUserId = getIt<GetAllTagsByUserIdUseCase>(instanceName: TagsDependencyInjection.getAllTagsByUserIdUseCase),
@@ -37,3 +38,4 @@ class TaskDetailApiService {
     return [...results[0], ...results[1]];
   }
 }
+

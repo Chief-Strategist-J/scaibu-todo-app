@@ -33,3 +33,21 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
     }
   }
 }
+
+Future<void> Function() updateStateAccordingToInternetStatus(
+  BuildContext context, {
+  required void Function() onInternetIsConnected,
+  required void Function() onInternetIsNotConnected,
+}) {
+  final internetConnectionCubit = context.read<InternetConnectionCubit>();
+
+  final subscription = internetConnectionCubit.stream.listen((state) {
+    if (state.status == CurrentInternetStatus.connected) {
+      onInternetIsConnected.call();
+    } else {
+      onInternetIsNotConnected.call();
+    }
+  });
+
+  return subscription.cancel;
+}

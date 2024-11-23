@@ -1,8 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
-
-
 class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   bool isSeededTagsRetrieved = false;
 
@@ -27,14 +24,14 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   void _init(InitTaskDetailEvent event, Emitter<TaskDetailState> emit) async {
     if (!isSeededTagsRetrieved) {
       isSeededTagsRetrieved = true;
-      await _getSeededTags(emit);
+      await _getData(emit);
     } else {
       _emitDataState(emit, pomodoroCont: 0);
     }
     await _getTagsForTodoList(event);
   }
 
-  Future<void> _getSeededTags(Emitter<TaskDetailState> emit) async {
+  Future<void> _getData(Emitter<TaskDetailState> emit) async {
     try {
       final combinedTags = await _tagApiService.fetchSeededTags(userCredentials.getUserId.toString());
 

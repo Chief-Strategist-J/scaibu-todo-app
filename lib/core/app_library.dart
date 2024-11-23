@@ -173,6 +173,9 @@ export 'package:todo_app/feature/auth/data/model/response/fail_response.dart';
 export 'package:todo_app/feature/auth/domain/useCases/standard_logout_use_case.dart';
 export 'package:todo_app/feature/todo/data/model/manage_todo.dart';
 export 'package:todo_app/shared/widget/taskDetailComponent/task_detail_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/drawerHeaderComponent/drawer_header_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/drawerHeaderComponent/drawer_item_component.dart';
+export 'package:todo_app/feature/todo/presentation/widget/drawerHeaderComponent/model/drawer_item_model.dart';
 
 // Tag Feature
 export 'package:todo_app/feature/tags/data/data_sources/remote/tags_remote_database.dart';

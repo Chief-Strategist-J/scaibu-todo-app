@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/core/network/internetConnection/internet_connection_cubit.dart';
-import 'package:todo_app/core/network/internetConnection/internet_connection_state.dart';
 
 class TodoPage extends HookWidget {
   const TodoPage({super.key});
@@ -13,35 +12,33 @@ class TodoPage extends HookWidget {
     await GoRouter.of(context).push(ApplicationPaths.manageTodoPage);
   }
 
-  Future<void> Function() updateStateAccordingToInternetStatus(BuildContext context) {
-    final todoBloc = context.read<TodoBloc>();
-    final internetConnectionCubit = context.read<InternetConnectionCubit>();
-
-    final subscription = internetConnectionCubit.stream.listen((state) {
-      if (state.status == CurrentInternetStatus.connected) {
-        todoBloc.add(InitTodoEvent(isListUpdated: false));
-      } else {
-        todoBloc.add(NoInternetConnectionEvent());
-      }
-    });
-
-    return subscription.cancel;
-  }
-
   @override
   Widget build(BuildContext context) {
     final todoBloc = context.read<TodoBloc>();
     final scaffoldKey = useMemoized(() => GlobalKey<ScaffoldState>(), []);
-    useEffect(() => updateStateAccordingToInternetStatus(context), [todoBloc]);
+
+    useEffect(
+      () {
+        return updateStateAccordingToInternetStatus(
+          context,
+          onInternetIsConnected: () {
+            todoBloc.add(InitTodoEvent(isListUpdated: false));
+          },
+          onInternetIsNotConnected: () {
+            todoBloc.add(NoInternetConnectionEvent());
+          },
+        );
+      },
+      [todoBloc],
+    );
 
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(),
-        endDrawer: DrawerComponent(todoBloc: todoBloc),
+        endDrawer: const DrawerComponent(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: BlocBuilder<TodoBloc, TodoState>(
-          bloc: todoBloc,
           builder: (context, state) {
             if (state is NoInternetState) return const Offstage();
 
@@ -61,10 +58,8 @@ class TodoPage extends HookWidget {
           child: SizedBox(
             height: context.height(),
             child: BlocBuilder<TodoBloc, TodoState>(
-              bloc: todoBloc,
               builder: (_, state) {
                 if (todoBloc.tempTodoList.isNotEmpty) return TodoListComponent(todoList: todoBloc.tempTodoList);
-
                 return EmptyWidget(msg: 'no_to_do_items_available'.tr());
               },
             ),

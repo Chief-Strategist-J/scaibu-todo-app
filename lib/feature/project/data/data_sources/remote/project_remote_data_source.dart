@@ -86,7 +86,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   @override
   Future<List<ProjectEntity>> getAllProjects() async {
     await restApi.request(
-      endPoint: ProjectEndPoint.deleteProject,
+      endPoint: ProjectEndPoint.getPaginatedProjects,
       type: HttpRequestMethod.post,
       requestBody: {
         "creator_id": userCredentials.getUserId,
@@ -99,7 +99,6 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   @override
   Future<ProjectEntity?> getProjectById(String id) async {
     // TODO: implement getProjectById
-
     throw UnimplementedError();
   }
 

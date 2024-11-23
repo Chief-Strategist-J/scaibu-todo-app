@@ -84,10 +84,7 @@ class ManageTodoPageParam {
     log("DATA IS CLEARED FOR TODO-DETAIL");
   }
 
-  factory ManageTodoPageParam.fromTodoEntity(
-    TodoEntity todoData, {
-    bool isUpdatingExistingTodo = true,
-  }) {
+  factory ManageTodoPageParam.fromTodoEntity(TodoEntity todoData, {bool isUpdatingExistingTodo = true}) {
     ManageTodoPageParam param = ManageTodoPageParam(
       firebaseTodoId: todoData.firebaseTodoId.validate(),
       todoId: todoData.todoId.validate().toString(),
