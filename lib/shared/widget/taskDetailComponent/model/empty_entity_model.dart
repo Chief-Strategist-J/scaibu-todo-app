@@ -104,7 +104,7 @@ class EmptyEntityModel<T> {
       buttonText: 'Create Project',
       emptyMsg: "Looks Like There Are No Projects Yet\n Would You Like To Create One?",
       onCreateTap: () {
-        ctx.push(ApplicationPaths.projectPage);
+        ctx.push(ApplicationPaths.createProjectPage);
       },
       onTap: (context, project) {
         context.read<TaskDetailBloc>().add(IsSelectedProjectEvent(project: project));

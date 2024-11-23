@@ -1,7 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
-
 class DrawerItemComponent extends StatelessWidget {
   final String title;
   final void Function() onTap;

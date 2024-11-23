@@ -95,10 +95,17 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      name: ApplicationPaths.projectPage,
-      path: ApplicationPaths.projectPage,
+      name: ApplicationPaths.createProjectPage,
+      path: ApplicationPaths.createProjectPage,
       builder: (context, state) {
         return const ProjectPage();
+      },
+    ),
+    GoRoute(
+      name: ApplicationPaths.listOfProjectScreen,
+      path: ApplicationPaths.listOfProjectScreen,
+      builder: (context, state) {
+        return const ProjectListScreen();
       },
     ),
   ],

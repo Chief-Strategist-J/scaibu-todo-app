@@ -49,7 +49,9 @@ class DrawerItemModel {
       ),
       DrawerItemModel(
         title: 'Projects',
-        onTap: () {}, // Add functionality here
+        onTap: () {
+          context.push(ApplicationPaths.listOfProjectScreen);
+        }, // Add functionality here
       ),
       DrawerItemModel(
         title: 'Settings',

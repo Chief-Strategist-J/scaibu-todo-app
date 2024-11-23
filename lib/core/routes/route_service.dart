@@ -8,9 +8,10 @@ class ApplicationPaths {
   static const String forgetPasswordPage = '/forgetPasswordPage';
   static const String createTagPage = '/createTagPage';
   static const String pomodoroPage = '/pomodoroPage';
-  static const String projectPage = '/projectPage';
+  static const String createProjectPage = '/createProjectPage';
   static const String notificationPage = '/notificationPage';
   static const String settingPage = '/settingPage';
+  static const String listOfProjectScreen = '/listOfProjectScreen';
 
   ApplicationPaths._();
 }
