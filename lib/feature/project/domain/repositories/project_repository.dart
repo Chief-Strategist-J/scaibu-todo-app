@@ -1,7 +1,7 @@
 import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
 
 abstract interface class ProjectRepository<T> {
-  Future<List<T>> getAllProjects();
+  Future<List<T>> getAllProjects({int page});
 
   Future<ProjectCategoryDataModelEntity> getProjectCategoryData();
 

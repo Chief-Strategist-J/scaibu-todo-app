@@ -31,8 +31,8 @@ class ProjectRepositoryImpl implements ProjectRepository<ProjectEntity> {
   }
 
   @override
-  Future<List<ProjectEntity>> getAllProjects() async {
-    return await projectRemoteDataSource.getAllProjects();
+  Future<List<ProjectEntity>> getAllProjects({int page = 1}) async {
+    return await projectRemoteDataSource.getAllProjects(page: page);
   }
 
   @override

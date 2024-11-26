@@ -84,8 +84,9 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   }
 
   @override
-  Future<List<ProjectEntity>> getAllProjects() async {
-    await restApi.request(
+  Future<List<ProjectEntity>> getAllProjects({int page = 1}) async {
+    // todo : getting response in paginated format to I have to change this logic later
+    final res = await restApi.request(
       endPoint: ProjectEndPoint.getPaginatedProjects,
       type: HttpRequestMethod.post,
       requestBody: {
@@ -93,7 +94,14 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
       },
     );
 
-    return [];
+    if (res is! Map<String, dynamic> || res['data'] == null) return [];
+    final List<dynamic> data = res['data'];
+
+    final projects = data.map((project) {
+      return ProjectEntity.fromJson(project as Map<String, dynamic>);
+    }).toList();
+
+    return projects;
   }
 
   @override

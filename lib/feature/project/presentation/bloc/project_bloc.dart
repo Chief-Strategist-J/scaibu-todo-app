@@ -2,6 +2,7 @@ import 'package:todo_app/core/app_library.dart';
 
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final projectCategory = getIt<GetProjectCategoryDataUseCase>(instanceName: ProjectDependencyInjection.getProjectCategoryDataUseCase);
+  final listOfProjectsUseCase = getIt<GetAllProjectsUseCase>(instanceName: ProjectDependencyInjection.getAllProjectsUseCase);
 
   ProjectBloc() : super(InitProjectState(projectList: const [], updatedAt: DateTime.now())) {
     on<InitProjectEvent>(_init);
@@ -11,6 +12,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   void _init(InitProjectEvent event, Emitter<ProjectState> emit) async {
     try {
       final res = await projectCategory(NoParams());
+      final projectListRes = await listOfProjectsUseCase(NoParams());
 
       res.fold(
         (failure) {
@@ -18,7 +20,15 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
           emit(InitProjectState.init());
         },
         (projectCategories) {
-          emit(InitProjectState(projectList: const [], projectCategoryData: projectCategories, updatedAt: DateTime.now()));
+          projectListRes.fold(
+            (failure) {
+              logService.crashLog(errorMessage: 'Failed to fetch project list: $failure', e: failure);
+              emit(InitProjectState(projectList: const [], projectCategoryData: projectCategories, updatedAt: DateTime.now()));
+            },
+            (allProjectList) {
+              emit(InitProjectState(projectList: allProjectList, projectCategoryData: projectCategories, updatedAt: DateTime.now()));
+            },
+          );
         },
       );
     } catch (e) {
@@ -47,5 +57,9 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
         "project_type_name": _param.projectProjectType.text,
       },
     );
+  }
+
+  void getListOfProjects() {
+    //
   }
 }
