@@ -34,19 +34,27 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       final InitTodoEvent event, final Emitter<TodoState> emit) async {
     try {
       log('GETTING THE TODO-LIST');
-      await GetIt.instance<GetTodoListUseCase>()(event.isListUpdated)
-          .then((final Either<Failure, List<TodoEntity>> res) {
-        res.fold((final Failure failure) {
-          logService.crashLog(
-              errorMessage: 'Failed to fetch todo list', e: Object());
-        }, (final List<TodoEntity> todoList) {
-          tempTodoList = todoList;
-          emit(InitTodoState(todoList: tempTodoList));
-        });
-      });
+      await GetIt.instance<GetTodoListUseCase>()(event.isListUpdated).then(
+        (
+          final Either<Failure, List<TodoEntity>> res,
+        ) {
+          res.fold((final Failure failure) {
+            logService.crashLog(
+              errorMessage: 'Failed to fetch todo list',
+              e: Object(),
+            );
+          }, (final List<TodoEntity> todoList) {
+            tempTodoList = todoList;
+            emit(InitTodoState(todoList: tempTodoList));
+          });
+        },
+      );
     } catch (e, s) {
       logService.crashLog(
-          errorMessage: 'Error initializing bloc', e: e, stack: s);
+        errorMessage: 'Error initializing bloc',
+        e: e,
+        stack: s,
+      );
     }
   }
 
@@ -69,14 +77,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
 
       add(LoadingEvent());
-      await GetIt.instance<UpdateTodoUseCase>()(updateTodo)
-          .then((final Either<Failure, void> value) {
+      await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then((
+        final Either<Failure, void> value,
+      ) {
         add(InitTodoEvent(isListUpdated: true));
       });
     } catch (e, s) {
       add(InitTodoEvent());
       logService.crashLog(
-          errorMessage: 'Error while updating todo', e: e, stack: s);
+        errorMessage: 'Error while updating todo',
+        e: e,
+        stack: s,
+      );
     }
   }
 
@@ -96,14 +108,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
 
       add(LoadingEvent());
-      await GetIt.instance<UpdateTodoUseCase>()(updateTodo)
-          .then((final Either<Failure, void> value) {
-        add(InitTodoEvent(isListUpdated: true));
-      });
+      await GetIt.instance<UpdateTodoUseCase>()(updateTodo).then(
+        (final Either<Failure, void> value) {
+          add(InitTodoEvent(isListUpdated: true));
+        },
+      );
     } catch (e, s) {
       add(InitTodoEvent());
       logService.crashLog(
-          errorMessage: 'Error while updating todo', e: e, stack: s);
+        errorMessage: 'Error while updating todo',
+        e: e,
+        stack: s,
+      );
     }
   }
 
@@ -150,26 +166,30 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     try {
       add(LoadingEvent());
-      await GetIt.instance<CreateTodoUseCase>()(todo)
-          .then((final Either<Failure, Map<String, dynamic>> value) async {
+      await GetIt.instance<CreateTodoUseCase>()(todo).then((
+        final Either<Failure, Map<String, dynamic>> value,
+      ) async {
         await value.fold((final Failure failure) {},
             (final Map<String, dynamic> map) async {
-          // TO-DO : currently we are making request in part but in future
-          //  we are going to merge
-          // all request and making only one request combine
-          // to-do creating request
-          // combineTodoCreation =
-          //  createTodo + createAndUpdateTags + createPomodoros
+          // TO-DO: Currently, requests are made separately,
+          // but in the future, we plan to merge all requests into
+          // one combined request for efficiency, including:
+          // 1. `createTodo`
+          // 2. `createAndUpdateTags`
+          // 3. `createPomodoros`
+
           await _createAndUpdateTags(map, todoDetail);
           await _createPomodoros(todoDetail, map);
         });
-
         add(InitTodoEvent(isListUpdated: true));
       });
-    } catch (e, s) {
+    } catch (error, stack) {
       add(InitTodoEvent());
       logService.crashLog(
-          errorMessage: 'An error occurred: $e', e: e, stack: s);
+        errorMessage: 'An error occurred: $error',
+        e: error,
+        stack: stack,
+      );
     }
   }
 
@@ -194,7 +214,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     };
     try {
       final CreatePomodoroUseCase createPomodoro = getIt<CreatePomodoroUseCase>(
-          instanceName: PomodoroDependencyInjection.createPomodoroUseCase);
+        instanceName: PomodoroDependencyInjection.createPomodoroUseCase,
+      );
+
       await createPomodoro(request);
       toast('added');
     } catch (e) {
