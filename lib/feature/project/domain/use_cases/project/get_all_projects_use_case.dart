@@ -17,9 +17,7 @@ class GetAllProjectsUseCase extends UseCase<List<ProjectEntity>, NoParams> {
     maxCacheSize: 1024 * 1024,
   );
 
-  GetAllProjectsUseCase({
-    required this.projectRepository,
-  }) : _inMemoryCache = InMemoryCache(_config.cacheDuration);
+  GetAllProjectsUseCase({required this.projectRepository}) : _inMemoryCache = InMemoryCache(_config.cacheDuration);
 
   Future<void> _initializeCache() async {
     _box ??= await Hive.openBox(_config.boxName);

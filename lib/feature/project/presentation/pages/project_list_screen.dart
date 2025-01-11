@@ -1,5 +1,4 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/presentation/widgets/projectListItemComponent/project_item_component.dart';
 
 class ProjectListScreen extends HookWidget {
   const ProjectListScreen({super.key});
@@ -30,6 +29,10 @@ class ProjectListScreen extends HookWidget {
     }, []);
   }
 
+  void _onCreateProjectTap(BuildContext context) {
+    context.push(ApplicationPaths.createProjectPage);
+  }
+
   @override
   Widget build(BuildContext context) {
     // State to hold project components
@@ -42,18 +45,16 @@ class ProjectListScreen extends HookWidget {
       appBar: AppBar(title: Text("List Of Projects", style: boldTextStyle(size: 16))),
       body: projectComponents.value.isNotEmpty
           ? ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.only(top: 0, right: 16, bottom: 80, left: 16),
               itemCount: projectComponents.value.length,
               itemBuilder: (context, index) {
                 return projectComponents.value[index];
               },
             )
-          : Center(
-              child: Text("No Projects Found", style: boldTextStyle(size: 16)),
-            ),
+          : Center(child: Text("No Projects Found", style: boldTextStyle(size: 16))),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          //
+          _onCreateProjectTap(context);
         },
         child: const Icon(Icons.add),
       ),

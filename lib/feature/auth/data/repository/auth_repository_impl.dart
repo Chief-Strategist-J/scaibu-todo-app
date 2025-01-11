@@ -1,39 +1,36 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Standard Auth API
 class AuthRepositoryImpl implements AuthRepository {
-  final UserBaseApi baseApi;
+  /// Standard Auth API Constructor
+  AuthRepositoryImpl({required UserBaseApi baseApi}) : _baseApi = baseApi;
 
-  AuthRepositoryImpl({required this.baseApi});
-
-  @override
-  Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred) {
-    return baseApi.forgetPassword(forgetPasswordCred);
-  }
+  final UserBaseApi _baseApi;
 
   @override
-  Future<void> standardLogOut(Map<String, dynamic> req) {
-    return baseApi.standardLogOut(req);
-  }
+  Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred) =>
+      _baseApi.forgetPassword(forgetPasswordCred);
 
   @override
-  Future<LoginEntity> standardSignIn(Map<String, dynamic> loginCred) {
-    return baseApi.standardLogin(loginCred);
-  }
+  Future<void> standardLogOut(Map<String, dynamic> req) =>
+      _baseApi.standardLogOut(req);
 
   @override
-  Future<void> updatePassword(Map<String, dynamic> updatePasswordCred) {
-    return baseApi.updatePassword(updatePasswordCred);
-  }
+  Future<LoginEntity> standardSignIn(Map<String, dynamic> loginCred) =>
+      _baseApi.standardLogin(loginCred);
 
   @override
-  Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred) {
-    return baseApi.verifyOtp(verifyOtpCred);
-  }
+  Future<void> updatePassword(Map<String, dynamic> updatePasswordCred) =>
+      _baseApi.updatePassword(updatePasswordCred);
 
   @override
-  Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred) {
-    return baseApi.verifyForgetPasswordOtp(forgetPasswordCred);
-  }
+  Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred) =>
+      _baseApi.verifyOtp(verifyOtpCred);
+
+  @override
+  Future<UserEntity> verifyForgetPasswordOtp(
+          Map<String, dynamic> forgetPasswordCred) =>
+      _baseApi.verifyForgetPasswordOtp(forgetPasswordCred);
 
   @override
   Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred) {
@@ -47,7 +44,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred) async {
-    return await baseApi.getUserDetail(loginCred);
-  }
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(
+    Map<String, dynamic> loginCred,
+  ) async =>
+      _baseApi.getUserDetail(loginCred);
 }

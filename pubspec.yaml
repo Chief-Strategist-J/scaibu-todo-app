@@ -71,6 +71,7 @@ dependencies:
   percent_indicator: ^4.2.3
   encrypt: ^5.0.3
   flutter_secure_storage: ^9.2.2
+  very_good_analysis: ^7.0.0
 
 dependency_overrides:
   get_it: ^7.6.4
@@ -81,7 +82,7 @@ dev_dependencies:
   # flutter test --coverage --reporter=expanded /home/j/live/scaibutodoapp/test/tags_tests.dart
   # This will execute the test cases defined in the tags_tests.dart file.
 
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   build_runner: ^2.4.11
   json_serializable: ^6.8.0
   envied_generator: ^0.5.4+1

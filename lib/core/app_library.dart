@@ -338,3 +338,4 @@ export 'package:todo_app/feature/project/domain/use_cases/project/get_project_ca
 export 'package:todo_app/feature/project/data/data_sources/remote/project_remote_data_source.dart';
 export 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_by_todo_id_use_case.dart';
 export 'package:todo_app/feature/project/presentation/pages/project_list_screen.dart';
+export 'package:todo_app/feature/project/presentation/widgets/projectListItemComponent/project_item_component.dart';
