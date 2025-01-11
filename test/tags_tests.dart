@@ -1,9 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todo_app/core/app_library.dart';
 
-class MockGetAllSeededTagsUseCase extends Mock implements GetAllSeededTagsUseCase {}
+class MockGetAllSeededTagsUseCase extends Mock
+    implements GetAllSeededTagsUseCase {}
 
-class MockHelperTagRepository extends Mock implements HelperTagRepository<TagEntity> {}
+class MockHelperTagRepository extends Mock
+    implements HelperTagRepository<TagEntity> {}
 
 class MockRestApi extends Mock implements RestApi {}
 
@@ -13,9 +15,9 @@ void main() {
   late MockHelperTagRepository mockHelperTagRepository;
   late MockRestApi mockRestApi;
 
-  setUp(() {
+  setUp(() async {
     // Clear the previous registrations
-    getIt.reset();
+    await getIt.reset();
 
     // Register mocks
     mockGetAllSeededTagsUseCase = MockGetAllSeededTagsUseCase();
@@ -23,26 +25,29 @@ void main() {
     mockRestApi = MockRestApi();
 
     // Register the RestApi
-    getIt.registerSingleton<RestApi>(mockRestApi);
+    getIt
+      ..registerSingleton<RestApi>(mockRestApi)
 
-    // Register the HelperTagRepository
-    getIt.registerSingleton<HelperTagRepository<TagEntity>>(
-      mockHelperTagRepository,
-      instanceName: TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper,
-    );
+      // Register the HelperTagRepository
+      ..registerSingleton<HelperTagRepository<TagEntity>>(
+        mockHelperTagRepository,
+        instanceName:
+            TagsDependencyInjection.tagsRemoteDatabaseImplementationWithHelper,
+      )
 
-    // Register the GetAllSeededTagsUseCase
-    getIt.registerSingleton<GetAllSeededTagsUseCase>(
-      mockGetAllSeededTagsUseCase,
-      instanceName: TagsDependencyInjection.getAllSeededTagsUseCase,
-    );
+      // Register the GetAllSeededTagsUseCase
+      ..registerSingleton<GetAllSeededTagsUseCase>(
+        mockGetAllSeededTagsUseCase,
+        instanceName: TagsDependencyInjection.getAllSeededTagsUseCase,
+      );
 
     // Create the bloc
-    taskDetailBloc = TaskDetailBloc(); // Ensure it gets the injected dependencies
+    taskDetailBloc =
+        TaskDetailBloc(); // Ensure it gets the injected dependencies
   });
 
-  tearDown(() {
-    taskDetailBloc.close();
+  tearDown(() async {
+    await taskDetailBloc.close();
   });
 
   group('TaskDetailBloc', () {
@@ -53,18 +58,21 @@ void main() {
     blocTest<TaskDetailBloc, TaskDetailState>(
       'emits updated pomodoroCont when UpdatePomodoroCounterEvent is added',
       build: () => taskDetailBloc,
-      act: (bloc) => bloc.add(
+      act: (final TaskDetailBloc bloc) => bloc.add(
         UpdatePomodoroCounterEvent(count: 5),
       ),
-      expect: () => [
-        isA<TaskDetailDataState>().having((state) => state.pomodoroCont, 'pomodoroCont', 5),
+      expect: () => <TypeMatcher<TaskDetailDataState>>[
+        isA<TaskDetailDataState>().having(
+            (final TaskDetailDataState state) => state.pomodoroCont,
+            'pomodoroCont',
+            5),
       ],
     );
 
     blocTest<TaskDetailBloc, TaskDetailState>(
       'emits updated priority when UpdatePriorityEvent is added',
       build: () => taskDetailBloc,
-      act: (bloc) => bloc.add(
+      act: (final TaskDetailBloc bloc) => bloc.add(
         UpdatePriorityEvent(
           priority: PriorityModel(
             title: 'High Priority',
@@ -73,31 +81,33 @@ void main() {
           ),
         ),
       ),
-      expect: () => [
-        isA<TaskDetailDataState>().having((state) => state.priority?.title, 'priority title', 'High Priority'),
+      expect: () => <TypeMatcher<TaskDetailDataState>>[
+        isA<TaskDetailDataState>().having(
+            (final TaskDetailDataState state) => state.priority?.title,
+            'priority title',
+            'High Priority'),
       ],
     );
 
     blocTest<TaskDetailBloc, TaskDetailState>(
-      'emits [TaskDetailDataState] with updated selectedTagList when IsSelectedTagEvent is added',
-      build: () {
-        return taskDetailBloc
-          ..emit(
-            TaskDetailDataState(
-              selectedTagList: const [
-                TagEntity(slug: 'tag1'),
-              ],
-            ),
-          );
-      },
-      act: (bloc) => bloc.add(
+      'emits [TaskDetailDataState] with updated selectedTagList when '
+      'IsSelectedTagEvent is added',
+      build: () => taskDetailBloc
+        ..emit(
+          TaskDetailDataState(
+            selectedTagList: const <TagEntity>[
+              TagEntity(slug: 'tag1'),
+            ],
+          ),
+        ),
+      act: (final TaskDetailBloc bloc) => bloc.add(
         IsSelectedTagEvent(
           tag: const TagEntity(slug: 'tag2'),
         ),
       ),
-      expect: () => [
+      expect: () => <TaskDetailDataState>[
         TaskDetailDataState(
-          selectedTagList: const [
+          selectedTagList: const <TagEntity>[
             TagEntity(slug: 'tag1'),
             TagEntity(slug: 'tag2'),
           ],
@@ -107,23 +117,21 @@ void main() {
 
     blocTest<TaskDetailBloc, TaskDetailState>(
       'removes tag from selectedTagList if it already exists',
-      build: () {
-        return taskDetailBloc
-          ..emit(
-            TaskDetailDataState(
-              selectedTagList: const [
-                TagEntity(slug: 'tag1'),
-                TagEntity(slug: 'tag2'),
-              ],
-            ),
-          );
-      },
-      act: (bloc) => bloc.add(
+      build: () => taskDetailBloc
+        ..emit(
+          TaskDetailDataState(
+            selectedTagList: const <TagEntity>[
+              TagEntity(slug: 'tag1'),
+              TagEntity(slug: 'tag2'),
+            ],
+          ),
+        ),
+      act: (final TaskDetailBloc bloc) => bloc.add(
         IsSelectedTagEvent(tag: const TagEntity(slug: 'tag2')),
       ),
-      expect: () => [
+      expect: () => <TaskDetailDataState>[
         TaskDetailDataState(
-          selectedTagList: const [
+          selectedTagList: const <TagEntity>[
             TagEntity(slug: 'tag1'),
           ],
         ),
@@ -133,20 +141,25 @@ void main() {
     blocTest<TaskDetailBloc, TaskDetailState>(
       'emits updated selectedTagList when RemoveTagFromListEvent is added',
       build: () {
-        const tagToRemove = TagEntity(slug: 'tag1');
+        const TagEntity tagToRemove = TagEntity(slug: 'tag1');
         return TaskDetailBloc()
           ..emit(
             TaskDetailDataState(
-              selectedTagList: const [tagToRemove, TagEntity(slug: 'tag2')],
+              selectedTagList: const <TagEntity>[
+                tagToRemove,
+                TagEntity(slug: 'tag2')
+              ],
             ),
           );
       },
-      act: (bloc) => bloc.add(RemoveTagFromListEvent(tag: const TagEntity(slug: 'tag1'))),
-      expect: () {
-        return [
-          isA<TaskDetailDataState>().having((state) => state.selectedTagList, 'selectedTagList', [const TagEntity(slug: 'tag2')]),
-        ];
-      },
+      act: (final TaskDetailBloc bloc) =>
+          bloc.add(RemoveTagFromListEvent(tag: const TagEntity(slug: 'tag1'))),
+      expect: () => <TypeMatcher<TaskDetailDataState>>[
+        isA<TaskDetailDataState>().having(
+            (final TaskDetailDataState state) => state.selectedTagList,
+            'selectedTagList',
+            <TagEntity>[const TagEntity(slug: 'tag2')]),
+      ],
     );
   });
 }

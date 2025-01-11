@@ -1,13 +1,19 @@
 import 'package:todo_app/core/app_library.dart';
 
-
-final getIt = GetIt.instance;
-
+/// A class that holds static constants related to service keys and
+/// other configurations.
+/// This class provides a central place for defining keys used across
+/// the application.
 class ServiceInstance {
-  static const userCredentialsKey = 'userCredentials';
+  /// The key used to store and retrieve user credentials from persistent
+  /// storage.
+  /// This key is typically used in local storage or secure storage systems.
+  static const String userCredentialsKey = 'userCredentials';
 }
 
+/// Setup Dependency
 class Dependency {
+  /// Initial setup
   static Future<void> setup() async {
     await ServiceDependencyInjection.registerService();
     TodoDependencyInjection.todoDependency();
@@ -23,9 +29,10 @@ class Dependency {
     ProjectDependencyInjection.setup();
   }
 
-  static void dispose() {
+  /// dispose Dependency
+  static Future<void> dispose() async {
     ServiceDependencyInjection.disposeService();
-    TodoDependencyInjection.disposeDependencyInjection();
+    await TodoDependencyInjection.disposeDependencyInjection();
     AuthDependencyInjection.disposeDependencyInjection();
     TagsDependencyInjection.disposeDependencyInjection();
     PomodoroDependencyInjection.disposeDependencyInjection();

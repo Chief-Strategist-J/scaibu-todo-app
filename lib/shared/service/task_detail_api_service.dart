@@ -5,37 +5,47 @@ class TaskDetailApiService {
   final GetAllTagsByUserIdUseCase _getAllTagsByUserId;
   final GetTagsByTodoIdUseCase _getTagsByTodoId;
 
-
   TaskDetailApiService()
-      : _getAllSeededTags = getIt<GetAllSeededTagsUseCase>(instanceName: TagsDependencyInjection.getAllSeededTagsUseCase),
-        _getAllTagsByUserId = getIt<GetAllTagsByUserIdUseCase>(instanceName: TagsDependencyInjection.getAllTagsByUserIdUseCase),
-        _getTagsByTodoId = getIt<GetTagsByTodoIdUseCase>(instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase);
+      : _getAllSeededTags = getIt<GetAllSeededTagsUseCase>(
+            instanceName: TagsDependencyInjection.getAllSeededTagsUseCase),
+        _getAllTagsByUserId = getIt<GetAllTagsByUserIdUseCase>(
+            instanceName: TagsDependencyInjection.getAllTagsByUserIdUseCase),
+        _getTagsByTodoId = getIt<GetTagsByTodoIdUseCase>(
+            instanceName: TagsDependencyInjection.getTagsByTodoIdUseCase);
 
-  List<TagEntity> _handleTagResult(Either<Failure, List<TagEntity>> result) {
-    return result.fold((failure) => <TagEntity>[], (tags) => tags);
-  }
+  List<TagEntity> _handleTagResult(
+          final Either<Failure, List<TagEntity>> result) =>
+      result.fold((final Failure failure) => <TagEntity>[],
+          (final List<TagEntity> tags) => tags);
 
-  Future<List<TagEntity>> fetchTagsForTodoId(String todoId) async {
-    final result = await _getTagsByTodoId(todoId);
+  Future<List<TagEntity>> fetchTagsForTodoId(final String todoId) async {
+    final Either<Failure, List<TagEntity>> result =
+        await _getTagsByTodoId(todoId);
 
     return result.fold(
-      (failure) {
-        if (failure is ServerFailure) debugPrint('Error: ${failure.errorMessage}');
-        return [];
+      (final Failure failure) {
+        if (failure is ServerFailure) {
+          debugPrint('Error: ${failure.errorMessage}');
+        }
+        return <TagEntity>[];
       },
-      (tagList) => tagList,
+      (final List<TagEntity> tagList) => tagList,
     );
   }
 
-  Future<List<TagEntity>> fetchSeededTags(String userId) async {
-    final req = {"page": 1, "limit": 50, "userId": userId};
+  Future<List<TagEntity>> fetchSeededTags(final String userId) async {
+    final Map<String, Object> req = <String, Object>{
+      'page': 1,
+      'limit': 50,
+      'userId': userId
+    };
 
-    final results = await Future.wait([
+    final List<List<TagEntity>> results =
+        await Future.wait(<Future<List<TagEntity>>>[
       _getAllSeededTags(NoParams()).then(_handleTagResult),
       _getAllTagsByUserId(req).then(_handleTagResult),
     ]);
 
-    return [...results[0], ...results[1]];
+    return <TagEntity>[...results[0], ...results[1]];
   }
 }
-
