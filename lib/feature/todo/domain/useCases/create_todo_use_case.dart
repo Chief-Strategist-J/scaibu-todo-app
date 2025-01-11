@@ -1,32 +1,54 @@
 import 'package:todo_app/core/app_library.dart';
 
-class CreateTodoUseCase extends UseCase<Map<String, dynamic>, Map<String, dynamic>> {
-  final TodoRepository databaseRep;
-  final TodoRepository firebaseRepo;
+/// Create A to-do use case
+class CreateTodoUseCase
+    extends UseCase<Map<String, dynamic>, Map<String, dynamic>> {
+  /// Create A to-do use case constructor
+  CreateTodoUseCase(
+      {required final TodoRepository databaseRep,
+      required final TodoRepository firebaseRepo})
+      : _firebaseRepo = firebaseRepo,
+        _databaseRep = databaseRep;
 
-  CreateTodoUseCase({required this.databaseRep, required this.firebaseRepo});
+  final TodoRepository _databaseRep;
+  final TodoRepository _firebaseRepo;
 
   @override
-  Future<Either<Failure, Map<String, dynamic>>> call(Map<String, dynamic> params) async {
+  Future<Either<Failure, Map<String, dynamic>>> call(
+      final Map<String, dynamic> params) async {
     try {
-      GetTodoListUseCase.clearEncryptedCache();
+      await GetTodoListUseCase.clearEncryptedCache();
 
-      return await firebaseRepo.createTodo(params).then((todoId) async {
-        return await databaseRep.createTodo(params).then((localTodoId) async {
-          final Map<String, String> req = {'id': localTodoId};
+      return await _firebaseRepo.createTodo(params).then(
+            (final String todoId) async => _databaseRep
+                .createTodo(params)
+                .then((final String localTodoId) async {
+              final Map<String, String> req = <String, String>{
+                'id': localTodoId,
+              };
 
-          return await firebaseRepo.updateTodoId(id: todoId, request: req).then((value) async {
-            final Map<String, String> serverReq = {'todo_id': localTodoId, 'firebase_todo_id': todoId};
+              return _firebaseRepo
+                  .updateTodoId(id: todoId, request: req)
+                  .then((final bool value) async {
+                final Map<String, String> serverReq = <String, String>{
+                  'todo_id': localTodoId,
+                  'firebase_todo_id': todoId,
+                };
 
-            return await databaseRep.updateTodoId(id: localTodoId, request: serverReq).then((value) {
-              return Right(serverReq);
-            });
-          });
-        });
-      });
-    } catch (e, s) {
-      logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
-      return Left(ServerFailure('Failed to create todo'));
+                return _databaseRep
+                    .updateTodoId(id: localTodoId, request: serverReq)
+                    .then(
+                      (final bool value) =>
+                          Right<Failure, Map<String, dynamic>>(serverReq),
+                    );
+              });
+            }),
+          );
+    } on Exception catch (e, s) {
+      logService.crashLog(
+          errorMessage: 'Failed to create todo', e: e, stack: s);
+      return Left<Failure, Map<String, dynamic>>(
+          ServerFailure('Failed to create todo'));
     }
   }
 }

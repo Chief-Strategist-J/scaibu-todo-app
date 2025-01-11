@@ -1,6 +1,9 @@
+# Extending core lint rules
 include:
-    - package:flutter_lints/flutter.yaml
-    - package:very_good_analysis/analysis_options.7.0.0.yaml
+  - package:flutter_lints/flutter.yaml
+  - package:very_good_analysis/analysis_options.7.0.0.yaml
+  - package:lint/analysis_options.yaml
+
 
 analyzer:
   exclude:
@@ -25,7 +28,7 @@ analyzer:
     - ".dart_tool/**"
     # Assets
     - "assets/**"
-    - "lib/generated_plugin_registrant.dart"
+    - "bricks/**"
 
   plugins:
     - custom_lint
@@ -35,18 +38,18 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
     enable-experiment:
-      - sealed-class
-      - patterns
-      - records
-      - macros
-      - extension-types
+       - sealed-class
+       - patterns
+       - records
+       - macros
+       - extension-types
 
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
 
   errors:
-    # Clean Architecture specific
+    # Architecture & Design
     implementation_imports: error
     invalid_use_of_visible_for_testing_member: error
     public_member_api_docs: error
@@ -58,7 +61,7 @@ analyzer:
     invalid_dependency: error
     missing_dependency: error
 
-    # Critical errors
+    # Critical Errors
     todo: error
     dead_code: error
     invalid_annotation_target: error
@@ -68,6 +71,7 @@ analyzer:
     await_only_futures: error
     empty_catches: error
     missing_return: error
+    record_literal_one_positional_no_trailing_comma: error
     undefined_hidden_name: error
     undefined_shown_name: error
     unreachable_from_main: error
@@ -78,7 +82,7 @@ analyzer:
     unused_local_variable: error
     unused_shown_name: error
 
-    # Type safety
+    # Type Safety
     always_specify_types: error
     strict_raw_type: error
     invalid_assignment: error
@@ -89,7 +93,7 @@ analyzer:
     nullable_type_in_catch_clause: error
     invalid_null_aware_operator: error
 
-    # Code style & maintainability
+    # Code Style & Maintainability
     avoid_annotating_with_dynamic: error
     avoid_catches_without_on_clauses: error
     avoid_catching_errors: error
@@ -107,7 +111,6 @@ analyzer:
     avoid_type_to_string: error
     avoid_types_as_parameter_names: error
     avoid_web_libraries_in_flutter: error
-    close_sinks: error
     collection_methods_unrelated_type: error
     comment_references: error
     diagnostic_describe_all_properties: error
@@ -141,9 +144,57 @@ analyzer:
     package_prefixed_library_names: error
     slash_for_doc_comments: error
 
+    always_put_control_body_on_new_line: error
+    always_specify_parameter_types: error
+    avoid_as: error
+    avoid_bool_literals_in_conditional_expressions: error
+    avoid_function_literals_in_foreach_calls: error
+    avoid_private_typedef_functions: error
+    avoid_redundant_argument_values: error
+    avoid_returning_null_for_void: error
+    avoid_single_cascade_in_expression_statements: error
+    avoid_types_on_closure_parameters: error
+    cascade_invocations: error
+    cast_nullable_to_non_nullable: error
+    combinators_ordering: error
+    conditional_uri_does_not_exist: error
+    deprecated_member_use_from_same_package: error
+    discarded_futures: error
+    invalid_visibility_annotation: error
+    no_runtimeType_toString: error
+    noop_primitive_operations: error
+    prefer_expression_function_bodies: error
+    prefer_final_parameters: error
+    prefer_foreach: error
+    prefer_if_elements_to_conditional_expressions: error
+    prefer_int_literals: error
+    prefer_mixin: error
+    prefer_null_aware_method_calls: error
+    secure_pubspec_urls: error
+    sort_unnamed_constructors_first: error
+    test_types_in_equals: error
+    throw_in_finally: error
+    unnecessary_await_in_return: error
+    unnecessary_lambdas: error
+    unnecessary_null_aware_assignments: error
+    unnecessary_parenthesis: error
+    unnecessary_raw_strings: error
+    unnecessary_statements: error
+    use_if_null_to_convert_nulls_to_bools: error
+    use_is_even_rather_than_modulo: error
+    use_raw_strings: error
+    valid_regexps: error
+
+
 linter:
   rules:
-    # Clean Architecture rules
+    - cyclomatic_complexity: 10
+    - number_of_parameters: 4
+    - max_nesting: 4
+    - lines_of_code: 50
+    - maintainability_index: 50
+    - max_methods: 10
+    - class_weight: 0.33
     - always_declare_return_types
     - always_put_required_named_parameters_first
     - always_specify_types
@@ -185,10 +236,9 @@ linter:
 
     # Code quality
     - annotate_overrides
+    - annotate_redeclares
     - avoid_bool_literals_in_conditional_expressions
-    - avoid_catches_without_on_clauses
     - avoid_catching_errors
-    - avoid_classes_with_only_static_members
     - avoid_double_and_int_checks
     - avoid_dynamic_calls
     - avoid_empty_else
@@ -211,9 +261,10 @@ linter:
     - avoid_types_as_parameter_names
     - avoid_unnecessary_containers
     - await_only_futures
+    - camel_case_extensions
+    - camel_case_types
     - cancel_subscriptions
     - cast_nullable_to_non_nullable
-    - close_sinks
     - collection_methods_unrelated_type
     - combinators_ordering
     - comment_references
@@ -288,6 +339,8 @@ linter:
     - recursive_getters
     - require_trailing_commas
     - slash_for_doc_comments
+    - sort_pub_dependencies
+    - sort_unnamed_constructors_first
     - test_types_in_equals
     - throw_in_finally
     - tighten_type_of_initializing_formals
@@ -328,6 +381,16 @@ linter:
     - use_string_buffers
     - use_test_throws_matchers
     - valid_regexps
+    - always_put_control_body_on_new_line
+    - avoid_private_typedef_functions
+    - conditional_uri_does_not_exist
+    - deprecated_member_use_from_same_package
+    - discarded_futures
+    - implicit_reopen
+    - prefer_final_parameters
+    - secure_pubspec_urls
+    - unnecessary_lambdas
+    - use_to_and_as_if_applicable
 
 custom_lint:
   rules:
@@ -347,3 +410,66 @@ custom_lint:
     - enforce_failure_handling: true
     - use_case_single_responsibility: true
     - repository_single_responsibility: true
+    - force_provider_annotation: true
+    - prefer_sealed_classes: true
+    - require_property_documentation: true
+    - must_be_immutable: true
+    - avoid_passing_async_when_sync_expected: true
+    - avoid_dynamic: true
+    - avoid_returning_widgets: true
+    - prefer_async_await: true
+    - prefer_correct_edge_insets_constructor: true
+    - prefer_single_widget_per_file: true
+    - no-empty-static-constructor: true
+    - avoid_cascading_async_calls: true
+    - avoid_hardcoded_colors: true
+    - avoid_global_state: true
+    - force_declare_api_class: true
+    - force_riverpod_hooks_usage: true
+    - prefer-match-file-name: true
+    - prefer-static-class: true
+    - member-ordering-extended: true
+    - prefer-correct-identifier-length:
+        min-identifier-length: 3
+        max-identifier-length: 30
+    - prefer-correct-type-name:
+        min-length: 3
+        max-length: 40
+    - prefer-match-file-name: true
+    - no-equal-then-else: true
+    - prefer-first: true
+    - prefer-last: true
+    - no-boolean-literal-compare: true
+    - prefer-conditional-expressions: true
+    - no-empty-block: true
+    - no-magic-number: true
+    - prefer-trailing-comma: true
+    - prefer-unique-entity-names: true
+
+    # Performance
+    - binary-expression-operand-order: true
+    - double-literal-format: true
+    - no-equal-arguments: true
+    - avoid-mutating-parameters: true
+    - avoid-unnecessary-setstate: true
+    - prefer-async-await: true
+    - prefer-correct-edge-insets-constructor: true
+    - avoid-unnecessary-type-assertions: true
+    - avoid-unnecessary-type-casts: true
+    - prefer-extracting-callbacks: true
+
+    # Style
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
+    - avoid-redundant-else: true
+    - avoid-late-keyword: true
+    - avoid-unused-parameters: true
+    - avoid-duplicate-exports: true
+    - prefer-single-widget-per-file:
+        ignore-private-widgets: true
+    - prefer-moving-to-variable:
+        allowed-duplicated-chains: 3
+    - prefer-commenting-analyzer-ignores: true
+    - no-empty-block: true
+    - newline-before-return: true
+    - prefer-immediate-return: true
