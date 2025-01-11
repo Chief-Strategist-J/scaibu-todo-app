@@ -1,25 +1,38 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// A ManageTodoPage class extending HookWidget, representing a page for
+/// managing to-do tasks. It optionally accepts a todoPage
+/// parameter of type ManageTodoPageParam.
 class ManageTodoPage extends HookWidget {
-  final ManageTodoPageParam? todoPage;
-
+  /// A const constructor for ManageTodoPage,
+  /// optionally accepting a todoPage parameter.
   const ManageTodoPage({super.key, this.todoPage});
+
+  /// An optional todoPage parameter of
+  /// type ManageTodoPageParam, declared as final.
+  final ManageTodoPageParam? todoPage;
 
   bool get _getIsUpdateTodo => todoPage?.isUpdatingExistingTodo ?? false;
 
-  String get _getTitle => _getIsUpdateTodo ? 'update_task'.tr() : 'new_task'.tr();
+  String get _getTitle =>
+      _getIsUpdateTodo ? 'update_task'.tr() : 'new_task'.tr();
 
-  String get _getButtonText => _getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
+  String get _getButtonText =>
+      _getIsUpdateTodo ? 'update_task'.tr() : 'add_task'.tr();
 
   @override
-  Widget build(BuildContext context) {
-    final localTodoData = useMemoized(() => todoPage ?? ManageTodoPageParam(), [todoPage]);
+  Widget build(final BuildContext context) {
+    final ManageTodoPageParam localTodoData = useMemoized(
+        () => todoPage ?? ManageTodoPageParam(), <Object?>[todoPage]);
 
-    final util = useMemoized(() => ManageTodoPageUtils(context, localTodoData), []);
+    final ManageTodoPageUtils util = useMemoized(
+        () => ManageTodoPageUtils(context, localTodoData), <Object?>[]);
 
-    final bool isKeyboardNotOpened = MediaQuery.of(context).viewInsets.bottom == 0;
+    final bool isKeyboardNotOpened =
+        MediaQuery.of(context).viewInsets.bottom == 0;
 
-    final todoBloc = useMemoized(() => context.read<TodoBloc>(), [isInternetConnected]);
+    final TodoBloc todoBloc = useMemoized(
+        () => context.read<TodoBloc>(), <Object?>[isInternetConnected]);
 
     useEffect(() {
       if (!isInternetConnected) {
@@ -27,21 +40,24 @@ class ManageTodoPage extends HookWidget {
       }
 
       return null;
-    }, [isInternetConnected]);
+    }, <Object?>[isInternetConnected]);
 
-    useEffect(() {
-      return util.dispose;
-    }, [util]);
+    useEffect(() => util.dispose, <Object?>[util]);
 
-    final _buttonWidget = context.select(
-      (TodoBloc todoBloc) {
-        if (todoBloc.state is LoadingState) return const Offstage();
-        if (todoBloc.state is NoInternetState) return const Offstage();
+    final Widget buttonWidget = context.select(
+      (final TodoBloc todoBloc) {
+        if (todoBloc.state is LoadingState) {
+          return const Offstage();
+        }
+        if (todoBloc.state is NoInternetState) {
+          return const Offstage();
+        }
         if (todoBloc.state is InitTodoState) {
           return CustomButton(
             data: _getButtonText,
             onTap: () async {
-              await util.onTapOfManageTodo(todoBloc: todoBloc, todoPage: todoPage);
+              await util.onTapOfManageTodo(
+                  todoBloc: todoBloc, todoPage: todoPage);
             },
           );
         }
@@ -52,17 +68,19 @@ class ManageTodoPage extends HookWidget {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
-        children: [
+        children: <Widget>[
           Form(
             key: localTodoData.validatorKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: AnimatedScrollView(
               listAnimationType: ListAnimationType.None,
-              padding: const EdgeInsets.only(bottom: 120, right: 16, left: 16, top: 60),
-              children: [
+              padding: const EdgeInsets.only(
+                  bottom: 120, right: 16, left: 16, top: 60),
+              children: <Widget>[
                 Row(
-                  children: [
-                    Expanded(child: Text(_getTitle, style: boldTextStyle(size: 28))),
+                  children: <Widget>[
+                    Expanded(
+                        child: Text(_getTitle, style: boldTextStyle(size: 28))),
                   ],
                 ),
                 ContentWidget(
@@ -91,7 +109,10 @@ class ManageTodoPage extends HookWidget {
                   isTimeField: true,
                   onTap: () async {
                     if (localTodoData.date == null) {
-                      toast("Please select a date before the start-time", bgColor: redColor);
+                      toast(
+                        'Please select a date before the start-time',
+                        bgColor: redColor,
+                      );
                     } else {
                       await util.selectStartAndEndTime();
                     }
@@ -105,14 +126,17 @@ class ManageTodoPage extends HookWidget {
                   isTimeField: true,
                   onTap: () async {
                     if (localTodoData.startTime == null) {
-                      toast("Please select a start time before the end-time.", bgColor: redColor);
+                      toast(
+                        'Please select a start time before the end-time.',
+                        bgColor: redColor,
+                      );
                     } else {
                       await util.selectEndTime(localTodoData.startTime!);
                     }
                   },
                 ),
                 ContentWidget(
-                  title: "Notes",
+                  title: 'Notes',
                   textFieldType: TextFieldType.MULTILINE,
                   lines: 5,
                   controller: localTodoData.note,
@@ -123,7 +147,10 @@ class ManageTodoPage extends HookWidget {
               ],
             ),
           ),
-          if (!isKeyboardNotOpened) const Offstage() else Positioned(bottom: 16, left: 16, right: 16, child: _buttonWidget)
+          if (!isKeyboardNotOpened)
+            const Offstage()
+          else
+            Positioned(bottom: 16, left: 16, right: 16, child: buttonWidget)
         ],
       ),
     );
