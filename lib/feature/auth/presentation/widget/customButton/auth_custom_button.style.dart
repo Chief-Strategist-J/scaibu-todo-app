@@ -2,12 +2,11 @@ import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_custom_button.variant.dart';
 
 class AuthCustomButtonStyle {
-  final AuthCustomButtonVariant variant;
 
   AuthCustomButtonStyle({required this.variant});
+  final AuthCustomButtonVariant variant;
 
-  Style button(BuildContext context) {
-    return Style(
+  Style button(final BuildContext context) => Style(
       AuthCustomButtonVariant.primary(
         $box.padding.all(16),
         $box.height(56),
@@ -29,6 +28,5 @@ class AuthCustomButtonStyle {
         $text.style.fontWeight.bold(),
         $text.style.fontSize(14),
       ),
-    ).applyVariants([variant]);
-  }
+    ).applyVariants(<Variant>[variant]);
 }

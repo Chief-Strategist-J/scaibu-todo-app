@@ -1,5 +1,3 @@
-
-
 class CreateOtpResponse {
   CreateOtpResponse({
     this.message,
@@ -7,7 +5,7 @@ class CreateOtpResponse {
     this.data,
   });
 
-  CreateOtpResponse.fromJson(dynamic json) {
+  CreateOtpResponse.fromJson(final dynamic json) {
     message = json['message'];
     status = json['status'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -18,9 +16,9 @@ class CreateOtpResponse {
   Data? data;
 
   CreateOtpResponse copyWith({
-    String? message,
-    bool? status,
-    Data? data,
+    final String? message,
+    final bool? status,
+    final Data? data,
   }) =>
       CreateOtpResponse(
         message: message ?? this.message,
@@ -29,7 +27,7 @@ class CreateOtpResponse {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
     if (data != null) {
@@ -50,7 +48,7 @@ class Data {
     this.otp,
   });
 
-  Data.fromJson(dynamic json) {
+  Data.fromJson(final dynamic json) {
     success = json['success'];
     message = json['message'];
     otp = json['otp'];
@@ -61,9 +59,9 @@ class Data {
   String? otp;
 
   Data copyWith({
-    bool? success,
-    String? message,
-    String? otp,
+    final bool? success,
+    final String? message,
+    final String? otp,
   }) =>
       Data(
         success: success ?? this.success,
@@ -72,7 +70,7 @@ class Data {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['success'] = success;
     map['message'] = message;
     map['otp'] = otp;

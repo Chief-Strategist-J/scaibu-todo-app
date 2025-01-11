@@ -59,38 +59,38 @@ mixin NotificationEntityMixin {
   int get updatedAt;
 }
 
-
 @freezed
 class NotificationModel with _$NotificationModel, NotificationEntityMixin {
   const factory NotificationModel({
-    required int id,
-    required int userId,
-    @Default('New Notification') String title,
-    String? message,
-    @Default('general') String type,
-    @Default('unread') String status,
-    @Default(false) bool isSeen,
-    @Default(false) bool isArchived,
-    @Default('medium') String priority,
-    DateTime? sentAt,
-    DateTime? readAt,
-    DateTime? archivedAt,
-    DateTime? deletedAt,
-    String? url,
-    String? icon,
-    Map<String, dynamic>? metadata,
-    String? metadataAction,
-    String? metadataTarget,
-    @Default(0) int flags,
-    @Default('web') String platform,
-    @Default(0) int clickCount,
-    @Default(0) int retryCount,
-    double? deliveryTime,
-    int? responseCode,
-    required String uuid,
-    required int createdAt,
-    required int updatedAt,
+    required final int id,
+    required final int userId,
+    @Default('New Notification') final String title,
+    final String? message,
+    @Default('general') final String type,
+    @Default('unread') final String status,
+    @Default(false) final bool isSeen,
+    @Default(false) final bool isArchived,
+    @Default('medium') final String priority,
+    final DateTime? sentAt,
+    final DateTime? readAt,
+    final DateTime? archivedAt,
+    final DateTime? deletedAt,
+    final String? url,
+    final String? icon,
+    final Map<String, dynamic>? metadata,
+    final String? metadataAction,
+    final String? metadataTarget,
+    @Default(0) final int flags,
+    @Default('web') final String platform,
+    @Default(0) final int clickCount,
+    @Default(0) final int retryCount,
+    final double? deliveryTime,
+    final int? responseCode,
+    required final String uuid,
+    required final int createdAt,
+    required final int updatedAt,
   }) = _NotificationModel;
 
-  factory NotificationModel.fromJson(Map<String, dynamic> json) => _$NotificationModelFromJson(json);
+  factory NotificationModel.fromJson(final Map<String, dynamic> json) =>
+      _$NotificationModelFromJson(json);
 }

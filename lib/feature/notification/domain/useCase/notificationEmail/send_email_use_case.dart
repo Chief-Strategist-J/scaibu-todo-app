@@ -13,14 +13,19 @@ class SendEmailParams {
 }
 
 class SendEmailUseCase extends UseCase<void, SendEmailParams> {
-  final EmailNotificationRepository<NotificationEntity> emailNotificationRepository;
+  final EmailNotificationRepository<NotificationEntity>
+      emailNotificationRepository;
 
   SendEmailUseCase({required this.emailNotificationRepository});
 
   @override
-  Future<Either<Failure, void>> call(SendEmailParams params) async {
+  Future<Either<Failure, void>> call(final SendEmailParams params) async {
     try {
-      await emailNotificationRepository.sendEmail(params.subject, params.body, params.recipientEmail);
+      await emailNotificationRepository.sendEmail(
+        params.subject,
+        params.body,
+        params.recipientEmail,
+      );
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to send email'));

@@ -1,11 +1,11 @@
 abstract class PostNotificationsRepository<T> {
-  Future<void> notifyPostCreation(int id);
+  Future<void> notifyPostCreation(final int id);
 
-  Future<void> notifyPostUpdate(int id);
+  Future<void> notifyPostUpdate(final int id);
 
-  Future<void> notifyPostDeletion(int id);
+  Future<void> notifyPostDeletion(final int id);
 
-  Future<void> notifyPostStatusChange(int id, String newStatus);
+  Future<void> notifyPostStatusChange(final int id, final String newStatus);
 
-  Future<void> notifyPostComment(int postId, int commentId);
+  Future<void> notifyPostComment(final int postId, final int commentId);
 }

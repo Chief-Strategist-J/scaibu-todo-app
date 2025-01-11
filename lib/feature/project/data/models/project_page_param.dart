@@ -9,7 +9,8 @@ class ProjectPageParam {
   TextEditingController projectEndDate = TextEditingController(); // date type
   TimeServiceModel? endDate;
 
-  TextEditingController projectBudget = TextEditingController(); // list type and int type
+  TextEditingController projectBudget =
+      TextEditingController(); // list type and int type
 
   List<ProjectCategoryEntity> listOfProjectCategories = [];
   TextEditingController projectCategory = TextEditingController(); // list type
@@ -18,7 +19,8 @@ class ProjectPageParam {
   TextEditingController projectPriority = TextEditingController(); // list type
 
   List<ProjectTypeEntity> listOfProjectTypes = [];
-  TextEditingController projectProjectType = TextEditingController(); // list type
+  TextEditingController projectProjectType =
+      TextEditingController(); // list type
 
   List<ProjectPhaseEntity> listOfProjectPhases = [];
   TextEditingController projectPhase = TextEditingController(); // list type
@@ -26,10 +28,12 @@ class ProjectPageParam {
   List<ProjectStatusEntity> listOfProjectStatuses = [];
   TextEditingController projectStatus = TextEditingController(); // list type
 
-  TextEditingController projectEstimatedHours = TextEditingController(); // time type
+  TextEditingController projectEstimatedHours =
+      TextEditingController(); // time type
   TimeServiceModel? estimatedHours;
 
-  TextEditingController projectActualHours = TextEditingController(); // time type
+  TextEditingController projectActualHours =
+      TextEditingController(); // time type
   TimeServiceModel? actualHours;
 
   bool isPublic = false;

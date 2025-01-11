@@ -11,10 +11,9 @@ class ProjectCategoryConfig<T> {
     required this.items,
     required this.controller,
     required this.focusNode,
-  });
+  });z
 
-  List<ProjectCategoryConfig> getList(ProjectPageParam projectParam) {
-    return [
+  List<ProjectCategoryConfig> getList(final ProjectPageParam projectParam) => [
       ProjectCategoryConfig<ProjectCategoryEntity>(
         title: 'Project Categories',
         items: projectParam.listOfProjectCategories,
@@ -46,9 +45,8 @@ class ProjectCategoryConfig<T> {
         focusNode: projectParam.projectProjectTypeNode,
       ),
     ];
-  }
 
-  String getCategoryName(dynamic T) {
+  String getCategoryName(final dynamic T) {
     if (T is ProjectCategoryEntity) {
       return T.name.validate();
     } else if (T is ProjectPhaseEntity) {

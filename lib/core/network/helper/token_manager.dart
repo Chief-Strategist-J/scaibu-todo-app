@@ -7,23 +7,23 @@ class TokenManager {
 
   TokenManager([this._tokenLifetime = const Duration(minutes: 5)]);
 
-  Future<String?> getToken(UserCredentials credentials) async {
+  Future<String?> getToken(final UserCredentials credentials) async {
     if (_isTokenValid()) {
       return _cachedToken;
     }
 
-    final token = await credentials.box.get(credentials.accessToken);
-    if (token != null) {
-      _cachedToken = token;
-      _tokenExpiry = DateTime.now().add(_tokenLifetime);
-    }
+    final String token =
+        await credentials.box.get(credentials.accessToken) as String;
+    _cachedToken = token;
+    _tokenExpiry = DateTime.now().add(_tokenLifetime);
 
     return token;
   }
 
-  bool _isTokenValid() {
-    return _cachedToken != null && _tokenExpiry != null && DateTime.now().isBefore(_tokenExpiry!);
-  }
+  bool _isTokenValid() =>
+      _cachedToken != null &&
+      _tokenExpiry != null &&
+      DateTime.now().isBefore(_tokenExpiry!);
 
   void invalidateToken() {
     _cachedToken = null;

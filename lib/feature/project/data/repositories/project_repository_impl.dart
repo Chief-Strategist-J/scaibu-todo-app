@@ -1,77 +1,74 @@
 import 'package:todo_app/core/app_library.dart';
 
 class ProjectRepositoryImpl implements ProjectRepository<ProjectEntity> {
-  final BaseProjectDataSource projectRemoteDataSource;
-
   ProjectRepositoryImpl(this.projectRemoteDataSource);
 
-  @override
-  Future<void> archiveProject(String id) async {
-    return await projectRemoteDataSource.archiveProject(id);
-  }
+  final BaseProjectDataSource projectRemoteDataSource;
 
   @override
-  Future<void> bulkCreateProjects(List<Map<String, dynamic>> data) async {
-    return await projectRemoteDataSource.bulkCreateProjects(data);
-  }
+  Future<void> archiveProject(final String id) async =>
+      projectRemoteDataSource.archiveProject(id);
 
   @override
-  Future<void> bulkDeleteProjects(List<String> ids) async {
-    return await projectRemoteDataSource.bulkDeleteProjects(ids);
-  }
+  Future<void> bulkCreateProjects(
+    final List<Map<String, dynamic>> data,
+  ) async =>
+      projectRemoteDataSource.bulkCreateProjects(data);
 
   @override
-  Future<void> createProject(Map<String, dynamic> data) async {
-    return await projectRemoteDataSource.createProject(data);
-  }
+  Future<void> bulkDeleteProjects(final List<String> ids) async =>
+      projectRemoteDataSource.bulkDeleteProjects(ids);
 
   @override
-  Future<void> deleteProject(String id) async {
-    return await projectRemoteDataSource.deleteProject(id);
-  }
+  Future<void> createProject(final Map<String, dynamic> data) async =>
+      projectRemoteDataSource.createProject(data);
 
   @override
-  Future<List<ProjectEntity>> getAllProjects({int page = 1}) async {
-    return await projectRemoteDataSource.getAllProjects(page: page);
-  }
+  Future<void> deleteProject(final String id) async =>
+      projectRemoteDataSource.deleteProject(id);
 
   @override
-  Future<ProjectEntity?> getProjectById(String id) async {
-    return await projectRemoteDataSource.getProjectById(id);
-  }
+  Future<List<ProjectEntity>> getAllProjects({final int page = 1}) async =>
+      projectRemoteDataSource.getAllProjects(page: page);
 
   @override
-  Future<void> restoreProject(String id) async {
-    return await projectRemoteDataSource.restoreProject(id);
-  }
+  Future<ProjectEntity?> getProjectById(final String id) async =>
+      projectRemoteDataSource.getProjectById(id);
 
   @override
-  Future<List<ProjectEntity>> searchProjects(String query) async {
-    return await projectRemoteDataSource.searchProjects(query);
-  }
+  Future<void> restoreProject(final String id) async =>
+      projectRemoteDataSource.restoreProject(id);
 
   @override
-  Future<void> updateProject(String id, Map<String, dynamic> data) async {
-    return await projectRemoteDataSource.updateProject(id, data);
-  }
+  Future<List<ProjectEntity>> searchProjects(final String query) async =>
+      projectRemoteDataSource.searchProjects(query);
 
   @override
-  Future<void> assignTodosToProjectsRequest(Map<String, dynamic> data) async {
-    return await projectRemoteDataSource.assignTodosToProjectsRequest(data);
-  }
+  Future<void> updateProject(
+    final String id,
+    final Map<String, dynamic> data,
+  ) async =>
+      projectRemoteDataSource.updateProject(id, data);
 
   @override
-  Future<ProjectEntity> getPaginatedProjectsForTodo(Map<String, dynamic> data) async {
-    return await projectRemoteDataSource.getPaginatedProjectsForTodo(data);
-  }
+  Future<void> assignTodosToProjectsRequest(
+    final Map<String, dynamic> data,
+  ) async =>
+      projectRemoteDataSource.assignTodosToProjectsRequest(data);
 
   @override
-  Future<ProjectEntity> getPaginatedTodosForProject(Map<String, dynamic> data) async {
-    return await projectRemoteDataSource.getPaginatedTodosForProject(data);
-  }
+  Future<ProjectEntity> getPaginatedProjectsForTodo(
+    final Map<String, dynamic> data,
+  ) async =>
+      projectRemoteDataSource.getPaginatedProjectsForTodo(data);
 
   @override
-  Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async {
-    return await projectRemoteDataSource.getProjectCategoryData();
-  }
+  Future<ProjectEntity> getPaginatedTodosForProject(
+    final Map<String, dynamic> data,
+  ) async =>
+      projectRemoteDataSource.getPaginatedTodosForProject(data);
+
+  @override
+  Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async =>
+      projectRemoteDataSource.getProjectCategoryData();
 }

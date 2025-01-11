@@ -6,13 +6,14 @@ class EncryptNotificationParams {
   EncryptNotificationParams({required this.notificationId});
 }
 
-class EncryptNotificationUseCase extends UseCase<void, EncryptNotificationParams> {
+class EncryptNotificationUseCase
+    extends UseCase<void, EncryptNotificationParams> {
   final NotificationRepository<NotificationEntity> notificationRepository;
 
   EncryptNotificationUseCase({required this.notificationRepository});
 
   @override
-  Future<Either<Failure, void>> call(EncryptNotificationParams params) async {
+  Future<Either<Failure, void>> call(final EncryptNotificationParams params) async {
     try {
       await notificationRepository.encryptNotification(params.notificationId);
       return const Right(null);

@@ -1,7 +1,7 @@
 abstract class PostTagsRepository<T> {
-  Future<void> addTagsToPost(int postId, T tags);
+  Future<void> addTagsToPost(final int postId, final T tags);
 
-  Future<void> removeTagsFromPost(int postId, T tags);
+  Future<void> removeTagsFromPost(final int postId, final T tags);
 
-  Future<T> getTagsForPost(int postId);
+  Future<T> getTagsForPost(final int postId);
 }

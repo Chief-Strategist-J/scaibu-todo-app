@@ -8,7 +8,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<InitPostEvent>(_init);
   }
 
-  void _init(InitPostEvent event, Emitter<PostState> emit) async {
+  Future<void> _init(
+      final InitPostEvent event, final Emitter<PostState> emit,) async {
     emit(InitPostState());
   }
 }

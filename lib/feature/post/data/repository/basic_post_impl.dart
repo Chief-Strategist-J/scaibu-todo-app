@@ -3,37 +3,37 @@ import 'package:todo_app/feature/post/domain/repository/basic_post_repository.da
 
 class BasicPostImpl extends BasicPostRepository<PostEntity> {
   @override
-  Future<PostEntity> createPost(Map<String, dynamic> postData) {
+  Future<PostEntity> createPost(final Map<String, dynamic> postData) {
     // TODO: implement createPost
     throw UnimplementedError();
   }
 
   @override
-  Future<void> deletePost(int id) {
+  Future<void> deletePost(final int id) {
     // TODO: implement deletePost
     throw UnimplementedError();
   }
 
   @override
-  Future<List<PostEntity>> getAllPosts({int page = 1, int pageSize = 20}) {
+  Future<List<PostEntity>> getAllPosts({final int page = 1, final int pageSize = 20}) {
     // TODO: implement getAllPosts
     throw UnimplementedError();
   }
 
   @override
-  Future<PostEntity?> getPostById(int id) {
+  Future<PostEntity?> getPostById(final int id) {
     // TODO: implement getPostById
     throw UnimplementedError();
   }
 
   @override
-  Future<List<PostEntity>> searchPosts(String query, {int page = 1, int pageSize = 20}) {
+  Future<List<PostEntity>> searchPosts(final String query, {final int page = 1, final int pageSize = 20}) {
     // TODO: implement searchPosts
     throw UnimplementedError();
   }
 
   @override
-  Future<void> updatePost(int id, Map<String, dynamic> updatedData) {
+  Future<void> updatePost(final int id, final Map<String, dynamic> updatedData) {
     // TODO: implement updatePost
     throw UnimplementedError();
   }

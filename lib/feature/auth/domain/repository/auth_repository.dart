@@ -1,21 +1,24 @@
 import 'package:todo_app/core/app_library.dart';
 
 abstract interface class AuthRepository {
-  Future<LoginEntity> standardSignIn(Map<String, dynamic> loginCred);
+  Future<LoginEntity> standardSignIn(final Map<String, dynamic> loginCred);
 
-  Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred);
+  Future<LoginEntity> standardSignUp(final Map<String, dynamic> loginCred);
 
-  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred);
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(
+      final Map<String, dynamic> loginCred);
 
-  Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred);
+  Future<void> forgetPassword(final Map<String, dynamic> forgetPasswordCred);
 
-  Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred);
+  Future<UserEntity> verifyForgetPasswordOtp(
+    final Map<String, dynamic> forgetPasswordCred,
+  );
 
-  Future<void> updatePassword(Map<String, dynamic> updatePasswordCred);
+  Future<void> updatePassword(final Map<String, dynamic> updatePasswordCred);
 
-  Future<bool> createOpt(Map<String, dynamic> otpCred);
+  Future<bool> createOpt(final Map<String, dynamic> otpCred);
 
-  Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred);
+  Future<bool> verifyOtp(final Map<String, dynamic> verifyOtpCred);
 
-  Future<void> standardLogOut(Map<String, dynamic> req);
+  Future<void> standardLogOut(final Map<String, dynamic> req);
 }

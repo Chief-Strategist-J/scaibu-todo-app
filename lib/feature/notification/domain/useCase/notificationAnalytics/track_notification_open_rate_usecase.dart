@@ -6,15 +6,23 @@ class TrackNotificationOpenRateParams {
   TrackNotificationOpenRateParams({required this.notificationId});
 }
 
-class TrackNotificationOpenRateUseCase extends UseCase<void, TrackNotificationOpenRateParams> {
-  final NotificationAnalyticsRepository<NotificationEntity> notificationAnalyticsRepository;
+class TrackNotificationOpenRateUseCase
+    extends UseCase<void, TrackNotificationOpenRateParams> {
 
-  TrackNotificationOpenRateUseCase({required this.notificationAnalyticsRepository});
+  final NotificationAnalyticsRepository<NotificationEntity>
+      notificationAnalyticsRepository;
+
+  TrackNotificationOpenRateUseCase({
+    required this.notificationAnalyticsRepository,
+  });
 
   @override
-  Future<Either<Failure, void>> call(TrackNotificationOpenRateParams params) async {
+  Future<Either<Failure, void>> call(
+      final TrackNotificationOpenRateParams params) async {
     try {
-      await notificationAnalyticsRepository.trackNotificationOpenRate(params.notificationId);
+      await notificationAnalyticsRepository
+          .trackNotificationOpenRate(params.notificationId);
+
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to track notification open rate'));

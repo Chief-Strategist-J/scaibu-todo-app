@@ -5,11 +5,9 @@ class InternetConnectionState {
 
   InternetConnectionState({required this.status});
 
-  InternetConnectionState init() {
-    return InternetConnectionState(status: CurrentInternetStatus.disconnected);
-  }
+  InternetConnectionState init() =>
+      InternetConnectionState(status: CurrentInternetStatus.disconnected);
 
-  InternetConnectionState clone({CurrentInternetStatus? status}) {
-    return InternetConnectionState(status: status ?? this.status);
-  }
+  InternetConnectionState clone({final CurrentInternetStatus? status}) =>
+      InternetConnectionState(status: status ?? this.status);
 }

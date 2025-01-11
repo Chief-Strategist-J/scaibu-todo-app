@@ -30,18 +30,19 @@ mixin CommentEntityMixin {
 @freezed
 class CommentModel with _$CommentModel, CommentEntityMixin {
   const factory CommentModel({
-    required int id,
-    required String content,
-    @Default('pending') String status,
-    Map<String, dynamic>? metadata,
-    @JsonKey(name: 'metadata_approved_by') String? metadataApprovedBy,
-    DateTime? approvedAt,
-    @JsonKey(name: 'post_id') required int postId,
-    @JsonKey(name: 'user_id') required int userId,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-    @JsonKey(name: 'deleted_at') DateTime? deletedAt,
+    required final int id,
+    required final content,
+    @JsonKey(name: 'post_id') required final int postId,
+    @JsonKey(name: 'user_id') required final int userId,
+    @JsonKey(name: 'created_at') required final DateTime createdAt,
+    @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+    @Default('pending') final String status,
+    final Map<String, dynamic>? metadata,
+    @JsonKey(name: 'metadata_approved_by') final String? metadataApprovedBy,
+    final DateTime? approvedAt,
+    @JsonKey(name: 'deleted_at') final DateTime? deletedAt,
   }) = _CommentModel;
 
-  factory CommentModel.fromJson(Map<String, dynamic> json) => _$CommentModelFromJson(json);
+  factory CommentModel.fromJson(final Map<String, dynamic> json) =>
+      _$CommentModelFromJson(json);
 }

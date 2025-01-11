@@ -38,22 +38,23 @@ mixin PomodoroModelMixin {
 @freezed
 class PomodoroModel with _$PomodoroModel, PomodoroModelMixin {
   const factory PomodoroModel({
-    String? uuid,
-    String? title,
-    String? description,
-    int? duration,
-    String? status,
-    DateTime? startTime,
-    DateTime? endTime,
-    Map<String, dynamic>? metadata,
-    String? priority,
-    String? tags,
-    bool? isCompleted,
-    bool? isArchived,
-    int? todoId,
-    int? userId,
-    int? projectId,
+    final String? uuid,
+    final String? title,
+    final String? description,
+    final int? duration,
+    final String? status,
+    final DateTime? startTime,
+    final DateTime? endTime,
+    final Map<String, dynamic>? metadata,
+    final String? priority,
+    final String? tags,
+    final bool? isCompleted,
+    final bool? isArchived,
+    final int? todoId,
+    final int? userId,
+    final int? projectId,
   }) = _PomodoroModel;
 
-  factory PomodoroModel.fromJson(Map<String, dynamic> json) => _$PomodoroModelFromJson(json);
+  factory PomodoroModel.fromJson(final Map<String, dynamic> json) =>
+      _$PomodoroModelFromJson(json);
 }

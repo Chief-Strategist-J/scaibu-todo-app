@@ -5,7 +5,8 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<InitNotificationEvent>(_init);
   }
 
-  void _init(InitNotificationEvent event, Emitter<NotificationState> emit) async {
+  void _init(final InitNotificationEvent event,
+      final Emitter<NotificationState> emit) async {
     emit(InitNotificationState());
   }
 }

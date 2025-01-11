@@ -3,19 +3,19 @@ import 'package:todo_app/feature/post/domain/repository/post_tags_repository.dar
 
 class PostTagsImpl extends PostTagsRepository<PostEntity> {
   @override
-  Future<void> addTagsToPost(int postId, PostEntity tags) {
+  Future<void> addTagsToPost(final int postId, final PostEntity tags) {
     // TODO: implement addTagsToPost
     throw UnimplementedError();
   }
 
   @override
-  Future<PostEntity> getTagsForPost(int postId) {
+  Future<PostEntity> getTagsForPost(final int postId) {
     // TODO: implement getTagsForPost
     throw UnimplementedError();
   }
 
   @override
-  Future<void> removeTagsFromPost(int postId, PostEntity tags) {
+  Future<void> removeTagsFromPost(final int postId, final PostEntity tags) {
     // TODO: implement removeTagsFromPost
     throw UnimplementedError();
   }

@@ -1,18 +1,18 @@
-import 'package:todo_app/core/app_library.dart'; 
+import 'package:todo_app/core/app_library.dart';
 
 class CancelScheduledSMSParams {
-  final String smsId;
-
   CancelScheduledSMSParams({required this.smsId});
+  final String smsId;
 }
 
-class CancelScheduledSMSUseCase extends UseCase<void, CancelScheduledSMSParams> {
+class CancelScheduledSMSUseCase
+    extends UseCase<void, CancelScheduledSMSParams> {
+  CancelScheduledSMSUseCase({required this.smsNotificationRepository});
   final SMSNotificationRepository<NotificationEntity> smsNotificationRepository;
 
-  CancelScheduledSMSUseCase({required this.smsNotificationRepository});
-
   @override
-  Future<Either<Failure, void>> call(CancelScheduledSMSParams params) async {
+  Future<Either<Failure, void>> call(
+      final CancelScheduledSMSParams params) async {
     try {
       await smsNotificationRepository.cancelScheduledSMS(params.smsId);
       return const Right(null);

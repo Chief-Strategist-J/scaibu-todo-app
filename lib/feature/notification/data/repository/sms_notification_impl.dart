@@ -1,32 +1,35 @@
 import 'package:todo_app/core/app_library.dart';
 
-class SmsNotificationImpl extends SMSNotificationRepository<NotificationEntity>{
+class SmsNotificationImpl
+    extends SMSNotificationRepository<NotificationEntity> {
   @override
-  Future<void> cancelScheduledSMS(String smsId) {
+  Future<void> cancelScheduledSMS(final String smsId) {
     // TODO: implement cancelScheduledSMS
     throw UnimplementedError();
   }
 
   @override
-  Future<List<NotificationEntity>> getSMSHistory(String userId) {
+  Future<List<NotificationEntity>> getSMSHistory(final String userId) {
     // TODO: implement getSMSHistory
     throw UnimplementedError();
   }
 
   @override
-  Future<NotificationEntity> getSMSStatus(String smsId) {
+  Future<NotificationEntity> getSMSStatus(final String smsId) {
     // TODO: implement getSMSStatus
     throw UnimplementedError();
   }
 
   @override
-  Future<void> scheduleSMS(String message, String recipientPhoneNumber, DateTime scheduleTime) {
+  Future<void> scheduleSMS(final String message,
+      final String recipientPhoneNumber, final DateTime scheduleTime) {
     // TODO: implement scheduleSMS
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendSMS(String message, String recipientPhoneNumber) {
+  Future<void> sendSMS(
+      final String message, final String recipientPhoneNumber) {
     // TODO: implement sendSMS
     throw UnimplementedError();
   }

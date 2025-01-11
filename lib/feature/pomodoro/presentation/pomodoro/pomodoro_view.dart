@@ -5,71 +5,72 @@ class PomodoroPage extends StatelessWidget {
   const PomodoroPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.cardColor,
-        centerTitle: true,
-        title: Text("Pomodoro", style: boldTextStyle(color: context.primaryColor, size: 18)),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: context.primaryColor),
-          onPressed: () {
-            //
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications_outlined, color: context.primaryColor),
+  Widget build(final BuildContext context) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: context.cardColor,
+          centerTitle: true,
+          title: Text('Pomodoro',
+              style: boldTextStyle(color: context.primaryColor, size: 18)),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: context.primaryColor),
             onPressed: () {
               //
             },
-          )
-        ],
-      ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          TimerWidget(
-            sessionCount: 2,
-            sessionDuration: const Duration(minutes: 1),
-            onSessionEnd: (e) {
-              toast("value");
-            },
           ),
-        ],
-      ),
-    );
-  }
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.notifications_outlined,
+                  color: context.primaryColor),
+              onPressed: () {
+                //
+              },
+            )
+          ],
+        ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            TimerWidget(
+              sessionCount: 2,
+              sessionDuration: const Duration(minutes: 1),
+              onSessionEnd: (final int e) {
+                toast('value');
+              },
+            ),
+          ],
+        ),
+      );
 }
 
 class TimerWidget extends HookWidget {
-  final int sessionCount;
-  final Duration sessionDuration;
-  final Function(int)? onSessionEnd;
-
   const TimerWidget({
-    super.key,
     required this.sessionCount,
     required this.sessionDuration,
+    super.key,
     this.onSessionEnd,
   });
 
+  final int sessionCount;
+  final Duration sessionDuration;
+  final void Function(int)? onSessionEnd;
+
   @override
-  Widget build(BuildContext context) {
-    final totalSeconds = sessionDuration.inSeconds;
-    final secondsRemaining = useState(totalSeconds);
-    final sessionsCompleted = useState(0);
-    final currentSession = useState(1);
-    final isRunning = useState(false);
-    final dynamicSessionCount = useState(sessionCount); // To handle added sessions
+  Widget build(final BuildContext context) {
+    final int totalSeconds = sessionDuration.inSeconds;
+    final ValueNotifier<int> secondsRemaining = useState(totalSeconds);
+    final ValueNotifier<int> sessionsCompleted = useState(0);
+    final ValueNotifier<int> currentSession = useState(1);
+    final ValueNotifier<bool> isRunning = useState(false);
+    final ValueNotifier<int> dynamicSessionCount =
+        useState(sessionCount); // To handle added sessions
 
-    final timer = useRef<Timer?>(null);
+    final ObjectRef<Timer?> timer = useRef<Timer?>(null);
 
-    useEffect(() {
-      return () {
-        timer.value?.cancel();
-      };
-    }, []);
+    useEffect(
+        () => () {
+              timer.value?.cancel();
+            },
+        <Object?>[]);
 
     void startTimer() {
       if (isRunning.value) {
@@ -77,14 +78,16 @@ class TimerWidget extends HookWidget {
         isRunning.value = false;
       } else {
         isRunning.value = true;
-        timer.value = Timer.periodic(const Duration(seconds: 1), (timer) {
+        timer.value =
+            Timer.periodic(const Duration(seconds: 1), (final Timer timer) {
           if (secondsRemaining.value > 0) {
             secondsRemaining.value--;
           } else {
             timer.cancel();
             isRunning.value = false;
             sessionsCompleted.value++;
-            onSessionEnd?.call(sessionsCompleted.value); // Trigger callback with sessions completed count
+            onSessionEnd?.call(sessionsCompleted
+                .value); // Trigger callback with sessions completed count
 
             if (currentSession.value < dynamicSessionCount.value) {
               currentSession.value++;
@@ -122,16 +125,17 @@ class TimerWidget extends HookWidget {
     }
 
     String timerText() {
-      int minutes = secondsRemaining.value ~/ 60;
-      int seconds = secondsRemaining.value % 60;
-      return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+      final int minutes = secondsRemaining.value ~/ 60;
+      final int seconds = secondsRemaining.value % 60;
+      return '${minutes.toString().padLeft(2, '0')}'
+          ':${seconds.toString().padLeft(2, '0')}';
     }
 
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         alignment: Alignment.topCenter,
-        children: [
+        children: <Widget>[
           Container(
             color: context.cardColor,
             child: const Column(
@@ -155,19 +159,20 @@ class TimerWidget extends HookWidget {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                  children: <Widget>[
                     Center(
                       child: Wrap(
                         spacing: 16,
                         runSpacing: 8,
                         alignment: WrapAlignment.center,
-                        children: [
+                        children: <Widget>[
                           AppButton(
                             onTap: startTimer,
                             text: isRunning.value ? 'Pause' : 'Start',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -177,7 +182,8 @@ class TimerWidget extends HookWidget {
                             text: 'Reset',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -187,7 +193,8 @@ class TimerWidget extends HookWidget {
                             text: 'Skip',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -197,7 +204,8 @@ class TimerWidget extends HookWidget {
                             text: 'Add Session',
                             color: context.cardColor,
                             textColor: context.primaryColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
                             shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -219,7 +227,7 @@ class TimerWidget extends HookWidget {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(600),
-                boxShadow: [
+                boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: shadowColor,
                     spreadRadius: 1,
@@ -245,7 +253,7 @@ class TimerWidget extends HookWidget {
                   center: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: <Widget>[
                       Text(
                         timerText(),
                         style: const TextStyle(

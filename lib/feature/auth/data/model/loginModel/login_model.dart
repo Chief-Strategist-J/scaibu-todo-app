@@ -5,18 +5,20 @@ part 'login_model.g.dart';
 
 @freezed
 class LoginModel with _$LoginModel, LoginEntityMixin {
-  const LoginModel._(); // Add this line
+  // Add this line
 
   const factory LoginModel({
-    @override bool? isLogin,
-    @override bool? isSignUp,
-    @override String? accessToken,
-    @override num? id,
-    @override String? name,
-    @override String? email,
+    @override final bool? isLogin,
+    @override final bool? isSignUp,
+    @override final String? accessToken,
+    @override final num? id,
+    @override final String? name,
+    @override final String? email,
   }) = _LoginModel;
+  const LoginModel._();
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
+  factory LoginModel.fromJson(final Map<String, dynamic> json) =>
+      _$LoginModelFromJson(json);
 }
 
 // Yes, if a method's return type is LoginEntity and you're returning a LoginModel, it will work.
@@ -24,4 +26,3 @@ class LoginModel with _$LoginModel, LoginEntityMixin {
 //
 // LoginEntity getLoginInfo() => LoginModel();
 // This is valid because LoginModel has all the properties of LoginEntity
-

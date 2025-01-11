@@ -8,13 +8,9 @@ sealed class PomodoroState extends Equatable {
 class PomodoroDataState extends PomodoroState {
   PomodoroDataState();
 
-  factory PomodoroDataState.init() {
-    return PomodoroDataState();
-  }
+  factory PomodoroDataState.init() => PomodoroDataState();
 
-  PomodoroDataState copyWith({Color? color}) {
-    return PomodoroDataState();
-  }
+  PomodoroDataState copyWith({final Color? color}) => PomodoroDataState();
 
   @override
   List<Object?> get props => [];

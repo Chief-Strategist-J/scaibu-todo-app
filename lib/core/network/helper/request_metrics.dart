@@ -7,7 +7,7 @@ class RequestMetrics {
 
   RequestMetrics()
       : startTime = DateTime.now(),
-        attemptDurations = [],
+        attemptDurations = <Duration>[],
         errors = [];
 
   DateTime? _currentAttemptStart;
@@ -24,16 +24,21 @@ class RequestMetrics {
     endTime = DateTime.now();
   }
 
-  void recordError(dynamic error) {
+  void recordError(final dynamic error) {
     errors.add(error);
     endAttempt();
   }
 
   Duration get totalDuration => endTime?.difference(startTime) ?? Duration.zero;
 
-  double get averageAttemptDuration {
-    if (attemptDurations.isEmpty) return 0;
-    final total = attemptDurations.fold<int>(0, (sum, duration) => sum + duration.inMilliseconds);
+  Future<double> get averageAttemptDuration async {
+    if (attemptDurations.isEmpty) {
+      return 0;
+    }
+    final int total = attemptDurations.fold<int>(
+        0,
+        (final int sum, final Duration duration) =>
+            sum + duration.inMilliseconds);
     return total / attemptDurations.length;
   }
 }

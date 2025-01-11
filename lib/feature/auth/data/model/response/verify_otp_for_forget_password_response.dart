@@ -5,7 +5,7 @@ class VerifyOtpForForgetPasswordResponse {
     this.data,
   });
 
-  VerifyOtpForForgetPasswordResponse.fromJson(dynamic json) {
+  VerifyOtpForForgetPasswordResponse.fromJson(final dynamic json) {
     message = json['message'];
     status = json['status'];
     data = json['data'] != null ? UserData.fromJson(json['data']) : null;
@@ -14,9 +14,9 @@ class VerifyOtpForForgetPasswordResponse {
   bool? status;
   UserData? data;
   VerifyOtpForForgetPasswordResponse copyWith({
-    String? message,
-    bool? status,
-    UserData? data,
+    final String? message,
+    final bool? status,
+    final UserData? data,
   }) =>
       VerifyOtpForForgetPasswordResponse(
         message: message ?? this.message,
@@ -24,7 +24,7 @@ class VerifyOtpForForgetPasswordResponse {
         data: data ?? this.data,
       );
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
     if (data != null) {
@@ -42,7 +42,7 @@ class Data {
     this.data,
   });
 
-  Data.fromJson(dynamic json) {
+  Data.fromJson(final dynamic json) {
     success = json['success'];
     message = json['message'];
     accessToken = json['access_token'];
@@ -52,11 +52,12 @@ class Data {
   String? message;
   String? accessToken;
   Data? data;
+
   Data copyWith({
-    bool? success,
-    String? message,
-    String? accessToken,
-    Data? data,
+    final bool? success,
+    final String? message,
+    final String? accessToken,
+    final Data? data,
   }) =>
       Data(
         success: success ?? this.success,
@@ -65,7 +66,7 @@ class Data {
         data: data ?? this.data,
       );
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['success'] = success;
     map['message'] = message;
     map['access_token'] = accessToken;
@@ -97,7 +98,8 @@ class UserData {
     this.bio,
   });
 
-  UserData.fromJson(dynamic json) {
+  UserData.fromJson(final dynamic json) {
+
     id = json['id'];
     firebaseUserDetailsId = json['firebase_user_details_id'];
     userId = json['user_id'];
@@ -114,6 +116,7 @@ class UserData {
     avatar = json['avatar'];
     bio = json['bio'];
   }
+
   num? id;
   String? firebaseUserDetailsId;
   num? userId;
@@ -129,22 +132,23 @@ class UserData {
   String? zipcode;
   String? avatar;
   String? bio;
+
   UserData copyWith({
-    num? id,
-    String? firebaseUserDetailsId,
-    num? userId,
-    String? firstName,
-    String? lastName,
-    String? email,
-    String? phone,
-    String? birthdate,
-    String? address,
-    String? city,
-    String? state,
-    String? country,
-    String? zipcode,
-    String? avatar,
-    String? bio,
+    final num? id,
+    final String? firebaseUserDetailsId,
+    final num? userId,
+    final String? firstName,
+    final String? lastName,
+    final String? email,
+    final String? phone,
+    final String? birthdate,
+    final String? address,
+    final String? city,
+    final String? state,
+    final String? country,
+    final String? zipcode,
+    final String? avatar,
+    final String? bio,
   }) =>
       UserData(
         id: id ?? this.id,
@@ -164,7 +168,7 @@ class UserData {
         bio: bio ?? this.bio,
       );
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['id'] = id;
     map['firebase_user_details_id'] = firebaseUserDetailsId;
     map['user_id'] = userId;

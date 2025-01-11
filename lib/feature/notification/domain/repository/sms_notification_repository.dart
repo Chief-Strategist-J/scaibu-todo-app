@@ -1,16 +1,17 @@
 abstract class SMSNotificationRepository<T> {
   // Send an SMS notification
-  Future<void> sendSMS(String message, String recipientPhoneNumber);
+  Future<void> sendSMS(final String message, final String recipientPhoneNumber);
 
   // Schedule an SMS notification
-  Future<void> scheduleSMS(String message, String recipientPhoneNumber, DateTime scheduleTime);
+  Future<void> scheduleSMS(final String message,
+      final String recipientPhoneNumber, final DateTime scheduleTime);
 
   // Cancel a scheduled SMS
-  Future<void> cancelScheduledSMS(String smsId);
+  Future<void> cancelScheduledSMS(final String smsId);
 
   // Get status of an SMS notification
-  Future<T> getSMSStatus(String smsId);
+  Future<T> getSMSStatus(final String smsId);
 
   // Get SMS history for a user
-  Future<List<T>> getSMSHistory(String userId);
+  Future<List<T>> getSMSHistory(final String userId);
 }

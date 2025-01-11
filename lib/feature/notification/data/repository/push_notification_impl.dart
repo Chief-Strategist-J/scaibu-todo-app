@@ -1,30 +1,33 @@
 import 'package:todo_app/core/app_library.dart';
 
-class PushNotificationImpl extends PushNotificationRepository<NotificationEntity> {
+class PushNotificationImpl
+    extends PushNotificationRepository<NotificationEntity> {
   @override
-  Future<void> cancelScheduledPushNotification(String notificationId) {
+  Future<void> cancelScheduledPushNotification(final String notificationId) {
     // TODO: implement cancelScheduledPushNotification
     throw UnimplementedError();
   }
 
   @override
-  Future<List<NotificationEntity>> getPushNotificationHistory(String userId) {
+  Future<List<NotificationEntity>> getPushNotificationHistory(
+      final String userId) {
     // TODO: implement getPushNotificationHistory
     throw UnimplementedError();
   }
 
   @override
-  Future<NotificationEntity> getPushNotificationStatus(String notificationId) {
+  Future<NotificationEntity> getPushNotificationStatus(
+      final String notificationId) {
     // TODO: implement getPushNotificationStatus
     throw UnimplementedError();
   }
 
   @override
   Future<void> schedulePushNotification(
-    String title,
-    String message,
-    String recipientId,
-    DateTime scheduleTime,
+    final String title,
+    final String message,
+    final String recipientId,
+    final DateTime scheduleTime,
   ) {
     // TODO: implement schedulePushNotification
     throw UnimplementedError();
@@ -32,9 +35,9 @@ class PushNotificationImpl extends PushNotificationRepository<NotificationEntity
 
   @override
   Future<void> sendPushNotification(
-    String title,
-    String message,
-    String recipientId,
+    final String title,
+    final String message,
+    final String recipientId,
   ) {
     // TODO: implement sendPushNotification
     throw UnimplementedError();

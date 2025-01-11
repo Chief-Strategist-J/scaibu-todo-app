@@ -3,36 +3,23 @@ import 'package:todo_app/core/app_library.dart';
 
 enum HttpRequestMethod { get, post, put, patch, delete, upload, download }
 
-RestApiImpl restApi = RestApiImpl(baseUrl: baseUrl, userCredentials: userCredentials);
+RestApiImpl restApi =
+    RestApiImpl(baseUrl: baseUrl, userCredentials: userCredentials);
 
 extension StatusCodeExtension on int {
   bool isSuccessful() => this >= 200 && this < 300;
 }
 
 class RestApiImpl implements RestApi {
-  static const Duration _defaultTimeout = Duration(seconds: 30);
-  static const Duration _uploadTimeout = Duration(minutes: 2);
-  static const int _maxConcurrentRequests = 10;
-  static const int _maxRequestsPerMinute = 100;
-
-  final String baseUrl;
-  final UserCredentials userCredentials;
-  final http.Client _httpClient;
-  final RequestQueue _requestQueue;
-  final TokenManager _tokenManager;
-  final NetworkMonitor _networkMonitor;
-  final RetryPolicy _retryPolicy;
-  final Logger _logger;
-
   RestApiImpl({
     required this.baseUrl,
     required this.userCredentials,
-    http.Client? httpClient,
-    RequestQueue? requestQueue,
-    TokenManager? tokenManager,
-    NetworkMonitor? networkMonitor,
-    RetryPolicy? retryPolicy,
-    Logger? logger,
+    final http.Client? httpClient,
+    final RequestQueue? requestQueue,
+    final TokenManager? tokenManager,
+    final NetworkMonitor? networkMonitor,
+    final RetryPolicy? retryPolicy,
+    final Logger? logger,
   })  : _httpClient = httpClient ?? http.Client(),
         _requestQueue = requestQueue ??
             RequestQueue(
@@ -44,25 +31,40 @@ class RestApiImpl implements RestApi {
         _retryPolicy = retryPolicy ?? RetryPolicy(),
         _logger = logger ?? Logger();
 
+  static const Duration _defaultTimeout = Duration(seconds: 30);
+  static const Duration _uploadTimeout = Duration(minutes: 2);
+  static const int _maxConcurrentRequests = 10;
+  static const int _maxRequestsPerMinute = 100;
+
+  final String baseUrl;
+  final UserCredentials userCredentials;
+
+  final http.Client _httpClient;
+  final RequestQueue _requestQueue;
+  final TokenManager _tokenManager;
+  final NetworkMonitor _networkMonitor;
+  final RetryPolicy _retryPolicy;
+  final Logger _logger;
+
   @override
   Future<T> request<T>({
-    HttpRequestMethod type = HttpRequestMethod.get,
-    required String endPoint,
-    Map<String, dynamic> requestBody = const {},
-    Map<String, String>? headers,
-    String uploadKey = '',
-    String uploadFilePath = '',
-    void Function(int)? onStatusCodeError,
-    Duration? timeout,
-    int maxRetries = 3,
-    HttpResponseType responseType = HttpResponseType.JSON,
+    final HttpRequestMethod type = HttpRequestMethod.get,
+    required final String endPoint,
+    final Map<String, dynamic> requestBody = const <String, >{},
+    final Map<String, String>? headers,
+    final String uploadKey = '',
+    final String uploadFilePath = '',
+    final void Function(int)? onStatusCodeError,
+    final Duration? timeout,
+    final int maxRetries = 3,
+    final HttpResponseType responseType = HttpResponseType.JSON,
   }) async {
     if (!await _networkMonitor.isNetworkAvailable()) {
       throw const NetworkException('No network connection available');
     }
-    final fullUrl = _createFullUrl(endPoint);
+    final String fullUrl = _createFullUrl(endPoint);
 
-    final request = RequestModel(
+    final RequestModel request = RequestModel(
       type: type,
       url: fullUrl,
       headers: await _createHeaders(headers),
@@ -78,17 +80,17 @@ class RestApiImpl implements RestApi {
     return _requestQueue.enqueue(() => _executeRequest<T>(request));
   }
 
-  Future<T> _executeRequest<T>(RequestModel request) async {
-    final metrics = RequestMetrics();
-    var attempts = 0;
+  Future<T> _executeRequest<T>(final RequestModel request) async {
+    final RequestMetrics metrics = RequestMetrics();
+    int attempts = 0;
 
     while (attempts < request.maxRetries) {
       try {
         metrics.startAttempt();
-        final response = await _sendRequest(request);
+        final http.Response response = await _sendRequest(request);
         metrics.endAttempt();
 
-        _logger.logRequest(request, response, metrics);
+        await _logger.logRequest(request, response, metrics);
 
         return await processResponse<T>(
           response,
@@ -99,7 +101,7 @@ class RestApiImpl implements RestApi {
         metrics.recordError(error);
 
         if (!_retryPolicy.shouldRetry(error, attempts)) {
-          _logger.logError(request, error, stackTrace, metrics);
+          await _logger.logError(request, error, stackTrace, metrics);
           rethrow;
         }
 
@@ -114,12 +116,14 @@ class RestApiImpl implements RestApi {
     );
   }
 
-  Future<Response> _sendRequest(RequestModel request) async {
-    final uri = Uri.parse(request.url);
+  Future<Response> _sendRequest(final RequestModel request) async {
+    final Uri uri = Uri.parse(request.url);
 
     switch (request.type) {
       case HttpRequestMethod.get:
-        return _httpClient.get(uri, headers: request.headers).timeout(request.timeout);
+        return _httpClient
+            .get(uri, headers: request.headers)
+            .timeout(request.timeout);
 
       case HttpRequestMethod.post:
       case HttpRequestMethod.put:
@@ -135,9 +139,9 @@ class RestApiImpl implements RestApi {
     }
   }
 
-  Future<Response> _sendBodyRequest(RequestModel request) async {
-    final encodedBody = jsonEncode(request.body);
-    final method = request.type.toString().split('.').last.toUpperCase();
+  Future<Response> _sendBodyRequest(final RequestModel request) async {
+    final String encodedBody = jsonEncode(request.body);
+    final String method = request.type.toString().split('.').last.toUpperCase();
 
     return _httpClient.sendRequest(
       method,
@@ -148,8 +152,8 @@ class RestApiImpl implements RestApi {
     );
   }
 
-  Future<http.Response> _handleUpload(RequestModel request) async {
-    final uploader = FileUploader(client: _httpClient);
+  Future<http.Response> _handleUpload(final RequestModel request) async {
+    final FileUploader uploader = FileUploader(client: _httpClient);
     return uploader.uploadFile(
       url: request.url,
       filePath: request.uploadFilePath,
@@ -159,8 +163,8 @@ class RestApiImpl implements RestApi {
     );
   }
 
-  Future<http.Response> _handleDownload(RequestModel request) async {
-    final downloader = FileDownloader(client: _httpClient);
+  Future<http.Response> _handleDownload(final RequestModel request) async {
+    final FileDownloader downloader = FileDownloader(client: _httpClient);
     return downloader.downloadFile(
       url: request.url,
       headers: request.headers,
@@ -170,9 +174,9 @@ class RestApiImpl implements RestApi {
 
   @override
   Future<T> handleResponse<T>({
-    required Response response,
-    HttpResponseType responseType = HttpResponseType.JSON,
-    void Function(int)? onStatusCodeError,
+    required final Response response,
+    final HttpResponseType responseType = HttpResponseType.JSON,
+    final void Function(int)? onStatusCodeError,
   }) async {
     if (!_isSuccessfulResponse(response)) {
       _handleErrorResponse(response, onStatusCodeError);
@@ -181,10 +185,11 @@ class RestApiImpl implements RestApi {
     return _parseResponse<T>(response, responseType);
   }
 
-  Future<Map<String, String>> _createHeaders(Map<String, String>? additionalHeaders) async {
-    final token = await _tokenManager.getToken(userCredentials);
+  Future<Map<String, String>> _createHeaders(
+      final Map<String, String>? additionalHeaders) async {
+    final String? token = await _tokenManager.getToken(userCredentials);
 
-    final headers = <String, String>{
+    final Map<String, String> headers = <String, String>{
       HttpHeaders.contentTypeHeader: 'application/json',
       if (token != null) HttpHeaders.authorizationHeader: token,
       ...?additionalHeaders,
@@ -193,7 +198,7 @@ class RestApiImpl implements RestApi {
     return headers;
   }
 
-  String _createFullUrl(String endPoint) {
+  String _createFullUrl(final String endPoint) {
     try {
       return endPoint.startsWith('http') ? endPoint : '$baseUrl$endPoint';
     } on FormatException catch (e) {
@@ -201,7 +206,7 @@ class RestApiImpl implements RestApi {
     }
   }
 
-  Duration _getDefaultTimeout(HttpRequestMethod type) {
+  Duration _getDefaultTimeout(final HttpRequestMethod type) {
     switch (type) {
       case HttpRequestMethod.upload:
       case HttpRequestMethod.download:
@@ -211,7 +216,7 @@ class RestApiImpl implements RestApi {
     }
   }
 
-  T _parseResponse<T>(Response response, HttpResponseType responseType) {
+  T _parseResponse<T>(final Response response, final HttpResponseType responseType) {
     if (response.body.isEmpty && T == dynamic) {
       return null as T;
     }
@@ -236,28 +241,27 @@ class RestApiImpl implements RestApi {
     }
   }
 
-  bool _isSuccessfulResponse(Response response) {
-    return response.statusCode >= 200 && response.statusCode < 300;
-  }
+  bool _isSuccessfulResponse(final Response response) => (response.statusCode >= 200) && (response.statusCode < 300);
 
-  void _handleErrorResponse(Response response, void Function(int)? onStatusCodeError) {
-    final statusCode = response.statusCode;
+  void _handleErrorResponse(
+      final Response response, final void Function(int)? onStatusCodeError) {
+    final int statusCode = response.statusCode;
     onStatusCodeError?.call(statusCode);
 
     if (response.body.isNotEmpty && _isJsonResponse(response)) {
-      throw ApiException.fromJson(statusCode, jsonDecode(response.body));
+      throw ApiException.fromJson(statusCode, jsonDecode(response.body) as Map<String,dynamic>);
     }
 
     throw ApiException(statusCode, 'Request failed with status: $statusCode');
   }
 
-  bool _isJsonResponse(Response response) {
-    final contentType = response.headers['content-type'];
+  bool _isJsonResponse(final Response response) {
+    final String? contentType = response.headers['content-type'];
     return contentType?.contains('application/json') ?? false;
   }
 }
 
-void printResponse(Response response) {
+void printResponse(final Response response) {
   log('\n____________________________________________________\n');
   log('REQUEST URL --> ${response.request?.url}');
   log('REQUEST METHOD --> ${response.request?.method}');
@@ -269,7 +273,7 @@ void printResponse(Response response) {
   log('____________________________________________________\n\n\n');
 }
 
-void printLogMessage(StreamedResponse response) {
+void printLogMessage(final StreamedResponse response) {
   log('\n____________________________________________________\n');
   log('REQUEST URL --> ${response.request?.url}');
   log('REQUEST METHOD --> ${response.request?.method}');

@@ -35,7 +35,8 @@ class MaxRetriesException implements Exception {
   MaxRetriesException(this.message, this.errors);
 
   @override
-  String toString() => 'MaxRetriesException: $message (${errors.length} failures)';
+  String toString() =>
+      'MaxRetriesException: $message (${errors.length} failures)';
 }
 
 class InvalidUrlException implements Exception {
@@ -45,7 +46,8 @@ class InvalidUrlException implements Exception {
   InvalidUrlException(this.message, [this.cause]);
 
   @override
-  String toString() => 'InvalidUrlException: $message${cause != null ? ' ($cause)' : ''}';
+  String toString() =>
+      'InvalidUrlException: $message${cause != null ? ' ($cause)' : ''}';
 }
 
 class NetworkException implements Exception {

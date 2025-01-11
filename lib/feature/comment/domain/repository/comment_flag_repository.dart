@@ -1,25 +1,28 @@
 abstract class CommentFlagRepository<CommentFlag> {
-  Future<List<CommentFlag>> getFlagsForComment(int commentId);
+  Future<List<CommentFlag>> getFlagsForComment(final int commentId);
 
-  Future<bool> addFlagToComment(int commentId, Map<String, dynamic> flag);
+  Future<bool> addFlagToComment(
+      final int commentId, final Map<String, dynamic> flag);
 
-  Future<bool> removeFlagFromComment(int commentId, Map<String, dynamic> flag);
+  Future<bool> removeFlagFromComment(
+      final int commentId, final Map<String, dynamic> flag);
 
-  Future<List<CommentFlag>> getAllFlags({int page = 1, int pageSize = 20});
+  Future<List<CommentFlag>> getAllFlags(
+      {final int page = 1, final int pageSize = 20});
 
-  Future<int> countFlagsForComment(int commentId);
+  Future<int> countFlagsForComment(final int commentId);
 
   Future<List<CommentFlag>> getFlaggedCommentsByReason(
-    String reason, {
-    int page = 1,
-    int pageSize = 20,
+    final String reason, {
+    final int page = 1,
+    final int pageSize = 20,
   });
 
   Future<List<CommentFlag>> getFlaggedCommentsByDateRange(
-    DateTime startDate,
-    DateTime endDate, {
-    int page = 1,
-    int pageSize = 20,
+    final DateTime startDate,
+    final DateTime endDate, {
+    final int page = 1,
+    final int pageSize = 20,
   });
 
   Future<CommentFlag> getMostFrequentFlag();

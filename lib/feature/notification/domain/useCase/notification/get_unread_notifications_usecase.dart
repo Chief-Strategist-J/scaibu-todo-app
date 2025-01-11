@@ -1,20 +1,21 @@
 import 'package:todo_app/core/app_library.dart';
 
 class GetUnreadNotificationsParams {
-  final String userId;
-
   GetUnreadNotificationsParams({required this.userId});
+  final String userId;
 }
 
-class GetUnreadNotificationsUseCase extends UseCase<List<NotificationEntity>, GetUnreadNotificationsParams> {
+class GetUnreadNotificationsUseCase
+    extends UseCase<List<NotificationEntity>, GetUnreadNotificationsParams> {
+  GetUnreadNotificationsUseCase({required this.notificationRepository});
   final NotificationRepository<NotificationEntity> notificationRepository;
 
-  GetUnreadNotificationsUseCase({required this.notificationRepository});
-
   @override
-  Future<Either<Failure, List<NotificationEntity>>> call(GetUnreadNotificationsParams params) async {
+  Future<Either<Failure, List<NotificationEntity>>> call(
+      final GetUnreadNotificationsParams params) async {
     try {
-      final unreadNotifications = await notificationRepository.getUnreadNotifications(params.userId);
+      final List<NotificationEntity> unreadNotifications =
+          await notificationRepository.getUnreadNotifications(params.userId);
       return Right(unreadNotifications);
     } catch (e) {
       return Left(ServerFailure('Failed to get unread notifications'));

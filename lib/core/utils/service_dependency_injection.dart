@@ -8,48 +8,49 @@ class ServiceDependencyInjection {
         return UserCredentials(await Hive.openBox('_UserAuthBox_'));
       },
       instanceName: ServiceInstance.userCredentialsKey,
-      dispose: (userCredentials) async {
+      dispose: (final UserCredentials userCredentials) async {
         log('\n DISPOSING USER-CREDENTIALS SERVICE\n\n');
         await userCredentials.box.close();
       },
     );
 
-    await getIt.isReady<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
-    userCredentials = getIt<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
+    await getIt.isReady<UserCredentials>(
+        instanceName: ServiceInstance.userCredentialsKey);
+    userCredentials = getIt<UserCredentials>(
+        instanceName: ServiceInstance.userCredentialsKey);
 
-    getIt.registerLazySingleton(() {
-      log('\n\nSCHEDULE SERVICE IN INITIALIZED\n\n');
-      return ScheduleService();
-    });
-
-    getIt.registerLazySingleton(() {
-      log('\n\nLOG SERVICE IN INITIALIZED\n\n');
-      return LogService();
-    });
-
-    getIt.registerLazySingleton(() {
-      log('\n\nPARSE SERVICE IN INITIALIZED\n\n');
-      return ParseService();
-    });
-
-    getIt.registerLazySingleton(() {
-      log('\n\n UTILITY SERVICE IN INITIALIZED\n\n');
-      return UtilityService();
-    });
-
-    getIt.registerLazySingleton(() {
-      log('\n\nTIME SERVICE IN INITIALIZED\n\n');
-      return TimeService();
-    });
+    getIt
+      ..registerLazySingleton(() {
+        log('\n\nSCHEDULE SERVICE IN INITIALIZED\n\n');
+        return ScheduleService();
+      })
+      ..registerLazySingleton(() {
+        log('\n\nLOG SERVICE IN INITIALIZED\n\n');
+        return LogService();
+      })
+      ..registerLazySingleton(() {
+        log('\n\nPARSE SERVICE IN INITIALIZED\n\n');
+        return ParseService();
+      })
+      ..registerLazySingleton(() {
+        log('\n\n UTILITY SERVICE IN INITIALIZED\n\n');
+        return UtilityService();
+      })
+      ..registerLazySingleton(() {
+        log('\n\nTIME SERVICE IN INITIALIZED\n\n');
+        return TimeService();
+      });
   }
 
-  static void disposeService() {
+  static Future<void> disposeService() async {
     log('\n SERVICE IN DISPOSED\n\n');
-    getIt.unregister<UserCredentials>(instanceName: ServiceInstance.userCredentialsKey);
-    getIt.unregister<ScheduleService>();
-    getIt.unregister<LogService>();
-    getIt.unregister<ParseService>();
-    getIt.unregister<TimeService>();
-    getIt.unregister<UtilityService>();
+    getIt
+      ..unregister<UserCredentials>(
+          instanceName: ServiceInstance.userCredentialsKey)
+      ..unregister<ScheduleService>()
+      ..unregister<LogService>()
+      ..unregister<ParseService>()
+      ..unregister<TimeService>()
+      ..unregister<UtilityService>();
   }
 }

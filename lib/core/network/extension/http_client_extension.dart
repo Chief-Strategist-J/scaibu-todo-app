@@ -3,14 +3,14 @@ import 'package:todo_app/core/app_library.dart';
 
 extension HttpClientExtension on http.Client {
   Future<http.Response> sendRequest(
-    String method,
-    String url, {
-    Object? body,
-    Map<String, String>? headers,
-    Duration? timeout,
+    final String method,
+    final String url, {
+    final Object? body,
+    final Map<String, String>? headers,
+    final Duration? timeout,
   }) async {
-    final uri = Uri.parse(url);
-    final request = http.Request(method, uri);
+    final Uri uri = Uri.parse(url);
+    final http.Request request = http.Request(method, uri);
 
     if (body != null) {
       request.body = body.toString();
@@ -19,10 +19,10 @@ extension HttpClientExtension on http.Client {
       request.headers.addAll(headers);
     }
 
-    final streamedResponse = await send(request);
+    final http.StreamedResponse streamedResponse = await send(request);
     if (timeout != null) {
-      return await http.Response.fromStream(streamedResponse).timeout(timeout);
+      return http.Response.fromStream(streamedResponse).timeout(timeout);
     }
-    return await http.Response.fromStream(streamedResponse);
+    return http.Response.fromStream(streamedResponse);
   }
 }

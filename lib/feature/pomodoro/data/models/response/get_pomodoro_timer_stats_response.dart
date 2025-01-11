@@ -5,7 +5,7 @@ class GetPomodoroTimerStatsResponse {
     this.data,
   });
 
-  GetPomodoroTimerStatsResponse.fromJson(dynamic json) {
+  GetPomodoroTimerStatsResponse.fromJson(final dynamic json) {
     message = json['message'];
     status = json['status'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -16,9 +16,9 @@ class GetPomodoroTimerStatsResponse {
   Data? data;
 
   GetPomodoroTimerStatsResponse copyWith({
-    String? message,
-    bool? status,
-    Data? data,
+    final String? message,
+    final bool? status,
+    final Data? data,
   }) =>
       GetPomodoroTimerStatsResponse(
         message: message ?? this.message,
@@ -27,7 +27,7 @@ class GetPomodoroTimerStatsResponse {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
     if (data != null) {
@@ -43,11 +43,11 @@ class Data {
     this.pomodoros,
   });
 
-  Data.fromJson(dynamic json) {
+  Data.fromJson(final dynamic json) {
     totalPomodoros = json['total_pomodoros'];
     if (json['pomodoros'] != null) {
-      pomodoros = [];
-      json['pomodoros'].forEach((v) {
+      pomodoros = <Pomodoros>[];
+      json['pomodoros'].forEach((final v) {
         pomodoros?.add(Pomodoros.fromJson(v));
       });
     }
@@ -57,8 +57,8 @@ class Data {
   List<Pomodoros>? pomodoros;
 
   Data copyWith({
-    num? totalPomodoros,
-    List<Pomodoros>? pomodoros,
+    final num? totalPomodoros,
+    final List<Pomodoros>? pomodoros,
   }) =>
       Data(
         totalPomodoros: totalPomodoros ?? this.totalPomodoros,
@@ -66,10 +66,11 @@ class Data {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['total_pomodoros'] = totalPomodoros;
     if (pomodoros != null) {
-      map['pomodoros'] = pomodoros?.map((v) => v.toJson()).toList();
+      map['pomodoros'] =
+          pomodoros?.map((final Pomodoros v) => v.toJson()).toList();
     }
     return map;
   }
@@ -83,13 +84,13 @@ class Pomodoros {
     this.timers,
   });
 
-  Pomodoros.fromJson(dynamic json) {
+  Pomodoros.fromJson(final dynamic json) {
     pomodoroId = json['pomodoro_id'];
     pomodoroStatus = json['pomodoro_status'];
     pomodoroDuration = json['pomodoro_duration'];
     if (json['timers'] != null) {
-      timers = [];
-      json['timers'].forEach((v) {
+      timers = <Timers>[];
+      json['timers'].forEach((final v) {
         timers?.add(Timers.fromJson(v));
       });
     }
@@ -101,10 +102,10 @@ class Pomodoros {
   List<Timers>? timers;
 
   Pomodoros copyWith({
-    num? pomodoroId,
-    String? pomodoroStatus,
-    num? pomodoroDuration,
-    List<Timers>? timers,
+    final num? pomodoroId,
+    final String? pomodoroStatus,
+    final num? pomodoroDuration,
+    final List<Timers>? timers,
   }) =>
       Pomodoros(
         pomodoroId: pomodoroId ?? this.pomodoroId,
@@ -114,12 +115,12 @@ class Pomodoros {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['pomodoro_id'] = pomodoroId;
     map['pomodoro_status'] = pomodoroStatus;
     map['pomodoro_duration'] = pomodoroDuration;
     if (timers != null) {
-      map['timers'] = timers?.map((v) => v.toJson()).toList();
+      map['timers'] = timers?.map((final Timers v) => v.toJson()).toList();
     }
     return map;
   }
@@ -131,7 +132,7 @@ class Timers {
     this.timerStatus,
   });
 
-  Timers.fromJson(dynamic json) {
+  Timers.fromJson(final dynamic json) {
     timerId = json['timer_id'];
     timerStatus = json['timer_status'];
   }
@@ -140,8 +141,8 @@ class Timers {
   String? timerStatus;
 
   Timers copyWith({
-    num? timerId,
-    String? timerStatus,
+    final num? timerId,
+    final String? timerStatus,
   }) =>
       Timers(
         timerId: timerId ?? this.timerId,
@@ -149,7 +150,7 @@ class Timers {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['timer_id'] = timerId;
     map['timer_status'] = timerStatus;
     return map;

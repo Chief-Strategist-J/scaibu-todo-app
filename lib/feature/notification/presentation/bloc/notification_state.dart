@@ -2,7 +2,7 @@ import 'package:todo_app/core/app_library.dart';
 
 sealed class NotificationState extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class InitNotificationState extends NotificationState {}
@@ -10,49 +10,47 @@ class InitNotificationState extends NotificationState {}
 class NotificationEmptyState extends NotificationState {}
 
 class NotificationDataState extends NotificationState {
-  final List<NotificationEntity> notifications;
-  final bool hasError;
-  final String? errorMessage;
-  final bool isEmpty;
-
   NotificationDataState({
-    this.notifications = const [],
+    this.notifications = const <NotificationEntity>[],
     this.hasError = false,
     this.errorMessage,
     this.isEmpty = false,
   });
 
+  final List<NotificationEntity> notifications;
+  final bool hasError;
+  final String? errorMessage;
+  final bool isEmpty;
+
   @override
-  List<Object?> get props => [notifications, hasError, errorMessage, isEmpty];
+  List<Object?> get props =>
+      <Object?>[notifications, hasError, errorMessage, isEmpty];
 }
 
 class NotificationErrorState extends NotificationState {
+  NotificationErrorState(this.errorMessage);
   final String errorMessage;
 
-  NotificationErrorState(this.errorMessage);
-
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => <Object?>[errorMessage];
 }
 
 class NotificationLoadingState extends NotificationState {
+  NotificationLoadingState({this.isInitialLoad = false});
   final bool isInitialLoad;
 
-  NotificationLoadingState({this.isInitialLoad = false});
-
   @override
-  List<Object?> get props => [isInitialLoad];
+  List<Object?> get props => <Object?>[isInitialLoad];
 }
 
 class NotificationOperationState extends NotificationState {
-  final bool isProcessing;
-  final String? operationMessage;
-
   NotificationOperationState({
     this.isProcessing = true,
     this.operationMessage,
   });
+  final bool isProcessing;
+  final String? operationMessage;
 
   @override
-  List<Object?> get props => [isProcessing, operationMessage];
+  List<Object?> get props => <Object?>[isProcessing, operationMessage];
 }

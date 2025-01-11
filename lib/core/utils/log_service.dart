@@ -9,28 +9,29 @@ class LogService {
   final String blue = '\x1B[34m';
   final String white = '\x1B[37m';
 
-  void crashLog({
-    required String errorMessage,
-    required dynamic e,
-    StackTrace? stack,
-  }) {
-
-    final stackTraceString = stack?.toString();
-    final filteredStackTrace = _filterStackTrace(stackTraceString);
-    final reversedStackTrace = _reverseStackTrace(filteredStackTrace);
-    final stackTrace = _formatStackTrace(reversedStackTrace);
+  Future<void> crashLog({
+    required final String errorMessage,
+    required final dynamic e,
+    final StackTrace? stack,
+  }) async {
+    final String? stackTraceString = stack?.toString();
+    final String filteredStackTrace = _filterStackTrace(stackTraceString);
+    final List<String> reversedStackTrace =
+        _reverseStackTrace(filteredStackTrace);
+    final String stackTrace = _formatStackTrace(reversedStackTrace);
 
     String detailedErrorMessage = _errorMessage(errorMessage, e, stackTrace);
 
     debugPrint(detailedErrorMessage);
 
-    final crashlytics = FirebaseCrashlytics.instance;
-    crashlytics.log(errorMessage);
-    crashlytics.recordError(e, stack,printDetails: false);
+    final FirebaseCrashlytics crashlytics = FirebaseCrashlytics.instance;
+    await crashlytics.log(errorMessage);
+    await crashlytics.recordError(e, stack, printDetails: false);
   }
 
-  String _errorMessage(String errorMessage, e, String stackTrace) {
-    final detailedErrorMessage = '''
+  String _errorMessage(
+      final String errorMessage, final e, final String stackTrace) {
+    final String detailedErrorMessage = '''
     ${red}Error: $yellow${errorMessage.toUpperCase()}$reset
     ${red}Exception: $blue${e.toString().toUpperCase()}$reset
     -----------------------------------------------------------------------------------
@@ -39,25 +40,31 @@ class LogService {
     return detailedErrorMessage;
   }
 
-  String _filterStackTrace(String? stackTraceString) {
-    return stackTraceString?.split('\n').where((line) => !line.contains('<asynchronous suspension>') && !line.contains('<anonymous closure>')).join('\n') ?? '';
-  }
+  String _filterStackTrace(final String? stackTraceString) =>
+      stackTraceString
+          ?.split('\n')
+          .where((final String line) =>
+              !line.contains('<asynchronous suspension>') &&
+              !line.contains('<anonymous closure>'))
+          .join('\n') ??
+      '';
 
-  List<String> _reverseStackTrace(String stackTrace) {
-    return stackTrace.split('\n').toList().reversed.toList();
-  }
+  List<String> _reverseStackTrace(final String stackTrace) =>
+      stackTrace.split('\n').toList().reversed.toList();
 
-  String _formatStackTrace(List<String> reversedStackTrace) {
-    return reversedStackTrace.map((line) => _formatStackTraceLine(line)).join('\n');
-  }
+  String _formatStackTrace(final List<String> reversedStackTrace) =>
+      reversedStackTrace
+          .map(_formatStackTraceLine)
+          .join('\n');
 
-  String _formatStackTraceLine(String line) {
-    final match = RegExp(r'#\d+\s+(.+?)\s+\((.+?):(\d+):(\d+)\)').firstMatch(line);
+  String _formatStackTraceLine(final String line) {
+    final RegExpMatch? match =
+        RegExp(r'#\d+\s+(.+?)\s+\((.+?):(\d+):(\d+)\)').firstMatch(line);
 
     if (match != null) {
-      final functionName = match.group(1);
-      final libraryName = match.group(2);
-      final lineNumber = '${match.group(3)}:${match.group(4)}';
+      final String? functionName = match.group(1);
+      final String? libraryName = match.group(2);
+      final String lineNumber = '${match.group(3)}:${match.group(4)}';
 
       return '''
     Function: $red$functionName$reset

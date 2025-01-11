@@ -6,43 +6,46 @@ class CreateEntityComponent<T> extends StatelessWidget {
 
   const CreateEntityComponent({
     super.key,
-    required Widget Function(BuildContext, T) listItemBuilder,
-    required EmptyEntityModel<T> model,
+    required final Widget Function(BuildContext, T) listItemBuilder,
+    required final EmptyEntityModel<T> model,
   })  : _model = model,
         _listItemBuilder = listItemBuilder;
 
   @override
-  Widget build(BuildContext context) {
-    List<T> _list = _model.getList(context);
+  Widget build(final BuildContext context) {
+    final List<T> list = _model.getList(context);
 
-    if (_list.isEmpty) {
+    if (list.isEmpty) {
       return EmptyComponent<T>(model: _model);
     } else {
       return PressableBox(
         style: _model.style.dialogStyle(context),
         child: AnimatedScrollView(
           listAnimationType: ListAnimationType.None,
-          children: [
+          children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: <Widget>[
                     const Offstage(),
                     Text(_model.title, style: boldTextStyle(size: 20)),
-                    IconButton(icon: const Icon(Icons.add), onPressed: _model.onCreateTap),
+                    IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: _model.onCreateTap),
                   ],
                 ),
                 ListView.separated(
-                  itemCount: _list.length,
+                  itemCount: list.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) => const Divider(thickness: 0.5),
-                  itemBuilder: (context, index) {
-                    return _listItemBuilder(context, _list[index]);
-                  },
+                  separatorBuilder:
+                      (final BuildContext context, final int index) =>
+                          const Divider(thickness: 0.5),
+                  itemBuilder: (final BuildContext context, final int index) =>
+                      _listItemBuilder(context, list[index]),
                 ),
                 16.height,
               ],

@@ -3,14 +3,13 @@ import 'package:todo_app/core/app_library.dart';
 
 extension RestApiImplExtension on RestApiImpl {
   Future<T> processResponse<T>(
-    http.Response response,
-    HttpResponseType responseType,
-    void Function(int)? onStatusCodeError,
-  ) async {
-    return handleResponse<T>(
-      response: response,
-      responseType: responseType,
-      onStatusCodeError: onStatusCodeError,
-    );
-  }
+    final http.Response response,
+    final HttpResponseType responseType,
+    final void Function(int)? onStatusCodeError,
+  ) async =>
+      handleResponse<T>(
+        response: response,
+        responseType: responseType,
+        onStatusCodeError: onStatusCodeError,
+      );
 }

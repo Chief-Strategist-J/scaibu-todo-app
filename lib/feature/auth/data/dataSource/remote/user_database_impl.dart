@@ -3,14 +3,14 @@ import 'package:todo_app/feature/auth/data/model/response/create_otp_response.da
 import 'package:todo_app/feature/auth/data/model/response/verify_otp_for_forget_password_response.dart';
 
 class UserAuthEndPoint {
-  static const loginOrSignUp = "api/loginOrSignUp";
-  static const getUserDetail = "api/getUserDetail";
-  static const createOtp = "api/createOtp";
-  static const verifyOtp = "api/verifyOtp";
-  static const forgetPassword = "api/forgetPassword";
-  static const verifyPasswordOtp = "api/verifyPasswordOtp";
-  static const updatePassword = 'api/updatePassword';
-  static const signOut = 'api/signOut';
+  static const String loginOrSignUp = 'api/loginOrSignUp';
+  static const String getUserDetail = 'api/getUserDetail';
+  static const String createOtp = 'api/createOtp';
+  static const String verifyOtp = 'api/verifyOtp';
+  static const String forgetPassword = 'api/forgetPassword';
+  static const String verifyPasswordOtp = 'api/verifyPasswordOtp';
+  static const String updatePassword = 'api/updatePassword';
+  static const String signOut = 'api/signOut';
 }
 
 class UserDatabaseImpl implements UserBaseApi {
@@ -19,8 +19,9 @@ class UserDatabaseImpl implements UserBaseApi {
   UserDatabaseImpl({required this.restApi});
 
   @override
-  Future<LoginEntity> standardLogin(Map<String, dynamic> loginCred) async {
-    LoginResponse res = LoginResponse.fromJson(
+  Future<LoginEntity> standardLogin(
+      final Map<String, dynamic> loginCred) async {
+    final LoginResponse res = LoginResponse.fromJson(
       await restApi.request(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
@@ -28,7 +29,9 @@ class UserDatabaseImpl implements UserBaseApi {
       ),
     );
 
-    if (res.data == null || res.data?.userInfo == null) return const LoginEntity();
+    if (res.data == null || res.data?.userInfo == null) {
+      return const LoginEntity();
+    }
 
     return LoginEntity(
       name: res.data?.userInfo?.name,
@@ -41,8 +44,9 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<LoginEntity> standardSignUp(Map<String, dynamic> loginCred) async {
-    LoginResponse res = LoginResponse.fromJson(
+  Future<LoginEntity> standardSignUp(
+      final Map<String, dynamic> loginCred) async {
+    final LoginResponse res = LoginResponse.fromJson(
       await restApi.request(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
@@ -50,7 +54,9 @@ class UserDatabaseImpl implements UserBaseApi {
       ),
     );
 
-    if (res.data == null || res.data?.userInfo == null) return const LoginEntity();
+    if (res.data == null || res.data?.userInfo == null) {
+      return const LoginEntity();
+    }
 
     return LoginEntity(
       name: res.data?.userInfo?.name,
@@ -63,7 +69,8 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<void> forgetPassword(Map<String, dynamic> forgetPasswordCred) async {
+  Future<void> forgetPassword(
+      final Map<String, dynamic> forgetPasswordCred) async {
     await restApi.request(
       requestBody: forgetPasswordCred,
       endPoint: UserAuthEndPoint.forgetPassword,
@@ -72,7 +79,7 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<void> standardLogOut(Map<String,dynamic> req) async {
+  Future<void> standardLogOut(final Map<String, dynamic> req) async {
     await restApi.request(
       requestBody: req,
       endPoint: UserAuthEndPoint.signOut,
@@ -81,7 +88,8 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<void> updatePassword(Map<String, dynamic> updatePasswordCred) async {
+  Future<void> updatePassword(
+      final Map<String, dynamic> updatePasswordCred) async {
     await restApi.request(
       requestBody: updatePasswordCred,
       endPoint: UserAuthEndPoint.updatePassword,
@@ -90,8 +98,8 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<bool> verifyOtp(Map<String, dynamic> verifyOtpCred) async {
-    CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
+  Future<bool> verifyOtp(final Map<String, dynamic> verifyOtpCred) async {
+    final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
       await restApi.request(
         requestBody: verifyOtpCred,
         endPoint: UserAuthEndPoint.verifyOtp,
@@ -105,9 +113,11 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<UserEntity> verifyForgetPasswordOtp(Map<String, dynamic> forgetPasswordCred) async {
-    final verify = VerifyOtpForForgetPasswordResponse.fromJson(
-      await restApi.request(
+  Future<UserEntity> verifyForgetPasswordOtp(
+      final Map<String, dynamic> forgetPasswordCred) async {
+    final VerifyOtpForForgetPasswordResponse verify =
+        VerifyOtpForForgetPasswordResponse.fromJson(
+      await restApi.request<Response>(
         requestBody: forgetPasswordCred,
         endPoint: UserAuthEndPoint.verifyPasswordOtp,
         type: HttpRequestMethod.post,
@@ -135,8 +145,8 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<bool> createOpt(Map<String, dynamic> otpCred) async {
-    CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
+  Future<bool> createOpt(final Map<String, dynamic> otpCred) async {
+    final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
       await restApi.request(
         requestBody: otpCred,
         endPoint: UserAuthEndPoint.createOtp,
@@ -150,7 +160,8 @@ class UserDatabaseImpl implements UserBaseApi {
   }
 
   @override
-  Future<Either<FailResponse, LoginEntity>> getUserDetail(Map<String, dynamic> loginCred) async {
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(
+      final Map<String, dynamic> loginCred) async {
     try {
       final response = await restApi.request(
         requestBody: loginCred,
@@ -158,11 +169,13 @@ class UserDatabaseImpl implements UserBaseApi {
         type: HttpRequestMethod.post,
       );
 
-      if (response['status'] != true) return Left(FailResponse.fromJson(response));
+      if (response['status'] != true) {
+        return Left(FailResponse.fromJson(response));
+      }
 
-      final res = LoginResponse.fromJson(response);
-      final userInfo = res.data?.userInfo;
-      final loginEntity = LoginEntity(
+      final LoginResponse res = LoginResponse.fromJson(response);
+      final UserInfo? userInfo = res.data?.userInfo;
+      final LoginEntity loginEntity = LoginEntity(
         name: userInfo?.name,
         email: userInfo?.email,
         isLogin: res.data?.isLogin,
@@ -173,7 +186,8 @@ class UserDatabaseImpl implements UserBaseApi {
 
       return Right(loginEntity);
     } catch (e) {
-      return Left(FailResponse(status: false, message: 'Error: ${e.toString()}'));
+      return Left(
+          FailResponse(status: false, message: 'Error: ${e.toString()}'));
     }
   }
 }

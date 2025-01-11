@@ -5,7 +5,7 @@ class LoginResponse {
     this.data,
   });
 
-  LoginResponse.fromJson(dynamic json) {
+  LoginResponse.fromJson(final dynamic json) {
     message = json['message'];
     status = json['status'];
     data = json['data'] != null ? LoginData.fromJson(json['data']) : null;
@@ -16,9 +16,9 @@ class LoginResponse {
   LoginData? data;
 
   LoginResponse copyWith({
-    String? message,
-    bool? status,
-    LoginData? data,
+    final String? message,
+    final bool? status,
+    final LoginData? data,
   }) =>
       LoginResponse(
         message: message ?? this.message,
@@ -27,7 +27,7 @@ class LoginResponse {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
     if (data != null) {
@@ -45,11 +45,12 @@ class LoginData {
     this.userInfo,
   });
 
-  LoginData.fromJson(dynamic json) {
+  LoginData.fromJson(final dynamic json) {
     isLogin = json['is_login'];
     isSignUp = json['is_sign_up'];
     accessToken = json['access_token'];
-    userInfo = json['user_info'] != null ? UserInfo.fromJson(json['user_info']) : null;
+    userInfo =
+        json['user_info'] != null ? UserInfo.fromJson(json['user_info']) : null;
   }
 
   bool? isLogin;
@@ -58,10 +59,10 @@ class LoginData {
   UserInfo? userInfo;
 
   LoginData copyWith({
-    bool? isLogin,
-    bool? isSignUp,
-    String? accessToken,
-    UserInfo? userInfo,
+    final bool? isLogin,
+    final bool? isSignUp,
+    final String? accessToken,
+    final UserInfo? userInfo,
   }) =>
       LoginData(
         isLogin: isLogin ?? this.isLogin,
@@ -71,7 +72,7 @@ class LoginData {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['is_login'] = isLogin;
     map['is_sign_up'] = isSignUp;
     map['access_token'] = accessToken;
@@ -89,7 +90,7 @@ class UserInfo {
     this.email,
   });
 
-  UserInfo.fromJson(dynamic json) {
+  UserInfo.fromJson(final dynamic json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -100,9 +101,9 @@ class UserInfo {
   String? email;
 
   UserInfo copyWith({
-    num? id,
-    String? name,
-    String? email,
+    final num? id,
+    final String? name,
+    final String? email,
   }) =>
       UserInfo(
         id: id ?? this.id,
@@ -111,7 +112,7 @@ class UserInfo {
       );
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
     map['email'] = email;

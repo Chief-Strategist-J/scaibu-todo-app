@@ -14,15 +14,23 @@ class SchedulePushNotificationParams {
   });
 }
 
-class SchedulePushNotificationUseCase extends UseCase<void, SchedulePushNotificationParams> {
-  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
+class SchedulePushNotificationUseCase
+    extends UseCase<void, SchedulePushNotificationParams> {
+  final PushNotificationRepository<NotificationEntity>
+      pushNotificationRepository;
 
   SchedulePushNotificationUseCase({required this.pushNotificationRepository});
 
   @override
-  Future<Either<Failure, void>> call(SchedulePushNotificationParams params) async {
+  Future<Either<Failure, void>> call(
+      final SchedulePushNotificationParams params) async {
     try {
-      await pushNotificationRepository.schedulePushNotification(params.title, params.message, params.recipientId, params.scheduleTime);
+      await pushNotificationRepository.schedulePushNotification(
+        params.title,
+        params.message,
+        params.recipientId,
+        params.scheduleTime,
+      );
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to schedule push notification'));

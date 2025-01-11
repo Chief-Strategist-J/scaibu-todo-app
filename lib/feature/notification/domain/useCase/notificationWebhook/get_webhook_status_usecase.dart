@@ -1,20 +1,22 @@
 import 'package:todo_app/core/app_library.dart';
 
 class GetWebhookStatusParams {
-  final String webhookId;
-
   GetWebhookStatusParams({required this.webhookId});
+  final String webhookId;
 }
 
-class GetWebhookStatusUseCase extends UseCase<NotificationEntity, GetWebhookStatusParams> {
-  final WebhookNotificationRepository<NotificationEntity> webhookNotificationRepository;
-
+class GetWebhookStatusUseCase
+    extends UseCase<NotificationEntity, GetWebhookStatusParams> {
   GetWebhookStatusUseCase({required this.webhookNotificationRepository});
+  final WebhookNotificationRepository<NotificationEntity>
+      webhookNotificationRepository;
 
   @override
-  Future<Either<Failure, NotificationEntity>> call(GetWebhookStatusParams params) async {
+  Future<Either<Failure, NotificationEntity>> call(
+      final GetWebhookStatusParams params) async {
     try {
-      final status = await webhookNotificationRepository.getWebhookStatus(params.webhookId);
+      final NotificationEntity status = await webhookNotificationRepository
+          .getWebhookStatus(params.webhookId);
       return Right(status);
     } catch (e) {
       return Left(ServerFailure('Failed to get webhook status'));

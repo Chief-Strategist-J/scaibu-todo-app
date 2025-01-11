@@ -1,20 +1,25 @@
 import 'package:todo_app/core/app_library.dart';
 
 class GetPushNotificationHistoryParams {
-  final String userId;
-
   GetPushNotificationHistoryParams({required this.userId});
+
+  final String userId;
 }
 
-class GetPushNotificationHistoryUseCase extends UseCase<List<NotificationEntity>, GetPushNotificationHistoryParams> {
-  final PushNotificationRepository<NotificationEntity> pushNotificationRepository;
-
+class GetPushNotificationHistoryUseCase extends UseCase<
+    List<NotificationEntity>, GetPushNotificationHistoryParams> {
   GetPushNotificationHistoryUseCase({required this.pushNotificationRepository});
 
+  final PushNotificationRepository<NotificationEntity>
+      pushNotificationRepository;
+
   @override
-  Future<Either<Failure, List<NotificationEntity>>> call(GetPushNotificationHistoryParams params) async {
+  Future<Either<Failure, List<NotificationEntity>>> call(
+      final GetPushNotificationHistoryParams params) async {
     try {
-      final history = await pushNotificationRepository.getPushNotificationHistory(params.userId);
+      final List<NotificationEntity> history = await pushNotificationRepository
+          .getPushNotificationHistory(params.userId);
+
       return Right(history);
     } catch (e) {
       return Left(ServerFailure('Failed to get push notification history'));

@@ -3,9 +3,6 @@ import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_cust
 import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_custom_button.variant.dart';
 
 class AuthCustomButton extends StatelessWidget {
-  final AuthCustomButtonVariant variant;
-  final String text;
-  final VoidCallback? onPress;
 
   const AuthCustomButton({
     super.key,
@@ -14,9 +11,13 @@ class AuthCustomButton extends StatelessWidget {
     required this.onPress,
   });
 
+  final AuthCustomButtonVariant variant;
+  final String text;
+  final VoidCallback? onPress;
+
   @override
-  Widget build(BuildContext context) {
-    final style = AuthCustomButtonStyle(variant: variant);
+  Widget build(final BuildContext context) {
+    final AuthCustomButtonStyle style = AuthCustomButtonStyle(variant: variant);
 
     return PressableBox(
       onPress: onPress,

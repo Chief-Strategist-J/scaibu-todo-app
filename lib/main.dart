@@ -60,9 +60,9 @@ class LifecycleObserver extends WidgetsBindingObserver {
   /// it disposes of the dependencies.
   @override
   Future<void> didChangeAppLifecycleState(final AppLifecycleState state) async {
-    // Checks if the app lifecycle state is detached.
+    /// Checks if the app lifecycle state is detached.
     if (state == AppLifecycleState.detached) {
-      // Dispose of any dependencies or resources that are no longer needed.
+      /// Dispose of any dependencies or resources that are no longer needed.
       await Dependency.dispose();
     }
   }

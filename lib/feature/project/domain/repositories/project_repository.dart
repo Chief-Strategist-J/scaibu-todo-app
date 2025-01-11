@@ -1,31 +1,31 @@
 import 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
 
 abstract interface class ProjectRepository<T> {
-  Future<List<T>> getAllProjects({int page});
+  Future<List<T>> getAllProjects({final int page});
 
   Future<ProjectCategoryDataModelEntity> getProjectCategoryData();
 
-  Future<T?> getProjectById(String id);
+  Future<T?> getProjectById(final String id);
 
-  Future<void> assignTodosToProjectsRequest(Map<String, dynamic> data);
+  Future<void> assignTodosToProjectsRequest(final Map<String, dynamic> data);
 
-  Future<T> getPaginatedProjectsForTodo(Map<String, dynamic> data);
+  Future<T> getPaginatedProjectsForTodo(final Map<String, dynamic> data);
 
-  Future<T> getPaginatedTodosForProject(Map<String, dynamic> data);
+  Future<T> getPaginatedTodosForProject(final Map<String, dynamic> data);
 
-  Future<void> createProject(Map<String, dynamic> data);
+  Future<void> createProject(final Map<String, dynamic> data);
 
-  Future<void> updateProject(String id, Map<String, dynamic> data);
+  Future<void> updateProject(final String id, final Map<String, dynamic> data);
 
-  Future<void> deleteProject(String id);
+  Future<void> deleteProject(final String id);
 
-  Future<List<T>> searchProjects(String query);
+  Future<List<T>> searchProjects(final String query);
 
-  Future<void> bulkCreateProjects(List<Map<String, dynamic>> data);
+  Future<void> bulkCreateProjects(final List<Map<String, dynamic>> data);
 
-  Future<void> bulkDeleteProjects(List<String> ids);
+  Future<void> bulkDeleteProjects(final List<String> ids);
 
-  Future<void> archiveProject(String id);
+  Future<void> archiveProject(final String id);
 
-  Future<void> restoreProject(String id);
+  Future<void> restoreProject(final String id);
 }

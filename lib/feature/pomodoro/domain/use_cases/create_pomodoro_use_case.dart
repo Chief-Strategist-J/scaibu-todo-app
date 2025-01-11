@@ -11,7 +11,7 @@ class CreatePomodoroUseCase extends UseCase<void, Map<String, dynamic>> {
   });
 
   @override
-  Future<Either<Failure, void>> call(Map<String, dynamic> params) async {
+  Future<Either<Failure, void>> call(final Map<String, dynamic> params) async {
     try {
       await pomodoroDatabaseRepository.createPomodoro(params);
       return const Right(null);

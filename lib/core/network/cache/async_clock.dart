@@ -4,8 +4,8 @@ class AsyncLock {
   bool _locked = false;
   final Queue<Completer<void>> _queue = Queue();
 
-  Future<T> synchronized<T>(Future<T> Function() action) async {
-    final completer = Completer<void>();
+  Future<T> synchronized<T>(final Future<T> Function() action) async {
+    final Completer<void> completer = Completer<void>();
     _queue.add(completer);
 
     if (!_locked) {

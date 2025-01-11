@@ -1,11 +1,11 @@
 abstract interface class AuthUserBackupAndRecovery {
-  Future<void> backUpUserData(String userId);
+  Future<void> backUpUserData(final String userId);
 
-  Future<void> restoreUserData(String userId);
+  Future<void> restoreUserData(final String userId);
 
-  Future<void> downloadUserData(String userId);
+  Future<void> downloadUserData(final String userId);
 
-  Future<void> logBackupActivity(String userId);
+  Future<void> logBackupActivity(final String userId);
 
-  Future<void> logRecoveryActivity(String userId);
+  Future<void> logRecoveryActivity(final String userId);
 }

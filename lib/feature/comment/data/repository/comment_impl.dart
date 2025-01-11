@@ -2,7 +2,7 @@ import 'package:todo_app/feature/comment/domain/repository/comment_repository.da
 
 class CommentImpl extends CommentRepository<CommentRepository> {
   @override
-  Future<bool> approveComment(int commentId) {
+  Future<bool> approveComment(final int commentId) {
     // TODO: implement approveComment
     throw UnimplementedError();
   }
@@ -14,79 +14,86 @@ class CommentImpl extends CommentRepository<CommentRepository> {
   }
 
   @override
-  Future<bool> create(CommentRepository entity) {
+  Future<bool> create(final CommentRepository entity) {
     // TODO: implement create
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> createComment(CommentRepository comment) {
+  Future<bool> createComment(final CommentRepository comment) {
     // TODO: implement createComment
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> delete(int id) {
+  Future<bool> delete(final int id) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> flagComment(int commentId, String flagReason) {
+  Future<bool> flagComment(final int commentId, final String flagReason) {
     // TODO: implement flagComment
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> getAll({int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> getAll(
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getAll
     throw UnimplementedError();
   }
 
   @override
-  Future<CommentRepository> getById(int id) {
+  Future<CommentRepository> getById(final int id) {
     // TODO: implement getById
     throw UnimplementedError();
   }
 
   @override
-  Future<int> getCommentCountByPost(int postId) {
+  Future<int> getCommentCountByPost(final int postId) {
     // TODO: implement getCommentCountByPost
     throw UnimplementedError();
   }
 
   @override
-  Future<int> getCommentCountByUser(String userId) {
+  Future<int> getCommentCountByUser(final String userId) {
     // TODO: implement getCommentCountByUser
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> getCommentsByDateRange(DateTime startDate, DateTime endDate, {int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> getCommentsByDateRange(
+      final DateTime startDate, final DateTime endDate,
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getCommentsByDateRange
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> getCommentsByPost(int postId, {int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> getCommentsByPost(final int postId,
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getCommentsByPost
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> getCommentsByStatus(String status, {int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> getCommentsByStatus(final String status,
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getCommentsByStatus
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> getCommentsByUser(String userId, {int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> getCommentsByUser(final String userId,
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getCommentsByUser
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> getFlaggedComments({int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> getFlaggedComments(
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getFlaggedComments
     throw UnimplementedError();
   }
@@ -98,31 +105,34 @@ class CommentImpl extends CommentRepository<CommentRepository> {
   }
 
   @override
-  Future<bool> rejectComment(int commentId) {
+  Future<bool> rejectComment(final int commentId) {
     // TODO: implement rejectComment
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentRepository>> searchComments(String keyword, {int page = 1, int pageSize = 20}) {
+  Future<List<CommentRepository>> searchComments(final String keyword,
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement searchComments
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> update(int id, CommentRepository updatedEntity) {
+  Future<bool> update(final int id, final CommentRepository updatedEntity) {
     // TODO: implement update
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> updateCommentMetadata(int commentId, Map<String, dynamic> metadata) {
+  Future<bool> updateCommentMetadata(
+      final int commentId, final Map<String, dynamic> metadata) {
     // TODO: implement updateCommentMetadata
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> updateCommentStatus(int commentId, String newStatus) {
+  Future<bool> updateCommentStatus(
+      final int commentId, final String newStatus) {
     // TODO: implement updateCommentStatus
     throw UnimplementedError();
   }

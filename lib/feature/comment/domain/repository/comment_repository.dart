@@ -1,43 +1,51 @@
 abstract class CommentRepository<Comment> {
-  Future<Comment> getById(int id);
+  Future<Comment> getById(final int id);
 
-  Future<List<Comment>> getAll({int page = 1, int pageSize = 20});
+  Future<List<Comment>> getAll({final int page = 1, final int pageSize = 20});
 
-  Future<bool> create(Comment entity);
+  Future<bool> create(final Comment entity);
 
-  Future<bool> update(int id, Comment updatedEntity);
+  Future<bool> update(final int id, final Comment updatedEntity);
 
-  Future<bool> delete(int id);
+  Future<bool> delete(final int id);
 
   Future<int> count();
 
-  Future<List<Comment>> getCommentsByPost(int postId, {int page = 1, int pageSize = 20});
+  Future<List<Comment>> getCommentsByPost(final int postId,
+      {final int page = 1, final int pageSize = 20});
 
-  Future<List<Comment>> getCommentsByUser(String userId, {int page = 1, int pageSize = 20});
+  Future<List<Comment>> getCommentsByUser(final String userId,
+      {final int page = 1, final int pageSize = 20});
 
-  Future<bool> createComment(Comment comment);
+  Future<bool> createComment(final Comment comment);
 
-  Future<bool> updateCommentMetadata(int commentId, Map<String,dynamic> metadata);
+  Future<bool> updateCommentMetadata(
+      final int commentId, final Map<String, dynamic> metadata);
 
-  Future<bool> flagComment(int commentId, String flagReason);
+  Future<bool> flagComment(final int commentId, final String flagReason);
 
-  Future<List<Comment>> searchComments(String keyword, {int page = 1, int pageSize = 20});
+  Future<List<Comment>> searchComments(final String keyword,
+      {final int page = 1, final int pageSize = 20});
 
-  Future<int> getCommentCountByPost(int postId);
+  Future<int> getCommentCountByPost(final int postId);
 
-  Future<int> getCommentCountByUser(String userId);
+  Future<int> getCommentCountByUser(final String userId);
 
-  Future<List<Comment>> getFlaggedComments({int page = 1, int pageSize = 20});
+  Future<List<Comment>> getFlaggedComments(
+      {final int page = 1, final int pageSize = 20});
 
-  Future<bool> approveComment(int commentId);
+  Future<bool> approveComment(final int commentId);
 
-  Future<bool> rejectComment(int commentId);
+  Future<bool> rejectComment(final int commentId);
 
-  Future<List<Comment>> getCommentsByStatus(String status, {int page = 1, int pageSize = 20});
+  Future<List<Comment>> getCommentsByStatus(final String status,
+      {final int page = 1, final int pageSize = 20});
 
-  Future<bool> updateCommentStatus(int commentId, String newStatus);
+  Future<bool> updateCommentStatus(final int commentId, final String newStatus);
 
   Future<Comment> getMostRecentComment();
 
-  Future<List<Comment>> getCommentsByDateRange(DateTime startDate, DateTime endDate, {int page = 1, int pageSize = 20});
+  Future<List<Comment>> getCommentsByDateRange(
+      final DateTime startDate, final DateTime endDate,
+      {final int page = 1, final int pageSize = 20});
 }

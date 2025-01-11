@@ -4,7 +4,5 @@ class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
+  Widget build(final BuildContext context) => const Placeholder();
 }

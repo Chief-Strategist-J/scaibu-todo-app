@@ -11,28 +11,24 @@ class FailResponse extends Failure {
     this.data,
   });
 
-  factory FailResponse.fromJson(dynamic json) {
-    return FailResponse(
+  factory FailResponse.fromJson(final dynamic json) => FailResponse(
       message: json['message'],
       status: json['status'],
       data: json['data'] != null ? FailData.fromJson(json['data']) : null,
     );
-  }
 
   FailResponse copyWith({
-    String? message,
-    bool? status,
-    FailData? data,
-  }) {
-    return FailResponse(
+    final String? message,
+    final bool? status,
+    final FailData? data,
+  }) => FailResponse(
       message: message ?? this.message,
       status: status ?? this.status,
       data: data ?? this.data,
     );
-  }
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
     map['status'] = status;
     if (data != null) {
@@ -42,7 +38,7 @@ class FailResponse extends Failure {
   }
 
   @override
-  List<Object?> get props => [message, status, data];
+  List<Object?> get props => <Object?>[message, status, data];
 }
 
 class FailData {
@@ -54,25 +50,21 @@ class FailData {
     this.message,
   });
 
-  factory FailData.fromJson(dynamic json) {
-    return FailData(
+  factory FailData.fromJson(final dynamic json) => FailData(
       success: json['success'],
       message: json['message'],
     );
-  }
 
   FailData copyWith({
-    bool? success,
-    String? message,
-  }) {
-    return FailData(
+    final bool? success,
+    final String? message,
+  }) => FailData(
       success: success ?? this.success,
       message: message ?? this.message,
     );
-  }
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['success'] = success;
     map['message'] = message;
     return map;

@@ -7,14 +7,11 @@ class PostPage extends StatelessWidget {
   const PostPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => PostBloc()..add(InitPostEvent()),
-      child: Builder(builder: (context) => _buildPage(context)),
-    );
-  }
+  Widget build(final BuildContext context) => BlocProvider(
+        create: (final BuildContext context) =>
+            PostBloc()..add(InitPostEvent()),
+        child: Builder(builder: _buildPage),
+      );
 
-  Widget _buildPage(BuildContext context) {
-    return Container();
-  }
+  Widget _buildPage(final BuildContext context) => Container();
 }

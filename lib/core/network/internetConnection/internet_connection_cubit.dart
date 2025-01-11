@@ -1,14 +1,15 @@
 import 'package:todo_app/core/app_library.dart';
 
-import 'internet_connection_state.dart';
+import 'package:todo_app/core/network/internetConnection/internet_connection_state.dart';
 
 class InternetConnectionCubit extends Cubit<InternetConnectionState> {
-  bool _internetConnectionStreamInit = true;
-  StreamSubscription<InternetStatus>? _internetStatusSubscription;
-
-  InternetConnectionCubit() : super(InternetConnectionState(status: CurrentInternetStatus.disconnected)) {
+  InternetConnectionCubit()
+      : super(InternetConnectionState(
+            status: CurrentInternetStatus.disconnected)) {
     _getInternetConnectionStatus();
   }
+  bool _internetConnectionStreamInit = true;
+  StreamSubscription<InternetStatus>? _internetStatusSubscription;
 
   @override
   Future<void> close() {
@@ -21,7 +22,9 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
     if (_internetConnectionStreamInit) {
       _internetConnectionStreamInit = false;
       log('INTERNET CONNECTION STREAM IN INITIALIZE');
-      _internetStatusSubscription = InternetConnection().onStatusChange.listen((status) {
+      _internetStatusSubscription = InternetConnection()
+          .onStatusChange
+          .listen((final InternetStatus status) {
         if (status == InternetStatus.connected) {
           isInternetConnected = true;
           emit(state.clone(status: CurrentInternetStatus.connected));
@@ -35,13 +38,16 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
 }
 
 Future<void> Function() updateStateAccordingToInternetStatus(
-  BuildContext context, {
-  required void Function() onInternetIsConnected,
-  required void Function() onInternetIsNotConnected,
+  final BuildContext context, {
+  required final void Function() onInternetIsConnected,
+  required final void Function() onInternetIsNotConnected,
 }) {
-  final internetConnectionCubit = context.read<InternetConnectionCubit>();
+  final InternetConnectionCubit internetConnectionCubit =
+      context.read<InternetConnectionCubit>();
 
-  final subscription = internetConnectionCubit.stream.listen((state) {
+  final StreamSubscription<InternetConnectionState> subscription =
+      internetConnectionCubit.stream
+          .listen((final InternetConnectionState state) {
     if (state.status == CurrentInternetStatus.connected) {
       onInternetIsConnected.call();
     } else {

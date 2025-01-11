@@ -3,25 +3,26 @@ import 'package:todo_app/feature/post/domain/repository/post_insights_repository
 
 class PostInsightsImpl extends PostInsightsRepository<PostEntity> {
   @override
-  Future<PostEntity> getPostAuthorStatistics(int authorId) {
+  Future<PostEntity> getPostAuthorStatistics(final int authorId) {
     // TODO: implement getPostAuthorStatistics
     throw UnimplementedError();
   }
 
   @override
-  Future<PostEntity> getPostEngagementMetrics(int postId) {
+  Future<PostEntity> getPostEngagementMetrics(final int postId) {
     // TODO: implement getPostEngagementMetrics
     throw UnimplementedError();
   }
 
   @override
-  Future<List<PostEntity>> getPostTrends({int days = 30}) {
+  Future<List<PostEntity>> getPostTrends({final int days = 30}) {
     // TODO: implement getPostTrends
     throw UnimplementedError();
   }
 
   @override
-  Future<List<PostEntity>> getPostsWithComments({int page = 1, int pageSize = 20}) {
+  Future<List<PostEntity>> getPostsWithComments(
+      {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getPostsWithComments
     throw UnimplementedError();
   }

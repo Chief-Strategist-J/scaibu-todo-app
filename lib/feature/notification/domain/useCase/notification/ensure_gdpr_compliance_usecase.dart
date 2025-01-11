@@ -6,13 +6,14 @@ class EnsureGDPRComplianceParams {
   EnsureGDPRComplianceParams({required this.userId});
 }
 
-class EnsureGDPRComplianceUseCase extends UseCase<void, EnsureGDPRComplianceParams> {
+class EnsureGDPRComplianceUseCase
+    extends UseCase<void, EnsureGDPRComplianceParams> {
   final NotificationRepository<NotificationEntity> notificationRepository;
 
   EnsureGDPRComplianceUseCase({required this.notificationRepository});
 
   @override
-  Future<Either<Failure, void>> call(EnsureGDPRComplianceParams params) async {
+  Future<Either<Failure, void>> call(final EnsureGDPRComplianceParams params) async {
     try {
       await notificationRepository.ensureGDPRCompliance(params.userId);
       return const Right(null);

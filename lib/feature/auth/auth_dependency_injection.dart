@@ -2,45 +2,43 @@ import 'package:todo_app/core/app_library.dart';
 
 class AuthDependencyInjection {
   static void authDependency() {
-    getIt.registerSingleton<RestApi>(
+    getIt..registerSingleton<RestApi>(
       RestApiImpl(
         baseUrl: baseUrl,
         userCredentials: userCredentials,
       ),
-    );
+    )
 
-    getIt.registerSingleton<UserBaseApi>(
+    ..registerSingleton<UserBaseApi>(
       UserDatabaseImpl(restApi: getIt<RestApi>()),
-    );
+    )
 
-    getIt.registerSingleton<AuthRepository>(
+    ..registerSingleton<AuthRepository>(
       AuthRepositoryImpl(baseApi: getIt<UserBaseApi>()),
-    );
+    )
 
-    getIt.registerSingleton<LoginUseCase>(
+    ..registerSingleton<LoginUseCase>(
       LoginUseCase(getIt<AuthRepository>()),
-    );
+    )
 
-    getIt.registerSingleton<GetUserDetailUseCase>(
+    ..registerSingleton<GetUserDetailUseCase>(
       GetUserDetailUseCase(getIt<AuthRepository>()),
-    );
+    )
 
-    getIt.registerSingleton<StandardLogoutUseCase>(
+    ..registerSingleton<StandardLogoutUseCase>(
       StandardLogoutUseCase(getIt<AuthRepository>()),
-    );
+    )
 
-    getIt.registerFactory(() {
-      return AuthBloc();
-    });
+    ..registerFactory(AuthBloc.new);
   }
 
-  static void disposeDependencyInjection() {
-    getIt.unregister<RestApi>();
-    getIt.unregister<UserBaseApi>();
-    getIt.unregister<AuthRepository>();
-    getIt.unregister<LoginUseCase>();
-    getIt.unregister<GetUserDetailUseCase>();
-    getIt.unregister<StandardLogoutUseCase>();
-    getIt.unregister<AuthBloc>();
+  static Future<void> disposeDependencyInjection() async {
+    getIt..unregister<RestApi>()
+    ..unregister<UserBaseApi>()
+    ..unregister<AuthRepository>()
+    ..unregister<LoginUseCase>()
+    ..unregister<GetUserDetailUseCase>()
+    ..unregister<StandardLogoutUseCase>()
+    ..unregister<AuthBloc>();
   }
 }

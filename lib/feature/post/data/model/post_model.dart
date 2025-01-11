@@ -34,20 +34,21 @@ mixin PostEntityMixin {
 @freezed
 class PostModel with _$PostModel, PostEntityMixin {
   const factory PostModel({
-    required int id,
-    required String title,
-    String? content,
-    @Default('draft') String status,
-    required String slug,
-    Map<String, dynamic>? metadata,
-    @JsonKey(name: 'metadata_author') String? metadataAuthor,
-    @JsonKey(name: 'metadata_category') String? metadataCategory,
-    DateTime? publishedAt,
-    required int userId,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-    @JsonKey(name: 'deleted_at') DateTime? deletedAt,
+    required final int id,
+    required final String title,
+    final String? content,
+    @Default('draft') final String status,
+    required final String slug,
+    final Map<String, dynamic>? metadata,
+    @JsonKey(name: 'metadata_author') final String? metadataAuthor,
+    @JsonKey(name: 'metadata_category') final String? metadataCategory,
+    final DateTime? publishedAt,
+    required final int userId,
+    @JsonKey(name: 'created_at') required final DateTime createdAt,
+    @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+    @JsonKey(name: 'deleted_at') final DateTime? deletedAt,
   }) = _PostModel;
 
-  factory PostModel.fromJson(Map<String, dynamic> json) => _$PostModelFromJson(json);
+  factory PostModel.fromJson(final Map<String, dynamic> json) =>
+      _$PostModelFromJson(json);
 }

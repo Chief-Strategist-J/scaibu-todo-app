@@ -1,12 +1,14 @@
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/core/network/helper/request_metrics.dart';
-import 'package:todo_app/core/network/model/request_model.dart';
 
 class Logger {
   static const String _tag = 'RestAPI';
 
-  void logRequest(RequestModel request, Response response, RequestMetrics metrics) {
-    final buffer = StringBuffer()
+  Future<void> logRequest(
+    final RequestModel request,
+    final Response response,
+    final RequestMetrics metrics,
+  ) async {
+    final StringBuffer buffer = StringBuffer()
       ..writeln('┌── Request ──────────────────────────')
       ..writeln('│ URL: ${request.url}')
       ..writeln('│ Method: ${request.type}')
@@ -19,7 +21,8 @@ class Logger {
       ..writeln('├── Metrics ──────────────────────────')
       ..writeln('│ Total Duration: ${metrics.totalDuration.inMilliseconds}ms')
       ..writeln('│ Attempts: ${metrics.attemptDurations.length}')
-      ..writeln('│ Average Attempt: ${metrics.averageAttemptDuration.toStringAsFixed(2)}ms')
+      ..writeln(
+          '│ Average Attempt: ${metrics.averageAttemptDuration.toStringAsFixed(2)}ms')
       ..writeln('└────────────────────────────────────');
 
     log(
@@ -29,8 +32,9 @@ class Logger {
     );
   }
 
-  void logError(RequestModel request, dynamic error, StackTrace stackTrace, RequestMetrics metrics) {
-    final buffer = StringBuffer()
+  Future<void> logError(final RequestModel request, final dynamic error,
+      final StackTrace stackTrace, final RequestMetrics metrics) async {
+    final StringBuffer buffer = StringBuffer()
       ..writeln('┌── Error ───────────────────────────')
       ..writeln('│ URL: ${request.url}')
       ..writeln('│ Method: ${request.type}')
@@ -49,18 +53,22 @@ class Logger {
     );
   }
 
-  String _sanitizeHeaders(Map<String, dynamic> headers) {
-    final sanitized = Map<String, dynamic>.from(headers);
+  String _sanitizeHeaders(final Map<String, dynamic> headers) {
+    final Map<String, dynamic> sanitized = Map<String, dynamic>.from(headers);
     if (sanitized.containsKey('authorization')) {
       sanitized['authorization'] = '********';
     }
     return sanitized.toString();
   }
 
-  String _truncateBody(dynamic body) {
-    const maxLength = 1000;
-    final stringBody = body.toString();
-    if (stringBody.length <= maxLength) return stringBody;
+  String _truncateBody(final dynamic body) {
+    const int maxLength = 1000;
+    final String stringBody = body.toString();
+
+    if (stringBody.length <= maxLength) {
+      return stringBody;
+    }
+
     return '${stringBody.substring(0, maxLength)}... (truncated)';
   }
 }

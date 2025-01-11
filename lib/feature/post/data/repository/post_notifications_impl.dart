@@ -3,31 +3,31 @@ import 'package:todo_app/feature/post/domain/repository/post_notifications_repos
 
 class PostNotificationsImpl extends PostNotificationsRepository<PostEntity> {
   @override
-  Future<void> notifyPostComment(int postId, int commentId) {
+  Future<void> notifyPostComment(final int postId, final int commentId) {
     // TODO: implement notifyPostComment
     throw UnimplementedError();
   }
 
   @override
-  Future<void> notifyPostCreation(int id) {
+  Future<void> notifyPostCreation(final int id) {
     // TODO: implement notifyPostCreation
     throw UnimplementedError();
   }
 
   @override
-  Future<void> notifyPostDeletion(int id) {
+  Future<void> notifyPostDeletion(final int id) {
     // TODO: implement notifyPostDeletion
     throw UnimplementedError();
   }
 
   @override
-  Future<void> notifyPostStatusChange(int id, String newStatus) {
+  Future<void> notifyPostStatusChange(final int id, final String newStatus) {
     // TODO: implement notifyPostStatusChange
     throw UnimplementedError();
   }
 
   @override
-  Future<void> notifyPostUpdate(int id) {
+  Future<void> notifyPostUpdate(final int id) {
     // TODO: implement notifyPostUpdate
     throw UnimplementedError();
   }

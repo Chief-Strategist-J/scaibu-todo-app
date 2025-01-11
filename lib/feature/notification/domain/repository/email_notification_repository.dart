@@ -1,16 +1,18 @@
 abstract class EmailNotificationRepository<T> {
   // Send an email notification
-  Future<T> sendEmail(String subject, String body, String recipientEmail);
+  Future<T> sendEmail(
+      final String subject, final String body, final String recipientEmail);
 
   // Schedule an email notification
-  Future<T> scheduleEmail(String subject, String body, String recipientEmail, DateTime scheduleTime);
+  Future<T> scheduleEmail(final String subject, final String body,
+      final String recipientEmail, final DateTime scheduleTime);
 
   // Cancel a scheduled email
-  Future<T> cancelScheduledEmail(String emailId);
+  Future<T> cancelScheduledEmail(final String emailId);
 
   // Get status of an email notification
-  Future<T> getEmailStatus(String emailId);
+  Future<T> getEmailStatus(final String emailId);
 
   // Get email history for a user
-  Future<List<T>> getEmailHistory(String userId);
+  Future<List<T>> getEmailHistory(final String userId);
 }

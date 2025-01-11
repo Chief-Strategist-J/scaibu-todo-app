@@ -7,15 +7,22 @@ class TriggerWebhookNotificationParams {
   TriggerWebhookNotificationParams({required this.url, required this.data});
 }
 
-class TriggerWebhookNotificationUseCase extends UseCase<void, TriggerWebhookNotificationParams> {
-  final WebhookNotificationRepository<NotificationEntity> webhookNotificationRepository;
+class TriggerWebhookNotificationUseCase
+    extends UseCase<void, TriggerWebhookNotificationParams> {
+  final WebhookNotificationRepository<NotificationEntity>
+      webhookNotificationRepository;
 
-  TriggerWebhookNotificationUseCase({required this.webhookNotificationRepository});
+  TriggerWebhookNotificationUseCase(
+      {required this.webhookNotificationRepository});
 
   @override
-  Future<Either<Failure, void>> call(TriggerWebhookNotificationParams params) async {
+  Future<Either<Failure, void>> call(
+      final TriggerWebhookNotificationParams params) async {
     try {
-      await webhookNotificationRepository.triggerWebhookNotification(params.url, params.data);
+      await webhookNotificationRepository.triggerWebhookNotification(
+        params.url,
+        params.data,
+      );
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to trigger webhook notification'));

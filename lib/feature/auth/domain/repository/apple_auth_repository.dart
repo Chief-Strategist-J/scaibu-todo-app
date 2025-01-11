@@ -1,5 +1,5 @@
 abstract interface class AppleAuthRepository {
-  Future<void> appleLogin(Map<String, dynamic> loginCred);
+  Future<void> appleLogin(final Map<String, dynamic> loginCred);
 
-  Future<void> appleLogOut(String userID);
+  Future<void> appleLogOut(final String userID);
 }

@@ -1,11 +1,14 @@
 abstract interface class AuthPermissionRepository {
-  Future<void> updateUserPermission(Map<String, dynamic> permission, String userId);
+  Future<void> updateUserPermission(
+      final Map<String, dynamic> permission, final String userId);
 
-  Future<void> addUserPermission(Map<String, dynamic> permission, String userId);
+  Future<void> addUserPermission(
+      final Map<String, dynamic> permission, final String userId);
 
-  Future<void> getUserPermission(String userId);
+  Future<void> getUserPermission(final String userId);
 
-  Future<void> checkUserPermission(String userId);
+  Future<void> checkUserPermission(final String userId);
 
-  Future<void> removeUserPermission(Map<String, dynamic> permission, String userId);
+  Future<void> removeUserPermission(
+      final Map<String, dynamic> permission, final String userId);
 }

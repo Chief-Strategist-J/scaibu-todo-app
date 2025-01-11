@@ -1,78 +1,80 @@
 import 'package:todo_app/core/app_library.dart';
 
 class UserCredentials {
-  final userName = 'name';
-  final email = 'email';
-  final id = 'id';
-  final accessToken = 'accessToken';
-  final isLogin = '_isLogin';
+  UserCredentials(this.box);
 
-  final firebasePhotoUrl = 'firebasePhotoUrl';
-  final firstName = '_firstName';
-  final lastName = '_lastName';
-  final phone = '_phone';
-  final birthDate = '_birthDate';
-  final address = '_address';
-  final city = '_city';
-  final state = '_state';
-  final country = '_country';
-  final zipCode = '_zipCode';
-  final bio = '_bio';
+  final String userName = 'name';
+  final String email = 'email';
+  final String id = 'id';
+  final String accessToken = 'accessToken';
+  final String isLogin = '_isLogin';
+
+  final String firebasePhotoUrl = 'firebasePhotoUrl';
+  final String firstName = '_firstName';
+  final String lastName = '_lastName';
+  final String phone = '_phone';
+  final String birthDate = '_birthDate';
+  final String address = '_address';
+  final String city = '_city';
+  final String state = '_state';
+  final String country = '_country';
+  final String zipCode = '_zipCode';
+  final String bio = '_bio';
 
   final Box<dynamic> box;
 
-  final tokenSavedTime = 'tokenSavedTime';
+  final String tokenSavedTime = 'tokenSavedTime';
 
-  UserCredentials(this.box);
+  num? get getUserId => box.get(userCredentials.id) as num?;
 
-  num? get getUserId => box.get(userCredentials.id);
+  String? get getFirebasePhotoUrl =>
+      box.get(userCredentials.firebasePhotoUrl) as String?;
 
-  String? get getFirebasePhotoUrl => box.get(userCredentials.firebasePhotoUrl);
+  bool? get getIsLogin => box.get(userCredentials.isLogin) as bool?;
 
-  bool? get getIsLogin => box.get(userCredentials.isLogin);
+  String? get getUserName => box.get(userCredentials.userName) as String?;
 
-  String? get getUserName => box.get(userCredentials.userName);
+  String? get getUserEmail => box.get(userCredentials.email) as String?;
 
-  String? get getUserEmail => box.get(userCredentials.email);
+  String? get getUserAccessToken =>
+      box.get(userCredentials.accessToken) as String?;
 
-  String? get getUserAccessToken => box.get(userCredentials.accessToken);
+  String? get getFirstName => box.get(userCredentials.firstName) as String?;
 
-  String? get getFirstName => box.get(userCredentials.firstName);
+  String? get getLastName => box.get(userCredentials.lastName) as String?;
 
-  String? get getLastName => box.get(userCredentials.lastName);
+  String? get getPhone => box.get(userCredentials.phone) as String?;
 
-  String? get getPhone => box.get(userCredentials.phone);
+  String? get getBirthDate => box.get(userCredentials.birthDate) as String?;
 
-  String? get getBirthDate => box.get(userCredentials.birthDate);
+  String? get getAddress => box.get(userCredentials.address) as String?;
 
-  String? get getAddress => box.get(userCredentials.address);
+  String? get getCity => box.get(userCredentials.city) as String?;
 
-  String? get getCity => box.get(userCredentials.city);
+  String? get getState => box.get(userCredentials.state) as String?;
 
-  String? get getState => box.get(userCredentials.state);
+  String? get getCountry => box.get(userCredentials.country) as String?;
 
-  String? get getCountry => box.get(userCredentials.country);
+  String? get getZipCode => box.get(userCredentials.zipCode) as String?;
 
-  String? get getZipCode => box.get(userCredentials.zipCode);
+  String? get getBio => box.get(userCredentials.bio) as String?;
 
-  String? get getBio => box.get(userCredentials.bio);
-
-  void clear() {
-    box.delete(userName);
-    box.delete(email);
-    box.delete(id);
-    box.delete(accessToken);
-    box.delete(isLogin);
-    box.delete(firebasePhotoUrl);
-    box.delete(firstName);
-    box.delete(lastName);
-    box.delete(phone);
-    box.delete(birthDate);
-    box.delete(address);
-    box.delete(city);
-    box.delete(state);
-    box.delete(country);
-    box.delete(zipCode);
-    box.delete(bio);
+  Future<void> clear() async {
+    await box.delete(userName);
+    await box.delete(email);
+    await box.delete(id);
+    await box.delete(accessToken);
+    await box.delete(isLogin);
+    await box.delete(firebasePhotoUrl);
+    await box.delete(firstName);
+    await box.delete(lastName);
+    await box.delete(phone);
+    await box.delete(birthDate);
+    await box.delete(address);
+    await box.delete(city);
+    await box.delete(state);
+    await box.delete(country);
+    await box.delete(zipCode);
+    await box.delete(bio);
   }
 }

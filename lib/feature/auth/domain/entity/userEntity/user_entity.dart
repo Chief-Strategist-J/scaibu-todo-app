@@ -37,25 +37,27 @@ mixin UserEntityMixin {
 
 @freezed
 class UserEntity with _$UserEntity {
-  const UserEntity._(); // Add this line
+  // Add this line
 
   const factory UserEntity({
-    num? id,
-    String? firebaseUserDetailsId,
-    num? userId,
-    String? firstName,
-    String? lastName,
-    String? email,
-    String? phone,
-    String? birthdate,
-    String? address,
-    String? city,
-    String? state,
-    String? country,
-    String? zipcode,
-    String? avatar,
-    String? bio,
+    final num? id,
+    final String? firebaseUserDetailsId,
+    final num? userId,
+    final String? firstName,
+    final String? lastName,
+    final String? email,
+    final String? phone,
+    final String? birthdate,
+    final String? address,
+    final String? city,
+    final String? state,
+    final String? country,
+    final String? zipcode,
+    final String? avatar,
+    final String? bio,
   }) = _UserEntity;
+  const UserEntity._();
 
-  factory UserEntity.fromJson(Map<String, dynamic> json) => _$UserEntityFromJson(json);
+  factory UserEntity.fromJson(final Map<String, dynamic> json) =>
+      _$UserEntityFromJson(json);
 }

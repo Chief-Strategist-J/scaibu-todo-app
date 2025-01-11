@@ -4,14 +4,14 @@ import 'package:todo_app/core/app_library.dart';
 class LoginPage extends HookWidget {
   const LoginPage({super.key});
 
-  Future<void> onLoginOrSignUpTap(AuthBloc authBloc, AuthFormState authFormState, bool isSignUp) async {
+  Future<void> onLoginOrSignUpTap(final AuthBloc authBloc, final AuthFormState authFormState, final bool isSignUp) async {
     if (!authFormState.validatorKey.currentState!.validate()) return;
 
-    final Map<String, dynamic> loginReq = {
-      "name": authFormState.emailController.text,
-      "email": authFormState.emailController.text,
-      "password": authFormState.passwordController.text,
-      "is_sign_up": isSignUp,
+    final Map<String, dynamic> loginReq = <String, >{
+      'name': authFormState.emailController.text,
+      'email': authFormState.emailController.text,
+      'password': authFormState.passwordController.text,
+      'is_sign_up': isSignUp,
     };
 
     await getIt<LoginUseCase>().call(loginReq);
@@ -19,34 +19,33 @@ class LoginPage extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final authBloc = useMemoized(() => context.read<AuthBloc>(), []);
-    final authFormState = Provider.of<AuthFormState>(context, listen: true);
-    final emailText = useState(authFormState.emailController.text);
+  Widget build(final BuildContext context) {
+    final AuthBloc authBloc = useMemoized(() => context.read<AuthBloc>(), <Object?>[]);
+    final AuthFormState authFormState = Provider.of<AuthFormState>(context, listen: true);
+    final ValueNotifier<String> emailText = useState(authFormState.emailController.text);
 
     useEffect(() {
       void emailListener() => emailText.value = authFormState.emailController.text;
 
       authFormState.emailController.addListener(emailListener);
       return () => authFormState.emailController.removeListener(emailListener);
-    }, [authFormState.emailController]);
+    }, <Object?>[authFormState.emailController]);
 
     useEffect(() {
       afterBuildCreated(() {
         hideKeyboard(context);
       });
       return null;
-    }, []);
+    }, <Object?>[]);
 
     return Scaffold(
-      restorationId: "_LoginPage",
+      restorationId: '_LoginPage',
       body: BlocBuilder<AuthBloc, AuthState>(
         bloc: authBloc,
-        builder: (context, state) {
-          return Container(
+        builder: (final BuildContext context, final AuthState state) => Container(
             padding: const EdgeInsets.symmetric(horizontal: 34),
             child: CustomScrollView(
-              slivers: [
+              slivers: <Widget>[
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
@@ -55,8 +54,8 @@ class LoginPage extends HookWidget {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("Welcome", style: boldTextStyle(size: 24)),
+                        children: <Widget>[
+                          Text('Welcome', style: boldTextStyle(size: 24)),
                           Lottie.asset(Assets.loginPageAssetsWelcome, width: 200, height: 200),
                           16.height,
                           AppTextField(
@@ -66,7 +65,7 @@ class LoginPage extends HookWidget {
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.emailAddress,
                             enableSuggestions: true,
-                            autoFillHints: const [
+                            autoFillHints: const <String>[
                               AutofillHints.name,
                               AutofillHints.email,
                             ],
@@ -83,8 +82,8 @@ class LoginPage extends HookWidget {
                             decoration: InputDecoration(
                               label: Text('Password', style: boldTextStyle(size: 10)),
                             ),
-                            onFieldSubmitted: (p0) {
-                              onLoginOrSignUpTap(authBloc, authFormState, false).then((value) {
+                            onFieldSubmitted: (final String p0) {
+                              onLoginOrSignUpTap(authBloc, authFormState, false).then((final value) {
                                 authFormState.clear();
                                 if(!context.mounted) return;
                                 GoRouter.of(context).pushReplacement(ApplicationPaths.todoListViewPage);
@@ -92,15 +91,15 @@ class LoginPage extends HookWidget {
                             },
                           ),
                           24.height,
-                          if (emailText.value.isEmpty) ...[
+                          if (emailText.value.isEmpty) ...<Widget>[
                             const CustomDivider(),
                             24.height,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: <Widget>[
                                 Image.asset(googleLogo, width: 60, height: 60).cornerRadiusWithClipRRect(60),
                                 16.width,
-                                Text("or", style: primaryTextStyle(size: 12)),
+                                Text('or', style: primaryTextStyle(size: 12)),
                                 16.width,
                                 Image.asset(facebookLogo, width: 60, height: 60).cornerRadiusWithClipRRect(60),
                               ],
@@ -113,22 +112,21 @@ class LoginPage extends HookWidget {
                 )
               ],
             ),
-          );
-        },
+          ),
       ),
     );
   }
 }
 
 class AuthFormState extends ChangeNotifier {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  final userNameFocusNode = FocusNode();
-  final emailFocusNode = FocusNode();
-  final passwordFocusNode = FocusNode();
+  final FocusNode userNameFocusNode = FocusNode();
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
 
-  final validatorKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> validatorKey = GlobalKey<FormState>();
 
   void clear() {
     emailController.clear();

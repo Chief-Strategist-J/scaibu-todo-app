@@ -1,5 +1,5 @@
 abstract interface class AuthSecurityRepository {
-  Future<void> verifyEmail(String email);
+  Future<void> verifyEmail(final String email);
 
-  Future<void> verifyContactNumber(String contactNumber);
+  Future<void> verifyContactNumber(final String contactNumber);
 }

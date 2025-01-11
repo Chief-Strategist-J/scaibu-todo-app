@@ -3,14 +3,17 @@ import 'package:todo_app/core/app_library.dart';
 class SplashPage extends HookWidget {
   const SplashPage({super.key});
 
-  Future<void> _init(BuildContext context, AuthBloc authBloc) async {
+  Future<void> _init(
+      final BuildContext context, final AuthBloc authBloc) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
-      if (!context.mounted) return;
-      final accessToken = userCredentials.getUserAccessToken.validate();
+      if (!context.mounted) {
+        return;
+      }
+      final String accessToken = userCredentials.getUserAccessToken.validate();
 
       if (accessToken.isEmpty) {
-        GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage);
+        await GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage);
         return;
       }
 
@@ -19,15 +22,23 @@ class SplashPage extends HookWidget {
       /// the user does not gain unauthorized access under these circumstances, we proactively request their user data again.
       /// This additional check helps us verify their current status and prevent login if their account has been altered or disabled.
 
-      final getUserDetailReq = {"user_id": userCredentials.getUserId};
-      final user = await getIt<GetUserDetailUseCase>().call(getUserDetailReq);
-      if (!context.mounted) return;
+      final Map<String, num?> getUserDetailReq = <String, num?>{
+        'user_id': userCredentials.getUserId
+      };
+      final Either<Failure, Either<FailResponse, LoginEntity>> user =
+          await getIt<GetUserDetailUseCase>().call(getUserDetailReq);
+      if (!context.mounted) {
+        return;
+      }
 
-      user.fold(
-        (_) => GoRouter.of(context).pushReplacement(ApplicationPaths.todoListViewPage),
-        (result) => result.fold(
-          (_) => GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage),
-          (_) => GoRouter.of(context).pushReplacement(ApplicationPaths.todoListViewPage),
+      await user.fold(
+        (final _) => GoRouter.of(context)
+            .pushReplacement(ApplicationPaths.todoListViewPage),
+        (final Either<FailResponse, LoginEntity> result) => result.fold(
+          (final _) =>
+              GoRouter.of(context).pushReplacement(ApplicationPaths.loginPage),
+          (final _) => GoRouter.of(context)
+              .pushReplacement(ApplicationPaths.todoListViewPage),
         ),
       );
     } catch (e) {
@@ -36,14 +47,17 @@ class SplashPage extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final authBloc = useMemoized(() => context.read<AuthBloc>());
+  Widget build(final BuildContext context) {
+    final AuthBloc authBloc = useMemoized(() => context.read<AuthBloc>());
 
-    useEffect(() {
-      _init(context, authBloc);
+    useEffect(() async {
+      await _init(context, authBloc);
       return null;
-    }, []);
+    } as Dispose? Function(), <Object?>[]);
 
-    return Scaffold(body: Center(child: Text("Todo Application", style: boldTextStyle(size: 10, weight: FontWeight.w900))));
+    return Scaffold(
+        body: Center(
+            child: Text('Todo Application',
+                style: boldTextStyle(size: 10, weight: FontWeight.w900))));
   }
 }

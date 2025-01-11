@@ -6,9 +6,10 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   LoginUseCase(this.authRepository);
 
   @override
-  Future<Either<Failure, LoginEntity>> call(Map<String, dynamic> params) async {
+  Future<Either<Failure, LoginEntity>> call(
+      final Map<String, dynamic> params) async {
     try {
-      toast("Logging in...", bgColor: cardColor, length: Toast.LENGTH_SHORT);
+      toast('Logging in...', bgColor: cardColor);
 
       final auth = await authRepository.standardSignIn(params);
       _storeCred(auth);
@@ -47,32 +48,38 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
           break;
       }
       toast(errorMessage);
-      logService.crashLog(errorMessage: errorMessage, e: e, stack: s);
+      await logService.crashLog(errorMessage: errorMessage, e: e, stack: s);
       return Left(ServerFailure(errorMessage));
     } catch (e, s) {
       toast('An unexpected error occurred. Please try again.');
-      logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
+      await logService.crashLog(
+        errorMessage: 'Failed to create todo',
+        e: e,
+        stack: s,
+      );
       return Left(ServerFailure('Failed to create todo'));
     }
   }
 
-  void _storeCred(LoginEntity auth) {
-    userCredentials.box.put(userCredentials.isLogin, true);
-    userCredentials.box.put(userCredentials.email, auth.email);
-    userCredentials.box.put(userCredentials.id, auth.id);
-    userCredentials.box.put(userCredentials.userName, auth.name);
-    userCredentials.box.put(userCredentials.accessToken, auth.accessToken);
+  Future<void> _storeCred(final LoginEntity auth) async {
+    await userCredentials.box.put(userCredentials.isLogin, true);
+    await userCredentials.box.put(userCredentials.email, auth.email);
+    await userCredentials.box.put(userCredentials.id, auth.id);
+    await userCredentials.box.put(userCredentials.userName, auth.name);
+    await userCredentials.box
+        .put(userCredentials.accessToken, auth.accessToken);
   }
 
-  void _storeOnFirebaseResponse(UserCredential user) {
+  Future<void> _storeOnFirebaseResponse(final UserCredential user) async {
     if (user.user != null) {
-      userCredentials.box.put(userCredentials.firebasePhotoUrl, user.user?.photoURL);
+      await userCredentials.box
+          .put(userCredentials.firebasePhotoUrl, user.user?.photoURL);
     }
   }
 
-  void _oneSignalLogin(Map<String, dynamic> params) {
-    OneSignal.login(params['email']);
-    OneSignal.User.addEmail(params['email']);
-    OneSignal.User.addTags({'email': params['email']});
+  Future<void> _oneSignalLogin(final Map<String, dynamic> params) async {
+    await OneSignal.login(params['email'] as String);
+    await OneSignal.User.addEmail(params['email'] as String);
+    await OneSignal.User.addTags(<String, dynamic>{'email': params['email']});
   }
 }

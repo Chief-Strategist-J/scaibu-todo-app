@@ -3,19 +3,19 @@ import 'package:todo_app/feature/post/domain/repository/post_reactions_repositor
 
 class PostReactionsImpl extends PostReactionsRepository<PostEntity> {
   @override
-  Future<void> addReaction(int postId, String reactionType) {
+  Future<void> addReaction(final int postId, final String reactionType) {
     // TODO: implement addReaction
     throw UnimplementedError();
   }
 
   @override
-  Future<PostEntity> getReactionsCount(int postId) {
+  Future<PostEntity> getReactionsCount(final int postId) {
     // TODO: implement getReactionsCount
     throw UnimplementedError();
   }
 
   @override
-  Future<void> removeReaction(int postId, String reactionType) {
+  Future<void> removeReaction(final int postId, final String reactionType) {
     // TODO: implement removeReaction
     throw UnimplementedError();
   }

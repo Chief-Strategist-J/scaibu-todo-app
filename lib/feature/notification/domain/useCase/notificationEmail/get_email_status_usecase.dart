@@ -1,20 +1,26 @@
 import 'package:todo_app/core/app_library.dart';
 
 class GetEmailStatusParams {
-  final String emailId;
-
   GetEmailStatusParams({required this.emailId});
+
+  final String emailId;
 }
 
-class GetEmailStatusUseCase extends UseCase<NotificationEntity, GetEmailStatusParams> {
-  final EmailNotificationRepository<NotificationEntity> emailNotificationRepository;
+class GetEmailStatusUseCase
+    extends UseCase<NotificationEntity, GetEmailStatusParams> {
 
   GetEmailStatusUseCase({required this.emailNotificationRepository});
 
+  final EmailNotificationRepository<NotificationEntity>
+      emailNotificationRepository;
+
   @override
-  Future<Either<Failure, NotificationEntity>> call(GetEmailStatusParams params) async {
+  Future<Either<Failure, NotificationEntity>> call(
+      final GetEmailStatusParams params) async {
     try {
-      final status = await emailNotificationRepository.getEmailStatus(params.emailId);
+      final NotificationEntity status =
+          await emailNotificationRepository.getEmailStatus(params.emailId);
+
       return Right(status);
     } catch (e) {
       return Left(ServerFailure('Failed to get email status'));

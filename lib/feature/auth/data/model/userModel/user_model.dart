@@ -8,22 +8,23 @@ class UserModel with _$UserModel, UserEntityMixin {
   const UserModel._(); // Add this line
 
   const factory UserModel({
-    @override num? id,
-    @override String? firebaseUserDetailsId,
-    num? userId,
-    @override String? firstName,
-    @override String? lastName,
-    @override String? email,
-    @override String? phone,
-    @override String? birthdate,
-    @override String? address,
-    @override String? city,
-    @override String? state,
-    @override String? country,
-    @override String? zipcode,
-    @override String? avatar,
-    @override String? bio,
+    @override final num? id,
+    @override final String? firebaseUserDetailsId,
+    final num? userId,
+    @override final String? firstName,
+    @override final String? lastName,
+    @override final String? email,
+    @override final String? phone,
+    @override final String? birthdate,
+    @override final String? address,
+    @override final String? city,
+    @override final String? state,
+    @override final String? country,
+    @override final String? zipcode,
+    @override final String? avatar,
+    @override final String? bio,
   }) = _UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  factory UserModel.fromJson(final Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }

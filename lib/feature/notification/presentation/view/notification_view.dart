@@ -4,13 +4,14 @@ class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     context.read<NotificationBloc>().add(InitNotificationEvent());
 
     return Scaffold(
-      appBar: AppBar(title: Text("Notifications", style: boldTextStyle(size: 16))),
+      appBar:
+          AppBar(title: Text('Notifications', style: boldTextStyle(size: 16))),
       body: AnimatedScrollView(
-        children: const [],
+        children: const <Widget>[],
       ),
     );
   }

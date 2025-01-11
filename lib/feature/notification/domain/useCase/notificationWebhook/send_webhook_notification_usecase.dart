@@ -7,15 +7,21 @@ class SendWebhookNotificationParams {
   SendWebhookNotificationParams({required this.url, required this.payload});
 }
 
-class SendWebhookNotificationUseCase extends UseCase<void, SendWebhookNotificationParams> {
-  final WebhookNotificationRepository<NotificationEntity> webhookNotificationRepository;
+class SendWebhookNotificationUseCase
+    extends UseCase<void, SendWebhookNotificationParams> {
+  final WebhookNotificationRepository<NotificationEntity>
+      webhookNotificationRepository;
 
   SendWebhookNotificationUseCase({required this.webhookNotificationRepository});
 
   @override
-  Future<Either<Failure, void>> call(SendWebhookNotificationParams params) async {
+  Future<Either<Failure, void>> call(
+      final SendWebhookNotificationParams params) async {
     try {
-      await webhookNotificationRepository.sendWebhookNotification(params.url, params.payload);
+      await webhookNotificationRepository.sendWebhookNotification(
+        params.url,
+        params.payload,
+      );
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure('Failed to send webhook notification'));
