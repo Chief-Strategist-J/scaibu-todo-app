@@ -50,7 +50,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         },
       );
     } catch (e, s) {
-      logService.crashLog(
+      await logService.crashLog(
         errorMessage: 'Error initializing bloc',
         e: e,
         stack: s,
@@ -84,7 +84,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       });
     } catch (e, s) {
       add(InitTodoEvent());
-      logService.crashLog(
+      await logService.crashLog(
         errorMessage: 'Error while updating todo',
         e: e,
         stack: s,
@@ -115,7 +115,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
     } catch (e, s) {
       add(InitTodoEvent());
-      logService.crashLog(
+      await logService.crashLog(
         errorMessage: 'Error while updating todo',
         e: e,
         stack: s,
@@ -185,7 +185,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       });
     } catch (error, stack) {
       add(InitTodoEvent());
-      logService.crashLog(
+      await logService.crashLog(
         errorMessage: 'An error occurred: $error',
         e: error,
         stack: stack,
@@ -220,7 +220,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       await createPomodoro(request);
       toast('added');
     } catch (e) {
-      logService.crashLog(errorMessage: 'An error occurred: $e', e: e);
+      await logService.crashLog(errorMessage: 'An error occurred: $e', e: e);
     }
   }
 
@@ -281,7 +281,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
     } catch (e, s) {
       add(InitTodoEvent());
-      logService.crashLog(
+      await logService.crashLog(
         errorMessage: 'Error while deleting todo',
         e: e,
         stack: s,
