@@ -7,101 +7,116 @@ class ManageTodoPageUtils {
   ManageTodoPageUtils(this.ctx, this.param);
 
   void dispose() {
-    log("DATA IS CLEARED FOR TODO-DETAIL IN MANAGE TODO PAGE UTILS");
+    log('DATA IS CLEARED FOR TODO-DETAIL IN MANAGE TODO PAGE UTILS');
     param.dispose();
   }
 
-  static bool _isLoadingState(TodoBloc todoBloc) => todoBloc.state is LoadingState;
+  static bool _isLoadingState(final TodoBloc todoBloc) =>
+      todoBloc.state is LoadingState;
 
-  bool _isValidTodoDetail() {
-    return param.validatorKey.currentState!.validate();
-  }
+  bool _isValidTodoDetail() => param.validatorKey.currentState!.validate();
 
-  Future<void> _updateExistingTodo(TodoBloc todoBloc) async {
-    await todoBloc.onEditPageUpdateTodo(param).then((_) {
-      if (ctx.mounted) GoRouter.of(ctx).go(ApplicationPaths.todoListViewPage);
-    });
-  }
-
-  static bool _isUpdatingExisting(ManageTodoPageParam? todoPage) {
-    return todoPage != null && (todoPage.isUpdatingExistingTodo);
-  }
-
-  Future<void> _handleNewTodoCreation(TodoBloc todoBloc) async {
-    final isWantToDelete = await _getDeleteConfirmation(ctx);
-    param.isWantToDeleteTodoAtEndTime = isWantToDelete;
-    param.isWantToDeleteTodoAtEndTimeNotifier.value = isWantToDelete;
-
-    await todoBloc.createTodo(todoDetail: param).then((_) async {
+  Future<void> _updateExistingTodo(final TodoBloc todoBloc) async {
+    await todoBloc.onEditPageUpdateTodo(param).then((final _) {
       if (ctx.mounted) {
         GoRouter.of(ctx).go(ApplicationPaths.todoListViewPage);
-        await Future.delayed(const Duration(milliseconds: 1000), () => param.dispose());
       }
     });
   }
 
-  static Future<bool> _getDeleteConfirmation(BuildContext context) async {
-    final confirmation = await appShowConfirmDialogCustom(
+  static bool _isUpdatingExisting(final ManageTodoPageParam? todoPage) =>
+      todoPage != null && (todoPage.isUpdatingExistingTodo);
+
+  Future<void> _handleNewTodoCreation(final TodoBloc todoBloc) async {
+    final bool isWantToDelete = await _getDeleteConfirmation(ctx);
+    param.isWantToDeleteTodoAtEndTime = isWantToDelete;
+    param.isWantToDeleteTodoAtEndTimeNotifier.value = isWantToDelete;
+
+    await todoBloc.createTodo(todoDetail: param).then((final _) async {
+      if (ctx.mounted) {
+        GoRouter.of(ctx).go(ApplicationPaths.todoListViewPage);
+        await Future.delayed(const Duration(milliseconds: 1000), param.dispose);
+      }
+    });
+  }
+
+  static Future<bool> _getDeleteConfirmation(final BuildContext context) async {
+    final bool? confirmation = await appShowConfirmDialogCustom(
       context,
-      title: "Want to delete todo at end time?",
+      title: 'Want to delete todo at end time?',
       dialogType: DialogType.DELETE,
       backgroundColor: context.primaryColor,
       cancelButtonColor: cancelButtonColor,
       negativeTextColor: context.primaryColor,
-      positiveText: "Delete",
-      onAccept: (_) => true,
-      onCancel: (_) => false,
+      positiveText: 'Delete',
+      onAccept: (final _) => true,
+      onCancel: (final _) => false,
     );
     return confirmation.validate();
   }
 
-  static bool _showToastAndReturnFalse(String message) {
+  static bool _showToastAndReturnFalse(final String message) {
     toast(message);
     return false;
   }
 
-  static bool _isValidSelectedDate(BuildContext ctx, TimeServiceModel date) {
-    if (!date.isSelected) return false;
+  static bool _isValidSelectedDate(
+      final BuildContext ctx, final TimeServiceModel date) {
+    if (!date.isSelected) {
+      return false;
+    }
 
-    final now = DateTime.now();
-    final bool isValidDate = date.dateTime.isAfter(DateTime(now.year, now.month, now.day - 1));
+    final DateTime now = DateTime.now();
+    final bool isValidDate =
+        date.dateTime.isAfter(DateTime(now.year, now.month, now.day - 1));
 
-    if (!ctx.mounted) return false;
+    if (!ctx.mounted) {
+      return false;
+    }
     if (!isValidDate) {
-      toast("Select a valid date, not one that has passed.", bgColor: redColor);
+      toast('Select a valid date, not one that has passed.', bgColor: redColor);
       return false;
     }
     return true;
   }
 
-  bool _isValidStartTime(TimeServiceModel startTime) {
-    if (!startTime.isSelected || !ctx.mounted) return false;
+  bool _isValidStartTime(final TimeServiceModel startTime) {
+    if (!startTime.isSelected || !ctx.mounted) {
+      return false;
+    }
 
     final bool isValidStartTime = startTime.dateTime.isAfter(DateTime.now());
     if (!isValidStartTime) {
-      toast("Choose a valid start time,\n not past.", bgColor: redColor);
+      toast('Choose a valid start time,\n not past.', bgColor: redColor);
       return false;
     }
     return true;
   }
 
-  bool _isValidEndTime(TimeServiceModel endTime, TimeServiceModel startTime) {
-    if (!endTime.isSelected || !ctx.mounted) return false;
+  bool _isValidEndTime(
+      final TimeServiceModel endTime, final TimeServiceModel startTime) {
+    if (!endTime.isSelected || !ctx.mounted) {
+      return false;
+    }
 
-    final bool endTimeIsAfterStartTime = endTime.dateTime.isAfter(startTime.dateTime);
+    final bool endTimeIsAfterStartTime =
+        endTime.dateTime.isAfter(startTime.dateTime);
     if (!endTimeIsAfterStartTime) {
-      toast("End time must be after start time.\n Please retry.", bgColor: redColor);
+      toast('End time must be after start time.\n Please retry.',
+          bgColor: redColor);
       return false;
     }
     return true;
   }
 
   Future<bool> onTapOfManageTodo({
-    required TodoBloc todoBloc,
-    required ManageTodoPageParam? todoPage,
+    required final TodoBloc todoBloc,
+    required final ManageTodoPageParam? todoPage,
   }) async {
-    if (_isLoadingState(todoBloc)) return _showToastAndReturnFalse("Loading please wait ...");
-    if (!_isValidTodoDetail()) return _showToastAndReturnFalse('field_must_be_validated'.tr());
+    if (_isLoadingState(todoBloc))
+      return _showToastAndReturnFalse('Loading please wait ...');
+    if (!_isValidTodoDetail())
+      return _showToastAndReturnFalse('field_must_be_validated'.tr());
 
     if (_isUpdatingExisting(todoPage)) {
       await _updateExistingTodo(todoBloc);
@@ -112,8 +127,10 @@ class ManageTodoPageUtils {
   }
 
   Future<void> selectDateAndTime() async {
-    await timeService.selectDate(ctx).then((date) async {
-      if (!ctx.mounted) return;
+    await timeService.selectDate(ctx).then((final TimeServiceModel date) async {
+      if (!ctx.mounted) {
+        return;
+      }
 
       if (_isValidSelectedDate(ctx, date)) {
         param.date = date;
@@ -124,8 +141,12 @@ class ManageTodoPageUtils {
   }
 
   Future<void> selectStartAndEndTime() async {
-    await timeService.selectTime(ctx).then((startTime) async {
-      if (!ctx.mounted) return;
+    await timeService
+        .selectTime(ctx)
+        .then((final TimeServiceModel startTime) async {
+      if (!ctx.mounted) {
+        return;
+      }
 
       if (_isValidStartTime(startTime)) {
         param.startTime = startTime;
@@ -135,9 +156,13 @@ class ManageTodoPageUtils {
     });
   }
 
-  Future<void> selectEndTime(TimeServiceModel startTime) async {
-    await timeService.selectTime(ctx).then((endTime) async {
-      if (!ctx.mounted) return;
+  Future<void> selectEndTime(final TimeServiceModel startTime) async {
+    await timeService
+        .selectTime(ctx)
+        .then((final TimeServiceModel endTime) async {
+      if (!ctx.mounted) {
+        return;
+      }
 
       if (_isValidEndTime(endTime, startTime)) {
         param.endTime = endTime;

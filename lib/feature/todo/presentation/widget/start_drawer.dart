@@ -4,23 +4,26 @@ class DrawerComponent extends HookWidget {
   const DrawerComponent({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final todoBloc = BlocProvider.of<TodoBloc>(context);
-    final todoState = useStream(todoBloc.stream, initialData: todoBloc.state);
+  Widget build(final BuildContext context) {
+    final TodoBloc todoBloc = BlocProvider.of<TodoBloc>(context);
+    final AsyncSnapshot<TodoState> todoState =
+        useStream(todoBloc.stream, initialData: todoBloc.state);
 
-    final _drawerItems = useMemoized(() => DrawerItemModel.itemList(context));
+    final List<DrawerItemModel> drawerItems =
+        useMemoized(() => DrawerItemModel.itemList(context));
 
-    final visibleItems = useMemoized(
+    final List<DrawerItemModel> visibleItems = useMemoized(
       () {
         if (todoState is! NoInternetState) {
-          return _drawerItems;
+          return drawerItems;
         } else {
-          return _drawerItems.where((item) {
-            return item.title != 'Log-Out' && item.title != 'Add Task';
-          }).toList();
+          return drawerItems
+              .where((final DrawerItemModel item) =>
+                  item.title != 'Log-Out' && item.title != 'Add Task')
+              .toList();
         }
       },
-      [todoState],
+      <Object?>[todoState],
     );
 
     return Drawer(
@@ -29,15 +32,17 @@ class DrawerComponent extends HookWidget {
         height: context.height(),
         width: context.width(),
         child: Column(
-          children: [
+          children: <Widget>[
             const Expanded(flex: 1, child: DrawerHeaderComponent()),
             Expanded(
               flex: 5,
               child: ListView(
                 reverse: true,
-                children: [
+                children: <Widget>[
                   const SizedBox(height: 64),
-                  ...visibleItems.map((item) => DrawerItemComponent(title: item.title, onTap: item.onTap)),
+                  ...visibleItems.map((final DrawerItemModel item) =>
+                      DrawerItemComponent(
+                          title: item.title, onTap: item.onTap)),
                 ],
               ),
             )

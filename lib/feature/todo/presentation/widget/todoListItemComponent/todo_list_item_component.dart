@@ -10,18 +10,19 @@ class TodoListItemComponent extends HookWidget {
   final DismissDirectionCallback? _onDismissed;
   final TodoListItemComponentVariant _variant;
 
-  final ValueKey _uniqueKey;
+  final ValueKey<int?> _uniqueKey;
 
   const TodoListItemComponent({
     super.key,
-    required TodoEntity todoData,
-    required void Function(bool?)? onChanged,
-    required void Function() onTapOfEdit,
-    required void Function() onTapOfSee,
-    void Function()? onPress,
-    required ValueKey<dynamic> uniqueKey,
-    void Function(DismissDirection)? onDismissed,
-    TodoListItemComponentVariant variant = TodoListItemComponentVariant.primary,
+    required final TodoEntity todoData,
+    required final void Function(bool?)? onChanged,
+    required final void Function() onTapOfEdit,
+    required final void Function() onTapOfSee,
+    final void Function()? onPress,
+    required final ValueKey<dynamic> uniqueKey,
+    final void Function(DismissDirection)? onDismissed,
+    final TodoListItemComponentVariant variant =
+        TodoListItemComponentVariant.primary,
   })  : _uniqueKey = uniqueKey,
         _variant = variant,
         _onDismissed = onDismissed,
@@ -32,8 +33,9 @@ class TodoListItemComponent extends HookWidget {
         _data = todoData;
 
   @override
-  Widget build(BuildContext context) {
-    final style = useMemoized(() => TodoListItemComponentStyle(variant: _variant), []);
+  Widget build(final BuildContext context) {
+    final TodoListItemComponentStyle style = useMemoized(
+        () => TodoListItemComponentStyle(variant: _variant), <Object?>[]);
 
     if (context.read<TodoBloc>().state is NoInternetState) {
       // DISMISSIBLE ONLY IF HAS INTERNET
@@ -75,14 +77,13 @@ class TodoItem extends StatelessWidget {
   final TodoListItemComponentStyle _style;
 
   const TodoItem({
+    required final TodoEntity data,
+    required final void Function(bool? onChanged)? onChanged,
+    required final void Function() onTapOfEdit,
+    required final void Function() onTapOfSee,
+    required final TodoListItemComponentStyle style,
     super.key,
-    required TodoEntity data,
-    required void Function(bool?)? onChanged,
-    required void Function() onTapOfEdit,
-    required void Function() onTapOfSee,
-    required TodoListItemComponentStyle style,
-    void Function()? onPress,
-    TodoListItemComponentVariant variant = TodoListItemComponentVariant.primary,
+    final void Function()? onPress,
   })  : _style = style,
         _onTapOfEdit = onTapOfEdit,
         _onTapOfSee = onTapOfSee,
@@ -90,11 +91,13 @@ class TodoItem extends StatelessWidget {
         _onChanged = onChanged,
         _data = data;
 
-  Widget _buildTags(BuildContext context) {
+  Widget _buildTags(final BuildContext context) {
     if (_data.tagNames.validate().isNotEmpty) {
       return Wrap(
-          children: _data.tagNames.validate().map((e) {
-        if (e.isEmpty) return const Offstage();
+          children: _data.tagNames.validate().map((final String e) {
+        if (e.isEmpty) {
+          return const Offstage();
+        }
 
         return StyledText('#$e ', style: _style.style(context, fontSize: 10));
       }).toList());
@@ -103,20 +106,23 @@ class TodoItem extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final priority = priorityList.firstWhere(
-      (p) => p.code == _data.priority,
-      orElse: () => PriorityModel(title: 'No Priority', code: 'no_priority', color: slateGray),
+  Widget build(final BuildContext context) {
+    final PriorityModel priority = priorityList.firstWhere(
+      (final PriorityModel p) => p.code == _data.priority,
+      orElse: () => PriorityModel(
+          title: 'No Priority', code: 'no_priority', color: slateGray),
     );
 
     return PressableBox(
       style: _style.style(context),
       onPress: _onPress,
       child: Row(
-        children: [
+        children: <Widget>[
           BlocBuilder<TodoBloc, TodoState>(
-            builder: (context, state) {
-              if (state is NoInternetState) return const Offstage();
+            builder: (final BuildContext context, final TodoState state) {
+              if (state is NoInternetState) {
+                return const Offstage();
+              }
 
               return Checkbox(
                 value: _data.isCompleted ?? false,
@@ -128,14 +134,19 @@ class TodoItem extends StatelessWidget {
           Expanded(
             child: VBox(
               style: _style.columnStyleOfStartMin(context),
-              children: [
+              children: <Widget>[
                 StyledText(_data.title ?? '', style: _style.style(context)),
                 _buildTags(context),
                 HBox(
-                  style: _style.rawStyleOfStartMin(context, sizeBetweenChildren: 2),
-                  children: [
-                    StyledText(timeService.convertToTime(_data.startTime ?? DateTime.now()), style: _style.style(context, fontSize: 10)),
-                    const Icon(Icons.calendar_month, size: 12, color: greenColor),
+                  style: _style.rawStyleOfStartMin(context,
+                      sizeBetweenChildren: 2),
+                  children: <Widget>[
+                    StyledText(
+                        timeService
+                            .convertToTime(_data.startTime ?? DateTime.now()),
+                        style: _style.style(context, fontSize: 10)),
+                    const Icon(Icons.calendar_month,
+                        size: 12, color: greenColor),
                     2.width,
                     Icon(Icons.flag, size: 12, color: priority.color),
                   ],
@@ -145,10 +156,12 @@ class TodoItem extends StatelessWidget {
           ),
           HBox(
             style: _style.rawStyleOfStartMin(context, sizeBetweenChildren: 1),
-            children: [
+            children: <Widget>[
               BlocBuilder<TodoBloc, TodoState>(
-                builder: (context, state) {
-                  if (state is NoInternetState) return const Offstage();
+                builder: (final BuildContext context, final TodoState state) {
+                  if (state is NoInternetState) {
+                    return const Offstage();
+                  }
 
                   return GestureDetector(
                     onTap: _onTapOfEdit,

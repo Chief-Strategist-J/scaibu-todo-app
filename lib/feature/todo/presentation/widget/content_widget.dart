@@ -24,18 +24,18 @@ class ContentWidget extends StatelessWidget {
   final Widget? _prefixIcon;
 
   const ContentWidget({
+    required final String title,
+    required final TextEditingController controller,
     super.key,
-    required String title,
-    required TextEditingController controller,
-    FocusNode? focusNode,
-    TextInputAction? textInputAction,
-    bool isTimeField = false,
-    bool isDateField = false,
-    void Function()? onTap,
-    TextFieldType textFieldType = TextFieldType.OTHER,
-    void Function(TimeServiceModel)? onSelectOfDateOrTime,
-    int? lines,
-    Widget? prefixIcon,
+    final FocusNode? focusNode,
+    final TextInputAction? textInputAction,
+    final bool isTimeField = false,
+    final bool isDateField = false,
+    final void Function()? onTap,
+    final TextFieldType textFieldType = TextFieldType.OTHER,
+    final void Function(TimeServiceModel)? onSelectOfDateOrTime,
+    final int? lines,
+    final Widget? prefixIcon,
   })  : _prefixIcon = prefixIcon,
         _lines = lines,
         _onSelectOfDateOrTime = onSelectOfDateOrTime,
@@ -50,7 +50,7 @@ class ContentWidget extends StatelessWidget {
 
   bool get _isEnabled => !((_isTimeField) || (_isDateField));
 
-  Future<void> _onTapOfInputField(BuildContext context) async {
+  Future<void> _onTapOfInputField(final BuildContext context) async {
     if (_onTap != null) {
       _onTap?.call();
       return;
@@ -78,44 +78,51 @@ class ContentWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        16.height,
-        Text(_title, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-        4.height,
-        GestureDetector(
-          onTap: () async {
-            if (!isInternetConnected) return;
-            await _onTapOfInputField(context);
-          },
-          child: AppTextField(
-            controller: _controller,
-            focus: _focusNode,
-            enabled: _isEnabled,
-            maxLines: _lines,
-            minLines: _lines,
-            readOnly: !isInternetConnected,
-            textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(
-              prefixIcon: _prefixIcon,
-              errorStyle: const TextStyle(
-                fontSize: 8,
-                fontWeight: FontWeight.w400,
-                color: redColor,
-              ),
-            ),
-            validator: (value) {
-              if (value == null) return "This Field Can't Be Null";
-              if (value.isEmpty) return "This Field Can't Be Empty";
-              return null;
+  Widget build(final BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          16.height,
+          Text(_title,
+              style:
+                  const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+          4.height,
+          GestureDetector(
+            onTap: () async {
+              if (!isInternetConnected) {
+                return;
+              }
+              await _onTapOfInputField(context);
             },
-            textInputAction: _textInputAction ?? TextInputAction.next,
-            textFieldType: _textFieldType,
+            child: AppTextField(
+              controller: _controller,
+              focus: _focusNode,
+              enabled: _isEnabled,
+              maxLines: _lines,
+              minLines: _lines,
+              readOnly: !isInternetConnected,
+              textStyle:
+                  const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                prefixIcon: _prefixIcon,
+                errorStyle: const TextStyle(
+                  fontSize: 8,
+                  fontWeight: FontWeight.w400,
+                  color: redColor,
+                ),
+              ),
+              validator: (final String? value) {
+                if (value == null) {
+                  return "This Field Can't Be Null";
+                }
+                if (value.isEmpty) {
+                  return "This Field Can't Be Empty";
+                }
+                return null;
+              },
+              textInputAction: _textInputAction ?? TextInputAction.next,
+              textFieldType: _textFieldType,
+            ),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 }
