@@ -2,25 +2,46 @@ import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/auth/data/model/response/create_otp_response.dart';
 import 'package:todo_app/feature/auth/data/model/response/verify_otp_for_forget_password_response.dart';
 
+/// Contains the API endpoints related to user authentication.
 class UserAuthEndPoint {
+  /// Endpoint for logging in or signing up a user.
   static const String loginOrSignUp = 'api/loginOrSignUp';
+
+  /// Endpoint for fetching user details.
   static const String getUserDetail = 'api/getUserDetail';
+
+  /// Endpoint for creating an OTP.
   static const String createOtp = 'api/createOtp';
+
+  /// Endpoint for verifying OTP.
   static const String verifyOtp = 'api/verifyOtp';
+
+  /// Endpoint for initiating password reset process.
   static const String forgetPassword = 'api/forgetPassword';
+
+  /// Endpoint for verifying password reset OTP.
   static const String verifyPasswordOtp = 'api/verifyPasswordOtp';
+
+  /// Endpoint for updating the user's password.
   static const String updatePassword = 'api/updatePassword';
+
+  /// Endpoint for signing out a user.
   static const String signOut = 'api/signOut';
 }
 
-class UserDatabaseImpl implements UserBaseApi {
-  final RestApi restApi;
-
+/// Implementation of user database interaction, requiring a `RestApi` instance.
+class UserDatabaseImpl {
+  /// Constructor for initializing the [UserDatabaseImpl] with a [RestApi].
   UserDatabaseImpl({required this.restApi});
 
-  @override
+  /// The [RestApi] instance used to make API requests.
+  final RestApi restApi;
+
+  /// Performs a standard login by making an API
+  /// request and returning a [LoginEntity].
   Future<LoginEntity> standardLogin(
-      final Map<String, dynamic> loginCred) async {
+    final Map<String, dynamic> loginCred,
+  ) async {
     final LoginResponse res = LoginResponse.fromJson(
       await restApi.request(
         requestBody: loginCred,
@@ -43,11 +64,13 @@ class UserDatabaseImpl implements UserBaseApi {
     );
   }
 
-  @override
+  /// Handles user registration (sign-up)
+  /// by making an API request and returning a [LoginEntity].
   Future<LoginEntity> standardSignUp(
-      final Map<String, dynamic> loginCred) async {
+    final Map<String, dynamic> loginCred,
+  ) async {
     final LoginResponse res = LoginResponse.fromJson(
-      await restApi.request(
+      await restApi.request<dynamic>(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
         type: HttpRequestMethod.post,
@@ -70,7 +93,8 @@ class UserDatabaseImpl implements UserBaseApi {
 
   @override
   Future<void> forgetPassword(
-      final Map<String, dynamic> forgetPasswordCred) async {
+    final Map<String, dynamic> forgetPasswordCred,
+  ) async {
     await restApi.request(
       requestBody: forgetPasswordCred,
       endPoint: UserAuthEndPoint.forgetPassword,
@@ -107,7 +131,9 @@ class UserDatabaseImpl implements UserBaseApi {
       ),
     );
 
-    if (createTodoResponse.data == null) return false;
+    if (createTodoResponse.data == null) {
+      return false;
+    }
 
     return createTodoResponse.data!.success.validate();
   }
@@ -123,7 +149,9 @@ class UserDatabaseImpl implements UserBaseApi {
         type: HttpRequestMethod.post,
       ),
     );
-    if (verify.data == null) return const UserEntity();
+    if (verify.data == null) {
+      return const UserEntity();
+    }
 
     return UserEntity(
       id: verify.data?.id,
@@ -154,7 +182,9 @@ class UserDatabaseImpl implements UserBaseApi {
       ),
     );
 
-    if (createTodoResponse.data == null) return false;
+    if (createTodoResponse.data == null) {
+      return false;
+    }
 
     return createTodoResponse.data!.success.validate();
   }
@@ -170,7 +200,7 @@ class UserDatabaseImpl implements UserBaseApi {
       );
 
       if (response['status'] != true) {
-        return Left(FailResponse.fromJson(response));
+        return Left<FailResponse, LoginEntity>(FailResponse.fromJson(response));
       }
 
       final LoginResponse res = LoginResponse.fromJson(response);
@@ -184,10 +214,11 @@ class UserDatabaseImpl implements UserBaseApi {
         id: userInfo?.id,
       );
 
-      return Right(loginEntity);
+      return Right<FailResponse, LoginEntity>(loginEntity);
     } catch (e) {
-      return Left(
-          FailResponse(status: false, message: 'Error: ${e.toString()}'));
+      return Left<FailResponse, LoginEntity>(
+        FailResponse(status: false, message: 'Error: ${e.toString()}'),
+      );
     }
   }
 }

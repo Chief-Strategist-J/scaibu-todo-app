@@ -1,3 +1,8 @@
-const googleLogo = 'assets/image/google.png';
-const facebookLogo = 'assets/image/facebook.png';
-const appleLogo = 'assets/image/apple-logo.png';
+/// Path to the Google logo image asset.
+const String googleLogo = 'assets/image/google.png';
+
+/// Path to the Facebook logo image asset.
+const String facebookLogo = 'assets/image/facebook.png';
+
+/// Path to the Apple logo image asset.
+const String appleLogo = 'assets/image/apple-logo.png';
