@@ -2,6 +2,7 @@ import 'package:todo_app/core/app_library.dart';
 
 /// Network connectivity monitoring
 class NetworkMonitor {
+  /// Checks if the network is available by attempting a lookup.
   Future<bool> isNetworkAvailable() async {
     try {
       final List<InternetAddress> result =

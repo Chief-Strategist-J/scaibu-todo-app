@@ -1,8 +1,11 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// A logger for handling API requests and responses.
+
 class Logger {
   static const String _tag = 'RestAPI';
 
+  /// Logs the details of an API request.
   Future<void> logRequest(
     final RequestModel request,
     final Response response,
@@ -21,8 +24,8 @@ class Logger {
       ..writeln('├── Metrics ──────────────────────────')
       ..writeln('│ Total Duration: ${metrics.totalDuration.inMilliseconds}ms')
       ..writeln('│ Attempts: ${metrics.attemptDurations.length}')
-      ..writeln(
-          '│ Average Attempt: ${metrics.averageAttemptDuration.toStringAsFixed(2)}ms')
+      ..writeln('│ Average Attempt: '
+          '${(await metrics.averageAttemptDuration).toStringAsFixed(2)}ms')
       ..writeln('└────────────────────────────────────');
 
     log(
@@ -32,8 +35,13 @@ class Logger {
     );
   }
 
-  Future<void> logError(final RequestModel request, final dynamic error,
-      final StackTrace stackTrace, final RequestMetrics metrics) async {
+  /// Logs error details for failed requests.
+  Future<void> logError(
+    final RequestModel request,
+    final dynamic error,
+    final StackTrace stackTrace,
+    final RequestMetrics metrics,
+  ) async {
     final StringBuffer buffer = StringBuffer()
       ..writeln('┌── Error ───────────────────────────')
       ..writeln('│ URL: ${request.url}')

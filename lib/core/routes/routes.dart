@@ -1,5 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Initializes the GoRouter for navigation management.
 final GoRouter router = GoRouter(
   initialLocation: ApplicationPaths.splashPage,
   observers: <NavigatorObserver>[

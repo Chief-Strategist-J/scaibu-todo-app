@@ -1,5 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Represents the application's theme data configuration.
 class AppThemeData {
   static InputBorder get _getInputBoarder => OutlineInputBorder(
         gapPadding: 16,
@@ -11,12 +12,13 @@ class AppThemeData {
         color: cardColor.withOpacity(0.3),
       );
 
+  /// Provides a custom decoration for input fields with an underline border.
   static InputDecoration underLineInputBoarderDecoration(
     final BuildContext context, {
     final String? hintText,
   }) =>
       InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16),
         filled: true,
         fillColor: fillColor,
         hintText: hintText,
@@ -29,16 +31,19 @@ class AppThemeData {
         focusedErrorBorder: UnderlineInputBorder(borderSide: _borderSide),
       );
 
+  /// Provides custom Checkbox theme data.
   static CheckboxThemeData get checkboxThemeData => const CheckboxThemeData(
         shape: CircleBorder(),
         side: BorderSide(width: 0.5),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       );
 
+  /// Provides custom AppBar theme data with a primary color.
   static AppBarTheme get appBarTheme => const AppBarTheme(
         color: primaryColor,
       );
 
+  /// Provides custom light theme data.
   static ThemeData get lightTheme => ThemeData(
         useMaterial3: true,
         timePickerTheme: const TimePickerThemeData(),
@@ -68,8 +73,11 @@ class AppThemeData {
       );
 }
 
+/// Returns a fade transition for page navigation.
 class MyTransitions {
-  static Route<dynamic> fadeTransition(final Widget page) => PageRouteBuilder(
+  /// Returns a fade transition for page navigation.
+  static void fadeTransition(final Widget page) =>
+      PageRouteBuilder<FadeTransition>(
         pageBuilder: (
           final BuildContext context,
           final Animation<double> animation,
@@ -89,9 +97,9 @@ class MyTransitions {
       );
 }
 
+/// Custom route that applies a fade transition when navigating to a new page.
 class FadePageRoute<T> extends PageRouteBuilder<T> {
-  final WidgetBuilder builder;
-
+  /// Constructor for `FadePageRoute`, initializes with a page builder.
   FadePageRoute({required this.builder})
       : super(
           pageBuilder: (
@@ -111,13 +119,16 @@ class FadePageRoute<T> extends PageRouteBuilder<T> {
             child: child,
           ),
         );
+
+  /// A builder function to create the page widget for this route.
+  final WidgetBuilder builder;
 }
 
+/// Constructor for `CustomPageRoute`, initializes with a page builder,
+/// transition duration, and animation curve.
 class CustomPageRoute<T> extends PageRouteBuilder<T> {
-  final WidgetBuilder builder;
-  final Duration duration;
-  final Curve curve;
-
+  /// Constructor for `CustomPageRoute`, initializes with a page builder,
+  /// transition duration, and animation curve.
   CustomPageRoute({
     required this.builder,
     this.duration = const Duration(milliseconds: 300),
@@ -142,4 +153,13 @@ class CustomPageRoute<T> extends PageRouteBuilder<T> {
             child: child,
           ),
         );
+
+  /// The builder for creating the page widget during navigation.
+  final WidgetBuilder builder;
+
+  /// The duration for the page transition animation.
+  final Duration duration;
+
+  /// The curve used to animate the page transition.
+  final Curve curve;
 }

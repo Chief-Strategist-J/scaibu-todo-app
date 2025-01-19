@@ -1,6 +1,9 @@
 import 'package:nb_utils/nb_utils.dart';
 
-Object handleErrorCode(int responseCode, void Function(int)? onStatusCodeError) {
+Object handleErrorCode(
+  final int responseCode,
+  final void Function(int)? onStatusCodeError,
+) {
   switch (responseCode) {
     case 300:
       if (onStatusCodeError != null) {
@@ -158,16 +161,21 @@ Object handleErrorCode(int responseCode, void Function(int)? onStatusCodeError) 
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('This response is sent when a request conflicts with the current state of the server.');
+      log('This response is sent when a request conflicts '
+          'with the current state of the server.');
       throw 'Conflict';
     case 410:
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('This response is sent when the requested content has been permanently deleted from server,'
-          ' with no forwarding address. Clients are expected to remove their caches and links to the resource'
-          '. The HTTP specification intends this status code to be used for "limited-time,'
-          ' promotional services". APIs should not feel compelled to indicate resources that have'
+      log('This response is sent when the requested content '
+          'has been permanently deleted from server,'
+          ' with no forwarding address. Clients are expected'
+          ' to remove their caches and links to the resource'
+          '. The HTTP specification intends this status code'
+          ' to be used for "limited-time,'
+          ' promotional services". APIs should not feel compelled to'
+          ' indicate resources that have'
           ' been deleted with this status code.');
       throw 'Gone';
     case 411:
@@ -181,34 +189,40 @@ Object handleErrorCode(int responseCode, void Function(int)? onStatusCodeError) 
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('The client has indicated preconditions in its headers which the server does not meet.');
+      log('The client has indicated preconditions in its headers'
+          ' which the server does not meet.');
       throw 'Precondition Failed';
     case 413:
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('Request entity is larger than limits defined by server. The server might close'
+      log('Request entity is larger than limits defined by server.'
+          ' The server might close'
           ' the connection or throw an Retry-After header field.');
       throw 'Payload Too Large';
     case 414:
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('The URI requested by the client is longer than the server is willing to interpret.');
+      log('The URI requested by the client is longer than the '
+          'server is willing to interpret.');
       throw 'URI Too Long';
     case 415:
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('The media format of the requested data is not supported by the server, '
+      log('The media format of the requested data is'
+          ' not supported by the server, '
           'so the server is rejecting the request.');
       throw 'Unsupported Media Type';
     case 416:
       if (onStatusCodeError != null) {
         onStatusCodeError.call(responseCode);
       }
-      log('The range specified by the Range header field in the request cannot'
-          "be fulfilled.It's possible that the range is outside the size"
+      log('The range specified by the Range '
+          "header field in the request cannot"
+          "be fulfilled.It's possible that the "
+          "range is outside the size"
           "of the target URI's data.");
       throw 'Range Not Satisfiable';
     case 417:

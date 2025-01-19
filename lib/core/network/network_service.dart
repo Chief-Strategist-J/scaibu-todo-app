@@ -1,16 +1,47 @@
 import 'package:http/http.dart' as http;
 import 'package:todo_app/core/app_library.dart';
 
-enum HttpRequestMethod { get, post, put, patch, delete, upload, download }
+/// HTTP request methods for API requests
+enum HttpRequestMethod {
+  /// HTTP GET method for retrieving data
+  get,
 
-RestApiImpl restApi =
-    RestApiImpl(baseUrl: baseUrl, userCredentials: userCredentials);
+  /// HTTP POST method for sending data
+  post,
 
+  /// HTTP PUT method for updating data
+  put,
+
+  /// HTTP PATCH method for partially updating data
+  patch,
+
+  /// HTTP DELETE method for deleting data
+  delete,
+
+  /// HTTP method for uploading files
+  upload,
+
+  /// HTTP method for downloading files
+  download,
+}
+
+/// RestApiImpl instance for making API calls
+RestApiImpl restApi = RestApiImpl(
+  baseUrl: baseUrl,
+  userCredentials: userCredentials,
+);
+
+/// Extension for HTTP status codes to check if the response is successful
 extension StatusCodeExtension on int {
+  /// Extension for HTTP status codes to check if the response is successful
   bool isSuccessful() => this >= 200 && this < 300;
 }
 
+/// Implements the RestApi interface to handle HTTP requests and responses
+
 class RestApiImpl implements RestApi {
+  /// Constructs a RestApiImpl instance with the provided
+  /// base URL and user credentials
   RestApiImpl({
     required this.baseUrl,
     required this.userCredentials,
@@ -36,7 +67,10 @@ class RestApiImpl implements RestApi {
   static const int _maxConcurrentRequests = 10;
   static const int _maxRequestsPerMinute = 100;
 
+  /// The base URL for the API requests
   final String baseUrl;
+
+  /// The user credentials for authenticating API requests
   final UserCredentials userCredentials;
 
   final http.Client _httpClient;
@@ -48,9 +82,9 @@ class RestApiImpl implements RestApi {
 
   @override
   Future<T> request<T>({
-    final HttpRequestMethod type = HttpRequestMethod.get,
     required final String endPoint,
-    final Map<String, dynamic> requestBody = const <String, >{},
+    final HttpRequestMethod type = HttpRequestMethod.get,
+    final Map<String, dynamic> requestBody = const <String, dynamic>{},
     final Map<String, String>? headers,
     final String uploadKey = '',
     final String uploadFilePath = '',
@@ -186,7 +220,8 @@ class RestApiImpl implements RestApi {
   }
 
   Future<Map<String, String>> _createHeaders(
-      final Map<String, String>? additionalHeaders) async {
+    final Map<String, String>? additionalHeaders,
+  ) async {
     final String? token = await _tokenManager.getToken(userCredentials);
 
     final Map<String, String> headers = <String, String>{
@@ -206,17 +241,17 @@ class RestApiImpl implements RestApi {
     }
   }
 
-  Duration _getDefaultTimeout(final HttpRequestMethod type) {
-    switch (type) {
-      case HttpRequestMethod.upload:
-      case HttpRequestMethod.download:
-        return _uploadTimeout;
-      default:
-        return _defaultTimeout;
-    }
-  }
+  Duration _getDefaultTimeout(final HttpRequestMethod type) => switch (type) {
+        HttpRequestMethod.upload ||
+        HttpRequestMethod.download =>
+          _uploadTimeout,
+        _ => _defaultTimeout
+      };
 
-  T _parseResponse<T>(final Response response, final HttpResponseType responseType) {
+  T _parseResponse<T>(
+    final Response response,
+    final HttpResponseType responseType,
+  ) {
     if (response.body.isEmpty && T == dynamic) {
       return null as T;
     }
@@ -241,15 +276,21 @@ class RestApiImpl implements RestApi {
     }
   }
 
-  bool _isSuccessfulResponse(final Response response) => (response.statusCode >= 200) && (response.statusCode < 300);
+  bool _isSuccessfulResponse(final Response response) =>
+      (response.statusCode >= 200) && (response.statusCode < 300);
 
   void _handleErrorResponse(
-      final Response response, final void Function(int)? onStatusCodeError) {
+    final Response response,
+    final void Function(int)? onStatusCodeError,
+  ) {
     final int statusCode = response.statusCode;
     onStatusCodeError?.call(statusCode);
 
     if (response.body.isNotEmpty && _isJsonResponse(response)) {
-      throw ApiException.fromJson(statusCode, jsonDecode(response.body) as Map<String,dynamic>);
+      throw ApiException.fromJson(
+        statusCode,
+        jsonDecode(response.body) as Map<String, dynamic>,
+      );
     }
 
     throw ApiException(statusCode, 'Request failed with status: $statusCode');
@@ -261,6 +302,7 @@ class RestApiImpl implements RestApi {
   }
 }
 
+/// Prints the details of the API response
 void printResponse(final Response response) {
   log('\n____________________________________________________\n');
   log('REQUEST URL --> ${response.request?.url}');
@@ -273,6 +315,7 @@ void printResponse(final Response response) {
   log('____________________________________________________\n\n\n');
 }
 
+/// Prints the details of the streamed response
 void printLogMessage(final StreamedResponse response) {
   log('\n____________________________________________________\n');
   log('REQUEST URL --> ${response.request?.url}');

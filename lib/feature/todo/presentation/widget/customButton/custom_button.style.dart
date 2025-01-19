@@ -1,10 +1,14 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Defines the styling for a custom button, including its variant.
 class CustomButtonStyle {
-  final CustomButtonVariant variant;
-
+  /// Creates a button style with the specified variant.
   CustomButtonStyle({required this.variant});
 
+  /// Public variable representing the variant type for the custom button.
+  final CustomButtonVariant variant;
+
+  /// Returns the button style based on the current build context.
   Style button(final BuildContext context) => Style(
         $box.padding.all(16),
         $box.margin.horizontal(8),

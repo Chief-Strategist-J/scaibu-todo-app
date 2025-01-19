@@ -1,13 +1,17 @@
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:todo_app/core/app_library.dart';
 
 import 'package:todo_app/core/network/internetConnection/internet_connection_state.dart';
 
+/// Cubit to manage internet connection status.
 class InternetConnectionCubit extends Cubit<InternetConnectionState> {
+  /// Constructor initializes the internet connection status.
   InternetConnectionCubit()
       : super(InternetConnectionState(
             status: CurrentInternetStatus.disconnected)) {
     _getInternetConnectionStatus();
   }
+
   bool _internetConnectionStreamInit = true;
   StreamSubscription<InternetStatus>? _internetStatusSubscription;
 
@@ -17,6 +21,7 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
     return super.close();
   }
 
+  /// Initializes the stream for internet connection status.
   void _getInternetConnectionStatus() {
     log('_getInternetConnectionStatus is executed.');
     if (_internetConnectionStreamInit) {
@@ -37,6 +42,7 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
   }
 }
 
+/// Function to update state based on internet connection status.
 Future<void> Function() updateStateAccordingToInternetStatus(
   final BuildContext context, {
   required final void Function() onInternetIsConnected,

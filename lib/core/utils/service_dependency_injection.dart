@@ -1,6 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// A class for registering services in the dependency injection container.
 class ServiceDependencyInjection {
+  /// Registers the services needed in the application.
   static Future<void> registerService() async {
     getIt.registerLazySingletonAsync<UserCredentials>(
       () async {
@@ -42,6 +44,7 @@ class ServiceDependencyInjection {
       });
   }
 
+  /// Disposes the services when no longer needed.
   static Future<void> disposeService() async {
     log('\n SERVICE IN DISPOSED\n\n');
     getIt

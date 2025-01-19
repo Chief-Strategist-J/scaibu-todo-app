@@ -1,6 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// A customizable button widget supporting different variants,
+/// tap actions, and label data.
 class CustomButton extends StatelessWidget {
+  /// Constructor
   const CustomButton({
     super.key,
     final void Function()? onTap,

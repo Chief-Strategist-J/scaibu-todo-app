@@ -1,14 +1,26 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// A service responsible for logging information, errors, and events.
 LogService logService = getIt<LogService>();
 
+/// Service for logging messages, errors, and debugging information.
 class LogService {
+  /// Reset the terminal text color to the default color.
   final String reset = '\x1B[0m';
+
+  /// Red color for terminal text.
   final String red = '\x1B[31m';
+
+  /// Yellow color for terminal text.
   final String yellow = '\x1B[33m';
+
+  /// Blue color for terminal text.
   final String blue = '\x1B[34m';
+
+  /// White color for terminal text.
   final String white = '\x1B[37m';
 
+  /// Logs a crash report asynchronously.
   Future<void> crashLog({
     required final String errorMessage,
     required final dynamic e,
@@ -20,7 +32,8 @@ class LogService {
         _reverseStackTrace(filteredStackTrace);
     final String stackTrace = _formatStackTrace(reversedStackTrace);
 
-    String detailedErrorMessage = _errorMessage(errorMessage, e, stackTrace);
+    final String detailedErrorMessage =
+        _errorMessage(errorMessage, e, stackTrace);
 
     debugPrint(detailedErrorMessage);
 
@@ -30,7 +43,10 @@ class LogService {
   }
 
   String _errorMessage(
-      final String errorMessage, final e, final String stackTrace) {
+    final String errorMessage,
+    final dynamic e,
+    final String stackTrace,
+  ) {
     final String detailedErrorMessage = '''
     ${red}Error: $yellow${errorMessage.toUpperCase()}$reset
     ${red}Exception: $blue${e.toString().toUpperCase()}$reset
@@ -43,9 +59,11 @@ class LogService {
   String _filterStackTrace(final String? stackTraceString) =>
       stackTraceString
           ?.split('\n')
-          .where((final String line) =>
-              !line.contains('<asynchronous suspension>') &&
-              !line.contains('<anonymous closure>'))
+          .where(
+            (final String line) =>
+                !line.contains('<asynchronous suspension>') &&
+                !line.contains('<anonymous closure>'),
+          )
           .join('\n') ??
       '';
 
@@ -53,9 +71,7 @@ class LogService {
       stackTrace.split('\n').toList().reversed.toList();
 
   String _formatStackTrace(final List<String> reversedStackTrace) =>
-      reversedStackTrace
-          .map(_formatStackTraceLine)
-          .join('\n');
+      reversedStackTrace.map(_formatStackTraceLine).join('\n');
 
   String _formatStackTraceLine(final String line) {
     final RegExpMatch? match =

@@ -1,11 +1,12 @@
 import 'package:todo_app/core/app_library.dart';
 
-/// REST API interface
+/// Abstract interface for making REST API requests and handling responses.
 abstract interface class RestApi {
+  /// Makes a REST API request.
   Future<T> request<T>({
-    final HttpRequestMethod type = HttpRequestMethod.get,
     required final String endPoint,
-    final Map<String, dynamic> requestBody = const {},
+    final HttpRequestMethod type = HttpRequestMethod.get,
+    final Map<String, dynamic> requestBody = const <String, dynamic>{},
     final Map<String, String>? headers,
     final String uploadKey = '',
     final String uploadFilePath = '',
@@ -15,6 +16,7 @@ abstract interface class RestApi {
     final HttpResponseType responseType = HttpResponseType.JSON,
   });
 
+  /// Handles the API response.
   Future<T> handleResponse<T>({
     required final Response response,
     final HttpResponseType responseType = HttpResponseType.JSON,

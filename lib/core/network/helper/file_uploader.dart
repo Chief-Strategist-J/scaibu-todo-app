@@ -2,12 +2,14 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:todo_app/core/app_library.dart';
 
-/// File upload handling
+/// Handles file upload functionality.
 class FileUploader {
+  /// Initializes the uploader with an HTTP client.
   FileUploader({required final Client client}) : _client = client;
 
   final http.Client _client;
 
+  /// Uploads a file to the specified URL with headers and timeout.
   Future<http.Response> uploadFile({
     required final String url,
     required final String filePath,
