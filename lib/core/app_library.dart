@@ -4,7 +4,7 @@ export 'dart:collection';
 export 'dart:convert';
 export 'dart:developer' hide Flow;
 export 'dart:io';
-export 'dart:math';
+export 'dart:math' hide log;
 export 'dart:ui' show Canvas, Paint, Path, lerpDouble;
 
 export 'package:async/async.dart';
@@ -31,7 +31,7 @@ export 'package:hive/hive.dart';
 export 'package:http/http.dart';
 export 'package:mix/mix.dart' hide Box;
 export 'package:mockito/mockito.dart';
-export 'package:nb_utils/nb_utils.dart' hide isLinux, isMacOS, isWindows, log;
+export 'package:nb_utils/nb_utils.dart' hide isLinux, isMacOS, isWindows, log,tan;
 export 'package:nested/nested.dart';
 export 'package:onesignal_flutter/onesignal_flutter.dart';
 export 'package:path_provider/path_provider.dart';
@@ -271,10 +271,6 @@ export 'package:todo_app/feature/todo/data/repository/todo_repository_impl.dart'
 export 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
 export 'package:todo_app/feature/todo/domain/entity/update_todo_param.dart';
 export 'package:todo_app/feature/todo/domain/repository/todo_repository.dart';
-export 'package:todo_app/feature/todo/domain/useCases/create_todo_use_case.dart';
-export 'package:todo_app/feature/todo/domain/useCases/delete_todo_use_case.dart';
-export 'package:todo_app/feature/todo/domain/useCases/get_todo_list_use_case.dart';
-export 'package:todo_app/feature/todo/domain/useCases/update_todo_use_case.dart';
 export 'package:todo_app/feature/todo/manage_todo_page_utils.dart';
 export 'package:todo_app/feature/todo/presentation/bloc/todo_bloc.dart';
 export 'package:todo_app/feature/todo/presentation/bloc/todo_event.dart';

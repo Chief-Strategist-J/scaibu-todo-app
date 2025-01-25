@@ -91,7 +91,7 @@ class UserDatabaseImpl {
     );
   }
 
-  @override
+  /// Doc Required
   Future<void> forgetPassword(
     final Map<String, dynamic> forgetPasswordCred,
   ) async {
@@ -102,7 +102,7 @@ class UserDatabaseImpl {
     );
   }
 
-  @override
+  /// Doc Required
   Future<void> standardLogOut(final Map<String, dynamic> req) async {
     await restApi.request<dynamic>(
       requestBody: req,
@@ -111,9 +111,10 @@ class UserDatabaseImpl {
     );
   }
 
-  @override
+  /// Doc Required
   Future<void> updatePassword(
-      final Map<String, dynamic> updatePasswordCred) async {
+    final Map<String, dynamic> updatePasswordCred,
+  ) async {
     await restApi.request<dynamic>(
       requestBody: updatePasswordCred,
       endPoint: UserAuthEndPoint.updatePassword,
@@ -121,7 +122,7 @@ class UserDatabaseImpl {
     );
   }
 
-  @override
+  /// Doc Required
   Future<bool> verifyOtp(final Map<String, dynamic> verifyOtpCred) async {
     final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
       await restApi.request<dynamic>(
@@ -138,9 +139,10 @@ class UserDatabaseImpl {
     return createTodoResponse.data!.success.validate();
   }
 
-  @override
+  /// Doc Required
   Future<UserEntity> verifyForgetPasswordOtp(
-      final Map<String, dynamic> forgetPasswordCred) async {
+    final Map<String, dynamic> forgetPasswordCred,
+  ) async {
     final VerifyOtpForForgetPasswordResponse verify =
         VerifyOtpForForgetPasswordResponse.fromJson(
       await restApi.request<Response>(
@@ -172,10 +174,10 @@ class UserDatabaseImpl {
     );
   }
 
-  @override
+  /// Doc Required
   Future<bool> createOpt(final Map<String, dynamic> otpCred) async {
     final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
-      await restApi.request(
+      await restApi.request<dynamic>(
         requestBody: otpCred,
         endPoint: UserAuthEndPoint.createOtp,
         type: HttpRequestMethod.post,
@@ -189,15 +191,16 @@ class UserDatabaseImpl {
     return createTodoResponse.data!.success.validate();
   }
 
-  @override
+  /// Doc Required
   Future<Either<FailResponse, LoginEntity>> getUserDetail(
-      final Map<String, dynamic> loginCred) async {
+    final Map<String, dynamic> loginCred,
+  ) async {
     try {
-      final response = await restApi.request(
+      final Map<String, dynamic> response = await restApi.request<dynamic>(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.getUserDetail,
         type: HttpRequestMethod.post,
-      );
+      ) as Map<String, dynamic>;
 
       if (response['status'] != true) {
         return Left<FailResponse, LoginEntity>(FailResponse.fromJson(response));
