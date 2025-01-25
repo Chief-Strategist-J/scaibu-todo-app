@@ -12,13 +12,13 @@ class PostEntity with _$PostEntity {
     @Default('draft') final String status,
     required final String slug,
     final Map<String, dynamic>? metadata,
-    @JsonKey(name: 'metadata_author') final String? metadataAuthor,
-    @JsonKey(name: 'metadata_category') final String? metadataCategory,
+    final String? metadataAuthor,
+    final String? metadataCategory,
     final DateTime? publishedAt,
     required final int userId,
-    @JsonKey(name: 'created_at') required final DateTime createdAt,
-    @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-    @JsonKey(name: 'deleted_at') final DateTime? deletedAt,
+    required final DateTime createdAt,
+    required final DateTime updatedAt,
+    final DateTime? deletedAt,
   }) = _PostEntity;
 
   factory PostEntity.fromJson(final Map<String, dynamic> json) =>

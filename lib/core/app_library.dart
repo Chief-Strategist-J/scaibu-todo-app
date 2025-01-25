@@ -87,9 +87,6 @@ export 'package:todo_app/feature/auth/domain/entity/loginEntity/login_entity.dar
 export 'package:todo_app/feature/auth/domain/entity/userEntity/user_entity.dart';
 export 'package:todo_app/feature/auth/domain/repository/auth_repository.dart';
 export 'package:todo_app/feature/auth/domain/repository/auth_user_detail_repository.dart';
-export 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
-export 'package:todo_app/feature/auth/domain/useCases/login_use_case.dart';
-export 'package:todo_app/feature/auth/domain/useCases/standard_logout_use_case.dart';
 export 'package:todo_app/feature/auth/presentation/bloc/auth/auth_bloc.dart';
 export 'package:todo_app/feature/auth/presentation/bloc/auth/auth_event.dart';
 export 'package:todo_app/feature/auth/presentation/bloc/auth/auth_state.dart';
@@ -250,7 +247,6 @@ export 'package:todo_app/feature/tags/domain/useCases/get_tag_by_id_use_case.dar
 export 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
 export 'package:todo_app/feature/tags/domain/useCases/restore_tag_use_case.dart';
 export 'package:todo_app/feature/tags/domain/useCases/search_tags_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/update_tag_use_case.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_bloc.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';
