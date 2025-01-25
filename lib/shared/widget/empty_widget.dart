@@ -1,12 +1,13 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class EmptyWidget extends StatelessWidget {
+  /// Doc Required
+  const EmptyWidget({required this.msg, super.key});
+
+  /// Doc Required
   final String msg;
 
-  const EmptyWidget({super.key, required this.msg});
-
   @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(msg));
-  }
+  Widget build(final BuildContext context) => Center(child: Text(msg));
 }

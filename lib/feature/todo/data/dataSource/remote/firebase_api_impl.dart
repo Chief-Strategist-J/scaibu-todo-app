@@ -1,17 +1,23 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class FirebaseApiImpl implements BaseApi {
+  /// Doc Required
   static FirebaseFirestore fireStore = FirebaseFirestore.instance;
-  final todoCollection = fireStore.collection("todo");
+
+  /// Doc Required
+  final CollectionReference<Map<String, dynamic>> todoCollection =
+      fireStore.collection('todo');
 
   @override
-  Future<String> createTodo(Map<String, dynamic> todoData) async {
+  Future<String> createTodo(final Map<String, dynamic> todoData) async {
     try {
-      final docRef = await todoCollection.add(todoData);
-      await docRef.update({'firebase_todo_id': docRef.id});
+      final DocumentReference<Map<String, dynamic>> docRef =
+          await todoCollection.add(todoData);
+
+      await docRef.update(<Object, Object?>{'firebase_todo_id': docRef.id});
 
       log('FIREBASE API: CREATE TODO');
-
       return docRef.id;
     } catch (e) {
       log('ERROR CREATING TODO: $e');
@@ -20,35 +26,38 @@ class FirebaseApiImpl implements BaseApi {
   }
 
   @override
-  Future<void> deleteTodo(String todoId) async {
-    await todoCollection.doc(todoId).delete().then(
-      (value) {
-        log('FIREBASE API: DELETE TODO $todoId');
-      },
-    ).catchError((e) {
-      log("Error while deleting firebase todo");
+  Future<void> deleteTodo(final String todoId) async {
+    await todoCollection.doc(todoId).delete().then((final void value) {
+      log('FIREBASE API: DELETE TODO $todoId');
+    }).catchError((final void e) {
+      log('Error while deleting firebase todo');
     });
   }
 
   @override
   Future<List<TodoEntity>> getListOfTodos() async {
-    final todoList = <TodoEntity>[];
+    final List<TodoEntity> todoList = <TodoEntity>[];
 
-    final value = await todoCollection.where('is_archived', isEqualTo: false).where('created_by', isEqualTo: userCredentials.getUserId).get();
+    final QuerySnapshot<Map<String, dynamic>> value = await todoCollection
+        .where('is_archived', isEqualTo: false)
+        .where('created_by', isEqualTo: userCredentials.getUserId)
+        .get();
 
-    value.docs.map((e) {
-      final todo = TodoEntity(
+    value.docs.map((final QueryDocumentSnapshot<Map<String, dynamic>> e) {
+      final TodoEntity todo = TodoEntity(
         todoId: parseService.parseToInt(e.data()['id']),
-        firebaseTodoId: e.data()['firebase_todo_id'] ?? '',
-        title: e.data()['title'],
-        description: e.data()['description'],
-        notes: e.data()['notes'] ?? -1,
-        createdBy: e.data()['created_by'],
-        isCompleted: e.data()['is_completed'] ?? false,
-        startTime: timeService.parseDateTimeISO8601(e.data()['start_time']),
-        endTime: timeService.parseDateTimeISO8601(e.data()['end_time']),
-        date: timeService.parseDateTimeISO8601(e.data()['date']),
-        priority: e.data()['priority'],
+        firebaseTodoId: (e.data()['firebase_todo_id'] as String?) ?? '',
+        title: (e.data()['title'] as String?) ?? '',
+        description: (e.data()['description'] as String) ?? '',
+        notes: (e.data()['notes'] as String?) ?? '-1',
+        createdBy: e.data()['created_by'] as int? ?? -1,
+        isCompleted: (e.data()['is_completed'] as bool?) ?? false,
+        startTime:
+            timeService.parseDateTimeISO8601(e.data()['start_time'] as String),
+        endTime:
+            timeService.parseDateTimeISO8601(e.data()['end_time'] as String),
+        date: timeService.parseDateTimeISO8601(e.data()['date'] as String),
+        priority: e.data()['priority'] as String,
       );
 
       todoList.add(todo);
@@ -61,7 +70,8 @@ class FirebaseApiImpl implements BaseApi {
   }
 
   @override
-  Future<void> updateTodo(String todoId, Map<String, dynamic> updateTodoData) async {
+  Future<void> updateTodo(
+      final String todoId, final Map<String, dynamic> updateTodoData) async {
     await todoCollection.doc(todoId).update(updateTodoData);
     log('FIREBASE API: UPDATE TODO');
   }

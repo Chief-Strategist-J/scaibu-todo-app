@@ -1,23 +1,34 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TodoEndPoint {
-  static const String createTodo = 'api/todo/store';
-  static const String getTodoList = 'api/todo';
-  static const String updateTodo = 'api/todo/updateTodo';
-  static const String deleteTodo = 'api/todo/deleteTodo';
-
   TodoEndPoint._();
+
+  /// Doc Required
+  static const String createTodo = 'api/todo/store';
+
+  /// Doc Required
+  static const String getTodoList = 'api/todo';
+
+  /// Doc Required
+  static const String updateTodo = 'api/todo/updateTodo';
+
+  /// Doc Required
+  static const String deleteTodo = 'api/todo/deleteTodo';
 }
 
+/// Doc Required
 class DataBaseApiImpl implements BaseApi {
-  final RestApi restApi;
-
+  /// Doc Required
   const DataBaseApiImpl(this.restApi);
 
+  /// Doc Required
+  final RestApi restApi;
+
   @override
-  Future<String> createTodo(Map<String, dynamic> todoData) async {
-    CreateTodoResponse createTodoResponse = CreateTodoResponse.fromJson(
-      await restApi.request(
+  Future<String> createTodo(final Map<String, dynamic> todoData) async {
+    final CreateTodoResponse createTodoResponse = CreateTodoResponse.fromJson(
+      await restApi.request<dynamic>(
         endPoint: TodoEndPoint.createTodo,
         requestBody: todoData,
         type: HttpRequestMethod.post,
@@ -28,42 +39,49 @@ class DataBaseApiImpl implements BaseApi {
   }
 
   @override
-  Future<void> deleteTodo(String todoId) async {
-    await restApi.request(
+  Future<void> deleteTodo(final String todoId) async {
+    await restApi.request<dynamic>(
       endPoint: TodoEndPoint.deleteTodo,
-      requestBody: {'todo_id': todoId},
+      requestBody: <String, dynamic>{'todo_id': todoId},
       type: HttpRequestMethod.post,
     );
   }
 
   @override
   Future<List<TodoEntity>> getListOfTodos() async {
-    if (userCredentials.getUserId == null) return [];
+    if (userCredentials.getUserId == null) {
+      return <TodoEntity>[];
+    }
 
-    TodoListResponse todoList = TodoListResponse.fromJson(
-      await restApi.request(
+    final TodoListResponse todoList = TodoListResponse.fromJson(
+      await restApi.request<dynamic>(
         endPoint: TodoEndPoint.getTodoList,
         type: HttpRequestMethod.post,
-        requestBody: {
+        requestBody: <String, dynamic>{
           'user_id': userCredentials.getUserId,
         },
       ),
     );
-    if (todoList.data == null) return [];
-    if (todoList.data!.isEmpty) return [];
+    if (todoList.data == null) {
+      return <TodoEntity>[];
+    }
+    if (todoList.data!.isEmpty) {
+      return <TodoEntity>[];
+    }
 
-    final todoList0 = <TodoEntity>[];
+    final List<TodoEntity> todoList0 = <TodoEntity>[];
 
-    todoList.data?.forEach((element) {
-      TodoEntity todo = TodoEntity(
+    todoList.data?.forEach((final Data element) {
+      final TodoEntity todo = TodoEntity(
         todoId: element.id!.toInt(),
         title: element.title,
-        firebaseTodoId: element.firebaseTodoId,
+        firebaseTodoId: element.firebaseTodoId as String?,
         description: element.description,
         notes: element.notes,
         date: timeService.parseDateTimeISO8601(element.date.validate()),
         endTime: timeService.parseDateTimeISO8601(element.endTime.validate()),
-        startTime: timeService.parseDateTimeISO8601(element.startTime.validate()),
+        startTime:
+            timeService.parseDateTimeISO8601(element.startTime.validate()),
         priority: element.priority,
         tagNames: element.tagNames,
       );
@@ -75,8 +93,11 @@ class DataBaseApiImpl implements BaseApi {
   }
 
   @override
-  Future<void> updateTodo(String todoId, Map<String, dynamic> updateTodoData) async {
-    await restApi.request(
+  Future<void> updateTodo(
+    final String todoId,
+    final Map<String, dynamic> updateTodoData,
+  ) async {
+    await restApi.request<dynamic>(
       endPoint: TodoEndPoint.updateTodo,
       requestBody: updateTodoData,
       type: HttpRequestMethod.post,

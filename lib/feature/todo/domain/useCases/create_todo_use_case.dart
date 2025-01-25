@@ -1,13 +1,13 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
 /// Create A to-do use case
 class CreateTodoUseCase
     extends UseCase<Map<String, dynamic>, Map<String, dynamic>> {
   /// Create A to-do use case constructor
-  CreateTodoUseCase(
-      {required final TodoRepository databaseRep,
-      required final TodoRepository firebaseRepo})
-      : _firebaseRepo = firebaseRepo,
+  CreateTodoUseCase({
+    required final TodoRepository databaseRep,
+    required final TodoRepository firebaseRepo,
+  })  : _firebaseRepo = firebaseRepo,
         _databaseRep = databaseRep;
 
   final TodoRepository _databaseRep;
@@ -15,7 +15,8 @@ class CreateTodoUseCase
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> call(
-      final Map<String, dynamic> params) async {
+    final Map<String, dynamic> params,
+  ) async {
     try {
       await GetTodoListUseCase.clearEncryptedCache();
 
@@ -45,10 +46,14 @@ class CreateTodoUseCase
             }),
           );
     } on Exception catch (e, s) {
-      logService.crashLog(
-          errorMessage: 'Failed to create todo', e: e, stack: s);
+      await logService.crashLog(
+        errorMessage: 'Failed to create todo',
+        e: e,
+        stack: s,
+      );
       return Left<Failure, Map<String, dynamic>>(
-          ServerFailure('Failed to create todo'));
+        ServerFailure('Failed to create todo'),
+      );
     }
   }
 }

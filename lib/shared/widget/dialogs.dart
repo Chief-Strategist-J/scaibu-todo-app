@@ -1,9 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
 /// show confirm dialog box
-Future<bool?> appShowConfirmDialogCustom(
+Future<T?> appShowConfirmDialogCustom<T>(
   final BuildContext context, {
-  required final Function(BuildContext) onAccept,
+  required final T Function(BuildContext) onAccept,
   final String? title,
   final String? subTitle,
   final String? positiveText,
@@ -14,7 +14,7 @@ Future<bool?> appShowConfirmDialogCustom(
   final Color? positiveTextColor,
   final Color? negativeTextColor,
   final ShapeBorder? shape,
-  final Function(BuildContext)? onCancel,
+  final T Function(BuildContext)? onCancel,
   final bool barrierDismissible = true,
   final double? height,
   final double? width,
@@ -29,17 +29,24 @@ Future<bool?> appShowConfirmDialogCustom(
 }) async {
   hideKeyboard(context);
 
-  return await showGeneralDialog(
+  return showGeneralDialog<T>(
     context: context,
     barrierColor: barrierColor ?? Colors.black54,
-    pageBuilder: (final BuildContext context, final Animation<double> animation,
-            final Animation<double> secondaryAnimation) =>
+    pageBuilder: (
+      final BuildContext context,
+      final Animation<double> animation,
+      final Animation<double> secondaryAnimation,
+    ) =>
         Container(),
     barrierDismissible: barrierDismissible,
     barrierLabel: '',
     transitionDuration: transitionDuration ?? 400.milliseconds,
-    transitionBuilder: (final BuildContext a, final Animation<double> animation,
-            final Animation<double> secondaryAnimation, final Widget child) =>
+    transitionBuilder: (
+      final BuildContext a,
+      final Animation<double> animation,
+      final Animation<double> secondaryAnimation,
+      final Widget child,
+    ) =>
         dialogAnimatedWrapperWidget(
       animation: animation,
       dialogAnimation: dialogAnimation,
@@ -59,7 +66,9 @@ Future<bool?> appShowConfirmDialogCustom(
           centerImage,
           shape,
         ).cornerRadiusWithClipRRectOnly(
-            topLeft: defaultRadius.toInt(), topRight: defaultRadius.toInt()),
+          topLeft: defaultRadius.toInt(),
+          topRight: defaultRadius.toInt(),
+        ),
         content: Container(
           width: width ?? customDialogWidth,
           color: Colors.transparent,
@@ -99,8 +108,8 @@ Future<bool?> appShowConfirmDialogCustom(
                         Text(
                           negativeText ?? 'Cancel',
                           style: boldTextStyle(
-                              color:
-                                  negativeTextColor ?? textPrimaryColorGlobal),
+                            color: negativeTextColor ?? textPrimaryColorGlobal,
+                          ),
                         ),
                       ],
                     ).fit(),
@@ -127,7 +136,8 @@ Future<bool?> appShowConfirmDialogCustom(
                         Text(
                           positiveText ?? getPositiveText(dialogType),
                           style: boldTextStyle(
-                              color: positiveTextColor ?? context.primaryColor),
+                            color: positiveTextColor ?? context.primaryColor,
+                          ),
                         ),
                       ],
                     ).fit(),

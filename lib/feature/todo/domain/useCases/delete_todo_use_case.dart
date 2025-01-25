@@ -1,30 +1,45 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class DeleteTodoUseCase extends UseCase<void, DeleteTodoParam> {
-  final TodoRepository databaseRep;
-  final TodoRepository firebaseRepo;
+  /// Doc Required
 
-  DeleteTodoUseCase({required this.databaseRep, required this.firebaseRepo});
+  DeleteTodoUseCase({
+    required final TodoRepository databaseRep,
+  }) : _databaseRep = databaseRep;
+
+  final TodoRepository _databaseRep;
 
   @override
-  Future<Either<Failure, void>> call(DeleteTodoParam params) async {
+  Future<Either<Failure, void>> call(final DeleteTodoParam params) async {
     try {
-      GetTodoListUseCase.clearEncryptedCache();
-      await databaseRep.deleteTodos(params.localId);
-      return const Right(null);
+      await GetTodoListUseCase.clearEncryptedCache();
+      await _databaseRep.deleteTodos(params.localId);
+      return const Right<Failure, void>(null);
     } catch (e, s) {
-      logService.crashLog(errorMessage: 'Delete todo api done', e: e, stack: s);
-      return Left(ServerFailure('Delete todo api done'));
+      await logService.crashLog(
+        errorMessage: 'Delete todo api done',
+        e: e,
+        stack: s,
+      );
+      return Left<Failure, void>(ServerFailure('Delete todo api done'));
     }
   }
 }
 
+/// Doc Required
+
 class DeleteTodoParam {
-  final String firebaseId;
-  final String localId;
+  /// Doc Required
 
   DeleteTodoParam({
     required this.firebaseId,
     required this.localId,
   });
+
+  /// Doc Required
+  final String firebaseId;
+
+  /// Doc Required
+  final String localId;
 }

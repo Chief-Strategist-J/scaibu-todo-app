@@ -43,7 +43,7 @@ class UserDatabaseImpl {
     final Map<String, dynamic> loginCred,
   ) async {
     final LoginResponse res = LoginResponse.fromJson(
-      await restApi.request(
+      await restApi.request<dynamic>(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
         type: HttpRequestMethod.post,
@@ -95,7 +95,7 @@ class UserDatabaseImpl {
   Future<void> forgetPassword(
     final Map<String, dynamic> forgetPasswordCred,
   ) async {
-    await restApi.request(
+    await restApi.request<dynamic>(
       requestBody: forgetPasswordCred,
       endPoint: UserAuthEndPoint.forgetPassword,
       type: HttpRequestMethod.post,
@@ -104,7 +104,7 @@ class UserDatabaseImpl {
 
   @override
   Future<void> standardLogOut(final Map<String, dynamic> req) async {
-    await restApi.request(
+    await restApi.request<dynamic>(
       requestBody: req,
       endPoint: UserAuthEndPoint.signOut,
       type: HttpRequestMethod.post,
@@ -114,7 +114,7 @@ class UserDatabaseImpl {
   @override
   Future<void> updatePassword(
       final Map<String, dynamic> updatePasswordCred) async {
-    await restApi.request(
+    await restApi.request<dynamic>(
       requestBody: updatePasswordCred,
       endPoint: UserAuthEndPoint.updatePassword,
       type: HttpRequestMethod.post,
@@ -124,7 +124,7 @@ class UserDatabaseImpl {
   @override
   Future<bool> verifyOtp(final Map<String, dynamic> verifyOtpCred) async {
     final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
-      await restApi.request(
+      await restApi.request<dynamic>(
         requestBody: verifyOtpCred,
         endPoint: UserAuthEndPoint.verifyOtp,
         type: HttpRequestMethod.post,

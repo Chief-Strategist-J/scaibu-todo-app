@@ -1,13 +1,25 @@
 import 'package:todo_app/feature/todo/domain/entity/todo_entity.dart';
 
+/// Doc Required
 abstract interface class TodoRepository {
-  Future<String> createTodo(Map<String, dynamic> todoData);
+  /// Doc Required
+  Future<String> createTodo(final Map<String, dynamic> todoData);
 
-  Future<void> updateTodo(Map<String, dynamic> todoData, String todoId);
+  /// Doc Required
+  Future<void> updateTodo(
+    final Map<String, dynamic> todoData,
+    final String todoId,
+  );
 
+  /// Doc Required
   Future<List<TodoEntity>> getListOfTodos();
 
-  Future<void> deleteTodos(String todoId);
+  /// Doc Required
+  Future<void> deleteTodos(final String todoId);
 
-  Future<bool> updateTodoId({required String id, required Map<String, String> request});
+  /// Doc Required
+  Future<bool> updateTodoId({
+    required final String id,
+    required final Map<String, String> request,
+  });
 }

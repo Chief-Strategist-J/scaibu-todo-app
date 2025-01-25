@@ -1,14 +1,17 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class DrawerItemComponent extends StatelessWidget {
-  final String title;
-  final void Function() onTap;
-
+  /// Doc Required
   const DrawerItemComponent({
-    required this.title,
-    required this.onTap,
+    required final String title,
+    required final void Function() onTap,
     super.key,
-  });
+  })  : _onTap = onTap,
+        _title = title;
+
+  final String _title;
+  final void Function() _onTap;
 
   @override
   Widget build(final BuildContext context) => Column(
@@ -17,13 +20,13 @@ class DrawerItemComponent extends StatelessWidget {
           const Divider(thickness: 0.5),
           GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: onTap,
+            onTap: _onTap,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-              child: Text(title, style: boldTextStyle()),
+              child: Text(_title, style: boldTextStyle()),
             ),
-          )
+          ),
         ],
       );
 }

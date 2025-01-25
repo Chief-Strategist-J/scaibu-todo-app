@@ -1,11 +1,19 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 abstract interface class BaseApi {
-  Future<String> createTodo(Map<String, dynamic> todoData);
+  /// Doc Required
+  Future<String> createTodo(final Map<String, dynamic> todoData);
 
-  Future<void> deleteTodo(String todoId);
+  /// Doc Required
+  Future<void> deleteTodo(final String todoId);
 
-  Future<void> updateTodo(String todoId, Map<String, dynamic> updateTodoData);
+  /// Doc Required
+  Future<void> updateTodo(
+    final String todoId,
+    final Map<String, dynamic> updateTodoData,
+  );
 
+  /// Doc Required
   Future<List<TodoEntity>> getListOfTodos();
 }

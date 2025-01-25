@@ -1,10 +1,14 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TodoListItemComponentStyle {
-  final TodoListItemComponentVariant variant;
-
+  /// Doc Required
   TodoListItemComponentStyle({required this.variant});
 
+  /// Doc Required
+  final TodoListItemComponentVariant variant;
+
+  /// Doc Required
   Style style(
     final BuildContext context, {
     final double fontSize = 16,
@@ -26,12 +30,14 @@ class TodoListItemComponentStyle {
         $text.style.color(textPrimaryColor),
       ).applyVariants(<Variant>[variant]);
 
+  /// Doc Required
   Style columnStyleOfStartMin(final BuildContext context) => Style(
         $flex.crossAxisAlignment.start(),
         $flex.mainAxisSize.min(),
         $flex.gap(4),
       ).applyVariants(<Variant>[variant]);
 
+  /// Doc Required
   Style rawStyleOfStartMin(
     final BuildContext context, {
     final double sizeBetweenChildren = 8,

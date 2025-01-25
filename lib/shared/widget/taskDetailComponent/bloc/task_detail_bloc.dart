@@ -1,10 +1,10 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// A BLoC (Business Logic Component) that handles events related
+/// to task details
+/// and manages the corresponding state updates.
 class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
-  bool isSeededTagsRetrieved = false;
-
-  final TaskDetailApiService _tagApiService = TaskDetailApiService();
-
+  /// Initializes the [TaskDetailBloc] with the initial state.
   TaskDetailBloc() : super(TaskDetailInitState()) {
     on<InitTaskDetailEvent>(_init);
     on<UpdatePriorityEvent>(_handleStateUpdateEvent);
@@ -15,16 +15,21 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<UpdatePomodoroCounterEvent>(_handleStateUpdateEvent);
     on<UpdatePomodoroDurationEvent>(_handleStateUpdateEvent);
   }
+  bool _isSeededTagsRetrieved = false;
+
+  final TaskDetailApiService _tagApiService = TaskDetailApiService();
 
   @override
   Future<void> close() async {
     await super.close();
   }
 
-  void _init(final InitTaskDetailEvent event,
-      final Emitter<TaskDetailState> emit) async {
-    if (!isSeededTagsRetrieved) {
-      isSeededTagsRetrieved = true;
+  Future<void> _init(
+    final InitTaskDetailEvent event,
+    final Emitter<TaskDetailState> emit,
+  ) async {
+    if (!_isSeededTagsRetrieved) {
+      _isSeededTagsRetrieved = true;
       await _getData(emit);
     } else {
       _emitDataState(emit, pomodoroCont: 0);
@@ -44,19 +49,23 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   }
 
   Future<void> _getTagsForTodoList(final InitTaskDetailEvent event) async {
-    if (event.todoPageData.todoId == null) return;
+    if (event.todoPageData.todoId == null) {
+      return;
+    }
 
     final List<TagEntity> tagList =
         await _tagApiService.fetchTagsForTodoId(event.todoPageData.todoId!);
     if (tagList.isNotEmpty) {
-      for (TagEntity tag in tagList) {
+      for (final TagEntity tag in tagList) {
         add(AddTagInListEvent(tag: tag));
       }
     }
   }
 
   Future<void> _handleStateUpdateEvent(
-      final dynamic event, final Emitter<TaskDetailState> emit) async {
+    final dynamic event,
+    final Emitter<TaskDetailState> emit,
+  ) async {
     if (event is UpdatePomodoroCounterEvent) {
       _emitDataState(emit, pomodoroCont: event.count);
     } else if (event is UpdatePomodoroDurationEvent) {
@@ -67,7 +76,9 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   }
 
   void _toggleTagSelection(
-      final IsSelectedTagEvent event, final Emitter<TaskDetailState> emit) {
+    final IsSelectedTagEvent event,
+    final Emitter<TaskDetailState> emit,
+  ) {
     final List<TagEntity> updatedList =
         TaskDetailSelectionUtil.toggleTagSelection(
       (state as TaskDetailDataState).selectedTagList,
@@ -77,7 +88,9 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   }
 
   void _toggleProjectSelection(
-      final IsSelectedProjectEvent event, final Emitter<TaskDetailState> emit) {
+    final IsSelectedProjectEvent event,
+    final Emitter<TaskDetailState> emit,
+  ) {
     final List<ProjectEntity> updatedList =
         TaskDetailSelectionUtil.toggleProjectSelection(
       (state as TaskDetailDataState).selectedProjectList,
@@ -87,21 +100,25 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
   }
 
   void _removeTagFromList(
-      final RemoveTagFromListEvent event, final Emitter<TaskDetailState> emit) {
+    final RemoveTagFromListEvent event,
+    final Emitter<TaskDetailState> emit,
+  ) {
     final List<TagEntity> updatedList = TaskDetailSelectionUtil.modifyTagList(
       (state as TaskDetailDataState).selectedTagList,
       event.tag,
-      false,
+      addTag: false,
     );
     _emitDataState(emit, selectedTagList: updatedList);
   }
 
   void _addTagToList(
-      final AddTagInListEvent event, final Emitter<TaskDetailState> emit) {
+    final AddTagInListEvent event,
+    final Emitter<TaskDetailState> emit,
+  ) {
     final List<TagEntity> updatedList = TaskDetailSelectionUtil.modifyTagList(
       (state as TaskDetailDataState).selectedTagList,
       event.tag,
-      true,
+      addTag: true,
     );
     _emitDataState(emit, selectedTagList: updatedList);
   }
@@ -132,15 +149,17 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
         ),
       );
     } else {
-      emit(TaskDetailDataState(
-        tagList: tagList ?? <TagEntity>[],
-        projectList: projectList ?? <ProjectEntity>[],
-        pomodoroCont: pomodoroCont ?? 0,
-        pomodoroDuration: pomodoroDuration ?? 0,
-        priority: priority,
-        selectedTagList: selectedTagList ?? <TagEntity>[],
-        selectedProjectList: selectedProjectList ?? <ProjectEntity>[],
-      ));
+      emit(
+        TaskDetailDataState(
+          tagList: tagList ?? <TagEntity>[],
+          projectList: projectList ?? <ProjectEntity>[],
+          pomodoroCont: pomodoroCont ?? 0,
+          pomodoroDuration: pomodoroDuration ?? 0,
+          priority: priority,
+          selectedTagList: selectedTagList ?? <TagEntity>[],
+          selectedProjectList: selectedProjectList ?? <ProjectEntity>[],
+        ),
+      );
     }
   }
 }

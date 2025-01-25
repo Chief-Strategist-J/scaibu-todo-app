@@ -6,7 +6,9 @@ abstract interface class AuthUserDetailBaseApi {
   Future<UserEntity> getUserDetail(final String userID);
 
   Future<UserEntity> updateUserDetail(
-      final Map<String, dynamic> userDetail, final String userID);
+    final Map<String, dynamic> userDetail,
+    final String userID,
+  );
 
   Future<bool> deleteUserDetail(final String userID);
 }

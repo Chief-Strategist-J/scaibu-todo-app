@@ -21,7 +21,7 @@ class Dependency {
     TagsDependencyInjection.setupDependencyInjection();
     PomodoroDependencyInjection.setupDependencyInjection();
     NotificationDependencyInjection.setupDependencyInjection();
-    NotificationAnalyticsDependencyInjection.setupDependencyInjection();
+    await NotificationAnalyticsDependencyInjection.setupDependencyInjection();
     NotificationEmailDependencyInjection.setupDependencyInjection();
     NotificationPushDependencyInjection.setupDependencyInjection();
     NotificationSMSDependencyInjection.setupDependencyInjection();
@@ -31,17 +31,17 @@ class Dependency {
 
   /// dispose Dependency
   static Future<void> dispose() async {
-    ServiceDependencyInjection.disposeService();
+    await ServiceDependencyInjection.disposeService();
     await TodoDependencyInjection.disposeDependencyInjection();
-    AuthDependencyInjection.disposeDependencyInjection();
+    await AuthDependencyInjection.disposeDependencyInjection();
     TagsDependencyInjection.disposeDependencyInjection();
-    PomodoroDependencyInjection.disposeDependencyInjection();
-    NotificationDependencyInjection.disposeDependencyInjection();
-    NotificationAnalyticsDependencyInjection.disposeDependencyInjection();
-    NotificationEmailDependencyInjection.disposeDependencyInjection();
-    NotificationPushDependencyInjection.disposeDependencyInjection();
-    NotificationSMSDependencyInjection.disposeDependencyInjection();
-    NotificationWebhookDependencyInjection.disposeDependencyInjection();
+    await PomodoroDependencyInjection.disposeDependencyInjection();
+    await NotificationDependencyInjection.disposeDependencyInjection();
+    await NotificationAnalyticsDependencyInjection.disposeDependencyInjection();
+    await NotificationEmailDependencyInjection.disposeDependencyInjection();
+    await NotificationPushDependencyInjection.disposeDependencyInjection();
+    await NotificationSMSDependencyInjection.disposeDependencyInjection();
+    await NotificationWebhookDependencyInjection.disposeDependencyInjection();
     ProjectDependencyInjection.dispose();
   }
 }

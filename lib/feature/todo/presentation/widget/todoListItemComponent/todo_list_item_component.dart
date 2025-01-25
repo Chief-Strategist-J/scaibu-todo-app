@@ -1,25 +1,16 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TodoListItemComponent extends HookWidget {
-  final TodoEntity _data;
-  final ValueChanged<bool?>? _onChanged;
-  final GestureTapCallback _onTapOfEdit;
-  final GestureTapCallback _onTapOfSee;
-  final void Function()? _onPress;
-
-  final DismissDirectionCallback? _onDismissed;
-  final TodoListItemComponentVariant _variant;
-
-  final ValueKey<int?> _uniqueKey;
-
+  /// Doc Required
   const TodoListItemComponent({
-    super.key,
     required final TodoEntity todoData,
-    required final void Function(bool?)? onChanged,
+    required final ValueChanged<bool?>? onChanged,
     required final void Function() onTapOfEdit,
     required final void Function() onTapOfSee,
+    required final ValueKey<int?> uniqueKey,
+    super.key,
     final void Function()? onPress,
-    required final ValueKey<dynamic> uniqueKey,
     final void Function(DismissDirection)? onDismissed,
     final TodoListItemComponentVariant variant =
         TodoListItemComponentVariant.primary,
@@ -32,10 +23,23 @@ class TodoListItemComponent extends HookWidget {
         _onPress = onPress,
         _data = todoData;
 
+  final TodoEntity _data;
+  final ValueChanged<bool?>? _onChanged;
+  final GestureTapCallback _onTapOfEdit;
+  final GestureTapCallback _onTapOfSee;
+  final void Function()? _onPress;
+
+  final DismissDirectionCallback? _onDismissed;
+  final TodoListItemComponentVariant _variant;
+
+  final ValueKey<int?> _uniqueKey;
+
   @override
   Widget build(final BuildContext context) {
     final TodoListItemComponentStyle style = useMemoized(
-        () => TodoListItemComponentStyle(variant: _variant), <Object?>[]);
+      () => TodoListItemComponentStyle(variant: _variant),
+      <Object?>[],
+    );
 
     if (context.read<TodoBloc>().state is NoInternetState) {
       // DISMISSIBLE ONLY IF HAS INTERNET
@@ -68,17 +72,12 @@ class TodoListItemComponent extends HookWidget {
   }
 }
 
+/// Doc Required
 class TodoItem extends StatelessWidget {
-  final TodoEntity _data;
-  final ValueChanged<bool?>? _onChanged;
-  final VoidCallback? _onPress;
-  final GestureTapCallback _onTapOfEdit;
-  final GestureTapCallback _onTapOfSee;
-  final TodoListItemComponentStyle _style;
-
+  /// Doc Required
   const TodoItem({
     required final TodoEntity data,
-    required final void Function(bool? onChanged)? onChanged,
+    required final ValueChanged<bool?>? onChanged,
     required final void Function() onTapOfEdit,
     required final void Function() onTapOfSee,
     required final TodoListItemComponentStyle style,
@@ -90,17 +89,24 @@ class TodoItem extends StatelessWidget {
         _onPress = onPress,
         _onChanged = onChanged,
         _data = data;
+  final TodoEntity _data;
+  final ValueChanged<bool?>? _onChanged;
+  final VoidCallback? _onPress;
+  final GestureTapCallback _onTapOfEdit;
+  final GestureTapCallback _onTapOfSee;
+  final TodoListItemComponentStyle _style;
 
   Widget _buildTags(final BuildContext context) {
     if (_data.tagNames.validate().isNotEmpty) {
       return Wrap(
-          children: _data.tagNames.validate().map((final String e) {
-        if (e.isEmpty) {
-          return const Offstage();
-        }
+        children: _data.tagNames.validate().map((final String e) {
+          if (e.isEmpty) {
+            return const Offstage();
+          }
 
-        return StyledText('#$e ', style: _style.style(context, fontSize: 10));
-      }).toList());
+          return StyledText('#$e ', style: _style.style(context, fontSize: 10));
+        }).toList(),
+      );
     }
     return const Offstage();
   }
@@ -110,7 +116,10 @@ class TodoItem extends StatelessWidget {
     final PriorityModel priority = priorityList.firstWhere(
       (final PriorityModel p) => p.code == _data.priority,
       orElse: () => PriorityModel(
-          title: 'No Priority', code: 'no_priority', color: slateGray),
+        title: 'No Priority',
+        code: 'no_priority',
+        color: slateGray,
+      ),
     );
 
     return PressableBox(
@@ -138,15 +147,21 @@ class TodoItem extends StatelessWidget {
                 StyledText(_data.title ?? '', style: _style.style(context)),
                 _buildTags(context),
                 HBox(
-                  style: _style.rawStyleOfStartMin(context,
-                      sizeBetweenChildren: 2),
+                  style: _style.rawStyleOfStartMin(
+                    context,
+                    sizeBetweenChildren: 2,
+                  ),
                   children: <Widget>[
                     StyledText(
-                        timeService
-                            .convertToTime(_data.startTime ?? DateTime.now()),
-                        style: _style.style(context, fontSize: 10)),
-                    const Icon(Icons.calendar_month,
-                        size: 12, color: greenColor),
+                      timeService
+                          .convertToTime(_data.startTime ?? DateTime.now()),
+                      style: _style.style(context, fontSize: 10),
+                    ),
+                    const Icon(
+                      Icons.calendar_month,
+                      size: 12,
+                      color: greenColor,
+                    ),
                     2.width,
                     Icon(Icons.flag, size: 12, color: priority.color),
                   ],

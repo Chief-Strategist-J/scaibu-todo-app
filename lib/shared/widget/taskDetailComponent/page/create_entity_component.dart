@@ -1,15 +1,17 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// CreateEntityComponent
 class CreateEntityComponent<T> extends StatelessWidget {
-  final Widget Function(BuildContext, T) _listItemBuilder;
-  final EmptyEntityModel<T> _model;
-
+  /// CreateEntityComponent
   const CreateEntityComponent({
-    super.key,
     required final Widget Function(BuildContext, T) listItemBuilder,
     required final EmptyEntityModel<T> model,
+    super.key,
   })  : _model = model,
         _listItemBuilder = listItemBuilder;
+
+  final Widget Function(BuildContext, T) _listItemBuilder;
+  final EmptyEntityModel<T> _model;
 
   @override
   Widget build(final BuildContext context) {
@@ -33,8 +35,9 @@ class CreateEntityComponent<T> extends StatelessWidget {
                     const Offstage(),
                     Text(_model.title, style: boldTextStyle(size: 20)),
                     IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: _model.onCreateTap),
+                      icon: const Icon(Icons.add),
+                      onPressed: _model.onCreateTap,
+                    ),
                   ],
                 ),
                 ListView.separated(

@@ -1,12 +1,15 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TodoListComponent extends StatelessWidget {
-  const TodoListComponent({required this.todoList, super.key});
+  /// Doc Required
+  const TodoListComponent({required final List<TodoEntity> todoList, super.key})
+      : _todoList = todoList;
 
-  final List<TodoEntity> todoList;
+  final List<TodoEntity> _todoList;
 
   @override
-  Future<Widget> build(final BuildContext context) async => Padding(
+  Widget build(final BuildContext context) => Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
         child: RefreshIndicator(
           onRefresh: () {
@@ -21,9 +24,9 @@ class TodoListComponent extends StatelessWidget {
             semanticChildCount: 2,
             slivers: <Widget>[
               SliverList.builder(
-                itemCount: todoList.length,
+                itemCount: _todoList.length,
                 itemBuilder: (final BuildContext context, final int index) {
-                  final TodoEntity todoData = todoList[index];
+                  final TodoEntity todoData = _todoList[index];
                   final ValueKey<int?> key = ValueKey<int?>(todoData.todoId);
                   final TodoActionHandler actionHandler =
                       TodoActionHandler(context, todoData);
@@ -33,7 +36,9 @@ class TodoListComponent extends StatelessWidget {
                     uniqueKey: key,
                     todoData: todoData,
                     onPress: actionHandler.onTapTodo,
-                    onChanged: actionHandler.onUpdateCheckBoxValue,
+                    onChanged: (final bool? value) async {
+                      await actionHandler.onUpdateCheckBoxValue(checked: value);
+                    },
                     onTapOfEdit: actionHandler.onTapOfEdit,
                     onTapOfSee: actionHandler.onTapOfSee,
                     onDismissed: actionHandler.onSwipeOfTodo,

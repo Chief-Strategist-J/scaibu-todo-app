@@ -20,9 +20,3 @@ class LoginModel with _$LoginModel, LoginEntityMixin {
   factory LoginModel.fromJson(final Map<String, dynamic> json) =>
       _$LoginModelFromJson(json);
 }
-
-// Yes, if a method's return type is LoginEntity and you're returning a LoginModel, it will work.
-// This is due to the way we've set up the classes using the mixin approach.
-//
-// LoginEntity getLoginInfo() => LoginModel();
-// This is valid because LoginModel has all the properties of LoginEntity

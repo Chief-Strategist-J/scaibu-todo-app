@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/core/network/internetConnection/internet_connection_cubit.dart';
 
@@ -33,7 +34,7 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[
       DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp
+      DeviceOrientation.portraitUp,
     ],
   ).then((final void value) {
     runApp(

@@ -1,61 +1,74 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TodoActionHandler {
-  final BuildContext context;
-  final TodoEntity todoData;
-  final TodoBloc todoBloc;
+  /// Doc Required
+  TodoActionHandler(this._context, this._todoData)
+      : _todoBloc = _context.read<TodoBloc>();
 
-  TodoActionHandler(this.context, this.todoData)
-      : todoBloc = context.read<TodoBloc>();
+  final BuildContext _context;
+  final TodoEntity _todoData;
+  final TodoBloc _todoBloc;
 
-  bool get isLoading => todoBloc.state is LoadingState;
+  /// Doc Required
+  bool get isLoading => _todoBloc.state is LoadingState;
 
-  bool get hasNoInternet => todoBloc.state is NoInternetState;
+  /// Doc Required
+  bool get hasNoInternet => _todoBloc.state is NoInternetState;
 
-  void onUpdateCheckBoxValue(final bool? checked) {
+  /// Doc Required
+  Future<void> onUpdateCheckBoxValue({final bool? checked}) async {
     if (_showLoadingIfNeeded()) {
       return;
     }
 
-    todoBloc.updateCheckBoxValue(
-        checked: checked.validate(), todoItem: todoData);
+    await _todoBloc.updateCheckBoxValue(
+      checked: checked.validate(),
+      todoItem: _todoData,
+    );
   }
 
+  /// Doc Required
   Future<void> onSwipeOfTodo(final DismissDirection direction) async {
     if (_showLoadingIfNeeded()) {
       return;
     }
 
     if (direction == DismissDirection.endToStart) {
-      await todoBloc.deleteTodo(todoData: todoData);
+      await _todoBloc.deleteTodo(todoData: _todoData);
     } else if (direction == DismissDirection.startToEnd) {
-      await todoBloc.archiveTodo(todoItem: todoData);
+      await _todoBloc.archiveTodo(todoItem: _todoData);
     }
   }
 
+  /// Doc Required
   Future<void> onTapOfEdit() async {
     if (_showLoadingIfNeeded()) {
       return;
     }
 
     await _navigateToManageTodoPage();
-    todoBloc.add(InitTodoEvent(isListUpdated: true));
+    _todoBloc.add(InitTodoEvent(isListUpdated: true));
   }
 
+  /// Doc Required
   Future<void> onTapTodo() async {
     if (hasNoInternet) {
       await _navigateToManageTodoPage();
     }
   }
 
+  /// Doc Required
   Future<void> onTapOfSee() async {
-    await GoRouter.of(context).push(ApplicationPaths.pomodoroPage);
+    await GoRouter.of(_context).push(ApplicationPaths.pomodoroPage);
   }
 
   bool _showLoadingIfNeeded() => isLoading;
 
   Future<void> _navigateToManageTodoPage() async {
-    await GoRouter.of(context).push(ApplicationPaths.manageTodoPage,
-        extra: ManageTodoPageParam.fromTodoEntity(todoData));
+    await GoRouter.of(_context).push(
+      ApplicationPaths.manageTodoPage,
+      extra: ManageTodoPageParam.fromTodoEntity(_todoData),
+    );
   }
 }

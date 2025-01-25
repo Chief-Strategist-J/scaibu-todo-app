@@ -1,28 +1,11 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 TimeService timeService = getIt<TimeService>();
 
+/// Doc Required
 class ContentWidget extends StatelessWidget {
-  final bool _isTimeField;
-  final bool _isDateField;
-
-  final int? _lines;
-
-  final String _title;
-
-  final TextEditingController _controller;
-
-  final TextFieldType _textFieldType;
-
-  final FocusNode? _focusNode;
-
-  final TextInputAction? _textInputAction;
-
-  final GestureTapCallback? _onTap;
-  final void Function(TimeServiceModel)? _onSelectOfDateOrTime;
-
-  final Widget? _prefixIcon;
-
+  /// Doc Required
   const ContentWidget({
     required final String title,
     required final TextEditingController controller,
@@ -47,8 +30,27 @@ class ContentWidget extends StatelessWidget {
         _title = title,
         _isDateField = isDateField,
         _isTimeField = isTimeField;
+  final bool _isTimeField;
+  final bool _isDateField;
 
-  bool get _isEnabled => !((_isTimeField) || (_isDateField));
+  final int? _lines;
+
+  final String _title;
+
+  final TextEditingController _controller;
+
+  final TextFieldType _textFieldType;
+
+  final FocusNode? _focusNode;
+
+  final TextInputAction? _textInputAction;
+
+  final GestureTapCallback? _onTap;
+  final void Function(TimeServiceModel)? _onSelectOfDateOrTime;
+
+  final Widget? _prefixIcon;
+
+  bool get _isEnabled => !(_isTimeField || _isDateField);
 
   Future<void> _onTapOfInputField(final BuildContext context) async {
     if (_onTap != null) {
@@ -82,9 +84,10 @@ class ContentWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           16.height,
-          Text(_title,
-              style:
-                  const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+          Text(
+            _title,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
           4.height,
           GestureDetector(
             onTap: () async {

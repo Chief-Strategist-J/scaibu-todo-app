@@ -1,6 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class DrawerComponent extends HookWidget {
+  /// Doc Required
   const DrawerComponent({super.key});
 
   @override
@@ -33,7 +35,7 @@ class DrawerComponent extends HookWidget {
         width: context.width(),
         child: Column(
           children: <Widget>[
-            const Expanded(flex: 1, child: DrawerHeaderComponent()),
+            const Expanded(child: DrawerHeaderComponent()),
             Expanded(
               flex: 5,
               child: ListView(

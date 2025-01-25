@@ -1,17 +1,23 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class DrawerItemModel {
-  final String title;
-  final void Function() onTap;
-
+  /// Doc Required
   DrawerItemModel({required this.title, required this.onTap});
 
+  /// Doc Required
+  final String title;
+
+  /// Doc Required
+  final void Function() onTap;
+
+  /// Doc Required
   static List<DrawerItemModel> itemList(final BuildContext context) =>
       <DrawerItemModel>[
         DrawerItemModel(
           title: 'Log-Out',
           onTap: () async {
-            await appShowConfirmDialogCustom(
+            await await appShowConfirmDialogCustom(
               context,
               title: 'Confirm Log-Out?',
               dialogType: DialogType.DELETE,

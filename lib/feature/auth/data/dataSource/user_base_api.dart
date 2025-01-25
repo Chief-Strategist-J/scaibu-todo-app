@@ -6,7 +6,8 @@ abstract interface class UserBaseApi {
   Future<LoginEntity> standardSignUp(final Map<String, dynamic> loginCred);
 
   Future<Either<FailResponse, LoginEntity>> getUserDetail(
-      final Map<String, dynamic> loginCred);
+    final Map<String, dynamic> loginCred,
+  );
 
   Future<void> forgetPassword(final Map<String, dynamic> forgetPasswordCred);
 

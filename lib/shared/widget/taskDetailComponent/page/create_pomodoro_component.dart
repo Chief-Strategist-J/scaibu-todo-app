@@ -1,33 +1,36 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class CreatePomodoroComponent extends StatelessWidget {
-  final TaskDetailComponentVariantStyle _style;
-  final ManageTodoPageParam localTodoData;
-
+  /// Doc Required
   const CreatePomodoroComponent({
     required final TaskDetailComponentVariantStyle style,
-    required this.localTodoData,
+    required final ManageTodoPageParam localTodoData,
     super.key,
-  }) : _style = style;
+  })  : _localTodoData = localTodoData,
+        _style = style;
+
+  final TaskDetailComponentVariantStyle _style;
+  final ManageTodoPageParam _localTodoData;
 
   void _onTapOfPomodoro(final BuildContext context) {
     final TaskDetailState currState = context.read<TaskDetailBloc>().state;
     if (currState is TaskDetailDataState) {
-      localTodoData.pomodorowDuration.value =
+      _localTodoData.pomodorowDuration.value =
           currState.pomodoroDuration.validate();
-      localTodoData.pomodorowCount.value = currState.pomodoroCont.validate();
+      _localTodoData.pomodorowCount.value = currState.pomodoroCont.validate();
     }
 
     finish(context);
   }
 
-  void onTapOfPomodowoDuration(final BuildContext context, final int index) {
+  void _onTapOfPomodowoDuration(final BuildContext context, final int index) {
     context
         .read<TaskDetailBloc>()
         .add(UpdatePomodoroDurationEvent(duration: (index + 1) * 10));
   }
 
-  void onTapOfPomodowoCont(final BuildContext context, final int index) {
+  void _onTapOfPomodowoCont(final BuildContext context, final int index) {
     context
         .read<TaskDetailBloc>()
         .add(UpdatePomodoroCounterEvent(count: index + 1));
@@ -57,8 +60,11 @@ class CreatePomodoroComponent extends StatelessWidget {
         children: <Widget>[
           16.height,
           Expanded(
-              child: Text('Estimated Pomodoros : ',
-                  style: boldTextStyle(size: 16))),
+            child: Text(
+              'Estimated Pomodoros : ',
+              style: boldTextStyle(size: 16),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -69,15 +75,18 @@ class CreatePomodoroComponent extends StatelessWidget {
                 index: index + 1,
                 isSelectedIndex: isSelectedPomodoroContIndex,
                 onTap: () {
-                  onTapOfPomodowoCont(context, index);
+                  _onTapOfPomodowoCont(context, index);
                 },
               ),
             ),
           ),
           32.height,
           Expanded(
-              child: Text('Estimated Pomodoro Time: ',
-                  style: boldTextStyle(size: 16))),
+            child: Text(
+              'Estimated Pomodoro Time: ',
+              style: boldTextStyle(size: 16),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -88,7 +97,7 @@ class CreatePomodoroComponent extends StatelessWidget {
                 isSelectedIndex: isSelectedPomodoroDurationIndex,
                 index: (index + 1) * 10,
                 onTap: () {
-                  onTapOfPomodowoDuration(context, index);
+                  _onTapOfPomodowoDuration(context, index);
                 },
               ),
             ),

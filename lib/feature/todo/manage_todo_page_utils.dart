@@ -1,11 +1,17 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class ManageTodoPageUtils {
-  final BuildContext ctx;
-  final ManageTodoPageParam param;
-
+  /// Doc Required
   ManageTodoPageUtils(this.ctx, this.param);
 
+  /// Doc Required
+  final BuildContext ctx;
+
+  /// Doc Required
+  final ManageTodoPageParam param;
+
+  /// Doc Required
   void dispose() {
     log('DATA IS CLEARED FOR TODO-DETAIL IN MANAGE TODO PAGE UTILS');
     param.dispose();
@@ -35,7 +41,10 @@ class ManageTodoPageUtils {
     await todoBloc.createTodo(todoDetail: param).then((final _) async {
       if (ctx.mounted) {
         GoRouter.of(ctx).go(ApplicationPaths.todoListViewPage);
-        await Future.delayed(const Duration(milliseconds: 1000), param.dispose);
+        await Future<void>.delayed(
+          const Duration(milliseconds: 1000),
+          param.dispose,
+        );
       }
     });
   }
@@ -61,7 +70,9 @@ class ManageTodoPageUtils {
   }
 
   static bool _isValidSelectedDate(
-      final BuildContext ctx, final TimeServiceModel date) {
+    final BuildContext ctx,
+    final TimeServiceModel date,
+  ) {
     if (!date.isSelected) {
       return false;
     }
@@ -94,7 +105,9 @@ class ManageTodoPageUtils {
   }
 
   bool _isValidEndTime(
-      final TimeServiceModel endTime, final TimeServiceModel startTime) {
+    final TimeServiceModel endTime,
+    final TimeServiceModel startTime,
+  ) {
     if (!endTime.isSelected || !ctx.mounted) {
       return false;
     }
@@ -102,21 +115,26 @@ class ManageTodoPageUtils {
     final bool endTimeIsAfterStartTime =
         endTime.dateTime.isAfter(startTime.dateTime);
     if (!endTimeIsAfterStartTime) {
-      toast('End time must be after start time.\n Please retry.',
-          bgColor: redColor);
+      toast(
+        'End time must be after start time.\n Please retry.',
+        bgColor: redColor,
+      );
       return false;
     }
     return true;
   }
 
+  /// Doc Required
   Future<bool> onTapOfManageTodo({
     required final TodoBloc todoBloc,
     required final ManageTodoPageParam? todoPage,
   }) async {
-    if (_isLoadingState(todoBloc))
+    if (_isLoadingState(todoBloc)) {
       return _showToastAndReturnFalse('Loading please wait ...');
-    if (!_isValidTodoDetail())
+    }
+    if (!_isValidTodoDetail()) {
       return _showToastAndReturnFalse('field_must_be_validated'.tr());
+    }
 
     if (_isUpdatingExisting(todoPage)) {
       await _updateExistingTodo(todoBloc);
@@ -126,6 +144,7 @@ class ManageTodoPageUtils {
     return true;
   }
 
+  /// Doc Required
   Future<void> selectDateAndTime() async {
     await timeService.selectDate(ctx).then((final TimeServiceModel date) async {
       if (!ctx.mounted) {
@@ -140,6 +159,7 @@ class ManageTodoPageUtils {
     });
   }
 
+  /// Doc Required
   Future<void> selectStartAndEndTime() async {
     await timeService
         .selectTime(ctx)
@@ -156,6 +176,7 @@ class ManageTodoPageUtils {
     });
   }
 
+  /// Doc Required
   Future<void> selectEndTime(final TimeServiceModel startTime) async {
     await timeService
         .selectTime(ctx)

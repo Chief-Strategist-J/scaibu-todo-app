@@ -55,7 +55,7 @@ class ProjectCategorySelectorWidget extends HookWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: configList.map((config) {
         return ContentWidget(
-          title: config.title,
+          title: config._title,
           controller: config.controller,
           focusNode: config.focusNode,
           isTimeField: true,
@@ -63,7 +63,7 @@ class ProjectCategorySelectorWidget extends HookWidget {
             hideKeyboard(context);
             _showProjectCategorySelector(
               context: context,
-              title: config.title,
+              title: config._title,
               items: config.items,
               getCategoryName: projectCategoryConfig.getCategoryName,
               style: ProjectCategoryComponentVariantStyle(variant: ProjectCategoryComponentVariant.light),

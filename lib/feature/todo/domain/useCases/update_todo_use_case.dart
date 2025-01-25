@@ -1,33 +1,27 @@
-import 'package:todo_app/core/app_library.dart';
-
+part of use_case;
+/// Doc Required
 class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
-  final TodoRepository databaseRep;
-  final TodoRepository firebaseRepo;
-
-  UpdateTodoUseCase({required this.databaseRep, required this.firebaseRepo});
+  /// Doc Required
+  UpdateTodoUseCase(
+      {required final TodoRepository databaseRep})
+      : _databaseRep = databaseRep;
+  final TodoRepository _databaseRep;
 
   @override
-  Future<Either<Failure, void>> call(UpdateTodoParam params) async {
+  Future<Either<Failure, void>> call(final UpdateTodoParam params) async {
     try {
-      GetTodoListUseCase.clearEncryptedCache();
-      return await databaseRep.updateTodo(params.todoData, params.localID).then((value) {
-        return const Right(null);
-      });
+      await GetTodoListUseCase.clearEncryptedCache();
+      return await _databaseRep
+          .updateTodo(params.todoData, params.localID)
+          .then((final void value) => const Right<Failure, void>(null));
     } catch (e, s) {
-      logService.crashLog(errorMessage: 'Failed to create todo', e: e, stack: s);
-      return Left(ServerFailure('Failed to create todo'));
+      await logService.crashLog(
+        errorMessage: 'Failed to create todo',
+        e: e,
+        stack: s,
+      );
+      return Left<Failure, void>(ServerFailure('Failed to create todo'));
     }
   }
 }
 
-class UpdateTodoParam {
-  final Map<String, dynamic> todoData;
-  final String firebaseID;
-  final String localID;
-
-  UpdateTodoParam({
-    required this.todoData,
-    required this.firebaseID,
-    required this.localID,
-  });
-}

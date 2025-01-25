@@ -143,7 +143,7 @@ class ManageTodoPage extends HookWidget {
                   focusNode: localTodoData.notesNode,
                   textInputAction: TextInputAction.done,
                 ),
-                TaskDetailComponent(localTodoData: localTodoData),
+                TaskDetailComponent<void>(localTodoData: localTodoData),
               ],
             ),
           ),

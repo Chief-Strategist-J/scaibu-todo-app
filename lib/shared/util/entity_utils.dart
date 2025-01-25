@@ -1,8 +1,12 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class EntityUtils {
+  /// Doc Required
   static List<TagEntity> fetchTags(
-          final BuildContext context, final ManageTodoPageParam data) =>
+    final BuildContext context,
+    final ManageTodoPageParam data,
+  ) =>
       _fetchEntityList<TagEntity>(
         context,
         entitySelector: (final TaskDetailDataState state) => state.tagList,
@@ -10,8 +14,11 @@ class EntityUtils {
             data.tags = state.selectedTagList,
       );
 
+  /// Doc Required
   static List<ProjectEntity> fetchProjects(
-          final BuildContext context, final ManageTodoPageParam data) =>
+    final BuildContext context,
+    final ManageTodoPageParam data,
+  ) =>
       _fetchEntityList<ProjectEntity>(
         context,
         entitySelector: (final TaskDetailDataState state) => state.projectList,
