@@ -1,14 +1,18 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class GetUserDetailUseCase
     extends UseCase<Either<FailResponse, LoginEntity>, Map<String, dynamic>> {
+  /// Doc Required
   GetUserDetailUseCase(this.authRepository);
 
+  /// Doc Required
   final AuthRepository authRepository;
 
   @override
   Future<Either<Failure, Either<FailResponse, LoginEntity>>> call(
-      final Map<String, dynamic> params) async {
+    final Map<String, dynamic> params,
+  ) async {
     try {
       final accessToken = userCredentials.box.get(userCredentials.accessToken);
       final tokenSavedTime =
@@ -24,17 +28,23 @@ class GetUserDetailUseCase
 
         userResult.fold(Left.new, _storeCred);
 
-        return Right(userResult);
+        return Right<Failure, Either<FailResponse, LoginEntity>>(userResult);
       } else {
-        return Right(Right(LoginEntity(
-          id: userCredentials.box.get(userCredentials.id),
-          email: userCredentials.box.get(userCredentials.email),
-          name: userCredentials.box.get(userCredentials.userName),
-          accessToken: accessToken,
-        )));
+        return Right<Failure, Either<FailResponse, LoginEntity>>(
+          Right(
+            LoginEntity(
+              id: userCredentials.box.get(userCredentials.id),
+              email: userCredentials.box.get(userCredentials.email),
+              name: userCredentials.box.get(userCredentials.userName),
+              accessToken: accessToken,
+            ),
+          ),
+        );
       }
     } on Exception catch (_) {
-      return Left(ServerFailure("An error occurred"));
+      return Left<Failure, Either<FailResponse, LoginEntity>>(
+        ServerFailure('An error occurred'),
+      );
     }
   }
 
@@ -45,7 +55,9 @@ class GetUserDetailUseCase
     await userCredentials.box.put(userCredentials.userName, auth.name);
     await userCredentials.box
         .put(userCredentials.accessToken, auth.accessToken);
-    await userCredentials.box.put(userCredentials.tokenSavedTime,
-        DateTime.now()); // Store the current time
+    await userCredentials.box.put(
+      userCredentials.tokenSavedTime,
+      DateTime.now(),
+    ); // Store the current time
   }
 }

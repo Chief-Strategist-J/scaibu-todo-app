@@ -1,6 +1,8 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class AuthDependencyInjection {
+  /// Doc Required
   static void authDependency() {
     getIt
       ..registerSingleton<RestApi>(
@@ -26,7 +28,7 @@ class AuthDependencyInjection {
       )
       ..registerFactory(AuthBloc.new);
   }
-
+  /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<RestApi>()

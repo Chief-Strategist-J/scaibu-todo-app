@@ -2,8 +2,9 @@ import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_custom_button.style.dart';
 import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_custom_button.variant.dart';
 
+/// Doc Required
 class AuthCustomButton extends StatelessWidget {
-
+  /// Doc Required
   const AuthCustomButton({
     super.key,
     this.variant = AuthCustomButtonVariant.primary,
@@ -11,8 +12,13 @@ class AuthCustomButton extends StatelessWidget {
     required this.onPress,
   });
 
+  /// Doc Required
   final AuthCustomButtonVariant variant;
+
+  /// Doc Required
   final String text;
+
+  /// Doc Required
   final VoidCallback? onPress;
 
   @override

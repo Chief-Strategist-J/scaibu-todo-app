@@ -1,12 +1,16 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class SplashPage extends HookWidget {
+  /// Doc Required
   const SplashPage({super.key});
 
   Future<void> _init(
-      final BuildContext context, final AuthBloc authBloc) async {
+    final BuildContext context,
+    final AuthBloc authBloc,
+  ) async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      await Future<void>.delayed(const Duration(seconds: 1));
       if (!context.mounted) {
         return;
       }
@@ -17,13 +21,17 @@ class SplashPage extends HookWidget {
         return;
       }
 
-      /// Although the user may be offline and still able to access the app, there is a possibility that their account data
-      /// could have been updated, or the user might have been removed or blocked while they were offline. To ensure that
-      /// the user does not gain unauthorized access under these circumstances, we proactively request their user data again.
-      /// This additional check helps us verify their current status and prevent login if their account has been altered or disabled.
+      /// Although the user may be offline and still able to access the app,
+      /// there is a possibility that their account data
+      /// could have been updated, or the user might have been removed or
+      /// blocked while they were offline. To ensure that
+      /// the user does not gain unauthorized access under these circumstances,
+      /// we proactively request their user data again.
+      /// This additional check helps us verify their current status and
+      /// prevent login if their account has been altered or disabled.
 
       final Map<String, num?> getUserDetailReq = <String, num?>{
-        'user_id': userCredentials.getUserId
+        'user_id': userCredentials.getUserId,
       };
       final Either<Failure, Either<FailResponse, LoginEntity>> user =
           await getIt<GetUserDetailUseCase>().call(getUserDetailReq);
@@ -50,14 +58,21 @@ class SplashPage extends HookWidget {
   Widget build(final BuildContext context) {
     final AuthBloc authBloc = useMemoized(() => context.read<AuthBloc>());
 
-    useEffect(() async {
-      await _init(context, authBloc);
-      return null;
-    } as Dispose? Function(), <Object?>[]);
+    useEffect(
+      () async {
+        await _init(context, authBloc);
+        return null;
+      } as Dispose? Function(),
+      <Object?>[],
+    );
 
     return Scaffold(
-        body: Center(
-            child: Text('Todo Application',
-                style: boldTextStyle(size: 10, weight: FontWeight.w900))));
+      body: Center(
+        child: Text(
+          'Todo Application',
+          style: boldTextStyle(size: 10, weight: FontWeight.w900),
+        ),
+      ),
+    );
   }
 }

@@ -1,13 +1,17 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class ProfilePage extends StatelessWidget {
+  /// Doc Required
   const ProfilePage({super.key});
 
+  /// Doc Required
   String get getEmail => userCredentials.getUserEmail
       .validate()
       .capitalizeFirstLetter()
       .splitBefore('@');
 
+  /// Doc Required
   String get getUserImage => userCredentials.getFirebasePhotoUrl.validate();
 
   Future<void> _onTapOfMenu(final BuildContext context) async {
@@ -41,58 +45,74 @@ class ProfilePage extends StatelessWidget {
                     24.height,
                     if (userCredentials.getFirstName.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'First Name',
-                          value: userCredentials.getFirstName.validate()),
+                        label: 'First Name',
+                        value: userCredentials.getFirstName.validate(),
+                      ),
                     if (userCredentials.getLastName.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Last Name',
-                          value: userCredentials.getLastName.validate()),
+                        label: 'Last Name',
+                        value: userCredentials.getLastName.validate(),
+                      ),
                     if (getEmail.validate().isNotEmpty)
                       KeyAndValue(label: 'Email', value: getEmail.validate()),
                     if (userCredentials.getPhone.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Phone',
-                          value: userCredentials.getPhone.validate()),
+                        label: 'Phone',
+                        value: userCredentials.getPhone.validate(),
+                      ),
                     if (userCredentials.getBirthDate.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Birth Date',
-                          value: userCredentials.getBirthDate.validate()),
+                        label: 'Birth Date',
+                        value: userCredentials.getBirthDate.validate(),
+                      ),
                     if (userCredentials.getBio.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Bio',
-                          value: userCredentials.getBio.validate()),
+                        label: 'Bio',
+                        value: userCredentials.getBio.validate(),
+                      ),
                     if (userCredentials.getAddress.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Address',
-                          value: userCredentials.getAddress.validate()),
+                        label: 'Address',
+                        value: userCredentials.getAddress.validate(),
+                      ),
                     if (userCredentials.getCity.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'City',
-                          value: userCredentials.getCity.validate()),
+                        label: 'City',
+                        value: userCredentials.getCity.validate(),
+                      ),
                     if (userCredentials.getState.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'State',
-                          value: userCredentials.getState.validate()),
+                        label: 'State',
+                        value: userCredentials.getState.validate(),
+                      ),
                     if (userCredentials.getCountry.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Country',
-                          value: userCredentials.getCountry.validate()),
+                        label: 'Country',
+                        value: userCredentials.getCountry.validate(),
+                      ),
                     if (userCredentials.getZipCode.validate().isNotEmpty)
                       KeyAndValue(
-                          label: 'Zip-Code',
-                          value: userCredentials.getZipCode.validate()),
+                        label: 'Zip-Code',
+                        value: userCredentials.getZipCode.validate(),
+                      ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
       );
 }
 
+/// Doc Required
 class KeyAndValue extends StatelessWidget {
+  /// Doc Required
   const KeyAndValue({required this.label, required this.value, super.key});
+
+  /// Doc Required
   final String label;
+
+  /// Doc Required
   final String value;
 
   @override
@@ -103,8 +123,10 @@ class KeyAndValue extends StatelessWidget {
           controller: TextEditingController(text: value),
           textStyle: boldTextStyle(),
           decoration: InputDecoration(
-            label: Text('$label : ',
-                style: boldTextStyle(size: 12, color: context.cardColor)),
+            label: Text(
+              '$label : ',
+              style: boldTextStyle(size: 12, color: context.cardColor),
+            ),
           ),
         ),
       );
