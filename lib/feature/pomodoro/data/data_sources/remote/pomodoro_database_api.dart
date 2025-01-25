@@ -16,7 +16,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
 
   @override
   Future<void> createPomodoro(final Map<String, dynamic> req) async {
-    await restApi.request(
+    await restApi.request<Object>(
       endPoint: PomodoroPoint.createBulkPomodoros,
       requestBody: req,
       type: HttpRequestMethod.post,
@@ -25,7 +25,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
 
   @override
   Future<void> endPomodoro(final String id) async {
-    await restApi.request(
+    await restApi.request<Object>(
       endPoint: PomodoroPoint.endPomodoro,
       requestBody: {"pomodoro_id": id},
       type: HttpRequestMethod.post,
@@ -35,7 +35,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
   @override
   Future<PomodoroEntity> getPomodoroStats(
       final Map<String, dynamic> req) async {
-    await restApi.request(
+    await restApi.request<Object>(
       endPoint: PomodoroPoint.getPomodoroStats,
       requestBody: req,
       type: HttpRequestMethod.post,
@@ -46,7 +46,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
 
   @override
   Future<void> resumePomodoro(final String id) async {
-    await restApi.request(
+    await restApi.request<Object>(
       endPoint: PomodoroPoint.resumePomodoro,
       requestBody: <String, dynamic>{"pomodoro_id": id},
       type: HttpRequestMethod.post,
@@ -55,7 +55,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
 
   @override
   Future<void> startPomodoro(final String id) async {
-    await restApi.request(
+    await restApi.request<Object>(
       endPoint: PomodoroPoint.startPomodoro,
       requestBody: <String, dynamic>{"pomodoro_id": id},
       type: HttpRequestMethod.post,
@@ -64,7 +64,7 @@ class PomodoroDatabaseApi implements PomodoroBase<PomodoroEntity> {
 
   @override
   Future<void> stopPomodoro(final String id) async {
-    await restApi.request(
+    await restApi.request<Object>(
       endPoint: PomodoroPoint.startPomodoro,
       requestBody: <String, dynamic>{"pomodoro_id": id},
       type: HttpRequestMethod.post,

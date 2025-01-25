@@ -1,4 +1,4 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
 class StandardLogoutUseCase extends UseCase<void, Map<String, dynamic>> {
 

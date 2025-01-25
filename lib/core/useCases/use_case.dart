@@ -7,6 +7,11 @@ part 'package:todo_app/feature/todo/domain/useCase/update_todo_use_case.dart';
 part 'package:todo_app/feature/todo/domain/useCase/get_todo_list_use_case.dart';
 part 'package:todo_app/feature/todo/domain/useCase/delete_todo_use_case.dart';
 part 'package:todo_app/feature/todo/domain/useCase/create_todo_use_case.dart';
+part 'package:todo_app/feature/tags/domain/useCases/update_tag_use_case.dart';
+
+part 'package:todo_app/feature/auth/domain/useCases/standard_logout_use_case.dart';
+part 'package:todo_app/feature/auth/domain/useCases/login_use_case.dart';
+part 'package:todo_app/feature/auth/domain/useCases/get_user_detail_use_case.dart';
 
 /// Abstract base class for use cases.
 sealed class UseCase<Type, Params> {

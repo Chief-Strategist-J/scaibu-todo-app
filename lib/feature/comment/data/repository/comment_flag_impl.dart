@@ -1,6 +1,8 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:todo_app/feature/comment/domain/repository/comment_flag_repository.dart';
 
-class CommentFlagImpl extends CommentFlagRepository<CommentFlagRepository> {
+class CommentFlagImpl
+    extends CommentFlagRepository<CommentFlagRepository<Comment>> {
   @override
   Future<bool> addFlagToComment(
       final int commentId, final Map<String, dynamic> flag) {
@@ -15,14 +17,14 @@ class CommentFlagImpl extends CommentFlagRepository<CommentFlagRepository> {
   }
 
   @override
-  Future<List<CommentFlagRepository>> getAllFlags(
+  Future<List<CommentFlagRepository<Comment>>> getAllFlags(
       {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getAllFlags
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CommentFlagRepository>> getFlaggedCommentsByDateRange(
+  Future<List<CommentFlagRepository<Comment>>> getFlaggedCommentsByDateRange(
       final DateTime startDate, final DateTime endDate,
       {final int page = 1, final int pageSize = 20}) {
     // TODO: implement getFlaggedCommentsByDateRange
@@ -30,7 +32,7 @@ class CommentFlagImpl extends CommentFlagRepository<CommentFlagRepository> {
   }
 
   @override
-  Future<List<CommentFlagRepository>> getFlaggedCommentsByReason(
+  Future<List<CommentFlagRepository<Comment>>> getFlaggedCommentsByReason(
       final String reason,
       {final int page = 1,
       final int pageSize = 20}) {
@@ -39,13 +41,14 @@ class CommentFlagImpl extends CommentFlagRepository<CommentFlagRepository> {
   }
 
   @override
-  Future<List<CommentFlagRepository>> getFlagsForComment(final int commentId) {
+  Future<List<CommentFlagRepository<Comment>>> getFlagsForComment(
+      final int commentId) {
     // TODO: implement getFlagsForComment
     throw UnimplementedError();
   }
 
   @override
-  Future<CommentFlagRepository> getMostFrequentFlag() {
+  Future<CommentFlagRepository<Comment>> getMostFrequentFlag() {
     // TODO: implement getMostFrequentFlag
     throw UnimplementedError();
   }

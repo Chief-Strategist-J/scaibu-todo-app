@@ -26,7 +26,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> archiveTag(String id) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.archiveTag(id), // Use the dynamic endpoint
         requestBody: {},
@@ -43,7 +43,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> bulkCreateTags(List<Map<String, dynamic>> data) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.bulkCreateTags,
         requestBody: {'tags': data},
@@ -60,7 +60,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> bulkDeleteTags(List<String> ids) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.bulkDeleteTags,
         requestBody: {'ids': ids},
@@ -77,7 +77,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> createTag(Map<String, dynamic> data) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.createTag,
         requestBody: data,
@@ -94,7 +94,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> deleteTag(String id) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.delete,
         endPoint: TagEndPoint.deleteTag, // Adjust as needed to include the ID
         requestBody: {},
@@ -121,7 +121,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> restoreTag(String id) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.restoreTag(id), // Use the dynamic endpoint
         requestBody: {},
@@ -143,7 +143,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<void> updateTag(String id, Map<String, dynamic> data) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.put,
         endPoint: TagEndPoint.updateTag, // Adjust if you need to include the ID in the URL
         requestBody: data,
@@ -160,7 +160,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<List<TagEntity>> getAllSeededTags() async {
     try {
-      final response = await restApi.request(
+      final response = await restApi.request<dynamic>(
         type: HttpRequestMethod.get,
         endPoint: TagEndPoint.getAllSeeded,
         requestBody: {},
@@ -198,7 +198,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<List<TagEntity>> getTagByTodoId(String id) async {
     try {
-      final response = await restApi.request(
+      final response = await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.getAllTags,
         requestBody: {
@@ -238,7 +238,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
 
   @override
   Future<void> bulkDeleteTagsByTodoId(String tagID) async {
-    await restApi.request(
+    await restApi.request<dynamic>(
       type: HttpRequestMethod.post,
       endPoint: TagEndPoint.bulkDeleteTagsByTodoId,
       requestBody: {
@@ -253,7 +253,7 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<List<TagEntity>> getAllTagsByUserId(Map<String, dynamic> data) async {
     try {
-      final response = await restApi.request(
+      final response = await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.getAllTagsByUserId,
         requestBody: data,

@@ -18,7 +18,7 @@ class TagInputField extends StatelessWidget {
             width: 16,
             height: 16,
             fit: BoxFit.contain,
-            colorFilter: ColorFilter.mode(cardColor.withOpacity(0.3), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(cardColor.withValues(alpha :0.3), BlendMode.srcIn),
           ),
         ),
         controller: tagBloc.tagTextEditingController,

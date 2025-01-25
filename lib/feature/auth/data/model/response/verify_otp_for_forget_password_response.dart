@@ -1,18 +1,31 @@
+///Doc Required
 class VerifyOtpForForgetPasswordResponse {
+  ///Doc Required
   VerifyOtpForForgetPasswordResponse({
     this.message,
     this.status,
     this.data,
   });
 
+  ///Doc Required
   VerifyOtpForForgetPasswordResponse.fromJson(final dynamic json) {
-    message = json['message'];
-    status = json['status'];
-    data = json['data'] != null ? UserData.fromJson(json['data']) : null;
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    message = dataMap['message'] as String?;
+    status = dataMap['status'] as bool?;
+    data = dataMap['data'] != null ? UserData.fromJson(dataMap['data']) : null;
   }
+
+  ///Doc Required
   String? message;
+
+  ///Doc Required
   bool? status;
+
+  ///Doc Required
   UserData? data;
+
+  ///Doc Required
   VerifyOtpForForgetPasswordResponse copyWith({
     final String? message,
     final bool? status,
@@ -23,6 +36,8 @@ class VerifyOtpForForgetPasswordResponse {
         status: status ?? this.status,
         data: data ?? this.data,
       );
+
+  ///Doc Required
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
@@ -34,7 +49,9 @@ class VerifyOtpForForgetPasswordResponse {
   }
 }
 
+///Doc Required
 class Data {
+  ///Doc Required
   Data({
     this.success,
     this.message,
@@ -42,17 +59,28 @@ class Data {
     this.data,
   });
 
+  ///Doc Required
   Data.fromJson(final dynamic json) {
-    success = json['success'];
-    message = json['message'];
-    accessToken = json['access_token'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+    success = dataMap['success'] as bool?;
+    message = dataMap['message'] as String?;
+    accessToken = dataMap['access_token'] as String?;
+    data = dataMap['data'] != null ? Data.fromJson(dataMap['data']) : null;
   }
+
+  ///Doc Required
   bool? success;
+
+  ///Doc Required
   String? message;
+
+  ///Doc Required
   String? accessToken;
+
+  ///Doc Required
   Data? data;
 
+  ///Doc Required
   Data copyWith({
     final bool? success,
     final String? message,
@@ -65,6 +93,8 @@ class Data {
         accessToken: accessToken ?? this.accessToken,
         data: data ?? this.data,
       );
+
+  ///Doc Required
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['success'] = success;
@@ -77,9 +107,9 @@ class Data {
   }
 }
 
-
-
+///Doc Required
 class UserData {
+  ///Doc Required
   UserData({
     this.id,
     this.firebaseUserDetailsId,
@@ -98,41 +128,73 @@ class UserData {
     this.bio,
   });
 
+  ///Doc Required
   UserData.fromJson(final dynamic json) {
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
 
-    id = json['id'];
-    firebaseUserDetailsId = json['firebase_user_details_id'];
-    userId = json['user_id'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    phone = json['phone'];
-    birthdate = json['birthdate'];
-    address = json['address'];
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    zipcode = json['zipcode'];
-    avatar = json['avatar'];
-    bio = json['bio'];
+    id = dataMap['id'] as num?;
+    firebaseUserDetailsId = dataMap['firebase_user_details_id'] as String?;
+    userId = dataMap['user_id'] as num?;
+    firstName = dataMap['first_name'] as String?;
+    lastName = dataMap['last_name'] as String?;
+    email = dataMap['email'] as String?;
+    phone = dataMap['phone'] as String?;
+    birthdate = dataMap['birthdate'] as String?;
+    address = dataMap['address'] as String?;
+    city = dataMap['city'] as String?;
+    state = dataMap['state'] as String?;
+    country = dataMap['country'] as String?;
+    zipcode = dataMap['zipcode'] as String?;
+    avatar = dataMap['avatar'] as String?;
+    bio = dataMap['bio'] as String?;
   }
 
+  ///Doc Required
   num? id;
+
+  ///Doc Required
   String? firebaseUserDetailsId;
+
+  ///Doc Required
   num? userId;
+
+  ///Doc Required
   String? firstName;
+
+  ///Doc Required
   String? lastName;
+
+  ///Doc Required
   String? email;
+
+  ///Doc Required
   String? phone;
+
+  ///Doc Required
   String? birthdate;
+
+  ///Doc Required
   String? address;
+
+  ///Doc Required
   String? city;
+
+  ///Doc Required
   String? state;
+
+  ///Doc Required
   String? country;
+
+  ///Doc Required
   String? zipcode;
+
+  ///Doc Required
   String? avatar;
+
+  ///Doc Required
   String? bio;
 
+  ///Doc Required
   UserData copyWith({
     final num? id,
     final String? firebaseUserDetailsId,
@@ -152,7 +214,8 @@ class UserData {
   }) =>
       UserData(
         id: id ?? this.id,
-        firebaseUserDetailsId: firebaseUserDetailsId ?? this.firebaseUserDetailsId,
+        firebaseUserDetailsId:
+            firebaseUserDetailsId ?? this.firebaseUserDetailsId,
         userId: userId ?? this.userId,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
@@ -167,6 +230,8 @@ class UserData {
         avatar: avatar ?? this.avatar,
         bio: bio ?? this.bio,
       );
+
+  ///Doc Required
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['id'] = id;

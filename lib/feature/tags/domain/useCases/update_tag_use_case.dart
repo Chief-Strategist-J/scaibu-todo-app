@@ -1,4 +1,4 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
 class UpdateTagUseCase extends UseCase<void, Tuple3<String, String, Map<String, dynamic>>> {
   final TagsRepository<TagEntity> tagsDatabaseRepository;

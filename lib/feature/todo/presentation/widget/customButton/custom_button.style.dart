@@ -21,7 +21,7 @@ class CustomButtonStyle {
         CustomButtonVariant.secondary(
           $box.decoration.color(context.primaryColor),
           $text.style.color(context.cardColor),
-          $box.decoration.border.all(color: context.cardColor.withOpacity(0.5)),
+          $box.decoration.border.all(color: context.cardColor.withValues(alpha: 0.5)),
         ),
         $box.decoration.borderRadius.circular(300),
         $text.style.fontWeight.bold(),
