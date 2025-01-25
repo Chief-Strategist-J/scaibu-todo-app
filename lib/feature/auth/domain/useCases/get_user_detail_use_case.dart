@@ -1,4 +1,4 @@
-part of use_case;
+import 'package:todo_app/core/app_library.dart';
 
 /// Doc Required
 class GetUserDetailUseCase
@@ -21,8 +21,8 @@ class GetUserDetailUseCase
 
       if (accessToken == null ||
           (tokenSavedTime != null &&
-              currentTime.isAfter(
-                  tokenSavedTime.add(const Duration(hours: 1)) as DateTime))) {
+              currentTime
+                  .isAfter(tokenSavedTime.add(const Duration(hours: 1))))) {
         final Either<FailResponse, LoginEntity> userResult =
             await authRepository.getUserDetail(params);
 
@@ -33,11 +33,10 @@ class GetUserDetailUseCase
         return Right<Failure, Either<FailResponse, LoginEntity>>(
           Right(
             LoginEntity(
-              id: userCredentials.box.get(userCredentials.id) as num?,
-              email: userCredentials.box.get(userCredentials.email) as String?,
-              name:
-                  userCredentials.box.get(userCredentials.userName) as String?,
-              accessToken: accessToken as String?,
+              id: userCredentials.box.get(userCredentials.id),
+              email: userCredentials.box.get(userCredentials.email),
+              name: userCredentials.box.get(userCredentials.userName),
+              accessToken: accessToken,
             ),
           ),
         );

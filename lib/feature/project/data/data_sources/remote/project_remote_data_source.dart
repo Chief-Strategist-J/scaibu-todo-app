@@ -24,7 +24,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   @override
   Future<void> archiveProject(final String id) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.archiveProject,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -41,7 +41,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   @override
   Future<void> bulkDeleteProjects(final List<String> ids) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.bulkDeleteProjects,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -52,7 +52,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   @override
   Future<void> createProject(final Map<String, dynamic> data) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.createProject,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -74,7 +74,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   @override
   Future<void> deleteProject(final String id) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.deleteProject,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -86,10 +86,10 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   @override
   Future<List<ProjectEntity>> getAllProjects({final int page = 1}) async {
     // todo : getting response in paginated format to I have to change this logic later
-    final res = await restApi.request<Object>(
+    final res = await restApi.request(
       endPoint: ProjectEndPoint.getPaginatedProjects,
       type: HttpRequestMethod.post,
-      requestBody: <String, num?>{
+      requestBody: <String, >{
         'creator_id': userCredentials.getUserId,
       },
     );
@@ -113,7 +113,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   @override
   Future<void> restoreProject(final String id) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.restoreProject,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -124,7 +124,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   @override
   Future<List<ProjectEntity>> searchProjects(final String query) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.searchProjects,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -140,7 +140,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   @override
   Future<void> updateProject(
       final String id, final Map<String, dynamic> data) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.searchProjects,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
@@ -185,7 +185,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   @override
   Future<ProjectEntity> getPaginatedProjectsForTodo(
       final Map<String, dynamic> data) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.getPaginatedProjectsForTodo,
       type: HttpRequestMethod.post,
       requestBody: <String,dynamic >{
@@ -201,7 +201,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   @override
   Future<ProjectEntity> getPaginatedTodosForProject(
       final Map<String, dynamic> data) async {
-    await restApi.request<Object>(
+    await restApi.request(
       endPoint: ProjectEndPoint.getPaginatedTodosForProject,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{

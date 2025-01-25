@@ -1,4 +1,4 @@
-part of use_case;
+import 'package:todo_app/core/app_library.dart';
 
 class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
   final AuthRepository authRepository;
@@ -17,13 +17,13 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
       UserCredential user;
       if (!auth.isLogin.validate()) {
         user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: params['email'] as String,
-          password: params['password'] as String,
+          email: params['email'],
+          password: params['password'],
         );
       } else {
         user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: params['email'] as String,
-          password: params['password'] as String,
+          email: params['email'],
+          password: params['password'],
         );
       }
 

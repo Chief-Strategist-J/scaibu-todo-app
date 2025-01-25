@@ -246,7 +246,7 @@ class TimerWidget extends HookWidget {
                   lineWidth: 15,
                   percent: secondsRemaining.value / totalSeconds,
                   progressColor: context.cardColor,
-                  backgroundColor: context.primaryColor.withValues(alpha :0.2),
+                  backgroundColor: context.primaryColor.withOpacity(0.2),
                   circularStrokeCap: CircularStrokeCap.round,
                   animation: true,
                   animateFromLastPercent: true,

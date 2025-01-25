@@ -48,32 +48,30 @@ class ProjectCategorySelectorWidget extends HookWidget {
       );
     }, [param]);
 
-    final configList =
-        useMemoized(() => projectCategoryConfig.getList(param), [param]);
+    final configList = useMemoized(() => projectCategoryConfig.getList(param), [param]);
 
     return AnimatedScrollView(
       listAnimationType: ListAnimationType.None,
       physics: const NeverScrollableScrollPhysics(),
-      children: configList
-          .map((config) => ContentWidget(
-                title: config._title,
-                controller: config.controller,
-                focusNode: config.focusNode,
-                isTimeField: true,
-                onTap: () {
-                  hideKeyboard(context);
-                  _showProjectCategorySelector(
-                    context: context,
-                    title: config._title,
-                    items: config.items,
-                    getCategoryName: projectCategoryConfig.getCategoryName,
-                    style: ProjectCategoryComponentVariantStyle(
-                        variant: ProjectCategoryComponentVariant.light),
-                    controller: config.controller,
-                  );
-                },
-              ))
-          .toList(),
+      children: configList.map((config) {
+        return ContentWidget(
+          title: config._title,
+          controller: config.controller,
+          focusNode: config.focusNode,
+          isTimeField: true,
+          onTap: () {
+            hideKeyboard(context);
+            _showProjectCategorySelector(
+              context: context,
+              title: config._title,
+              items: config.items,
+              getCategoryName: projectCategoryConfig.getCategoryName,
+              style: ProjectCategoryComponentVariantStyle(variant: ProjectCategoryComponentVariant.light),
+              controller: config.controller,
+            );
+          },
+        );
+      }).toList(),
     );
   }
 }

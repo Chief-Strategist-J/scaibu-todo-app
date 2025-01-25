@@ -10,13 +10,13 @@ class CommentEntity with _$CommentEntity {
     required final String content,
     @Default('pending') final String status,
     final Map<String, dynamic>? metadata,
-    final String? metadataApprovedBy,
+    @JsonKey(name: 'metadata_approved_by') final String? metadataApprovedBy,
     final DateTime? approvedAt,
-    required final int postId,
-    required final int userId,
-    required final DateTime createdAt,
-    required final DateTime updatedAt,
-    final DateTime? deletedAt,
+    @JsonKey(name: 'post_id') required final int postId,
+    @JsonKey(name: 'user_id') required final int userId,
+    @JsonKey(name: 'created_at') required final DateTime createdAt,
+    @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+    @JsonKey(name: 'deleted_at') final DateTime? deletedAt,
   }) = _CommentEntity;
 
   factory CommentEntity.fromJson(final Map<String, dynamic> json) =>

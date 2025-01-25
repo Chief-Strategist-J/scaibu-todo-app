@@ -18,14 +18,13 @@ class ProjectCategorySelectorComponent<T> extends HookWidget {
   }) : _style = style;
 
   Color _getRandomColor() {
-    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-        .withValues(alpha: 1.0);
+    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 
   String get _btnTxt => "Create New Category";
 
   Future<void> _onCreateCategoryTap(BuildContext context) async {
-    await showModalBottomSheet<void>(
+    await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       isDismissible: true,
@@ -67,8 +66,7 @@ class ProjectCategorySelectorComponent<T> extends HookWidget {
                 itemCount: items.length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                separatorBuilder: (context, index) =>
-                    const Divider(thickness: 0.5),
+                separatorBuilder: (context, index) => const Divider(thickness: 0.5),
                 itemBuilder: (context, index) {
                   final item = items[index];
                   final isSelected = selectedItem.value == item;
@@ -84,8 +82,7 @@ class ProjectCategorySelectorComponent<T> extends HookWidget {
                           backgroundColor: _getRandomColor(),
                           child: SvgPicture.asset(
                             Assets.iconIcFilledFlag,
-                            colorFilter: const ColorFilter.mode(
-                                Colors.white, BlendMode.srcIn),
+                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                             height: 21,
                             width: 21,
                           ),
@@ -93,8 +90,7 @@ class ProjectCategorySelectorComponent<T> extends HookWidget {
                         const SizedBox(width: 16),
                         Text(onItemSelected.call(item)),
                         const Spacer(),
-                        if (isSelected)
-                          const Icon(Icons.check, color: Colors.green),
+                        if (isSelected) const Icon(Icons.check, color: Colors.green),
                       ],
                     ),
                   );

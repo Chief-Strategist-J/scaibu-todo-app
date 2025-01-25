@@ -11,9 +11,9 @@ class ProjectCategoryConfig<T> {
     required this.items,
     required this.controller,
     required this.focusNode,
-  });
+  });z
 
-  List<ProjectCategoryConfig<Object>> getList(final ProjectPageParam projectParam) => [
+  List<ProjectCategoryConfig> getList(final ProjectPageParam projectParam) => [
       ProjectCategoryConfig<ProjectCategoryEntity>(
         title: 'Project Categories',
         items: projectParam.listOfProjectCategories,

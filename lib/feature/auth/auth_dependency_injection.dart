@@ -12,7 +12,7 @@ class AuthDependencyInjection {
         ),
       )
       ..registerSingleton<UserBaseApi>(
-        getIt(),
+        UserDatabaseImpl(restApi: getIt<RestApi>()),
       )
       ..registerSingleton<AuthRepository>(
         AuthRepositoryImpl(baseApi: getIt<UserBaseApi>()),
@@ -28,7 +28,6 @@ class AuthDependencyInjection {
       )
       ..registerFactory(AuthBloc.new);
   }
-
   /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
