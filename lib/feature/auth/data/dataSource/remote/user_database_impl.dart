@@ -1,6 +1,41 @@
+
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/auth/data/model/response/create_otp_response.dart';
 import 'package:todo_app/feature/auth/data/model/response/verify_otp_for_forget_password_response.dart';
+
+/// Doc Required
+sealed class UserBaseApi {
+  /// Doc Required
+  Future<LoginEntity> standardLogin(final Map<String, dynamic> loginCred);
+
+  /// Doc Required
+  Future<LoginEntity> standardSignUp(final Map<String, dynamic> loginCred);
+
+  /// Doc Required
+  Future<Either<FailResponse, LoginEntity>> getUserDetail(
+    final Map<String, dynamic> loginCred,
+  );
+
+  /// Doc Required
+  Future<void> forgetPassword(final Map<String, dynamic> forgetPasswordCred);
+
+  /// Doc Required
+  Future<UserEntity> verifyForgetPasswordOtp(
+    final Map<String, dynamic> forgetPasswordCred,
+  );
+
+  /// Doc Required
+  Future<void> updatePassword(final Map<String, dynamic> updatePasswordCred);
+
+  /// Doc Required
+  Future<bool> verifyOtp(final Map<String, dynamic> verifyOtpCred);
+
+  /// Doc Required
+  Future<bool> createOpt(final Map<String, dynamic> otpCred);
+
+  /// Doc Required
+  Future<void> standardLogOut(final Map<String, dynamic> req);
+}
 
 /// Contains the API endpoints related to user authentication.
 class UserAuthEndPoint {
@@ -30,7 +65,7 @@ class UserAuthEndPoint {
 }
 
 /// Implementation of user database interaction, requiring a `RestApi` instance.
-class UserDatabaseImpl {
+class UserDatabaseImpl extends UserBaseApi {
   /// Constructor for initializing the [UserDatabaseImpl] with a [RestApi].
   UserDatabaseImpl({required this.restApi});
 
@@ -39,6 +74,7 @@ class UserDatabaseImpl {
 
   /// Performs a standard login by making an API
   /// request and returning a [LoginEntity].
+  @override
   Future<LoginEntity> standardLogin(
     final Map<String, dynamic> loginCred,
   ) async {
@@ -66,6 +102,7 @@ class UserDatabaseImpl {
 
   /// Handles user registration (sign-up)
   /// by making an API request and returning a [LoginEntity].
+  @override
   Future<LoginEntity> standardSignUp(
     final Map<String, dynamic> loginCred,
   ) async {
@@ -92,6 +129,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<void> forgetPassword(
     final Map<String, dynamic> forgetPasswordCred,
   ) async {
@@ -103,6 +141,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<void> standardLogOut(final Map<String, dynamic> req) async {
     await restApi.request<dynamic>(
       requestBody: req,
@@ -112,6 +151,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<void> updatePassword(
     final Map<String, dynamic> updatePasswordCred,
   ) async {
@@ -123,6 +163,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<bool> verifyOtp(final Map<String, dynamic> verifyOtpCred) async {
     final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
       await restApi.request<dynamic>(
@@ -140,6 +181,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<UserEntity> verifyForgetPasswordOtp(
     final Map<String, dynamic> forgetPasswordCred,
   ) async {
@@ -175,6 +217,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<bool> createOpt(final Map<String, dynamic> otpCred) async {
     final CreateOtpResponse createTodoResponse = CreateOtpResponse.fromJson(
       await restApi.request<dynamic>(
@@ -192,6 +235,7 @@ class UserDatabaseImpl {
   }
 
   /// Doc Required
+  @override
   Future<Either<FailResponse, LoginEntity>> getUserDetail(
     final Map<String, dynamic> loginCred,
   ) async {

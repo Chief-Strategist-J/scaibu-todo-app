@@ -1,24 +1,46 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class PomodoroDependencyInjection {
+  /// Doc Required
   static const String createPomodoroUseCase = 'create_pomodoro_use_case';
+
+  /// Doc Required
   static const String endPomodoroUseCase = 'end_pomodoro_use_case';
+
+  /// Doc Required
   static const String getPomodoroStatsUseCase = 'get_pomodoro_stats_use_case';
+
+  /// Doc Required
   static const String resumePomodoroUseCase = 'resume_pomodoro_use_case';
+
+  /// Doc Required
   static const String startPomodoroUseCase = 'start_pomodoro_use_case';
+
+  /// Doc Required
   static const String stopPomodoroUseCase = 'stop_pomodoro_use_case';
 
+  /// Doc Required
   static const String pomodoroRemoteDatabase = 'pomodoro_remote_database';
+
+  /// Doc Required
   static const String pomodoroRemoteFirebase = 'pomodoro_remote_firebase';
 
+  /// Doc Required
   static const String pomodoroRemoteDatabaseImplementation =
       'pomodoro_remote_database_implementation';
 
+  /// Doc Required
   static const String pomodoroRemoteFirebaseImplementation =
       'pomodoro_remote_firebase_implementation';
+
+  /// Doc Required
   static const String pomodoroRepositoryImpl = 'pomodoro_repository_impl';
+
+  /// Doc Required
   static const String pomodoroBloc = 'pomodoro_bloc';
 
+  /// Doc Required
   static void setupDependencyInjection() {
     // Register APIs
     getIt
@@ -84,9 +106,9 @@ class PomodoroDependencyInjection {
           ),
         ),
       )
-      ..registerSingleton<GetPomodoroStatsUseCase>(
+      ..registerSingleton<GetPomodoroStatsUseCase<dynamic>>(
         instanceName: PomodoroDependencyInjection.getPomodoroStatsUseCase,
-        GetPomodoroStatsUseCase(
+        GetPomodoroStatsUseCase<dynamic>(
           pomodoroDatabaseRepository: getIt<PomodoroRepository<PomodoroEntity>>(
             instanceName: PomodoroDependencyInjection
                 .pomodoroRemoteDatabaseImplementation,
@@ -144,37 +166,50 @@ class PomodoroDependencyInjection {
       );
   }
 
+  /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     // Unregister APIs
-    getIt..unregister<PomodoroBase<PomodoroModel>>(
-        instanceName: PomodoroDependencyInjection.pomodoroRemoteDatabase)
-    ..unregister<PomodoroBase<PomodoroModel>>(
-        instanceName: PomodoroDependencyInjection.pomodoroRemoteFirebase)
+    getIt
+      ..unregister<PomodoroBase<PomodoroModel>>(
+        instanceName: PomodoroDependencyInjection.pomodoroRemoteDatabase,
+      )
+      ..unregister<PomodoroBase<PomodoroModel>>(
+        instanceName: PomodoroDependencyInjection.pomodoroRemoteFirebase,
+      )
 
-    // Unregister Repositories
-    ..unregister<PomodoroRepository<PomodoroModel>>(
+      // Unregister Repositories
+      ..unregister<PomodoroRepository<PomodoroModel>>(
         instanceName:
-            PomodoroDependencyInjection.pomodoroRemoteDatabaseImplementation)
-    ..unregister<PomodoroRepository<PomodoroModel>>(
+            PomodoroDependencyInjection.pomodoroRemoteDatabaseImplementation,
+      )
+      ..unregister<PomodoroRepository<PomodoroModel>>(
         instanceName:
-            PomodoroDependencyInjection.pomodoroRemoteFirebaseImplementation)
+            PomodoroDependencyInjection.pomodoroRemoteFirebaseImplementation,
+      )
 
-    // Unregister Use Cases
-    ..unregister<CreatePomodoroUseCase>(
-        instanceName: PomodoroDependencyInjection.createPomodoroUseCase)
-    ..unregister<EndPomodoroUseCase>(
-        instanceName: PomodoroDependencyInjection.endPomodoroUseCase)
-    ..unregister<GetPomodoroStatsUseCase>(
-        instanceName: PomodoroDependencyInjection.getPomodoroStatsUseCase)
-    ..unregister<ResumePomodoroUseCase>(
-        instanceName: PomodoroDependencyInjection.resumePomodoroUseCase)
-    ..unregister<StartPomodoroUseCase>(
-        instanceName: PomodoroDependencyInjection.startPomodoroUseCase)
-    ..unregister<StopPomodoroUseCase>(
-        instanceName: PomodoroDependencyInjection.stopPomodoroUseCase)
+      // Unregister Use Cases
+      ..unregister<CreatePomodoroUseCase>(
+        instanceName: PomodoroDependencyInjection.createPomodoroUseCase,
+      )
+      ..unregister<EndPomodoroUseCase>(
+        instanceName: PomodoroDependencyInjection.endPomodoroUseCase,
+      )
+      ..unregister<GetPomodoroStatsUseCase<dynamic>>(
+        instanceName: PomodoroDependencyInjection.getPomodoroStatsUseCase,
+      )
+      ..unregister<ResumePomodoroUseCase>(
+        instanceName: PomodoroDependencyInjection.resumePomodoroUseCase,
+      )
+      ..unregister<StartPomodoroUseCase>(
+        instanceName: PomodoroDependencyInjection.startPomodoroUseCase,
+      )
+      ..unregister<StopPomodoroUseCase>(
+        instanceName: PomodoroDependencyInjection.stopPomodoroUseCase,
+      )
 
-    // Unregister Bloc
-    ..unregister<PomodoroBloc>(
-        instanceName: PomodoroDependencyInjection.pomodoroBloc);
+      // Unregister Bloc
+      ..unregister<PomodoroBloc>(
+        instanceName: PomodoroDependencyInjection.pomodoroBloc,
+      );
   }
 }

@@ -1,26 +1,44 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class IntegrateThirdPartyServiceParams {
-  IntegrateThirdPartyServiceParams(
-      {required this.serviceName, required this.config});
+  /// Doc Required
+  IntegrateThirdPartyServiceParams({
+    required this.serviceName,
+    required this.config,
+  });
+
+  /// Doc Required
   final String serviceName;
+
+  /// Doc Required
   final Map<String, dynamic> config;
 }
 
+/// Doc Required
 class IntegrateThirdPartyServiceUseCase
     extends UseCase<void, IntegrateThirdPartyServiceParams> {
+  /// Doc Required
   IntegrateThirdPartyServiceUseCase({required this.notificationRepository});
+
+  /// Doc Required
   final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
-      final IntegrateThirdPartyServiceParams params) async {
+    /// Doc Required
+final IntegrateThirdPartyServiceParams params,
+  ) async {
     try {
       await notificationRepository.integrateThirdPartyService(
-          params.serviceName, params.config);
-      return const Right(null);
+        params.serviceName,
+        params.config,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to integrate third-party service'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to integrate third-party service'),
+      );
     }
   }
 }

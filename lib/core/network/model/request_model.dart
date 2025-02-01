@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-/// A model that encapsulates the details of a network request.
+/// A entity that encapsulates the details of a network request.
 ///
 /// This class holds all the information needed to perform a network request,
 /// including the request type, URL, headers, body, timeout, retries, and more.

@@ -1,24 +1,39 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
+
+/// Doc Required
 
 class EncryptNotificationParams {
-  final String notificationId;
+  /// Doc Required
 
   EncryptNotificationParams({required this.notificationId});
+
+  /// Doc Required
+
+  final String notificationId;
 }
+
+/// Doc Required
 
 class EncryptNotificationUseCase
     extends UseCase<void, EncryptNotificationParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
+  /// Doc Required
 
   EncryptNotificationUseCase({required this.notificationRepository});
 
+  /// Doc Required
+  final NotificationRepository<NotificationEntity> notificationRepository;
+
   @override
-  Future<Either<Failure, void>> call(final EncryptNotificationParams params) async {
+  Future<Either<Failure, void>> call(
+    final EncryptNotificationParams params,
+  ) async {
     try {
       await notificationRepository.encryptNotification(params.notificationId);
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to encrypt notification'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to encrypt notification'),
+      );
     }
   }
 }

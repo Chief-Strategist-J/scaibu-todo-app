@@ -45,7 +45,7 @@ class UpdatePriorityEvent extends TaskDetailEvent {
   /// Constructor for updating with the new [priority].
   UpdatePriorityEvent({required this.priority});
 
-  /// The updated priority model for the task.
+  /// The updated priority entity for the task.
   final PriorityModel priority;
 
   @override

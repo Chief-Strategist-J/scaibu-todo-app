@@ -1,24 +1,36 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class RetryNotificationDeliveryParams {
+  /// Doc Required
   RetryNotificationDeliveryParams({required this.notificationId});
+
+  /// Doc Required
   final String notificationId;
 }
 
+/// Doc Required
 class RetryNotificationDeliveryUseCase
     extends UseCase<void, RetryNotificationDeliveryParams> {
+  /// Doc Required
   RetryNotificationDeliveryUseCase({required this.notificationRepository});
+
+  /// Doc Required
   final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
-      final RetryNotificationDeliveryParams params) async {
+    /// Doc Required
+final RetryNotificationDeliveryParams params,
+  ) async {
     try {
       await notificationRepository
           .retryNotificationDelivery(params.notificationId);
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to retry notification delivery'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to retry notification delivery'),
+      );
     }
   }
 }

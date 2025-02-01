@@ -1,24 +1,35 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class EnsureGDPRComplianceParams {
-  final String userId;
-
+  /// Doc Required
   EnsureGDPRComplianceParams({required this.userId});
+
+  /// Doc Required
+  final String userId;
 }
 
+/// Doc Required
 class EnsureGDPRComplianceUseCase
     extends UseCase<void, EnsureGDPRComplianceParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
-
+  /// Doc Required
   EnsureGDPRComplianceUseCase({required this.notificationRepository});
 
+  /// Doc Required
+  final NotificationRepository<NotificationEntity> notificationRepository;
+
   @override
-  Future<Either<Failure, void>> call(final EnsureGDPRComplianceParams params) async {
+  Future<Either<Failure, void>> call(
+    /// Doc Required
+final EnsureGDPRComplianceParams params,
+  ) async {
     try {
       await notificationRepository.ensureGDPRCompliance(params.userId);
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to ensure GDPR compliance'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to ensure GDPR compliance'),
+      );
     }
   }
 }

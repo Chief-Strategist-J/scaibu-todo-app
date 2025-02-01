@@ -3,10 +3,11 @@ import 'package:todo_app/core/app_library.dart';
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
+/// Doc Required
 @freezed
-class UserModel with _$UserModel, UserEntityMixin {
-  const UserModel._(); // Add this line
+class UserModel with _$UserModel, UserEntityMixin { // Add this line
 
+  /// Doc Required
   const factory UserModel({
     @override final num? id,
     @override final String? firebaseUserDetailsId,
@@ -24,7 +25,9 @@ class UserModel with _$UserModel, UserEntityMixin {
     @override final String? avatar,
     @override final String? bio,
   }) = _UserModel;
+  const UserModel._();
 
+  /// Doc Required
   factory UserModel.fromJson(final Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 }

@@ -3,67 +3,100 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'notification_model.freezed.dart';
 part 'notification_model.g.dart';
 
+/// Doc Required
 mixin NotificationEntityMixin {
+  /// Doc Required
   int get id;
 
+  /// Doc Required
   int get userId;
 
+  /// Doc Required
   String get title;
 
+  /// Doc Required
   String? get message;
 
+  /// Doc Required
   String get type;
 
+  /// Doc Required
   String get status;
 
+  /// Doc Required
   bool get isSeen;
 
+  /// Doc Required
   bool get isArchived;
 
+  /// Doc Required
   String get priority;
 
+  /// Doc Required
   DateTime? get sentAt;
 
+  /// Doc Required
   DateTime? get readAt;
 
+  /// Doc Required
   DateTime? get archivedAt;
 
+  /// Doc Required
   DateTime? get deletedAt;
 
+  /// Doc Required
   String? get url;
 
+  /// Doc Required
   String? get icon;
 
+  /// Doc Required
   Map<String, dynamic>? get metadata;
 
+  /// Doc Required
   String? get metadataAction;
 
+  /// Doc Required
   String? get metadataTarget;
 
+  /// Doc Required
   int get flags;
 
+  /// Doc Required
   String get platform;
 
+  /// Doc Required
   int get clickCount;
 
+  /// Doc Required
   int get retryCount;
 
+  /// Doc Required
   double? get deliveryTime;
 
+  /// Doc Required
   int? get responseCode;
 
+  /// Doc Required
   String get uuid;
 
+  /// Doc Required
   int get createdAt;
 
+  /// Doc Required
   int get updatedAt;
 }
 
+/// Doc Required
 @freezed
 class NotificationModel with _$NotificationModel, NotificationEntityMixin {
+  /// Doc Required
   const factory NotificationModel({
     required final int id,
     required final int userId,
+    required final String uuid,
+    required final int createdAt,
+    required final int updatedAt,
     @Default('New Notification') final String title,
     final String? message,
     @Default('general') final String type,
@@ -86,11 +119,9 @@ class NotificationModel with _$NotificationModel, NotificationEntityMixin {
     @Default(0) final int retryCount,
     final double? deliveryTime,
     final int? responseCode,
-    required final String uuid,
-    required final int createdAt,
-    required final int updatedAt,
   }) = _NotificationModel;
 
+  /// Doc Required
   factory NotificationModel.fromJson(final Map<String, dynamic> json) =>
       _$NotificationModelFromJson(json);
 }

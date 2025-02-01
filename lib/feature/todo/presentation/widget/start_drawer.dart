@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/todo/presentation/widget/drawerHeaderComponent/entity/drawer_item_model.dart';
 
 /// Doc Required
 class DrawerComponent extends HookWidget {
@@ -20,8 +21,10 @@ class DrawerComponent extends HookWidget {
           return drawerItems;
         } else {
           return drawerItems
-              .where((final DrawerItemModel item) =>
-                  item.title != 'Log-Out' && item.title != 'Add Task')
+              .where(
+                (final DrawerItemModel item) =>
+                    item.title != 'Log-Out' && item.title != 'Add Task',
+              )
               .toList();
         }
       },
@@ -42,12 +45,15 @@ class DrawerComponent extends HookWidget {
                 reverse: true,
                 children: <Widget>[
                   const SizedBox(height: 64),
-                  ...visibleItems.map((final DrawerItemModel item) =>
-                      DrawerItemComponent(
-                          title: item.title, onTap: item.onTap)),
+                  ...visibleItems.map(
+                    (final DrawerItemModel item) => DrawerItemComponent(
+                      title: item.title,
+                      onTap: item.onTap,
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

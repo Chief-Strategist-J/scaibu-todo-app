@@ -4,11 +4,16 @@ import 'package:todo_app/feature/notification/data/model/notification_model.dart
 part 'notification_entity.freezed.dart';
 part 'notification_entity.g.dart';
 
+/// Doc Required
 @freezed
 class NotificationEntity with _$NotificationEntity, NotificationEntityMixin {
+  /// Doc Required
   const factory NotificationEntity({
     required final int id,
     required final int userId,
+    required final String uuid,
+    required final int createdAt,
+    required final int updatedAt,
     @Default('New Notification') final String title,
     final String? message,
     @Default('general') final String type,
@@ -30,12 +35,10 @@ class NotificationEntity with _$NotificationEntity, NotificationEntityMixin {
     @Default(0) final int retryCount,
     final double? deliveryTime,
     final int? responseCode,
-    required final String uuid,
-    required final int createdAt,
-    required final int updatedAt,
     final DateTime? deletedAt,
   }) = _NotificationEntity;
 
+  /// Doc Required
   factory NotificationEntity.fromJson(final Map<String, dynamic> json) =>
       _$NotificationEntityFromJson(json);
 }

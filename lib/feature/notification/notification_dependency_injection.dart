@@ -1,50 +1,117 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
+
 class NotificationDependencyInjection {
+  /// Doc Required
+
   static const String notificationRepositoryImpl =
       'notification_repository_impl';
+
+  /// Doc Required
+
   static const String notificationAnalyticsRepositoryImpl =
       'notification_analytics_repository_impl_v1';
 
+  /// Doc Required
+
   static const String categorizeNotificationUseCase =
       'categorize_notification_use_case';
+
+  /// Doc Required
+
   static const String configureNotificationSettingsUseCase =
       'configure_notification_settings_use_case';
+
+  /// Doc Required
+
   static const String enableDoNotDisturbUseCase =
       'enable_do_not_disturb_use_case';
+
+  /// Doc Required
+
   static const String encryptNotificationUseCase =
       'encrypt_notification_use_case';
+
+  /// Doc Required
+
   static const String ensureGDPRComplianceUseCase =
       'ensure_gdpr_compliance_use_case';
+
+  /// Doc Required
+
   static const String fetchNotificationHistoryUseCase =
       'fetch_notification_history_use_case';
+
+  /// Doc Required
+
   static const String getUnreadNotificationsUseCase =
       'get_unread_notifications_use_case';
+
+  /// Doc Required
+
   static const String integrateThirdPartyServiceUseCase =
       'integrate_third_party_service_use_case';
+
+  /// Doc Required
+
   static const String markNotificationAsReadUseCase =
       'mark_notification_as_read_use_case';
+
+  /// Doc Required
+
   static const String queueNotificationUseCase = 'queue_notification_use_case';
+
+  /// Doc Required
+
   static const String retryNotificationDeliveryUseCase =
       'retry_notification_delivery_use_case';
+
+  /// Doc Required
+
   static const String sendBatchNotificationUseCase =
       'send_batch_notification_use_case';
+
+  /// Doc Required
+
   static const String sendInAppNotificationUseCase =
       'send_in_app_notification_use_case';
+
+  /// Doc Required
+
   static const String sendMultichannelNotificationUseCase =
       'send_multichannel_notification_use_case';
+
+  /// Doc Required
+
   static const String sendPersonalizedNotificationUseCase =
       'send_personalized_notification_use_case';
+
+  /// Doc Required
+
   static const String sendRealTimeNotificationUseCase =
       'send_real_time_notification_use_case';
+
+  /// Doc Required
+
   static const String setNotificationFrequencyUseCase =
       'set_notification_frequency_use_case';
+
+  /// Doc Required
+
   static const String trackNotificationDeliveryUseCase =
       'track_notification_delivery_use_case';
+
+  /// Doc Required
+
   static const String trackNotificationOpenRateUseCase =
       'track_notification_open_rate_use_case';
 
+  /// Doc Required
+
   static const String notificationBloc = 'notificationBloc';
+
+  /// Doc Required
 
   static void setupDependencyInjection() {
     getIt
@@ -228,74 +295,119 @@ class NotificationDependencyInjection {
         ),
       )
       ..registerFactory<NotificationBloc>(
-        instanceName:
-            notificationBloc, // You can define a constant for the instance name if needed
-        () => NotificationBloc(),
+        instanceName: notificationBloc,
+        // You can define a constant for the instance name if needed
+        NotificationBloc.new,
       );
   }
+
+  /// Doc Required
 
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<NotificationRepository<NotificationEntity>>(
-          instanceName: notificationRepositoryImpl)
+        instanceName: notificationRepositoryImpl,
+      )
       ..unregister<NotificationAnalyticsRepository<NotificationEntity>>(
-          instanceName: notificationAnalyticsRepositoryImpl)
+        instanceName: notificationAnalyticsRepositoryImpl,
+      )
       ..unregister<CategorizeNotificationUseCase>(
-          instanceName: categorizeNotificationUseCase)
+        instanceName: categorizeNotificationUseCase,
+      )
       ..unregister<ConfigureNotificationSettingsUseCase>(
-          instanceName: configureNotificationSettingsUseCase)
+        instanceName: configureNotificationSettingsUseCase,
+      )
       ..unregister<EnableDoNotDisturbUseCase>(
-          instanceName: enableDoNotDisturbUseCase)
+        instanceName: enableDoNotDisturbUseCase,
+      )
       ..unregister<EncryptNotificationUseCase>(
-          instanceName: encryptNotificationUseCase)
+        instanceName: encryptNotificationUseCase,
+      )
       ..unregister<EnsureGDPRComplianceUseCase>(
-          instanceName: ensureGDPRComplianceUseCase)
+        instanceName: ensureGDPRComplianceUseCase,
+      )
       ..unregister<FetchNotificationHistoryUseCase>(
-          instanceName: fetchNotificationHistoryUseCase)
+        instanceName: fetchNotificationHistoryUseCase,
+      )
       ..unregister<GetUnreadNotificationsUseCase>(
-          instanceName: getUnreadNotificationsUseCase)
+        instanceName: getUnreadNotificationsUseCase,
+      )
       ..unregister<IntegrateThirdPartyServiceUseCase>(
-          instanceName: integrateThirdPartyServiceUseCase)
+        instanceName: integrateThirdPartyServiceUseCase,
+      )
       ..unregister<MarkNotificationAsReadUseCase>(
-          instanceName: markNotificationAsReadUseCase)
+        instanceName: markNotificationAsReadUseCase,
+      )
       ..unregister<QueueNotificationUseCase>(
-          instanceName: queueNotificationUseCase)
+        instanceName: queueNotificationUseCase,
+      )
       ..unregister<RetryNotificationDeliveryUseCase>(
-          instanceName: retryNotificationDeliveryUseCase)
+        instanceName: retryNotificationDeliveryUseCase,
+      )
       ..unregister<SendBatchNotificationUseCase>(
-          instanceName: sendBatchNotificationUseCase)
+        instanceName: sendBatchNotificationUseCase,
+      )
       ..unregister<SendInAppNotificationUseCase>(
-          instanceName: sendInAppNotificationUseCase)
+        instanceName: sendInAppNotificationUseCase,
+      )
       ..unregister<SendMultichannelNotificationUseCase>(
-          instanceName: sendMultichannelNotificationUseCase)
+        instanceName: sendMultichannelNotificationUseCase,
+      )
       ..unregister<SendPersonalizedNotificationUseCase>(
-          instanceName: sendPersonalizedNotificationUseCase)
+        instanceName: sendPersonalizedNotificationUseCase,
+      )
       ..unregister<SendRealTimeNotificationUseCase>(
-          instanceName: sendRealTimeNotificationUseCase)
+        instanceName: sendRealTimeNotificationUseCase,
+      )
       ..unregister<SetNotificationFrequencyUseCase>(
-          instanceName: setNotificationFrequencyUseCase)
+        instanceName: setNotificationFrequencyUseCase,
+      )
       ..unregister<TrackNotificationDeliveryUseCase>(
-          instanceName: trackNotificationDeliveryUseCase)
+        instanceName: trackNotificationDeliveryUseCase,
+      )
       ..unregister<TrackNotificationOpenRateUseCase>(
-          instanceName: trackNotificationOpenRateUseCase)
+        instanceName: trackNotificationOpenRateUseCase,
+      )
       ..unregister<NotificationBloc>(
-          instanceName: NotificationDependencyInjection.notificationBloc);
+        instanceName: NotificationDependencyInjection.notificationBloc,
+      );
   }
 }
 
+/// Doc Required
+
 class NotificationAnalyticsDependencyInjection {
+  /// Doc Required
+
   static const String notificationAnalyticsRepositoryImpl =
       'notification_analytics_repository_impl_v2';
+
+  /// Doc Required
+
   static const String getHistoricalNotificationDataUseCase =
       'get_historical_notification_data_use_case';
+
+  /// Doc Required
+
   static const String getNotificationEngagementReportUseCase =
       'get_notification_engagement_report_use_case';
+
+  /// Doc Required
+
   static const String getNotificationStatisticsUseCase =
       'get_notification_statistics_use_case';
+
+  /// Doc Required
+
   static const String trackNotificationDeliveryUseCase =
       'track_notification_delivery_use_case_v1';
+
+  /// Doc Required
+
   static const String trackNotificationOpenRateUseCase =
       'track_notification_open_rate_use_case_v1';
+
+  /// Doc Required
 
   static Future<void> setupDependencyInjection() async {
     getIt
@@ -350,32 +462,61 @@ class NotificationAnalyticsDependencyInjection {
       );
   }
 
+  /// Doc Required
+
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<NotificationAnalyticsRepository<NotificationEntity>>(
-          instanceName: notificationAnalyticsRepositoryImpl)
+        instanceName: notificationAnalyticsRepositoryImpl,
+      )
       ..unregister<GetHistoricalNotificationDataUseCase>(
-          instanceName: getHistoricalNotificationDataUseCase)
+        instanceName: getHistoricalNotificationDataUseCase,
+      )
       ..unregister<GetNotificationEngagementReportUseCase>(
-          instanceName: getNotificationEngagementReportUseCase)
+        instanceName: getNotificationEngagementReportUseCase,
+      )
       ..unregister<GetNotificationStatisticsUseCase>(
-          instanceName: getNotificationStatisticsUseCase)
+        instanceName: getNotificationStatisticsUseCase,
+      )
       ..unregister<TrackNotificationDeliveryUseCase>(
-          instanceName: trackNotificationDeliveryUseCase)
+        instanceName: trackNotificationDeliveryUseCase,
+      )
       ..unregister<TrackNotificationOpenRateUseCase>(
-          instanceName: trackNotificationOpenRateUseCase);
+        instanceName: trackNotificationOpenRateUseCase,
+      );
   }
 }
 
+/// Doc Required
+
 class NotificationEmailDependencyInjection {
+  /// Doc Required
+
   static const String emailNotificationRepositoryImpl =
       'email_notification_repository_impl';
+
+  /// Doc Required
+
   static const String sendEmailUseCase = 'send_email_use_case';
+
+  /// Doc Required
+
   static const String scheduleEmailUseCase = 'schedule_email_use_case';
+
+  /// Doc Required
+
   static const String getEmailStatusUseCase = 'get_email_status_use_case';
+
+  /// Doc Required
+
   static const String getEmailHistoryUseCase = 'get_email_history_use_case';
+
+  /// Doc Required
+
   static const String cancelScheduledEmailUseCase =
       'cancel_scheduled_email_use_case';
+
+  /// Doc Required
 
   static void setupDependencyInjection() {
     getIt
@@ -436,33 +577,48 @@ class NotificationEmailDependencyInjection {
       );
   }
 
+  /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<SendEmailUseCase>(instanceName: sendEmailUseCase)
       ..unregister<ScheduleEmailUseCase>(instanceName: scheduleEmailUseCase)
       ..unregister<GetEmailStatusUseCase>(instanceName: getEmailStatusUseCase)
       ..unregister<GetEmailHistoryUseCase<NotificationEntity>>(
-          instanceName: getEmailHistoryUseCase)
+        instanceName: getEmailHistoryUseCase,
+      )
       ..unregister<CancelScheduledEmailUseCase>(
-          instanceName: cancelScheduledEmailUseCase);
+        instanceName: cancelScheduledEmailUseCase,
+      );
   }
 }
 
+/// Doc Required
 class NotificationPushDependencyInjection {
+  /// Doc Required
   static const String pushNotificationRepositoryImpl =
       'push_notification_repository_impl';
 
+  /// Doc Required
   static const String sendPushNotificationUseCase =
       'send_push_notification_use_case';
+
+  /// Doc Required
   static const String schedulePushNotificationUseCase =
       'schedule_push_notification_use_case';
+
+  /// Doc Required
   static const String getPushNotificationStatusUseCase =
       'get_push_notification_status_use_case';
+
+  /// Doc Required
   static const String getPushNotificationHistoryUseCase =
       'get_push_notification_history_use_case';
+
+  /// Doc Required
   static const String cancelScheduledPushNotificationUseCase =
       'cancel_scheduled_push_notification_use_case';
 
+  /// Doc Required
   static void setupDependencyInjection() {
     getIt
       ..registerSingleton<PushNotificationRepository<NotificationEntity>>(
@@ -518,35 +674,53 @@ class NotificationPushDependencyInjection {
       );
   }
 
+  /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<PushNotificationRepository<NotificationEntity>>(
-          instanceName: pushNotificationRepositoryImpl)
+        instanceName: pushNotificationRepositoryImpl,
+      )
       ..unregister<SendPushNotificationUseCase>(
-          instanceName: sendPushNotificationUseCase)
+        instanceName: sendPushNotificationUseCase,
+      )
       ..unregister<SchedulePushNotificationUseCase>(
-          instanceName: schedulePushNotificationUseCase)
+        instanceName: schedulePushNotificationUseCase,
+      )
       ..unregister<GetPushNotificationStatusUseCase>(
-          instanceName: getPushNotificationStatusUseCase)
+        instanceName: getPushNotificationStatusUseCase,
+      )
       ..unregister<GetPushNotificationHistoryUseCase>(
-          instanceName: getPushNotificationHistoryUseCase)
+        instanceName: getPushNotificationHistoryUseCase,
+      )
       ..unregister<CancelScheduledPushNotificationUseCase>(
-          instanceName: cancelScheduledPushNotificationUseCase);
+        instanceName: cancelScheduledPushNotificationUseCase,
+      );
   }
 }
 
+/// Doc Required
 class NotificationSMSDependencyInjection {
+  /// Doc Required
   static const String smsNotificationRepositoryImpl =
       'sms_notification_repository_impl';
 
+  /// Doc Required
   static const String sendSMSUseCase = 'send_sms_use_case';
+
+  /// Doc Required
   static const String scheduleSMSUseCase = 'schedule_sms_use_case';
+
+  /// Doc Required
   static const String getSMSStatusUseCase = 'get_sms_status_use_case';
+
+  /// Doc Required
   static const String getSMSHistoryUseCase = 'get_sms_history_use_case';
+
+  /// Doc Required
   static const String cancelScheduledSMSUseCase =
       'cancel_scheduled_sms_use_case';
 
-  // Register dependencies
+  /// Doc Required
   static void setupDependencyInjection() {
     getIt
       ..registerSingleton<SMSNotificationRepository<NotificationEntity>>(
@@ -600,34 +774,59 @@ class NotificationSMSDependencyInjection {
       );
   }
 
+  /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<SMSNotificationRepository<NotificationEntity>>(
-          instanceName: smsNotificationRepositoryImpl)
+        instanceName: smsNotificationRepositoryImpl,
+      )
       ..unregister<SendSMSUseCase>(instanceName: sendSMSUseCase)
       ..unregister<ScheduleSMSUseCase>(instanceName: scheduleSMSUseCase)
       ..unregister<GetSMSStatusUseCase>(instanceName: getSMSStatusUseCase)
       ..unregister<GetSMSHistoryUseCase>(instanceName: getSMSHistoryUseCase)
       ..unregister<CancelScheduledSMSUseCase>(
-          instanceName: cancelScheduledSMSUseCase);
+        instanceName: cancelScheduledSMSUseCase,
+      );
   }
 }
 
+/// Doc Required
+
 class NotificationWebhookDependencyInjection {
+  /// Doc Required
 
   static const String webhookNotificationRepositoryImpl =
       'webhook_notification_repository_impl';
+
+  /// Doc Required
+
   static const String configureWebhookUseCase = 'configure_webhook_use_case';
+
+  /// Doc Required
+
   static const String getWebhookStatusUseCase = 'get_webhook_status_use_case';
+
+  /// Doc Required
+
   static const String listConfiguredWebhooksUseCase =
       'list_configured_webhooks_use_case';
+
+  /// Doc Required
+
   static const String retryWebhookNotificationUseCase =
       'retry_webhook_notification_use_case';
+
+  /// Doc Required
+
   static const String sendWebhookNotificationUseCase =
       'send_webhook_notification_use_case';
+
+  /// Doc Required
+
   static const String triggerWebhookNotificationUseCase =
       'trigger_webhook_notification_use_case';
 
+  /// Doc Required
   static void setupDependencyInjection() {
     getIt
       ..registerSingleton<WebhookNotificationRepository<NotificationEntity>>(
@@ -690,21 +889,29 @@ class NotificationWebhookDependencyInjection {
       );
   }
 
+  /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
       ..unregister<WebhookNotificationRepository<NotificationEntity>>(
-          instanceName: webhookNotificationRepositoryImpl)
+        instanceName: webhookNotificationRepositoryImpl,
+      )
       ..unregister<ConfigureWebhookUseCase>(
-          instanceName: configureWebhookUseCase)
+        instanceName: configureWebhookUseCase,
+      )
       ..unregister<GetWebhookStatusUseCase>(
-          instanceName: getWebhookStatusUseCase)
+        instanceName: getWebhookStatusUseCase,
+      )
       ..unregister<ListConfiguredWebhooksUseCase>(
-          instanceName: listConfiguredWebhooksUseCase)
+        instanceName: listConfiguredWebhooksUseCase,
+      )
       ..unregister<RetryWebhookNotificationUseCase>(
-          instanceName: retryWebhookNotificationUseCase)
+        instanceName: retryWebhookNotificationUseCase,
+      )
       ..unregister<SendWebhookNotificationUseCase>(
-          instanceName: sendWebhookNotificationUseCase)
+        instanceName: sendWebhookNotificationUseCase,
+      )
       ..unregister<TriggerWebhookNotificationUseCase>(
-          instanceName: triggerWebhookNotificationUseCase);
+        instanceName: triggerWebhookNotificationUseCase,
+      );
   }
 }

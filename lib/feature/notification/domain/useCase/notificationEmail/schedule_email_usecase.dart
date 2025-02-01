@@ -1,21 +1,34 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class ScheduleEmailParams {
+  /// Doc Required
   ScheduleEmailParams({
     required this.subject,
     required this.body,
     required this.recipientEmail,
     required this.scheduleTime,
   });
+
+  /// Doc Required
   final String subject;
+
+  /// Doc Required
   final String body;
+
+  /// Doc Required
   final String recipientEmail;
+
+  /// Doc Required
   final DateTime scheduleTime;
 }
 
+/// Doc Required
 class ScheduleEmailUseCase extends UseCase<void, ScheduleEmailParams> {
+  /// Doc Required
   ScheduleEmailUseCase({required this.emailNotificationRepository});
 
+  /// Doc Required
   final EmailNotificationRepository<NotificationEntity>
       emailNotificationRepository;
 
@@ -29,9 +42,9 @@ class ScheduleEmailUseCase extends UseCase<void, ScheduleEmailParams> {
         params.scheduleTime,
       );
 
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to schedule email'));
+      return Left<Failure, void>(ServerFailure('Failed to schedule email'));
     }
   }
 }

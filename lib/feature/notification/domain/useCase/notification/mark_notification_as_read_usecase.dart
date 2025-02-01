@@ -1,26 +1,41 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class MarkNotificationAsReadParams {
-  final String notificationId;
+  /// Doc Required
 
   MarkNotificationAsReadParams({required this.notificationId});
+
+  /// Doc Required
+  /// Doc Required
+final String notificationId;
 }
 
+/// Doc Required
 class MarkNotificationAsReadUseCase
     extends UseCase<void, MarkNotificationAsReadParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
+  /// Doc Required
 
   MarkNotificationAsReadUseCase({required this.notificationRepository});
 
+  /// Doc Required
+  /// Doc Required
+final NotificationRepository<NotificationEntity> notificationRepository;
+
   @override
   Future<Either<Failure, void>> call(
-      final MarkNotificationAsReadParams params) async {
+    /// Doc Required
+final MarkNotificationAsReadParams params,
+  ) async {
     try {
       await notificationRepository
           .markNotificationAsRead(params.notificationId);
-      return const Right(null);
+
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to mark notification as read'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to mark notification as read'),
+      );
     }
   }
 }

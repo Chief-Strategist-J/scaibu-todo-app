@@ -1,19 +1,36 @@
+/// Doc Required
 class CreateBulkPomodoroResponse {
+  /// Doc Required
+
   CreateBulkPomodoroResponse({
     this.message,
     this.status,
     this.data,
   });
 
+  /// Doc Required
+
   CreateBulkPomodoroResponse.fromJson(final dynamic json) {
-    message = json['message'];
-    status = json['status'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    message = dataMap['message'] as String?;
+    status = dataMap['status'] as bool?;
+    data = dataMap['data'] != null ? Data.fromJson(dataMap['data']) : null;
   }
 
+  /// Doc Required
+
   String? message;
+
+  /// Doc Required
+
   bool? status;
+
+  /// Doc Required
+
   Data? data;
+
+  /// Doc Required
 
   CreateBulkPomodoroResponse copyWith({
     final String? message,
@@ -26,6 +43,8 @@ class CreateBulkPomodoroResponse {
         data: data ?? this.data,
       );
 
+  /// Doc Required
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['message'] = message;
@@ -37,25 +56,41 @@ class CreateBulkPomodoroResponse {
   }
 }
 
+/// Doc Required
+
 class Data {
+  /// Doc Required
+
   Data({
     this.pomodoro,
     this.timers,
   });
 
+  /// Doc Required
   Data.fromJson(final dynamic json) {
-    pomodoro =
-        json['pomodoro'] != null ? Pomodoro.fromJson(json['pomodoro']) : null;
-    if (json['timers'] != null) {
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    pomodoro = dataMap['pomodoro'] != null
+        ? Pomodoro.fromJson(dataMap['pomodoro'])
+        : null;
+
+    if (dataMap['timers'] != null) {
       timers = <Timers>[];
-      json['timers'].forEach((final v) {
+      for (final dynamic v in (dataMap['timers'] as List<dynamic>)) {
         timers?.add(Timers.fromJson(v));
-      });
+      }
     }
   }
 
+  /// Doc Required
+
   Pomodoro? pomodoro;
+
+  /// Doc Required
+
   List<Timers>? timers;
+
+  /// Doc Required
 
   Data copyWith({
     final Pomodoro? pomodoro,
@@ -65,6 +100,8 @@ class Data {
         pomodoro: pomodoro ?? this.pomodoro,
         timers: timers ?? this.timers,
       );
+
+  /// Doc Required
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
@@ -78,19 +115,34 @@ class Data {
   }
 }
 
+/// Doc Required
+
 class Timers {
+  /// Doc Required
+
   Timers({
     this.id,
     this.pomodoroId,
   });
 
+  /// Doc Required
+
   Timers.fromJson(final dynamic json) {
-    id = json['id'];
-    pomodoroId = json['pomodoro_id'];
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    id = dataMap['id'] as num?;
+    pomodoroId = dataMap['pomodoro_id'] as num?;
   }
 
+  /// Doc Required
+
   num? id;
+
+  /// Doc Required
+
   num? pomodoroId;
+
+  /// Doc Required
 
   Timers copyWith({
     final num? id,
@@ -101,6 +153,8 @@ class Timers {
         pomodoroId: pomodoroId ?? this.pomodoroId,
       );
 
+  /// Doc Required
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['id'] = id;
@@ -109,7 +163,11 @@ class Timers {
   }
 }
 
+/// Doc Required
+
 class Pomodoro {
+  /// Doc Required
+
   Pomodoro({
     this.uuid,
     this.userId,
@@ -117,18 +175,34 @@ class Pomodoro {
     this.id,
   });
 
+  /// Doc Required
+
   Pomodoro.fromJson(final dynamic json) {
-    uuid = json['uuid'];
-    userId = json['user_id'];
-    todoId = json['todo_id'];
-    id = json['id'];
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    uuid = dataMap['uuid'] as String?;
+    userId = dataMap['user_id'] as num?;
+    todoId = dataMap['todo_id'] as num?;
+    id = dataMap['id'] as num?;
   }
 
+  /// Doc Required
+
   String? uuid;
+
+  /// Doc Required
+
   num? userId;
+
+  /// Doc Required
+
   num? todoId;
+
+  /// Doc Required
+
   num? id;
 
+  /// Doc Required
   Pomodoro copyWith({
     final String? uuid,
     final num? userId,
@@ -142,6 +216,7 @@ class Pomodoro {
         id: id ?? this.id,
       );
 
+  /// Doc Required
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['uuid'] = uuid;

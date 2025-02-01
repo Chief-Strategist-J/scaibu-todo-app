@@ -1,21 +1,31 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class SendRealTimeNotificationParams {
+  /// Doc Required
   SendRealTimeNotificationParams({
     required this.title,
     required this.message,
     required this.recipient,
   });
 
+  /// Doc Required
   final String title;
+
+  /// Doc Required
   final String message;
+
+  /// Doc Required
   final dynamic recipient;
 }
 
+/// Doc Required
 class SendRealTimeNotificationUseCase
     extends UseCase<void, SendRealTimeNotificationParams> {
+  /// Doc Required
   SendRealTimeNotificationUseCase({required this.notificationRepository});
 
+  /// Doc Required
   final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
@@ -26,11 +36,13 @@ class SendRealTimeNotificationUseCase
       await notificationRepository.sendRealTimeNotification(
         params.title,
         params.message,
-        params.recipient,
+        params.recipient as NotificationEntity,
       );
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to send real-time notification'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to send real-time notification'),
+      );
     }
   }
 }

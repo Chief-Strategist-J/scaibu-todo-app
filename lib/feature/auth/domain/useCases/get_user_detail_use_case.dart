@@ -1,4 +1,4 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
 /// Doc Required
 class GetUserDetailUseCase
@@ -14,15 +14,19 @@ class GetUserDetailUseCase
     final Map<String, dynamic> params,
   ) async {
     try {
-      final accessToken = userCredentials.box.get(userCredentials.accessToken);
-      final tokenSavedTime =
-          userCredentials.box.get(userCredentials.tokenSavedTime);
+      final String? accessToken =
+          userCredentials.box.get(userCredentials.accessToken) as String?;
+      final DateTime? tokenSavedTime =
+          userCredentials.box.get(userCredentials.tokenSavedTime) as DateTime?;
       final DateTime currentTime = DateTime.now();
 
       if (accessToken == null ||
           (tokenSavedTime != null &&
-              currentTime
-                  .isAfter(tokenSavedTime.add(const Duration(hours: 1))))) {
+              currentTime.isAfter(
+                tokenSavedTime.add(
+                  const Duration(hours: 1),
+                ),
+              ))) {
         final Either<FailResponse, LoginEntity> userResult =
             await authRepository.getUserDetail(params);
 
@@ -31,11 +35,12 @@ class GetUserDetailUseCase
         return Right<Failure, Either<FailResponse, LoginEntity>>(userResult);
       } else {
         return Right<Failure, Either<FailResponse, LoginEntity>>(
-          Right(
+          Right<FailResponse, LoginEntity>(
             LoginEntity(
-              id: userCredentials.box.get(userCredentials.id),
-              email: userCredentials.box.get(userCredentials.email),
-              name: userCredentials.box.get(userCredentials.userName),
+              id: userCredentials.box.get(userCredentials.id) as num?,
+              email: userCredentials.box.get(userCredentials.email) as String?,
+              name:
+                  userCredentials.box.get(userCredentials.userName) as String?,
               accessToken: accessToken,
             ),
           ),

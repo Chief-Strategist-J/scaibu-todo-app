@@ -1,10 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pomodoro_entity.freezed.dart';
+
 part 'pomodoro_entity.g.dart';
 
+/// Doc Required
 @freezed
 class PomodoroEntity with _$PomodoroEntity {
+  /// Doc Required
   const factory PomodoroEntity({
     final String? uuid,
     final String? title,
@@ -23,6 +26,7 @@ class PomodoroEntity with _$PomodoroEntity {
     final int? projectId,
   }) = _PomodoroEntity;
 
+  /// Doc Required
   factory PomodoroEntity.fromJson(final Map<String, dynamic> json) =>
       _$PomodoroEntityFromJson(json);
 }

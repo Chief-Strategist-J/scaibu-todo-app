@@ -1,30 +1,41 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class SendWebhookNotificationParams {
-  final String url;
-  final Map<String, dynamic> payload;
-
+  /// Doc Required
   SendWebhookNotificationParams({required this.url, required this.payload});
+
+  /// Doc Required
+  final String url;
+
+  /// Doc Required
+  final Map<String, dynamic> payload;
 }
 
+/// Doc Required
 class SendWebhookNotificationUseCase
     extends UseCase<void, SendWebhookNotificationParams> {
+  /// Doc Required
+  SendWebhookNotificationUseCase({required this.webhookNotificationRepository});
+
+  /// Doc Required
   final WebhookNotificationRepository<NotificationEntity>
       webhookNotificationRepository;
 
-  SendWebhookNotificationUseCase({required this.webhookNotificationRepository});
-
   @override
   Future<Either<Failure, void>> call(
-      final SendWebhookNotificationParams params) async {
+    final SendWebhookNotificationParams params,
+  ) async {
     try {
       await webhookNotificationRepository.sendWebhookNotification(
         params.url,
         params.payload,
       );
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to send webhook notification'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to send webhook notification'),
+      );
     }
   }
 }

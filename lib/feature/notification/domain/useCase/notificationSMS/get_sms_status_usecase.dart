@@ -1,26 +1,38 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class GetSMSStatusParams {
+  /// Doc Required
   const GetSMSStatusParams({required this.smsId});
+
+  /// Doc Required
   final String smsId;
 }
 
+/// Doc Required
 class GetSMSStatusUseCase
     extends UseCase<NotificationEntity, GetSMSStatusParams> {
+  /// Doc Required
   GetSMSStatusUseCase({required this.smsNotificationRepository});
 
+  /// Doc Required
   final SMSNotificationRepository<NotificationEntity> smsNotificationRepository;
 
   @override
   Future<Either<Failure, NotificationEntity>> call(
-      final GetSMSStatusParams params) async {
+    /// Doc Required
+    final GetSMSStatusParams params,
+  ) async {
     try {
+      /// Doc Required
       final NotificationEntity status =
           await smsNotificationRepository.getSMSStatus(params.smsId);
 
-      return Right(status);
+      return Right<Failure, NotificationEntity>(status);
     } catch (e) {
-      return Left(ServerFailure('Failed to get SMS status'));
+      return Left<Failure, NotificationEntity>(
+        ServerFailure('Failed to get SMS status'),
+      );
     }
   }
 }

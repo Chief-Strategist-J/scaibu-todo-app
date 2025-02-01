@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-/// A model representing time-related information and selections.
+/// A entity representing time-related information and selections.
 class TimeServiceModel {
   /// Creates an instance of [TimeServiceModel].
   ///

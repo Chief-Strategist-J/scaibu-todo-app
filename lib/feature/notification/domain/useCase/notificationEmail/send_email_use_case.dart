@@ -1,22 +1,32 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class SendEmailParams {
-  final String subject;
-  final String body;
-  final String recipientEmail;
-
+  /// Doc Required
   SendEmailParams({
     required this.subject,
     required this.body,
     required this.recipientEmail,
   });
+
+  /// Doc Required
+  final String subject;
+
+  /// Doc Required
+  final String body;
+
+  /// Doc Required
+  final String recipientEmail;
 }
 
+/// Doc Required
 class SendEmailUseCase extends UseCase<void, SendEmailParams> {
+  /// Doc Required
+  SendEmailUseCase({required this.emailNotificationRepository});
+
+  /// Doc Required
   final EmailNotificationRepository<NotificationEntity>
       emailNotificationRepository;
-
-  SendEmailUseCase({required this.emailNotificationRepository});
 
   @override
   Future<Either<Failure, void>> call(final SendEmailParams params) async {
@@ -26,9 +36,9 @@ class SendEmailUseCase extends UseCase<void, SendEmailParams> {
         params.body,
         params.recipientEmail,
       );
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to send email'));
+      return Left<Failure, void>(ServerFailure('Failed to send email'));
     }
   }
 }

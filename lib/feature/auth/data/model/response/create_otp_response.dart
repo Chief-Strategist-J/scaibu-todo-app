@@ -7,17 +7,26 @@ class CreateOtpResponse {
     this.data,
   });
 
+  /// Doc Required
   CreateOtpResponse.fromJson(final dynamic json) {
-    message = json['message'];
-    status = json['status'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    message = dataMap['message'] as String?;
+    status = dataMap['status'] as bool?;
+    data = dataMap['data'] != null
+        ? Data.fromJson(dataMap['data'] as Map<String, dynamic>)
+        : null;
   }
+
   /// Doc Required
   String? message;
+
   /// Doc Required
   bool? status;
+
   /// Doc Required
   Data? data;
+
   /// Doc Required
   CreateOtpResponse copyWith({
     final String? message,
@@ -29,6 +38,7 @@ class CreateOtpResponse {
         status: status ?? this.status,
         data: data ?? this.data,
       );
+
   /// Doc Required
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
@@ -55,10 +65,13 @@ class Data {
 
   /// Doc Required
   Data.fromJson(final dynamic json) {
-    success = json['success'];
-    message = json['message'];
-    otp = json['otp'];
+    final Map<String, dynamic> dataMap = json as Map<String, dynamic>;
+
+    success = dataMap['success'] as bool?;
+    message = dataMap['message'] as String?;
+    otp = dataMap['otp'] as String?;
   }
+
 
   /// Doc Required
   bool? success;

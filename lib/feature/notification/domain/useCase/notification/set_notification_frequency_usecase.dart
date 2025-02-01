@@ -1,28 +1,43 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class SetNotificationFrequencyParams {
-  final String userId;
-  final String frequency;
+  /// Doc Required
+  SetNotificationFrequencyParams({
+    required this.userId,
+    required this.frequency,
+  });
 
-  SetNotificationFrequencyParams(
-      {required this.userId, required this.frequency});
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final String frequency;
 }
 
+/// Doc Required
 class SetNotificationFrequencyUseCase
     extends UseCase<void, SetNotificationFrequencyParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
-
+  /// Doc Required
   SetNotificationFrequencyUseCase({required this.notificationRepository});
+
+  /// Doc Required
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
-      final SetNotificationFrequencyParams params) async {
+    final SetNotificationFrequencyParams params,
+  ) async {
     try {
       await notificationRepository.setNotificationFrequency(
-          params.userId, params.frequency);
-      return const Right(null);
+        params.userId,
+        params.frequency,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to set notification frequency'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to set notification frequency'),
+      );
     }
   }
 }

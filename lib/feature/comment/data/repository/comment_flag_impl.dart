@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:todo_app/feature/comment/domain/repository/comment_flag_repository.dart';
 
+/// Doc Required
 class CommentFlagImpl
     extends CommentFlagRepository<CommentFlagRepository<Comment>> {
   @override

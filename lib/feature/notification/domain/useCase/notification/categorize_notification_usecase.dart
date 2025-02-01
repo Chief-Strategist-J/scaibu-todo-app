@@ -1,28 +1,44 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class CategorizeNotificationParams {
-  final String notificationId;
-  final String category;
+  /// Doc Required
+  CategorizeNotificationParams({
+    required this.notificationId,
+    required this.category,
+  });
 
-  CategorizeNotificationParams(
-      {required this.notificationId, required this.category});
+  /// Doc Required
+  /// Doc Required
+final String notificationId;
+
+  /// Doc Required
+  final String category;
 }
 
+/// Doc Required
 class CategorizeNotificationUseCase
     extends UseCase<void, CategorizeNotificationParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
-
+  /// Doc Required
   CategorizeNotificationUseCase({required this.notificationRepository});
+
+  /// Doc Required
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
-      final CategorizeNotificationParams params) async {
+    final CategorizeNotificationParams params,
+  ) async {
     try {
       await notificationRepository.categorizeNotification(
-          params.notificationId, params.category);
-      return const Right(null);
+        params.notificationId,
+        params.category,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to categorize notification'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to categorize notification'),
+      );
     }
   }
 }

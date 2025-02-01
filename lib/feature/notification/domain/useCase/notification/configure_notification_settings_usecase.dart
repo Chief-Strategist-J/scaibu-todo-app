@@ -1,28 +1,47 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class ConfigureNotificationSettingsParams {
-  final String userId;
-  final Map<String, dynamic> settings;
+  /// Doc Required
+  ConfigureNotificationSettingsParams({
+    required this.userId,
+    required this.settings,
+  });
 
-  ConfigureNotificationSettingsParams(
-      {required this.userId, required this.settings});
+  /// Doc Required
+  /// Doc Required
+final String userId;
+
+  /// Doc Required
+  /// Doc Required
+final Map<String, dynamic> settings;
 }
 
+/// Doc Required
 class ConfigureNotificationSettingsUseCase
     extends UseCase<void, ConfigureNotificationSettingsParams> {
-  final NotificationRepository<NotificationEntity> notificationRepository;
-
+  /// Doc Required
   ConfigureNotificationSettingsUseCase({required this.notificationRepository});
+
+  /// Doc Required
+  /// Doc Required
+final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
-      final ConfigureNotificationSettingsParams params) async {
+    /// Doc Required
+final ConfigureNotificationSettingsParams params,
+  ) async {
     try {
       await notificationRepository.configureNotificationSettings(
-          params.userId, params.settings);
-      return const Right(null);
+        params.userId,
+        params.settings,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to configure notification settings'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to configure notification settings'),
+      );
     }
   }
 }

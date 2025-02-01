@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'project_model.freezed.dart';
 part 'project_model.g.dart';
 
-/// Mixin that defines the common interface for a project model.
+/// Mixin that defines the common interface for a project entity.
 mixin ProjectModelMixin {
   String? get uuid;
   String? get name;

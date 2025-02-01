@@ -1,55 +1,55 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
-  final AuthRepository authRepository;
-
+  /// Doc Required
   LoginUseCase(this.authRepository);
+
+  /// Doc Required
+  final AuthRepository authRepository;
 
   @override
   Future<Either<Failure, LoginEntity>> call(
-      final Map<String, dynamic> params) async {
+    final Map<String, dynamic> params,
+  ) async {
     try {
       toast('Logging in...', bgColor: cardColor);
 
-      final auth = await authRepository.standardSignIn(params);
-      _storeCred(auth);
+      final LoginEntity auth = await authRepository.standardSignIn(params);
+      await _storeCred(auth);
 
       UserCredential user;
       if (!auth.isLogin.validate()) {
         user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: params['email'],
-          password: params['password'],
+          email: params['email'] as String,
+          password: params['password'] as String,
         );
       } else {
         user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: params['email'],
-          password: params['password'],
+          email: params['email'] as String,
+          password: params['password'] as String,
         );
       }
 
-      _oneSignalLogin(params);
-      _storeOnFirebaseResponse(user);
+      await _oneSignalLogin(params);
+      await _storeOnFirebaseResponse(user);
 
-      return Right(auth);
+      return Right<Failure, LoginEntity>(auth);
     } on FirebaseAuthException catch (e, s) {
       String errorMessage;
       switch (e.code) {
         case 'user-not-found':
           errorMessage = 'No user found for that email.';
-          break;
         case 'wrong-password':
           errorMessage = 'Wrong password provided.';
-          break;
         case 'email-already-in-use':
           errorMessage = 'The account already exists for that email.';
-          break;
         default:
           errorMessage = 'Failed to authenticate. Please try again.';
-          break;
       }
       toast(errorMessage);
       await logService.crashLog(errorMessage: errorMessage, e: e, stack: s);
-      return Left(ServerFailure(errorMessage));
+      return Left<Failure, LoginEntity>(ServerFailure(errorMessage));
     } catch (e, s) {
       toast('An unexpected error occurred. Please try again.');
       await logService.crashLog(
@@ -57,7 +57,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
         e: e,
         stack: s,
       );
-      return Left(ServerFailure('Failed to create todo'));
+      return Left<Failure, LoginEntity>(ServerFailure('Failed to create todo'));
     }
   }
 
