@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     ext.kotlin_version = '1.9.10' // Update to the latest Kotlin version
     repositories {
@@ -5,10 +7,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0' // Update Gradle plugin version
+        classpath 'com.android.tools.build:gradle:8.8.0' // Update Gradle plugin version
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.4.0'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
     }
 }
 
@@ -42,11 +44,11 @@ subprojects {
             }
         }
 
-        tasks.withType(JavaCompile) {
+        tasks.withType(JavaCompile).configureEach {
             options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
         }
 
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        tasks.withType(KotlinCompile).configureEach {
             kotlinOptions {
                 jvmTarget = "17"
             }
