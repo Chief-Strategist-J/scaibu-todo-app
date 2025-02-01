@@ -34,7 +34,7 @@ class Dependency {
     await ServiceDependencyInjection.disposeService();
     await TodoDependencyInjection.disposeDependencyInjection();
     await AuthDependencyInjection.disposeDependencyInjection();
-    TagsDependencyInjection.disposeDependencyInjection();
+    await TagsDependencyInjection.disposeDependencyInjection();
     await PomodoroDependencyInjection.disposeDependencyInjection();
     await NotificationDependencyInjection.disposeDependencyInjection();
     await NotificationAnalyticsDependencyInjection.disposeDependencyInjection();
@@ -42,6 +42,6 @@ class Dependency {
     await NotificationPushDependencyInjection.disposeDependencyInjection();
     await NotificationSMSDependencyInjection.disposeDependencyInjection();
     await NotificationWebhookDependencyInjection.disposeDependencyInjection();
-    ProjectDependencyInjection.dispose();
+    await ProjectDependencyInjection.dispose();
   }
 }

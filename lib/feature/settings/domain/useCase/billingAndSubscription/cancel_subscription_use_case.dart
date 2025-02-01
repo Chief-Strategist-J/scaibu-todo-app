@@ -1,22 +1,35 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class CancelSubscriptionParams {
-  final String userId;
+  /// Doc Required
   CancelSubscriptionParams({required this.userId});
+
+  /// Doc Required
+  final String userId;
 }
 
-class CancelSubscriptionUseCase extends UseCase<void, CancelSubscriptionParams> {
-  final BillingAndSubscriptionRepository<void> billingAndSubscriptionRepository;
-
+/// Doc Required
+class CancelSubscriptionUseCase
+    extends UseCase<void, CancelSubscriptionParams> {
+  /// Doc Required
   CancelSubscriptionUseCase({required this.billingAndSubscriptionRepository});
 
+  /// Doc Required
+  final BillingAndSubscriptionRepository<void> billingAndSubscriptionRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(CancelSubscriptionParams params) async {
+  Future<Either<Failure, void>> call(
+    final CancelSubscriptionParams params,
+  ) async {
     try {
       await billingAndSubscriptionRepository.cancelSubscription(params.userId);
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to cancel subscription'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to cancel subscription'),
+      );
     }
   }
 }

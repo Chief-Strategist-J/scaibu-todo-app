@@ -1,30 +1,37 @@
 import 'package:todo_app/core/app_library.dart';
-
-sealed class SettingState implements Equatable {
+/// Doc Required
+sealed class SettingState extends Equatable {
+  /// Doc Required
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
-
-class InitSettingState implements SettingState {
+/// Doc Required
+class InitSettingState extends SettingState {
+  /// Doc Required
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 
+  /// Doc Required
   @override
   bool? get stringify => false;
 }
-
-class SettingLoadingState implements SettingState {
+/// Doc Required
+class SettingLoadingState extends SettingState {
+  /// Doc Required
   @override
   bool? get stringify => false;
 
+  /// Doc Required
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
-
-class SettingDataState implements SettingState {
+/// Doc Required
+class SettingDataState extends SettingState {
+  /// Doc Required
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 
+  /// Doc Required
   @override
   bool? get stringify => false;
 }

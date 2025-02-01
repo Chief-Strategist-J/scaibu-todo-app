@@ -1,23 +1,25 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class CustomCheckboxComponentStyle {
-  final CustomCheckboxComponentVariant variant;
-
+  /// Doc Required
   CustomCheckboxComponentStyle(this.variant);
 
-  Style containerStyle(BuildContext context) {
-    Color backgroundColor;
-    List<BoxShadow> boxShadow = [];
+  /// Doc Required
+  final CustomCheckboxComponentVariant variant;
+
+  /// Doc Required
+  Style containerStyle(final BuildContext context) {
+    Color backgroundColor = Colors.transparent;
+    final List<BoxShadow> boxShadow = <BoxShadow>[];
     Gradient? gradient;
 
-    /// TODO : make proper variant later
+    /// TO-DO : make proper variant later
     switch (variant) {
       case CustomCheckboxComponentVariant.light:
         backgroundColor = Colors.white;
-        break;
       case CustomCheckboxComponentVariant.dark:
         backgroundColor = Colors.grey[850]!;
-        break;
       case CustomCheckboxComponentVariant.elevated:
         backgroundColor = Colors.blue[300]!;
         boxShadow.add(
@@ -27,11 +29,7 @@ class CustomCheckboxComponentStyle {
             offset: Offset(0, 2),
           ),
         );
-        break;
       case CustomCheckboxComponentVariant.flat:
-      default:
-        backgroundColor = Colors.transparent;
-        break;
     }
 
     return Style(
@@ -46,11 +44,12 @@ class CustomCheckboxComponentStyle {
     );
   }
 
-  TextStyle titleStyle() {
-    return TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-      color: variant == CustomCheckboxComponentVariant.light ? Colors.black87 : Colors.white,
-    );
-  }
+  /// Doc Required
+  TextStyle titleStyle() => TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: variant == CustomCheckboxComponentVariant.light
+            ? Colors.black87
+            : Colors.white,
+      );
 }

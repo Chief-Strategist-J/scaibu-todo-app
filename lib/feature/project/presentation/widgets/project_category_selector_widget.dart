@@ -1,35 +1,37 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class ProjectCategorySelectorWidget extends HookWidget {
-  final ProjectPageParam param;
-
+  /// Doc Required
   const ProjectCategorySelectorWidget(this.param, {super.key});
 
+  /// Doc Required
+
+  final ProjectPageParam param;
+
   Future<void> _showProjectCategorySelector<T>({
-    required BuildContext context,
-    required String title,
-    required List<T> items,
-    required String Function(T) getCategoryName,
-    required ProjectCategoryComponentVariantStyle style,
-    required TextEditingController controller,
+    required final BuildContext context,
+    required final String title,
+    required final List<T> items,
+    required final String Function(T) getCategoryName,
+    required final ProjectCategoryComponentVariantStyle style,
+    required final TextEditingController controller,
   }) async {
-    final result = await showModalBottomSheet<T>(
+    final T? result = await showModalBottomSheet<T>(
       context: context,
       isScrollControlled: true,
-      builder: (_) {
-        return BlocProvider.value(
-          value: context.read<ProjectBloc>(),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
-            child: ProjectCategorySelectorComponent<T>(
-              title: title,
-              items: items,
-              onItemSelected: (selectedItem) => getCategoryName(selectedItem),
-              style: style,
-            ),
+      builder: (final _) => BlocProvider<ProjectBloc>.value(
+        value: context.read<ProjectBloc>(),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.4,
+          child: ProjectCategorySelectorComponent<T>(
+            title: title,
+            items: items,
+            onItemSelected: getCategoryName,
+            style: style,
           ),
-        );
-      },
+        ),
+      ),
     );
 
     if (result != null) {
@@ -38,40 +40,48 @@ class ProjectCategorySelectorWidget extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final projectCategoryConfig = useMemoized(() {
-      return ProjectCategoryConfig(
+  Widget build(final BuildContext context) {
+    final ProjectCategoryConfig<String> projectCategoryConfig = useMemoized(
+      () => ProjectCategoryConfig<String>(
         title: '',
-        items: [],
+        items: <String>[],
         controller: TextEditingController(),
         focusNode: FocusNode(),
-      );
-    }, [param]);
+      ),
+      <Object?>[param],
+    );
 
-    final configList = useMemoized(() => projectCategoryConfig.getList(param), [param]);
+    final List<BaseProjectCategoryConfig> configList = useMemoized(
+      () => ProjectCategoryConfig.getList(param),
+      <Object?>[param],
+    );
 
     return AnimatedScrollView(
       listAnimationType: ListAnimationType.None,
       physics: const NeverScrollableScrollPhysics(),
-      children: configList.map((config) {
-        return ContentWidget(
-          title: config._title,
-          controller: config.controller,
-          focusNode: config.focusNode,
-          isTimeField: true,
-          onTap: () {
-            hideKeyboard(context);
-            _showProjectCategorySelector(
-              context: context,
-              title: config._title,
-              items: config.items,
-              getCategoryName: projectCategoryConfig.getCategoryName,
-              style: ProjectCategoryComponentVariantStyle(variant: ProjectCategoryComponentVariant.light),
+      children: configList
+          .map(
+            (final BaseProjectCategoryConfig config) => ContentWidget(
+              title: config.title,
               controller: config.controller,
-            );
-          },
-        );
-      }).toList(),
+              focusNode: config.focusNode,
+              isTimeField: true,
+              onTap: () async {
+                hideKeyboard(context);
+                await _showProjectCategorySelector(
+                  context: context,
+                  title: config.title,
+                  items: config.items,
+                  getCategoryName: projectCategoryConfig.getCategoryName,
+                  style: ProjectCategoryComponentVariantStyle(
+                    variant: ProjectCategoryComponentVariant.light,
+                  ),
+                  controller: config.controller,
+                );
+              },
+            ),
+          )
+          .toList(),
     );
   }
 }

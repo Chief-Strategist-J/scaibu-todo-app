@@ -1,25 +1,43 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class ConcreteUserProfile {
-  final String userId;
-  final String name;
-  final String email;
+  /// Doc Required
+  ConcreteUserProfile({
+    required this.userId,
+    required this.name,
+    required this.email,
+  });
 
-  ConcreteUserProfile({required this.userId, required this.name, required this.email});
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final String name;
+
+  /// Doc Required
+  final String email;
 }
 
+/// Doc Required
 class GetUserProfileUseCase extends UseCase<ConcreteUserProfile, String> {
-  final ProfileRepository<ConcreteUserProfile> profileRepository;
-
+  /// Doc Required
   GetUserProfileUseCase({required this.profileRepository});
 
+  /// Doc Required
+  final ProfileRepository<ConcreteUserProfile> profileRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcreteUserProfile>> call(String params) async {
+  Future<Either<Failure, ConcreteUserProfile>> call(final String params) async {
     try {
-      final profile = await profileRepository.getUserProfile(params);
-      return Right(profile);
+      final ConcreteUserProfile profile =
+          await profileRepository.getUserProfile(params);
+      return Right<Failure, ConcreteUserProfile>(profile);
     } catch (e) {
-      return Left(ServerFailure('Failed to get user profile'));
+      return Left<Failure, ConcreteUserProfile>(
+        ServerFailure('Failed to get user profile'),
+      );
     }
   }
 }

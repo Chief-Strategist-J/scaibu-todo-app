@@ -1,20 +1,28 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class GetTagByIdUseCase extends UseCase<TagEntity?, String> {
+  /// Doc Required
+  GetTagByIdUseCase({
+    required this.tagsFirebaseRepository,
+    required this.tagsDatabaseRepository,
+  });
+
+  /// Doc Required
   final TagsRepository<TagEntity> tagsDatabaseRepository;
+
+  /// Doc Required
   final TagsRepository<TagEntity> tagsFirebaseRepository;
 
-  GetTagByIdUseCase({required this.tagsFirebaseRepository, required this.tagsDatabaseRepository});
-
   @override
-  Future<Either<Failure, TagEntity?>> call(String params) async {
+  Future<Either<Failure, TagEntity?>> call(final String params) async {
     try {
       TagEntity? tag = await tagsFirebaseRepository.getTagById(params);
       tag ??= await tagsDatabaseRepository.getTagById(params);
 
-      return Right(tag);
+      return Right<Failure, TagEntity?>(tag);
     } catch (e) {
-      return Left(ServerFailure('Failed to fetch tag'));
+      return Left<Failure, TagEntity?>(ServerFailure('Failed to fetch tag'));
     }
   }
 }

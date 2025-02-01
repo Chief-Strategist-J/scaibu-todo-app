@@ -1,27 +1,46 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class UpdateAccountSecuritySettingsParams {
-  final String userId;
-  final Map<String, dynamic> securitySettings;
-
+  /// Doc Required
   UpdateAccountSecuritySettingsParams({
     required this.userId,
     required this.securitySettings,
   });
+
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> securitySettings;
 }
 
-class UpdateAccountSecuritySettingsUseCase extends UseCase<void, UpdateAccountSecuritySettingsParams> {
+/// Doc Required
+class UpdateAccountSecuritySettingsUseCase
+    extends UseCase<void, UpdateAccountSecuritySettingsParams> {
+  /// Doc Required
+  UpdateAccountSecuritySettingsUseCase({
+    required this.accountSecurityRepository,
+  });
+
+  /// Doc Required
   final AccountSecurityRepository<void> accountSecurityRepository;
 
-  UpdateAccountSecuritySettingsUseCase({required this.accountSecurityRepository});
-
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateAccountSecuritySettingsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateAccountSecuritySettingsParams params,
+  ) async {
     try {
-      await accountSecurityRepository.updateAccountSecuritySettings(params.userId, params.securitySettings);
-      return const Right(null);
+      await accountSecurityRepository.updateAccountSecuritySettings(
+        params.userId,
+        params.securitySettings,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update account security settings'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update account security settings'),
+      );
     }
   }
 }

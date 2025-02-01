@@ -1,23 +1,38 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class UpdateDateTimeSettingsParams {
-  final Map<String, dynamic> settings;
-
+  /// Doc Required
   UpdateDateTimeSettingsParams({required this.settings});
+
+  /// Doc Required
+
+  final Map<String, dynamic> settings;
 }
 
-class UpdateDateTimeSettingsUseCase extends UseCase<void, UpdateDateTimeSettingsParams> {
-  final DateTimeRepository<void> dateTimeRepository;
+/// Doc Required
+class UpdateDateTimeSettingsUseCase
+    extends UseCase<void, UpdateDateTimeSettingsParams> {
+  /// Doc Required
 
   UpdateDateTimeSettingsUseCase({required this.dateTimeRepository});
 
+  /// Doc Required
+
+  final DateTimeRepository<void> dateTimeRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateDateTimeSettingsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateDateTimeSettingsParams params,
+  ) async {
     try {
       await dateTimeRepository.updateDateTimeSettings(params.settings);
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update date and time settings'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update date and time settings'),
+      );
     }
   }
 }

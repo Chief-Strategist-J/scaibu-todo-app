@@ -4,41 +4,44 @@ part 'tags.freezed.dart';
 part 'tags.g.dart';
 
 
-
+/// Doc Required
 @freezed
 class TagEntity with _$TagEntity {
+  /// Doc Required
   const factory TagEntity({
-    int? id,
-    String? uuid,
-    bool? isActive,
-    int? order,
-    int? version,
-    int? followerCount,
-    int? usageCount,
-    int? relatedPostsCount,
-    int? userInteractionCount,
-    double? popularityScore,
-    String? name,
-    String? slug,
-    String? metaTitle,
-    String? color,
-    String? imageUrl,
-    String? tagType,
-    String? contentType,
-    String? descriptionVector,
-    String? metaDescription,
-    String? description,
-    Map<String, dynamic>? geolocationData,
-    Map<String, dynamic>? metaData,
-    DateTime? deletedAt,
-    int? createdBy,
-    int? parentId,
-    int? todoId,
-    DateTime? lastTrendUpdate,
-    DateTime? lastUsedAt,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    final int? id,
+    final String? uuid,
+    final bool? isActive,
+    final int? order,
+    final int? version,
+    final int? followerCount,
+    final int? usageCount,
+    final int? relatedPostsCount,
+    final int? userInteractionCount,
+    final double? popularityScore,
+    final String? name,
+    final String? slug,
+    final String? metaTitle,
+    final String? color,
+    final String? imageUrl,
+    final String? tagType,
+    final String? contentType,
+    final String? descriptionVector,
+    final String? metaDescription,
+    final String? description,
+    final Map<String, dynamic>? geolocationData,
+    final Map<String, dynamic>? metaData,
+    final DateTime? deletedAt,
+    final int? createdBy,
+    final int? parentId,
+    final int? todoId,
+    final DateTime? lastTrendUpdate,
+    final DateTime? lastUsedAt,
+    final DateTime? createdAt,
+    final DateTime? updatedAt,
   }) = _TagEntity;
 
-  factory TagEntity.fromJson(Map<String, dynamic> json) => _$TagEntityFromJson(json);
+  /// Doc Required
+  factory TagEntity.fromJson(final Map<String, dynamic> json) =>
+      _$TagEntityFromJson(json);
 }

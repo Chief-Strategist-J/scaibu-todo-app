@@ -1,24 +1,40 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class ConvertDateTimeParams {
-  final String format;
-  final DateTime dateTime;
-
+  /// Doc Required
   ConvertDateTimeParams({required this.format, required this.dateTime});
+
+  /// Doc Required
+  final String format;
+
+  /// Doc Required
+  final DateTime dateTime;
 }
 
+/// Doc Required
 class ConvertDateTimeUseCase extends UseCase<String, ConvertDateTimeParams> {
-  final DateTimeRepository<void> dateTimeRepository;
-
+  /// Doc Required
   ConvertDateTimeUseCase({required this.dateTimeRepository});
 
+  /// Doc Required
+  final DateTimeRepository<void> dateTimeRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, String>> call(ConvertDateTimeParams params) async {
+  Future<Either<Failure, String>> call(
+    final ConvertDateTimeParams params,
+  ) async {
     try {
-      final formattedDateTime = await dateTimeRepository.convertDateTime(params.format, params.dateTime);
-      return Right(formattedDateTime);
+      final String formattedDateTime = await dateTimeRepository.convertDateTime(
+        params.format,
+        params.dateTime,
+      );
+      return Right<Failure, String>(formattedDateTime);
     } catch (e) {
-      return Left(ServerFailure('Failed to convert date and time'));
+      return Left<Failure, String>(
+        ServerFailure('Failed to convert date and time'),
+      );
     }
   }
 }

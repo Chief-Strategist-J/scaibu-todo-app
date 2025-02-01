@@ -1,33 +1,51 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+// Temporary concrete /// Doc Required
 
-// Temporary concrete class for demonstration
+/// Doc Required
 class ConcretePomodoroPreferences {
-  final int workDuration;
-  final int breakDuration;
-  final int longBreakDuration;
-
+  /// Doc Required
   ConcretePomodoroPreferences({
     required this.workDuration,
     required this.breakDuration,
     required this.longBreakDuration,
   });
+
+  /// Doc Required
+  final int workDuration;
+
+  /// Doc Required
+  final int breakDuration;
+
+  /// Doc Required
+  final int longBreakDuration;
 }
 
-class GetPomodoroPreferencesUseCase extends UseCase<ConcretePomodoroPreferences, String> {
-  final PomodoroPreferenceRepository<ConcretePomodoroPreferences> pomodoroPreferenceRepository;
-
+/// Doc Required
+class GetPomodoroPreferencesUseCase
+    extends UseCase<ConcretePomodoroPreferences, String> {
+  /// Doc Required
   GetPomodoroPreferencesUseCase({
     required this.pomodoroPreferenceRepository,
   });
 
+  /// Doc Required
+  final PomodoroPreferenceRepository<ConcretePomodoroPreferences>
+      pomodoroPreferenceRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcretePomodoroPreferences>> call(String params) async {
+  Future<Either<Failure, ConcretePomodoroPreferences>> call(
+    final String params,
+  ) async {
     try {
-      final preferences = await pomodoroPreferenceRepository.getPomodoroPreferences(params);
-      return Right(preferences);
+      final ConcretePomodoroPreferences preferences =
+          await pomodoroPreferenceRepository.getPomodoroPreferences(params);
+      return Right<Failure, ConcretePomodoroPreferences>(preferences);
     } catch (e) {
-      return Left(ServerFailure('Failed to get Pomodoro preferences'));
+      return Left<Failure, ConcretePomodoroPreferences>(
+        ServerFailure('Failed to get Pomodoro preferences'),
+      );
     }
   }
 }

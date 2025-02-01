@@ -1,31 +1,44 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
-// Temporary concrete class for demonstration
-class ConcreteBillingDetails {
-  final String billingInfo;
-
-  ConcreteBillingDetails({required this.billingInfo});
-}
-
+/// Doc Required
 class UpdateBillingDetailsParams {
-  final String userId;
-  final Map<String, dynamic> billingDetails;
+  /// Doc Required
+  UpdateBillingDetailsParams({
+    required this.userId,
+    required this.billingDetails,
+  });
 
-  UpdateBillingDetailsParams({required this.userId, required this.billingDetails});
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> billingDetails;
 }
 
-class UpdateBillingDetailsUseCase extends UseCase<void, UpdateBillingDetailsParams> {
-  final BillingAndSubscriptionRepository<void> billingAndSubscriptionRepository;
-
+/// Doc Required
+class UpdateBillingDetailsUseCase
+    extends UseCase<void, UpdateBillingDetailsParams> {
+  /// Doc Required
   UpdateBillingDetailsUseCase({required this.billingAndSubscriptionRepository});
 
+  /// Doc Required
+  final BillingAndSubscriptionRepository<void> billingAndSubscriptionRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateBillingDetailsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateBillingDetailsParams params,
+  ) async {
     try {
-      await billingAndSubscriptionRepository.updateBillingDetails(params.userId, params.billingDetails);
-      return const Right(null);
+      await billingAndSubscriptionRepository.updateBillingDetails(
+        params.userId,
+        params.billingDetails,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update billing details'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update billing details'),
+      );
     }
   }
 }

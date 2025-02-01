@@ -1,23 +1,37 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class UpdateAppAppearanceSettingsParams {
-  final Map<String, dynamic> appearanceSettings;
-
+  /// Doc Required
   UpdateAppAppearanceSettingsParams({required this.appearanceSettings});
+
+  /// Doc Required
+  final Map<String, dynamic> appearanceSettings;
 }
 
-class UpdateAppAppearanceSettingsUseCase extends UseCase<void, UpdateAppAppearanceSettingsParams> {
-  final AppAppearanceRepository<void> appAppearanceRepository;
-
+/// Doc Required
+class UpdateAppAppearanceSettingsUseCase
+    extends UseCase<void, UpdateAppAppearanceSettingsParams> {
+  /// Doc Required
   UpdateAppAppearanceSettingsUseCase({required this.appAppearanceRepository});
 
+  /// Doc Required
+  final AppAppearanceRepository<void> appAppearanceRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateAppAppearanceSettingsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateAppAppearanceSettingsParams params,
+  ) async {
     try {
-      await appAppearanceRepository.updateAppAppearanceSettings(params.appearanceSettings);
-      return const Right(null);
+      await appAppearanceRepository.updateAppAppearanceSettings(
+        params.appearanceSettings,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update app appearance settings'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update app appearance settings'),
+      );
     }
   }
 }

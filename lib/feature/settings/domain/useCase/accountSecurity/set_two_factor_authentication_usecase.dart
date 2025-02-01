@@ -1,26 +1,48 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class SetTwoFactorAuthenticationParams {
-  final String userId;
-  final bool enabled;
+  /// Doc Required
+  SetTwoFactorAuthenticationParams({
+    required this.userId,
+    required this.enabled,
+  });
 
-  SetTwoFactorAuthenticationParams({required this.userId, required this.enabled});
+  /// Doc Required
+
+  final String userId;
+
+  /// Doc Required
+
+  final bool enabled;
 }
 
-class SetTwoFactorAuthenticationUseCase extends UseCase<void, SetTwoFactorAuthenticationParams> {
-  final AccountSecurityRepository<void> accountSecurityRepository;
-
+/// Doc Required
+class SetTwoFactorAuthenticationUseCase
+    extends UseCase<void, SetTwoFactorAuthenticationParams> {
+  /// Doc Required
   SetTwoFactorAuthenticationUseCase({
     required this.accountSecurityRepository,
   });
 
+  /// Doc Required
+  final AccountSecurityRepository<void> accountSecurityRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(SetTwoFactorAuthenticationParams params) async {
+  Future<Either<Failure, void>> call(
+    final SetTwoFactorAuthenticationParams params,
+  ) async {
     try {
-      await accountSecurityRepository.setTwoFactorAuthentication(params.userId, params.enabled);
-      return const Right(null);
+      await accountSecurityRepository.setTwoFactorAuthentication(
+        params.userId,
+        enabled: params.enabled,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to set two-factor authentication'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to set two-factor authentication'),
+      );
     }
   }
 }

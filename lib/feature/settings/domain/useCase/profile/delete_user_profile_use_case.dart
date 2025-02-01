@@ -1,17 +1,23 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class DeleteUserProfileUseCase extends UseCase<void, String> {
-  final ProfileRepository<void> profileRepository;
-
+  /// Doc Required
   DeleteUserProfileUseCase({required this.profileRepository});
 
+  /// Doc Required
+  final ProfileRepository<void> profileRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(String params) async {
+  Future<Either<Failure, void>> call(final String params) async {
     try {
       await profileRepository.deleteUserProfile(params);
-      return const Right(null);
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to delete user profile'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to delete user profile'),
+      );
     }
   }
 }

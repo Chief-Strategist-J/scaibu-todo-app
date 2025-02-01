@@ -1,8 +1,16 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
-  Box? _box;
+  /// Doc Required
+  GetAllSeededTagsUseCase({
+    required this.tagsDatabaseRepository,
+  }) : _inMemoryCache = InMemoryCache<List<TagEntity>>(_config.cacheDuration);
 
+  /// Doc Required
+  Box<dynamic>? _box;
+
+  /// Doc Required
   final HelperTagRepository<TagEntity> tagsDatabaseRepository;
   final AsyncLock _lock = AsyncLock();
   final InMemoryCache<List<TagEntity>> _inMemoryCache;
@@ -15,29 +23,29 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
     maxCacheSize: 1024 * 1024,
   );
 
-  GetAllSeededTagsUseCase({
-    required this.tagsDatabaseRepository,
-  }) : _inMemoryCache = InMemoryCache(_config.cacheDuration);
-
   Future<void> _initializeCache() async {
     _box ??= await Hive.openBox(_config.boxName);
   }
 
   Future<List<TagEntity>?> _getStorageCache() async {
-    if (_box == null) return null;
+    if (_box == null) {
+      return null;
+    }
     try {
-      final jsonData = _box!.get(_config.dataKey);
-      final cacheTimeStr = _box!.get(_config.timeKey);
-      if (jsonData == null || cacheTimeStr == null) return null;
+      final String? jsonData = _box!.get(_config.dataKey) as String?;
+      final String? cacheTimeStr = _box!.get(_config.timeKey) as String?;
+      if (jsonData == null || cacheTimeStr == null) {
+        return null;
+      }
 
-      final cacheTime = DateTime.parse(cacheTimeStr);
+      final DateTime cacheTime = DateTime.parse(cacheTimeStr);
       if (DateTime.now().difference(cacheTime) > _config.cacheDuration) {
         await _clearStorageCache();
         return null;
       }
 
-      return (jsonDecode(jsonData) as List)
-          .map((e) => TagEntity.fromJson(e))
+      return (jsonDecode(jsonData) as List<Map<String, dynamic>>)
+          .map(TagEntity.fromJson)
           .toList();
     } catch (e) {
       await _clearStorageCache();
@@ -45,8 +53,9 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
     }
   }
 
-  Future<void> _setStorageCache(List<TagEntity> tags) async {
-    final jsonData = jsonEncode(tags.map((e) => e.toJson()).toList());
+  Future<void> _setStorageCache(final List<TagEntity> tags) async {
+    final String jsonData =
+        jsonEncode(tags.map((final TagEntity e) => e.toJson()).toList());
     if (jsonData.length <= _config.maxCacheSize) {
       await _box?.put(_config.dataKey, jsonData);
       await _box?.put(_config.timeKey, DateTime.now().toIso8601String());
@@ -54,37 +63,38 @@ class GetAllSeededTagsUseCase extends UseCase<List<TagEntity>, NoParams> {
   }
 
   Future<void> _clearStorageCache() async {
-    await _box?.deleteAll([_config.dataKey, _config.timeKey]);
+    await _box?.deleteAll(<dynamic>[_config.dataKey, _config.timeKey]);
   }
 
+  /// Doc Required
   Future<void> clearCache() async {
     _inMemoryCache.clear();
     await _clearStorageCache();
   }
 
   @override
-  Future<Either<Failure, List<TagEntity>>> call(NoParams params) async {
-    return await _lock.synchronized(() async {
-      try {
-        final inMemoryData = _inMemoryCache.validData;
-        if (inMemoryData != null) {
-          return Right(inMemoryData);
-        }
+  Future<Either<Failure, List<TagEntity>>> call(final NoParams params) async =>
+      _lock.synchronized(() async {
+        try {
+          final List<TagEntity>? inMemoryData = _inMemoryCache.validData;
+          if (inMemoryData != null) {
+            return Right<Failure, List<TagEntity>>(inMemoryData);
+          }
 
-        await _initializeCache();
-        final storedData = await _getStorageCache();
-        if (storedData != null) {
-          _inMemoryCache.setData(storedData);
-          return Right(storedData);
-        }
+          await _initializeCache();
+          final List<TagEntity>? storedData = await _getStorageCache();
+          if (storedData != null) {
+            _inMemoryCache.setData(storedData);
+            return Right<Failure, List<TagEntity>>(storedData);
+          }
 
-        final freshData = await tagsDatabaseRepository.getAllSeededTags();
-        _inMemoryCache.setData(freshData);
-        await _setStorageCache(freshData);
-        return Right(freshData);
-      } catch (e) {
-        return Left(ServerFailure(e.toString()));
-      }
-    });
-  }
+          final List<TagEntity> freshData =
+              await tagsDatabaseRepository.getAllSeededTags();
+          _inMemoryCache.setData(freshData);
+          await _setStorageCache(freshData);
+          return Right<Failure, List<TagEntity>>(freshData);
+        } catch (e) {
+          return Left<Failure, List<TagEntity>>(ServerFailure(e.toString()));
+        }
+      });
 }

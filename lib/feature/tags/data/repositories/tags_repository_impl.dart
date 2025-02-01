@@ -1,72 +1,63 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TagsRepositoryImpl implements TagsRepository<TagEntity> {
-  final TagsRemoteBase<TagEntity> base;
-
+  /// Doc Required
   TagsRepositoryImpl({required this.base});
 
-  @override
-  Future<void> archiveTag(String id) async {
-    return await base.archiveTag(id);
-  }
+  /// Doc Required
+  final TagsRemoteBase<TagEntity> base;
 
   @override
-  Future<void> bulkCreateTags(List<Map<String, dynamic>> data) async {
-    return await base.bulkCreateTags(data);
-  }
+  Future<void> archiveTag(final String id) async => base.archiveTag(id);
 
   @override
-  Future<void> bulkDeleteTags(List<String> ids) async {
-    return await base.bulkDeleteTags(ids);
-  }
+  Future<void> bulkCreateTags(final List<Map<String, dynamic>> data) async =>
+      base.bulkCreateTags(data);
 
   @override
-  Future<void> createTag(Map<String, dynamic> data) async {
-    return await base.createTag(data);
-  }
+  Future<void> bulkDeleteTags(final List<String> ids) async =>
+      base.bulkDeleteTags(ids);
 
   @override
-  Future<void> deleteTag(String id) async {
-    return await base.deleteTag(id);
-  }
+  Future<void> createTag(final Map<String, dynamic> data) async =>
+      base.createTag(data);
 
   @override
-  Future<List<TagEntity>> getAllTags() async {
-    return await base.getAllTags();
-  }
+  Future<void> deleteTag(final String id) async => base.deleteTag(id);
 
   @override
-  Future<TagEntity?> getTagById(String id) async {
-    return await base.getTagById(id);
-  }
+  Future<List<TagEntity>> getAllTags() async => base.getAllTags();
 
   @override
-  Future<void> restoreTag(String id) async {
-    return await base.restoreTag(id);
-  }
+  Future<TagEntity?> getTagById(final String id) async => base.getTagById(id);
 
   @override
-  Future<List<TagEntity>> searchTags(String query) async {
-    return await base.searchTags(query);
-  }
+  Future<void> restoreTag(final String id) async => base.restoreTag(id);
 
   @override
-  Future<void> updateTag(String id, Map<String, dynamic> data) async {
-    return await base.updateTag(id, data);
-  }
+  Future<List<TagEntity>> searchTags(final String query) async =>
+      base.searchTags(query);
 
   @override
-  Future<List<TagEntity>> getTagByTodoId(String id) async {
-    return await base.getTagByTodoId(id);
-  }
+  Future<void> updateTag(
+    final String id,
+    final Map<String, dynamic> data,
+  ) async =>
+      base.updateTag(id, data);
 
   @override
-  Future<void> bulkDeleteTagsByTodoId(String tagId) async {
+  Future<List<TagEntity>> getTagByTodoId(final String id) async =>
+      base.getTagByTodoId(id);
+
+  @override
+  Future<void> bulkDeleteTagsByTodoId(final String tagId) async {
     await base.bulkDeleteTagsByTodoId(tagId);
   }
 
   @override
-  Future<List<TagEntity>> getAllTagsByUserId(Map<String, dynamic> data) async {
-    return await base.getAllTagsByUserId(data);
-  }
+  Future<List<TagEntity>> getAllTagsByUserId(
+    final Map<String, dynamic> data,
+  ) async =>
+      base.getAllTagsByUserId(data);
 }

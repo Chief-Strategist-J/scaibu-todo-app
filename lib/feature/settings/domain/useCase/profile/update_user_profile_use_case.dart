@@ -1,24 +1,47 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
+
+/// Doc Required
 
 class UpdateUserProfileParams {
-  final String userId;
-  final Map<String, dynamic> profileData;
+  /// Doc Required
 
   UpdateUserProfileParams({required this.userId, required this.profileData});
+
+  /// Doc Required
+
+  final String userId;
+
+  /// Doc Required
+
+  final Map<String, dynamic> profileData;
 }
 
+/// Doc Required
+
 class UpdateUserProfileUseCase extends UseCase<void, UpdateUserProfileParams> {
-  final ProfileRepository<void> profileRepository;
+  /// Doc Required
 
   UpdateUserProfileUseCase({required this.profileRepository});
 
+  /// Doc Required
+
+  final ProfileRepository<void> profileRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateUserProfileParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateUserProfileParams params,
+  ) async {
     try {
-      await profileRepository.updateUserProfile(params.userId, params.profileData);
-      return const Right(null);
+      await profileRepository.updateUserProfile(
+        params.userId,
+        params.profileData,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update user profile'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update user profile'),
+      );
     }
   }
 }

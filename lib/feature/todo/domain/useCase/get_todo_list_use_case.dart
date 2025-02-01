@@ -111,7 +111,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
     return DateTime.now().isAfter(cacheTime.add(_cacheDuration));
   }
 
-  // Fetch list from the remote database
+  // Fetch list from the remotes database
   Future<List<TodoEntity>> _fetchRemoteList() async {
     try {
       return await _databaseRepo.getListOfTodos();

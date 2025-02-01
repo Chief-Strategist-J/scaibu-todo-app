@@ -1,25 +1,44 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
-// Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteLinkedAccount {
-  final String accountId;
-  final String accountName;
+  /// Doc Required
 
   ConcreteLinkedAccount({required this.accountId, required this.accountName});
+
+  /// Doc Required
+
+  final String accountId;
+
+  /// Doc Required
+
+  final String accountName;
 }
 
-class GetLinkedAccountsUseCase extends UseCase<List<ConcreteLinkedAccount>, String> {
-  final LinkedAccountsRepository<ConcreteLinkedAccount> linkedAccountsRepository;
+/// Doc Required
+class GetLinkedAccountsUseCase
+    extends UseCase<List<ConcreteLinkedAccount>, String> {
+  /// Doc Required
 
   GetLinkedAccountsUseCase({required this.linkedAccountsRepository});
 
+  /// Doc Required
+  final LinkedAccountsRepository<ConcreteLinkedAccount>
+      linkedAccountsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, List<ConcreteLinkedAccount>>> call(String params) async {
+  Future<Either<Failure, List<ConcreteLinkedAccount>>> call(
+    final String params,
+  ) async {
     try {
-      final accounts = await linkedAccountsRepository.getLinkedAccounts(params);
-      return Right(accounts);
+      final List<ConcreteLinkedAccount> accounts =
+          await linkedAccountsRepository.getLinkedAccounts(params);
+      return Right<Failure, List<ConcreteLinkedAccount>>(accounts);
     } catch (e) {
-      return Left(ServerFailure('Failed to get linked accounts'));
+      return Left<Failure, List<ConcreteLinkedAccount>>(
+        ServerFailure('Failed to get linked accounts'),
+      );
     }
   }
 }

@@ -1,35 +1,53 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+// Temporary concrete /// Doc Required
 
-// Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteBillingDetails {
-  final String billingInfo;
-
+  /// Doc Required
   ConcreteBillingDetails({required this.billingInfo});
+
+  /// Doc Required
+  final String billingInfo;
 }
 
-class GetBillingDetailsUseCase extends UseCase<ConcreteBillingDetails, GetBillingDetailsParams> {
-  final BillingAndSubscriptionRepository<ConcreteBillingDetails> billingAndSubscriptionRepository;
-
+/// Doc Required
+class GetBillingDetailsUseCase
+    extends UseCase<ConcreteBillingDetails, GetBillingDetailsParams> {
+  /// Doc Required
   GetBillingDetailsUseCase({
     required this.billingAndSubscriptionRepository,
   });
 
+  /// Doc Required
+  final BillingAndSubscriptionRepository<ConcreteBillingDetails>
+      billingAndSubscriptionRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcreteBillingDetails>> call(GetBillingDetailsParams params) async {
+  Future<Either<Failure, ConcreteBillingDetails>> call(
+    final GetBillingDetailsParams params,
+  ) async {
     try {
-      final details = await billingAndSubscriptionRepository.getBillingDetails(params.userId);
-      return Right(details);
+      final ConcreteBillingDetails details =
+          await billingAndSubscriptionRepository
+              .getBillingDetails(params.userId);
+      return Right<Failure, ConcreteBillingDetails>(details);
     } catch (e) {
-      return Left(ServerFailure('Failed to get billing details'));
+      return Left<Failure, ConcreteBillingDetails>(
+        ServerFailure('Failed to get billing details'),
+      );
     }
   }
 }
 
+/// Doc Required
 class GetBillingDetailsParams {
-  final String userId;
-
+  /// Doc Required
   GetBillingDetailsParams({
     required this.userId,
   });
+
+  /// Doc Required
+  final String userId;
 }

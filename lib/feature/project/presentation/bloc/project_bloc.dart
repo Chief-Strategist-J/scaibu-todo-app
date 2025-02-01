@@ -1,63 +1,120 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
-  final projectCategory = getIt<GetProjectCategoryDataUseCase>(instanceName: ProjectDependencyInjection.getProjectCategoryDataUseCase);
-  final listOfProjectsUseCase = getIt<GetAllProjectsUseCase>(instanceName: ProjectDependencyInjection.getAllProjectsUseCase);
+  /// Doc Required
 
-  ProjectBloc() : super(InitProjectState(projectList: const [], updatedAt: DateTime.now())) {
+  ProjectBloc()
+      : super(
+          InitProjectState(
+            projectList: const <ProjectEntity>[],
+            updatedAt: DateTime.now(),
+          ),
+        ) {
     on<InitProjectEvent>(_init);
     on<CreateProjectEvent>(_createProject);
   }
 
-  void _init(InitProjectEvent event, Emitter<ProjectState> emit) async {
+  /// Doc Required
+
+  final GetProjectCategoryDataUseCase projectCategory =
+      getIt<GetProjectCategoryDataUseCase>(
+    instanceName: ProjectDependencyInjection.getProjectCategoryDataUseCase,
+  );
+
+  /// Doc Required
+
+  final GetAllProjectsUseCase listOfProjectsUseCase =
+      getIt<GetAllProjectsUseCase>(
+    instanceName: ProjectDependencyInjection.getAllProjectsUseCase,
+  );
+
+  Future<void> _init(
+    final InitProjectEvent event,
+    final Emitter<ProjectState> emit,
+  ) async {
     try {
-      final res = await projectCategory(NoParams());
-      final projectListRes = await listOfProjectsUseCase(NoParams());
+      final Either<Failure, ProjectCategoryDataModelEntity> res =
+          await projectCategory(
+        NoParams(),
+      );
+      final Either<Failure, List<ProjectEntity>> projectListRes =
+          await listOfProjectsUseCase(
+        NoParams(),
+      );
 
       res.fold(
-        (failure) {
-          logService.crashLog(errorMessage: 'Failed to fetch project categories: $failure', e: failure);
+        (final Failure failure) {
+          logService.crashLog(
+            errorMessage: 'Failed to fetch project categories: $failure',
+            e: failure,
+          );
           emit(InitProjectState.init());
         },
-        (projectCategories) {
+        (final ProjectCategoryDataModelEntity projectCategories) {
           projectListRes.fold(
-            (failure) {
-              logService.crashLog(errorMessage: 'Failed to fetch project list: $failure', e: failure);
-              emit(InitProjectState(projectList: const [], projectCategoryData: projectCategories, updatedAt: DateTime.now()));
+            (final Failure failure) {
+              logService.crashLog(
+                errorMessage: 'Failed to fetch project list: $failure',
+                e: failure,
+              );
+              emit(
+                InitProjectState(
+                  projectList: const <ProjectEntity>[],
+                  projectCategoryData: projectCategories,
+                  updatedAt: DateTime.now(),
+                ),
+              );
             },
-            (allProjectList) {
-              emit(InitProjectState(projectList: allProjectList, projectCategoryData: projectCategories, updatedAt: DateTime.now()));
+            (final List<ProjectEntity> allProjectList) {
+              emit(
+                InitProjectState(
+                  projectList: allProjectList,
+                  projectCategoryData: projectCategories,
+                  updatedAt: DateTime.now(),
+                ),
+              );
             },
           );
         },
       );
     } catch (e) {
-      logService.crashLog(errorMessage: 'Error during project category fetch operation', e: e);
+      await logService.crashLog(
+        errorMessage: 'Error during project category fetch operation',
+        e: e,
+      );
       emit(InitProjectState.init()); // Return initial state on error
     }
   }
 
-  Future<void> _createProject(CreateProjectEvent event, Emitter<ProjectState> emit) async {
-    final createProject = getIt<CreateProjectUseCase>(instanceName: ProjectDependencyInjection.createProjectUseCase);
-    final _param = event.request;
+  Future<void> _createProject(
+    final CreateProjectEvent event,
+    final Emitter<ProjectState> emit,
+  ) async {
+    final CreateProjectUseCase createProject = getIt<CreateProjectUseCase>(
+      instanceName: ProjectDependencyInjection.createProjectUseCase,
+    );
+    final ProjectPageParam param = event.request;
 
     await createProject(
-      {
-        "name": _param.projectName.text,
-        "description": _param.projectDescription.text,
-        "status": _param.projectStatus.text,
-        "end_date": _param.endDate?.dateTime.toIso8601String(),
-        "is_public": _param.isPublic,
-        "created_by": userCredentials.getUserId,
-        "updated_by": userCredentials.getUserId,
-        "project_category_name": _param.projectCategory.text,
-        "project_phase_name": _param.projectPhase.text,
-        "project_status_name": _param.projectStatus.text,
-        "project_priority_name": _param.projectPriority.text,
-        "project_type_name": _param.projectProjectType.text,
+      <String, dynamic>{
+        'name': param.projectName.text,
+        'description': param.projectDescription.text,
+        'status': param.projectStatus.text,
+        'end_date': param.endDate?.dateTime.toIso8601String(),
+        'is_public': param.isPublic,
+        'created_by': userCredentials.getUserId,
+        'updated_by': userCredentials.getUserId,
+        'project_category_name': param.projectCategory.text,
+        'project_phase_name': param.projectPhase.text,
+        'project_status_name': param.projectStatus.text,
+        'project_priority_name': param.projectPriority.text,
+        'project_type_name': param.projectProjectType.text,
       },
     );
   }
+
+  /// Doc Required
 
   void getListOfProjects() {
     //

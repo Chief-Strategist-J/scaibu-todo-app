@@ -1,21 +1,32 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
-class GetAllTagsByUserIdUseCase extends UseCase<List<TagEntity>, Map<String, dynamic>> {
-  final TagsRepository<TagEntity> tagsDatabaseRepository;
-  final TagsRepository<TagEntity> tagsFirebaseRepository;
-
+/// Doc Required
+class GetAllTagsByUserIdUseCase
+    extends UseCase<List<TagEntity>, Map<String, dynamic>> {
+  /// Doc Required
   GetAllTagsByUserIdUseCase({
     required this.tagsDatabaseRepository,
     required this.tagsFirebaseRepository,
   });
 
+  /// Doc Required
+  final TagsRepository<TagEntity> tagsDatabaseRepository;
+
+  /// Doc Required
+  final TagsRepository<TagEntity> tagsFirebaseRepository;
+
   @override
-  Future<Either<Failure, List<TagEntity>>> call(Map<String, dynamic> params) async {
+  Future<Either<Failure, List<TagEntity>>> call(
+    final Map<String, dynamic> params,
+  ) async {
     try {
-      final tags = await tagsDatabaseRepository.getAllTagsByUserId(params);
-      return Right(tags);
+      final List<TagEntity> tags =
+          await tagsDatabaseRepository.getAllTagsByUserId(params);
+      return Right<Failure, List<TagEntity>>(tags);
     } catch (e) {
-      return Left(ServerFailure('Failed to retrieve tags by user ID'));
+      return Left<Failure, List<TagEntity>>(
+        ServerFailure('Failed to retrieve tags by user ID'),
+      );
     }
   }
 }

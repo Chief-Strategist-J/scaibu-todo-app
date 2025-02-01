@@ -1,23 +1,25 @@
 import 'package:todo_app/core/app_library.dart';
-
+/// Doc Required
 class CreateTagPage extends StatelessWidget {
+  /// Doc Required
   CreateTagPage({super.key});
 
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void _onClose(BuildContext context) {
+  void _onClose(final BuildContext context) {
     GoRouter.of(context).pop();
   }
 
-  void _onAddTag(BuildContext context) {
-    if (_formKey.currentState!.validate()) context.read<TagBloc>().add(CreateTagEvent());
+  void _onAddTag(final BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      context.read<TagBloc>().add(CreateTagEvent());
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Add New Tag", style: boldTextStyle(size: 16)),
+  Widget build(final BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('Add New Tag', style: boldTextStyle(size: 16)),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.clear),
@@ -28,14 +30,14 @@ class CreateTagPage extends StatelessWidget {
       ),
       body: Stack(
         fit: StackFit.expand,
-        children: [
-          Form(
-            key: _formKey,
+          children: <Widget>[
+            Form(
+              key: _formKey,
             child: AnimatedScrollView(
               padding: const EdgeInsets.only(left: 16, bottom: 8, right: 16),
-              children: [
-                const TagInputField(),
-                8.height,
+                children: <Widget>[
+                  const TagInputField(),
+                  8.height,
                 const ColorPickerComponent(),
               ],
             ),
@@ -56,5 +58,4 @@ class CreateTagPage extends StatelessWidget {
         ],
       ),
     );
-  }
 }

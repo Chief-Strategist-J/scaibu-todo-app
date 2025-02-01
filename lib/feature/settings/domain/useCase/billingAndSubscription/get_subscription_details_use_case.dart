@@ -1,30 +1,51 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
 // Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteSubscriptionDetails {
-  final String subscriptionInfo;
-
+  /// Doc Required
   ConcreteSubscriptionDetails({required this.subscriptionInfo});
+
+  /// Doc Required
+  final String subscriptionInfo;
 }
 
+/// Doc Required
 class GetSubscriptionDetailsParams {
-  final String userId;
-
+  /// Doc Required
   GetSubscriptionDetailsParams({required this.userId});
+
+  /// Doc Required
+  final String userId;
 }
 
-class GetSubscriptionDetailsUseCase extends UseCase<ConcreteSubscriptionDetails, GetSubscriptionDetailsParams> {
-  final BillingAndSubscriptionRepository<ConcreteSubscriptionDetails> billingAndSubscriptionRepository;
+/// Doc Required
+class GetSubscriptionDetailsUseCase
+    extends UseCase<ConcreteSubscriptionDetails, GetSubscriptionDetailsParams> {
+  /// Doc Required
+  GetSubscriptionDetailsUseCase({
+    required this.billingAndSubscriptionRepository,
+  });
 
-  GetSubscriptionDetailsUseCase({required this.billingAndSubscriptionRepository});
+  /// Doc Required
+  final BillingAndSubscriptionRepository<ConcreteSubscriptionDetails>
+      billingAndSubscriptionRepository;
 
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcreteSubscriptionDetails>> call(GetSubscriptionDetailsParams params) async {
+  Future<Either<Failure, ConcreteSubscriptionDetails>> call(
+    final GetSubscriptionDetailsParams params,
+  ) async {
     try {
-      final details = await billingAndSubscriptionRepository.getSubscriptionDetails(params.userId);
-      return Right(details);
+      final ConcreteSubscriptionDetails details =
+          await billingAndSubscriptionRepository
+              .getSubscriptionDetails(params.userId);
+
+      return Right<Failure, ConcreteSubscriptionDetails>(details);
     } catch (e) {
-      return Left(ServerFailure('Failed to get subscription details'));
+      return Left<Failure, ConcreteSubscriptionDetails>(
+        ServerFailure('Failed to get subscription details'),
+      );
     }
   }
 }

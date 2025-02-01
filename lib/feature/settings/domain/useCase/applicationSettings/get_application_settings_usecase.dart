@@ -1,22 +1,26 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
-class Setting{
-  //
-}
+/// Doc Required
 class GetApplicationSettingsUseCase extends UseCase<Setting, void> {
-  final ApplicationSettingsRepository<Setting> applicationSettingsRepository;
-
+  /// Doc Required
   GetApplicationSettingsUseCase({
     required this.applicationSettingsRepository,
   });
 
+  /// Doc Required
+  final ApplicationSettingsRepository<Setting> applicationSettingsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, Setting>> call(void params) async {
+  Future<Either<Failure, Setting>> call(final void params) async {
     try {
-      final settings = await applicationSettingsRepository.getApplicationSettings();
-      return Right(settings);
+      final Setting settings =
+          await applicationSettingsRepository.getApplicationSettings();
+      return Right<Failure, Setting>(settings);
     } catch (e) {
-      return Left(ServerFailure('Failed to get application settings'));
+      return Left<Failure, Setting>(
+        ServerFailure('Failed to get application settings'),
+      );
     }
   }
 }

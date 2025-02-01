@@ -1,27 +1,41 @@
+/// Doc Required
 abstract interface class TagsRepository<T> {
+  /// Doc Required
   Future<List<T>> getAllTags();
 
-  Future<T?> getTagById(String id);
+  /// Doc Required
+  Future<T?> getTagById(final String id);
 
-  Future<List<T>> getTagByTodoId(String id);
+  /// Doc Required
+  Future<List<T>> getTagByTodoId(final String id);
 
-  Future<void> createTag(Map<String, dynamic> data);
+  /// Doc Required
+  Future<void> createTag(final Map<String, dynamic> data);
 
-  Future<void> updateTag(String id, Map<String, dynamic> data);
+  /// Doc Required
+  Future<void> updateTag(final String id, final Map<String, dynamic> data);
 
-  Future<void> deleteTag(String id);
+  /// Doc Required
+  Future<void> deleteTag(final String id);
 
-  Future<List<T>> searchTags(String query);
+  /// Doc Required
+  Future<List<T>> searchTags(final String query);
 
-  Future<void> bulkCreateTags(List<Map<String, dynamic>> data);
+  /// Doc Required
+  Future<void> bulkCreateTags(final List<Map<String, dynamic>> data);
 
-  Future<List<T>> getAllTagsByUserId(Map<String, dynamic> data);
+  /// Doc Required
+  Future<List<T>> getAllTagsByUserId(final Map<String, dynamic> data);
 
-  Future<void> bulkDeleteTagsByTodoId(String tagId);
+  /// Doc Required
+  Future<void> bulkDeleteTagsByTodoId(final String tagId);
 
-  Future<void> bulkDeleteTags(List<String> ids);
+  /// Doc Required
+  Future<void> bulkDeleteTags(final List<String> ids);
 
-  Future<void> archiveTag(String id);
+  /// Doc Required
+  Future<void> archiveTag(final String id);
 
-  Future<void> restoreTag(String id);
+  /// Doc Required
+  Future<void> restoreTag(final String id);
 }

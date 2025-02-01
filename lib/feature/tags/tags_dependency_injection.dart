@@ -10,7 +10,7 @@ import 'package:todo_app/core/app_library.dart';
 // Just register a different implementation.
 
 // Clarity: The use of distinct instance names makes it clear which repository
-// or remote data source you are working with, improving the readability
+// or remotes data source you are working with, improving the readability
 // and maintainability
 // of your dependency injection setup.
 

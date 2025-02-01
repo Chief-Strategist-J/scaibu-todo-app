@@ -1,21 +1,24 @@
 import 'package:todo_app/core/app_library.dart';
 
-
+/// Doc Required
 class ColorPickerComponent extends HookWidget {
+  /// Doc Required
   const ColorPickerComponent({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final Color color = context.select(
-      (TagBloc tagBloc) {
-        final currState = tagBloc.state;
-        return currState is TagDataState ? currState.color ?? Colors.red : Colors.red;
+      (final TagBloc tagBloc) {
+        final TagState currState = tagBloc.state;
+        return currState is TagDataState
+            ? currState.color ?? Colors.red
+            : Colors.red;
       },
     );
 
     return ColorPicker(
       color: color,
-      onColorChanged: (Color color) {
+      onColorChanged: (final Color color) {
         context.read<TagBloc>().add(UpdateColorOfTagEvent(color: color));
       },
       width: 44,
@@ -23,7 +26,6 @@ class ColorPickerComponent extends HookWidget {
       borderRadius: 22,
       enableOpacity: true,
       colorCodeHasColor: true,
-      enableShadesSelection: true,
       showRecentColors: true,
       showColorCode: true,
       showColorName: true,
@@ -41,18 +43,24 @@ class ColorPickerComponent extends HookWidget {
         ColorPickerType.wheel: true,
       },
       heading: Row(
-        children: [
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Text('Select color', style: Theme.of(context).textTheme.titleMedium),
+            child: Text(
+              'Select color',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
         ],
       ),
       subheading: Row(
-        children: [
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 4),
-            child: Text('Select color shade', style: Theme.of(context).textTheme.titleSmall),
+            child: Text(
+              'Select color shade',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
           ),
         ],
       ),

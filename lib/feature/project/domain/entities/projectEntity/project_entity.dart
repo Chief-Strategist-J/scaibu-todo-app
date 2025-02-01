@@ -3,8 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'project_entity.freezed.dart';
 part 'project_entity.g.dart';
 
+/// Doc Required
 @freezed
 class ProjectEntity with _$ProjectEntity {
+  /// Doc Required
   const factory ProjectEntity({
     final String? uuid,
     final String? name,
@@ -54,6 +56,7 @@ class ProjectEntity with _$ProjectEntity {
     final DateTime? updatedAt,
   }) = _ProjectEntity;
 
+  /// Doc Required
   factory ProjectEntity.fromJson(final Map<String, dynamic> json) =>
       _$ProjectEntityFromJson(json);
 }

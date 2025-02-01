@@ -1,33 +1,71 @@
+import 'dart:core';
+
 import 'package:todo_app/core/app_library.dart';
 
-class ProjectCategoryConfig<T> {
-  final String title;
-  final List<T> items;
-  final TextEditingController controller;
-  final FocusNode focusNode;
+/// Doc Required
 
+abstract class BaseProjectCategoryConfig {
+  /// Doc Required
+
+  String get title;
+
+  /// Doc Required
+
+  TextEditingController get controller;
+
+  /// Doc Required
+
+  FocusNode get focusNode;
+
+  /// Doc Required
+  List<dynamic> get items;
+}
+
+/// Doc Required
+class ProjectCategoryConfig<T> implements BaseProjectCategoryConfig {
+  /// Doc Required
   ProjectCategoryConfig({
     required this.title,
     required this.items,
     required this.controller,
     required this.focusNode,
-  });z
+  });
 
-  List<ProjectCategoryConfig> getList(final ProjectPageParam projectParam) => [
-      ProjectCategoryConfig<ProjectCategoryEntity>(
-        title: 'Project Categories',
-        items: projectParam.listOfProjectCategories,
-        controller: projectParam.projectCategory,
-        focusNode: projectParam.projectCategoryNode,
-      ),
-      ProjectCategoryConfig<ProjectStatusEntity>(
-        title: 'Project Status',
-        items: projectParam.listOfProjectStatuses,
-        controller: projectParam.projectStatus,
-        focusNode: projectParam.projectStatusNode,
-      ),
-      ProjectCategoryConfig<ProjectPriorityEntity>(
-        title: 'Project Priority',
+  /// Doc Required
+  @override
+  final String title;
+
+  /// Doc Required
+  @override
+  final List<T> items;
+
+  /// Doc Required
+  @override
+  final TextEditingController controller;
+
+  /// Doc Required
+  @override
+  final FocusNode focusNode;
+
+  /// Doc Required
+  static List<BaseProjectCategoryConfig> getList(
+    final ProjectPageParam projectParam,
+  ) =>
+      <BaseProjectCategoryConfig>[
+        ProjectCategoryConfig<ProjectCategoryEntity>(
+          title: 'Project Categories',
+          items: projectParam.listOfProjectCategories,
+          controller: projectParam.projectCategory,
+          focusNode: projectParam.projectCategoryNode,
+        ),
+        ProjectCategoryConfig<ProjectStatusEntity>(
+          title: 'Project Status',
+          items: projectParam.listOfProjectStatuses,
+          controller: projectParam.projectStatus,
+          focusNode: projectParam.projectStatusNode,
+        ),
+        ProjectCategoryConfig<ProjectPriorityEntity>(
+          title: 'Project Priority',
         items: projectParam.listOfProjectPriority,
         controller: projectParam.projectPriority,
         focusNode: projectParam.projectPriorityNode,
@@ -46,6 +84,7 @@ class ProjectCategoryConfig<T> {
       ),
     ];
 
+  /// Doc Required
   String getCategoryName(final dynamic T) {
     if (T is ProjectCategoryEntity) {
       return T.name.validate();

@@ -1,24 +1,36 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class UnlinkAccountParams {
-  final String userId;
-  final String accountId;
-
+  /// Doc Required
   UnlinkAccountParams({required this.userId, required this.accountId});
+
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final String accountId;
 }
 
+/// Doc Required
 class UnlinkAccountUseCase extends UseCase<void, UnlinkAccountParams> {
-  final LinkedAccountsRepository<void> linkedAccountsRepository;
-
+  /// Doc Required
   UnlinkAccountUseCase({required this.linkedAccountsRepository});
 
+  /// Doc Required
+  final LinkedAccountsRepository<void> linkedAccountsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UnlinkAccountParams params) async {
+  Future<Either<Failure, void>> call(final UnlinkAccountParams params) async {
     try {
-      await linkedAccountsRepository.unlinkAccount(params.userId, params.accountId);
-      return const Right(null);
+      await linkedAccountsRepository.unlinkAccount(
+        params.userId,
+        params.accountId,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to unlink account'));
+      return Left<Failure, void>(ServerFailure('Failed to unlink account'));
     }
   }
 }

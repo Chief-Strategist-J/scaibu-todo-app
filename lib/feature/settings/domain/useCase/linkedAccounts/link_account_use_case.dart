@@ -1,24 +1,36 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class LinkAccountParams {
-  final String userId;
-  final Map<String, dynamic> accountDetails;
-
+  /// Doc Required
   LinkAccountParams({required this.userId, required this.accountDetails});
+
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> accountDetails;
 }
 
+/// Doc Required
 class LinkAccountUseCase extends UseCase<void, LinkAccountParams> {
-  final LinkedAccountsRepository<void> linkedAccountsRepository;
-
+  /// Doc Required
   LinkAccountUseCase({required this.linkedAccountsRepository});
 
+  /// Doc Required
+  final LinkedAccountsRepository<void> linkedAccountsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(LinkAccountParams params) async {
+  Future<Either<Failure, void>> call(final LinkAccountParams params) async {
     try {
-      await linkedAccountsRepository.linkAccount(params.userId, params.accountDetails);
-      return const Right(null);
+      await linkedAccountsRepository.linkAccount(
+        params.userId,
+        params.accountDetails,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to link account'));
+      return Left<Failure, void>(ServerFailure('Failed to link account'));
     }
   }
 }

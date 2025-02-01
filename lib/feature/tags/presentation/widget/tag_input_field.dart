@@ -1,11 +1,13 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class TagInputField extends StatelessWidget {
+  /// Doc Required
   const TagInputField({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final tagBloc = context.read<TagBloc>();
+  Widget build(final BuildContext context) {
+    final TagBloc tagBloc = context.read<TagBloc>();
 
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
@@ -17,8 +19,10 @@ class TagInputField extends StatelessWidget {
             Assets.iconIcTag,
             width: 16,
             height: 16,
-            fit: BoxFit.contain,
-            colorFilter: ColorFilter.mode(cardColor.withOpacity(0.3), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+              cardColor.withOpacity(0.3),
+              BlendMode.srcIn,
+            ),
           ),
         ),
         controller: tagBloc.tagTextEditingController,

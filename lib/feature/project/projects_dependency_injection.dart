@@ -1,175 +1,197 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/project/data/dataSources/remotes/project_remote_data_source.dart';
 
+/// Doc Required
 class ProjectDependencyInjection {
-  // Project Repository
-  static const projectRepositoryImpl = 'project_repository_impl';
+  /// Doc Required
+  static const String projectRepositoryImpl = 'project_repository_impl';
 
   // Use Cases
-  static const assignTodosToProjectUseCase = 'assign_todos_to_project_use_case';
-  static const bulkCreateProjectsUseCase = 'bulk_create_projects_use_case';
-  static const bulkDeleteProjectsUseCase = 'bulk_delete_projects_use_case';
-  static const createProjectUseCase = 'create_project_use_case';
-  static const deleteProjectUseCase = 'delete_project_use_case';
-  static const getAllProjectsUseCase = 'get_all_projects_use_case';
-  static const getPaginatedProjectsForTodoUseCase = 'get_paginated_projects_for_todo_use_case';
-  static const getPaginatedTodosForProjectUseCase = 'get_paginated_todos_for_project_use_case';
-  static const getProjectByIdUseCase = 'get_project_by_id_use_case';
-  static const restoreProjectUseCase = 'restore_project_use_case';
-  static const searchProjectsUseCase = 'search_projects_use_case';
-  static const updateProjectUseCase = 'update_project_use_case';
-  static const getProjectCategoryDataUseCase = 'get_project_category_data_use_case';
+  /// Doc Required
+  static const String assignTodosToProjectUseCase =
+      'assign_todos_to_project_use_case';
+
+  /// Doc Required
+  static const String bulkCreateProjectsUseCase =
+      'bulk_create_projects_use_case';
+
+  /// Doc Required
+  static const String bulkDeleteProjectsUseCase =
+      'bulk_delete_projects_use_case';
+
+  /// Doc Required
+  static const String createProjectUseCase = 'create_project_use_case';
+
+  /// Doc Required
+  static const String deleteProjectUseCase = 'delete_project_use_case';
+
+  /// Doc Required
+  static const String getAllProjectsUseCase = 'get_all_projects_use_case';
+
+  /// Doc Required
+  static const String getPaginatedProjectsForTodoUseCase =
+      'get_paginated_projects_for_todo_use_case';
+
+  /// Doc Required
+  static const String getPaginatedTodosForProjectUseCase =
+      'get_paginated_todos_for_project_use_case';
+
+  /// Doc Required
+  static const String getProjectByIdUseCase = 'get_project_by_id_use_case';
+
+  /// Doc Required
+  static const String restoreProjectUseCase = 'restore_project_use_case';
+
+  /// Doc Required
+  static const String searchProjectsUseCase = 'search_projects_use_case';
+
+  /// Doc Required
+  static const String updateProjectUseCase = 'update_project_use_case';
+
+  /// Doc Required
+  static const String getProjectCategoryDataUseCase =
+      'get_project_category_data_use_case';
 
   // Bloc
-  static const projectBloc = 'project_bloc';
+  /// Doc Required
+  static const String projectBloc = 'project_bloc';
 
+  /// Doc Required
   static void setup() {
-    getIt.registerSingleton<BaseProjectDataSource>(
-      ProjectRemoteDataSource(restApi: getIt<RestApi>()),
-    );
-
-    getIt.registerSingleton<ProjectRepository<ProjectEntity>>(
+    getIt
+      ..registerSingleton<BaseProjectDataSource>(
+        ProjectRemoteDataSource(restApi: getIt<RestApi>()),
+    )..registerSingleton<ProjectRepository<ProjectEntity>>(
       ProjectRepositoryImpl(getIt<BaseProjectDataSource>()),
       instanceName: projectRepositoryImpl,
-    );
-
-    getIt.registerSingleton<AssignTodosToProjectUseCase>(
+    )..registerSingleton<AssignTodosToProjectUseCase>(
       instanceName: assignTodosToProjectUseCase,
       AssignTodosToProjectUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<BulkCreateProjectsUseCase>(
+    )..registerSingleton<BulkCreateProjectsUseCase>(
       instanceName: bulkCreateProjectsUseCase,
       BulkCreateProjectsUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<BulkDeleteProjectsUseCase>(
+    )..registerSingleton<BulkDeleteProjectsUseCase>(
       instanceName: bulkDeleteProjectsUseCase,
       BulkDeleteProjectsUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<CreateProjectUseCase>(
+    )..registerSingleton<CreateProjectUseCase>(
       instanceName: createProjectUseCase,
       CreateProjectUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<DeleteProjectUseCase>(
+    )..registerSingleton<DeleteProjectUseCase>(
       instanceName: deleteProjectUseCase,
       DeleteProjectUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<GetAllProjectsUseCase>(
+    )..registerSingleton<GetAllProjectsUseCase>(
       instanceName: getAllProjectsUseCase,
       GetAllProjectsUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<GetPaginatedProjectsForTodoUseCase>(
+    )..registerSingleton<GetPaginatedProjectsForTodoUseCase>(
       instanceName: getPaginatedProjectsForTodoUseCase,
       GetPaginatedProjectsForTodoUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<GetPaginatedTodosForProjectUseCase>(
+    )..registerSingleton<GetPaginatedTodosForProjectUseCase>(
       instanceName: getPaginatedTodosForProjectUseCase,
       GetPaginatedTodosForProjectUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<GetProjectByIdUseCase>(
+    )..registerSingleton<GetProjectByIdUseCase>(
       instanceName: getProjectByIdUseCase,
       GetProjectByIdUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<RestoreProjectUseCase>(
+    )..registerSingleton<RestoreProjectUseCase>(
       instanceName: restoreProjectUseCase,
       RestoreProjectUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<SearchProjectsUseCase>(
+    )..registerSingleton<SearchProjectsUseCase>(
       instanceName: searchProjectsUseCase,
       SearchProjectsUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<UpdateProjectUseCase>(
+    )..registerSingleton<UpdateProjectUseCase>(
       instanceName: updateProjectUseCase,
       UpdateProjectUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<GetProjectCategoryDataUseCase>(
+    )..registerSingleton<GetProjectCategoryDataUseCase>(
       instanceName: getProjectCategoryDataUseCase,
       GetProjectCategoryDataUseCase(
         projectRepository: getIt<ProjectRepository<ProjectEntity>>(
           instanceName: projectRepositoryImpl,
         ),
       ),
-    );
-
-    getIt.registerSingleton<ProjectBloc>(
+    )..registerSingleton<ProjectBloc>(
       instanceName: projectBloc,
       ProjectBloc(),
     );
   }
 
-  static void dispose() {
-    getIt.unregister<ProjectRepository<ProjectEntity>>(instanceName: projectRepositoryImpl);
-    getIt.unregister<AssignTodosToProjectUseCase>(instanceName: assignTodosToProjectUseCase);
-    getIt.unregister<BulkCreateProjectsUseCase>(instanceName: bulkCreateProjectsUseCase);
-    getIt.unregister<BulkDeleteProjectsUseCase>(instanceName: bulkDeleteProjectsUseCase);
-    getIt.unregister<CreateProjectUseCase>(instanceName: createProjectUseCase);
-    getIt.unregister<DeleteProjectUseCase>(instanceName: deleteProjectUseCase);
-    getIt.unregister<GetAllProjectsUseCase>(instanceName: getAllProjectsUseCase);
-    getIt.unregister<GetPaginatedProjectsForTodoUseCase>(instanceName: getPaginatedProjectsForTodoUseCase);
-    getIt.unregister<GetPaginatedTodosForProjectUseCase>(instanceName: getPaginatedTodosForProjectUseCase);
-    getIt.unregister<GetProjectByIdUseCase>(instanceName: getProjectByIdUseCase);
-    getIt.unregister<RestoreProjectUseCase>(instanceName: restoreProjectUseCase);
-    getIt.unregister<SearchProjectsUseCase>(instanceName: searchProjectsUseCase);
-    getIt.unregister<UpdateProjectUseCase>(instanceName: updateProjectUseCase);
-    getIt.unregister<GetProjectCategoryDataUseCase>(instanceName: getProjectCategoryDataUseCase);
-    getIt.unregister<ProjectBloc>(instanceName: projectBloc);
+  /// Doc Required
+  static Future<void> dispose() async {
+    getIt
+      ..unregister<ProjectRepository<ProjectEntity>>(
+        instanceName: projectRepositoryImpl,
+      )
+      ..unregister<AssignTodosToProjectUseCase>(
+        instanceName: assignTodosToProjectUseCase,
+      )
+      ..unregister<BulkCreateProjectsUseCase>(
+        instanceName: bulkCreateProjectsUseCase,
+      )
+      ..unregister<BulkDeleteProjectsUseCase>(
+        instanceName: bulkDeleteProjectsUseCase,
+      )
+      ..unregister<CreateProjectUseCase>(instanceName: createProjectUseCase)
+      ..unregister<DeleteProjectUseCase>(instanceName: deleteProjectUseCase)
+      ..unregister<GetAllProjectsUseCase>(instanceName: getAllProjectsUseCase)
+      ..unregister<GetPaginatedProjectsForTodoUseCase>(
+        instanceName: getPaginatedProjectsForTodoUseCase,
+      )
+      ..unregister<GetPaginatedTodosForProjectUseCase>(
+        instanceName: getPaginatedTodosForProjectUseCase,
+      )
+      ..unregister<GetProjectByIdUseCase>(instanceName: getProjectByIdUseCase)
+      ..unregister<RestoreProjectUseCase>(instanceName: restoreProjectUseCase)
+      ..unregister<SearchProjectsUseCase>(instanceName: searchProjectsUseCase)
+      ..unregister<UpdateProjectUseCase>(instanceName: updateProjectUseCase)
+      ..unregister<GetProjectCategoryDataUseCase>(
+        instanceName: getProjectCategoryDataUseCase,
+      )
+      ..unregister<ProjectBloc>(instanceName: projectBloc);
   }
 }

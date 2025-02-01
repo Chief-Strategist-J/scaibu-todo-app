@@ -1,36 +1,71 @@
 import 'package:todo_app/core/app_library.dart';
 
-class TagEndPoint {
-  static const String getAllTags = 'api/v1/tags';
-  static const String createTag = 'api/v1/tags/createTag';
-  static const String updateTag = 'api/v1/tags';
-  static const String deleteTag = 'api/v1/tags';
-  static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
-  static const String getAllTagsByUserId = 'api/v1/tags/getAllTagsByUserId'; // Adjust if needed for specific tag ID
-  static const String bulkCreateTags = 'api/v1/tags/bulk';
-  static const String bulkDeleteTags = 'api/v1/tags/bulkDelete';
-  static const String bulkDeleteTagsByTodoId = 'api/v1/tags/bulkDeleteTagsByTodoId';
-
-  static String archiveTag(String tagId) => 'api/v1/tags/$tagId/archive'; // Use string interpolation
-  static String restoreTag(String tagId) => 'api/v1/tags/$tagId/restore'; // Use string interpolation
-  static const String searchTags = 'api/v1/tags/search';
-
-  TagEndPoint._(); // Private constructor to prevent instantiation
+/// Doc Required
+abstract interface class HelperTagRepository<T> {
+  /// Doc Required
+  Future<List<T>> getAllSeededTags();
 }
 
-class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepository<TagEntity> {
-  final RestApi restApi;
+/// Doc Required
+class TagEndPoint {
+  TagEndPoint._();
 
+  /// Doc Required
+  static const String getAllTags = 'api/v1/tags';
+
+  /// Doc Required
+  static const String createTag = 'api/v1/tags/createTag';
+
+  /// Doc Required
+  static const String updateTag = 'api/v1/tags';
+
+  /// Doc Required
+  static const String deleteTag = 'api/v1/tags';
+
+  /// Doc Required
+  static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
+  /// Doc Required
+  static const String getAllTagsByUserId = 'api/v1/tags/getAllTagsByUserId'; // Adjust if needed for specific tag ID
+  /// Doc Required
+  static const String bulkCreateTags = 'api/v1/tags/bulk';
+
+  /// Doc Required
+  static const String bulkDeleteTags = 'api/v1/tags/bulkDelete';
+
+  /// Doc Required
+  static const String bulkDeleteTagsByTodoId = 'api/v1/tags/bulkDeleteTagsByTodoId';
+
+  /// Doc Required
+
+  static String archiveTag(final String tagId) =>
+      'api/v1/tags/$tagId/archive'; // Use string interpolation
+  /// Doc Required
+
+  static String restoreTag(final String tagId) =>
+      'api/v1/tags/$tagId/restore'; // Use string interpolation
+  /// Doc Required
+  static const String searchTags =
+      'api/v1/tags/search'; // Private constructor to prevent instantiation
+}
+
+/// Doc Required
+
+class TagsRemoteDatabaseApi
+    implements TagsRemoteBase<TagEntity>, HelperTagRepository<TagEntity> {
+  /// Doc Required
   const TagsRemoteDatabaseApi(this.restApi);
 
+  /// Doc Required
+  final RestApi restApi;
+
   @override
-  Future<void> archiveTag(String id) async {
+  Future<void> archiveTag(final String id) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.archiveTag(id), // Use the dynamic endpoint
-        requestBody: {},
-        headers: {
+        requestBody: <String, dynamic>{},
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -41,13 +76,13 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<void> bulkCreateTags(List<Map<String, dynamic>> data) async {
+  Future<void> bulkCreateTags(final List<Map<String, dynamic>> data) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.bulkCreateTags,
-        requestBody: {'tags': data},
-        headers: {
+        requestBody: <String, dynamic>{'tags': data},
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -58,13 +93,13 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<void> bulkDeleteTags(List<String> ids) async {
+  Future<void> bulkDeleteTags(final List<String> ids) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.bulkDeleteTags,
-        requestBody: {'ids': ids},
-        headers: {
+        requestBody: <String, dynamic>{'ids': ids},
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -75,13 +110,13 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<void> createTag(Map<String, dynamic> data) async {
+  Future<void> createTag(final Map<String, dynamic> data) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.createTag,
         requestBody: data,
-        headers: {
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -92,13 +127,13 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<void> deleteTag(String id) async {
+  Future<void> deleteTag(final String id) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.delete,
         endPoint: TagEndPoint.deleteTag, // Adjust as needed to include the ID
-        requestBody: {},
-        headers: {
+        requestBody: <String, dynamic>{},
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -114,18 +149,18 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<TagEntity> getTagById(String id) {
+  Future<TagEntity> getTagById(final String id) {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> restoreTag(String id) async {
+  Future<void> restoreTag(final String id) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.restoreTag(id), // Use the dynamic endpoint
-        requestBody: {},
-        headers: {
+        requestBody: <String, dynamic>{},
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -136,18 +171,21 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<List<TagEntity>> searchTags(String query) {
+  Future<List<TagEntity>> searchTags(final String query) {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> updateTag(String id, Map<String, dynamic> data) async {
+  Future<void> updateTag(
+    final String id,
+    final Map<String, dynamic> data,
+  ) async {
     try {
-      await restApi.request(
+      await restApi.request<dynamic>(
         type: HttpRequestMethod.put,
-        endPoint: TagEndPoint.updateTag, // Adjust if you need to include the ID in the URL
+        endPoint: TagEndPoint.updateTag,
         requestBody: data,
-        headers: {
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
@@ -160,23 +198,25 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   @override
   Future<List<TagEntity>> getAllSeededTags() async {
     try {
-      final response = await restApi.request(
-        type: HttpRequestMethod.get,
+      final dynamic response = await restApi.request<dynamic>(
         endPoint: TagEndPoint.getAllSeeded,
-        requestBody: {},
-        headers: {
+        requestBody: <String, dynamic>{},
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
 
-      ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
+      final ListOfTagsSeededTagResponse listOfTagsSeededTagResponse =
+          ListOfTagsSeededTagResponse.fromJson(response);
 
-      if (listOfTagsSeededTagResponse.data == null) throw Exception("getAllSeededTags() data is null");
+      if (listOfTagsSeededTagResponse.data == null) {
+        throw Exception('getAllSeededTags() data is null');
+      }
 
-      List<TagEntity> tags = [];
+      final List<TagEntity> tags = <TagEntity>[];
 
-      final list = listOfTagsSeededTagResponse.data;
-      for (TagData element in list.validate()) {
+      final List<TagData>? list = listOfTagsSeededTagResponse.data;
+      for (final TagData element in list.validate()) {
         tags.add(
           TagEntity(
             id: element.id?.toInt(),
@@ -196,28 +236,31 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<List<TagEntity>> getTagByTodoId(String id) async {
+  Future<List<TagEntity>> getTagByTodoId(final String id) async {
     try {
-      final response = await restApi.request(
+      final dynamic response = await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.getAllTags,
-        requestBody: {
+        requestBody: <String, dynamic>{
           'todo_id': id,
           'page': 1,
         },
-        headers: {
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
 
-      ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
+      final ListOfTagsSeededTagResponse listOfTagsSeededTagResponse =
+          ListOfTagsSeededTagResponse.fromJson(response);
 
-      if (listOfTagsSeededTagResponse.data == null) throw Exception("getTagByTodoId() data is null");
+      if (listOfTagsSeededTagResponse.data == null) {
+        throw Exception('getTagByTodoId() data is null');
+      }
 
-      List<TagEntity> tags = [];
+      final List<TagEntity> tags = <TagEntity>[];
 
-      final list = listOfTagsSeededTagResponse.data!;
-      for (TagData element in list) {
+      final List<TagData> list = listOfTagsSeededTagResponse.data!;
+      for (final TagData element in list) {
         tags.add(
           TagEntity(
             id: element.id?.toInt(),
@@ -237,41 +280,52 @@ class TagsRemoteDatabaseApi implements TagsRemoteBase<TagEntity>, HelperTagRepos
   }
 
   @override
-  Future<void> bulkDeleteTagsByTodoId(String tagID) async {
-    await restApi.request(
+  Future<void> bulkDeleteTagsByTodoId(final String tagID) async {
+    await restApi.request<dynamic>(
       type: HttpRequestMethod.post,
       endPoint: TagEndPoint.bulkDeleteTagsByTodoId,
-      requestBody: {
+      requestBody: <String, dynamic>{
         'todo_id': tagID,
       },
-      headers: {
+      headers: <String, String>{
         'Content-Type': 'application/json',
       },
     );
   }
 
   @override
-  Future<List<TagEntity>> getAllTagsByUserId(Map<String, dynamic> data) async {
+  Future<List<TagEntity>> getAllTagsByUserId(
+    final Map<String, dynamic> data,
+  ) async {
     try {
-      final response = await restApi.request(
+      final dynamic response = await restApi.request<dynamic>(
         type: HttpRequestMethod.post,
         endPoint: TagEndPoint.getAllTagsByUserId,
         requestBody: data,
-        headers: {
+        headers: <String, String>{
           'Content-Type': 'application/json',
         },
       );
 
-      ListOfTagsSeededTagResponse listOfTagsSeededTagResponse = ListOfTagsSeededTagResponse.fromJson(response);
+      final ListOfTagsSeededTagResponse listOfTagsSeededTagResponse =
+          ListOfTagsSeededTagResponse.fromJson(response);
 
-      if (listOfTagsSeededTagResponse.data == null) throw Exception("getAllTagsByUserId() data is null");
+      if (listOfTagsSeededTagResponse.data == null) {
+        throw Exception('getAllTagsByUserId() data is null');
+      }
 
-      List<TagEntity> tags = [];
+      final List<TagEntity> tags = <TagEntity>[];
 
-      final list = listOfTagsSeededTagResponse.data!;
-      for (TagData element in list) {
+      final List<TagData> list = listOfTagsSeededTagResponse.data!;
+      for (final TagData element in list) {
         tags.add(
-          TagEntity(id: element.id?.toInt(), name: element.name, slug: element.slug, createdBy: element.createdBy?.toInt(), color: element.color),
+          TagEntity(
+            id: element.id?.toInt(),
+            name: element.name,
+            slug: element.slug,
+            createdBy: element.createdBy?.toInt(),
+            color: element.color,
+          ),
         );
       }
 

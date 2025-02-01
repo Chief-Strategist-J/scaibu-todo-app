@@ -1,42 +1,61 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
-// Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteHistoricalData {
-  final String historicalInfo;
-
+  /// Doc Required
   ConcreteHistoricalData({required this.historicalInfo});
+
+  /// Doc Required
+  final String historicalInfo;
 }
 
+/// Doc Required
 class GetHistoricalDataParams {
-  final String userId;
-  final DateTime startDate;
-  final DateTime endDate;
-
+  /// Doc Required
   GetHistoricalDataParams({
     required this.userId,
     required this.startDate,
     required this.endDate,
   });
+
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final DateTime startDate;
+
+  /// Doc Required
+  final DateTime endDate;
 }
 
-class GetHistoricalDataUseCase extends UseCase<List<ConcreteHistoricalData>, GetHistoricalDataParams> {
-  final DataAnalyticsRepository<ConcreteHistoricalData> dataAnalyticsRepository;
-
+/// Doc Required
+class GetHistoricalDataUseCase
+    extends UseCase<List<ConcreteHistoricalData>, GetHistoricalDataParams> {
+  /// Doc Required
   GetHistoricalDataUseCase({
     required this.dataAnalyticsRepository,
   });
 
+  /// Doc Required
+  final DataAnalyticsRepository<ConcreteHistoricalData> dataAnalyticsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, List<ConcreteHistoricalData>>> call(GetHistoricalDataParams params) async {
+  Future<Either<Failure, List<ConcreteHistoricalData>>> call(
+    final GetHistoricalDataParams params,
+  ) async {
     try {
-      final historicalData = await dataAnalyticsRepository.getHistoricalData(
+      final List<ConcreteHistoricalData> historicalData =
+          await dataAnalyticsRepository.getHistoricalData(
         params.userId,
         params.startDate,
         params.endDate,
       );
-      return Right(historicalData);
+      return Right<Failure, List<ConcreteHistoricalData>>(historicalData);
     } catch (e) {
-      return Left(ServerFailure('Failed to get historical data'));
+      return Left<Failure, List<ConcreteHistoricalData>>(
+        ServerFailure('Failed to get historical data'),
+      );
     }
   }
 }

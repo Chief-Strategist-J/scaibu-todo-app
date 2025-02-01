@@ -1,31 +1,48 @@
-import 'package:todo_app/core/app_library.dart';
-
+part of use_case;
 
 // Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteDataAnalytics {
-  final String analyticsInfo;
-
+  /// Doc Required
   ConcreteDataAnalytics({required this.analyticsInfo});
+
+  /// Doc Required
+  final String analyticsInfo;
 }
 
+/// Doc Required
 class GetDataAnalyticsParams {
-  final String userId;
-
+  /// Doc Required
   GetDataAnalyticsParams({required this.userId});
+
+  /// Doc Required
+  final String userId;
 }
 
-class GetDataAnalyticsUseCase extends UseCase<ConcreteDataAnalytics, GetDataAnalyticsParams> {
-  final DataAnalyticsRepository<ConcreteDataAnalytics> dataAnalyticsRepository;
-
+/// Doc Required
+class GetDataAnalyticsUseCase
+    extends UseCase<ConcreteDataAnalytics, GetDataAnalyticsParams> {
+  /// Doc Required
   GetDataAnalyticsUseCase({required this.dataAnalyticsRepository});
 
+  /// Doc Required
+  final DataAnalyticsRepository<ConcreteDataAnalytics> dataAnalyticsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcreteDataAnalytics>> call(GetDataAnalyticsParams params) async {
+  Future<Either<Failure, ConcreteDataAnalytics>> call(
+    final GetDataAnalyticsParams params,
+  ) async {
     try {
-      final analytics = await dataAnalyticsRepository.getDataAnalytics(params.userId);
-      return Right(analytics);
+      final ConcreteDataAnalytics analytics =
+          await dataAnalyticsRepository.getDataAnalytics(
+        params.userId,
+      );
+      return Right<Failure, ConcreteDataAnalytics>(analytics);
     } catch (e) {
-      return Left(ServerFailure('Failed to get data analytics'));
+      return Left<Failure, ConcreteDataAnalytics>(
+        ServerFailure('Failed to get data analytics'),
+      );
     }
   }
 }

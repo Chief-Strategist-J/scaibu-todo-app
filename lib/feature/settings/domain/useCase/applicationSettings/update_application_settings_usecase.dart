@@ -1,23 +1,39 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
-class UpdateApplicationSettingsUseCase extends UseCase<void, UpdateApplicationSettingsParams> {
+/// Doc Required
+class UpdateApplicationSettingsUseCase
+    extends UseCase<void, UpdateApplicationSettingsParams> {
+  /// Doc Required
+  UpdateApplicationSettingsUseCase({
+    required this.applicationSettingsRepository,
+  });
+
+  /// Doc Required
   final ApplicationSettingsRepository<void> applicationSettingsRepository;
 
-  UpdateApplicationSettingsUseCase({required this.applicationSettingsRepository});
-
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateApplicationSettingsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateApplicationSettingsParams params,
+  ) async {
     try {
-      await applicationSettingsRepository.updateApplicationSettings(params.settings);
-      return const Right(null);
+      await applicationSettingsRepository.updateApplicationSettings(
+        params.settings,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update application settings'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update application settings'),
+      );
     }
   }
 }
 
+/// Doc Required
 class UpdateApplicationSettingsParams {
-  final Map<String, dynamic> settings;
-
+  /// Doc Required
   UpdateApplicationSettingsParams({required this.settings});
+
+  /// Doc Required
+  final Map<String, dynamic> settings;
 }

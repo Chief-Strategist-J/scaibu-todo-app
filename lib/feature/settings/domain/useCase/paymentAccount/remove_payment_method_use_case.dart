@@ -1,24 +1,44 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class RemovePaymentMethodParams {
-  final String userId;
-  final String paymentMethodId;
+  /// Doc Required
+  RemovePaymentMethodParams({
+    required this.userId,
+    required this.paymentMethodId,
+  });
 
-  RemovePaymentMethodParams({required this.userId, required this.paymentMethodId});
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final String paymentMethodId;
 }
 
-class RemovePaymentMethodUseCase extends UseCase<void, RemovePaymentMethodParams> {
-  final PaymentAccountRepository<void> paymentAccountRepository;
-
+/// Doc Required
+class RemovePaymentMethodUseCase
+    extends UseCase<void, RemovePaymentMethodParams> {
+  /// Doc Required
   RemovePaymentMethodUseCase({required this.paymentAccountRepository});
 
+  /// Doc Required
+  final PaymentAccountRepository<void> paymentAccountRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(RemovePaymentMethodParams params) async {
+  Future<Either<Failure, void>> call(
+    final RemovePaymentMethodParams params,
+  ) async {
     try {
-      await paymentAccountRepository.removePaymentMethod(params.userId, params.paymentMethodId);
-      return const Right(null);
+      await paymentAccountRepository.removePaymentMethod(
+        params.userId,
+        params.paymentMethodId,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to remove payment method'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to remove payment method'),
+      );
     }
   }
 }

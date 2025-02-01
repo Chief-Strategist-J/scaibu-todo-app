@@ -1,26 +1,47 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
-
+/// Doc Required
 class ConcretePaymentAccountDetails {
-  final String accountId;
-  final String accountHolderName;
-  final String cardType;
+  /// Doc Required
+  ConcretePaymentAccountDetails({
+    required this.accountId,
+    required this.accountHolderName,
+    required this.cardType,
+  });
 
-  ConcretePaymentAccountDetails({required this.accountId, required this.accountHolderName, required this.cardType});
+  /// Doc Required
+  final String accountId;
+
+  /// Doc Required
+  final String accountHolderName;
+
+  /// Doc Required
+  final String cardType;
 }
 
-class GetPaymentAccountDetailsUseCase extends UseCase<ConcretePaymentAccountDetails, String> {
-  final PaymentAccountRepository<ConcretePaymentAccountDetails> paymentAccountRepository;
-
+/// Doc Required
+class GetPaymentAccountDetailsUseCase
+    extends UseCase<ConcretePaymentAccountDetails, String> {
+  /// Doc Required
   GetPaymentAccountDetailsUseCase({required this.paymentAccountRepository});
 
+  /// Doc Required
+  final PaymentAccountRepository<ConcretePaymentAccountDetails>
+      paymentAccountRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcretePaymentAccountDetails>> call(String params) async {
+  Future<Either<Failure, ConcretePaymentAccountDetails>> call(
+    final String params,
+  ) async {
     try {
-      final details = await paymentAccountRepository.getPaymentAccountDetails(params);
-      return Right(details);
+      final ConcretePaymentAccountDetails details =
+          await paymentAccountRepository.getPaymentAccountDetails(params);
+      return Right<Failure, ConcretePaymentAccountDetails>(details);
     } catch (e) {
-      return Left(ServerFailure('Failed to get payment account details'));
+      return Left<Failure, ConcretePaymentAccountDetails>(
+        ServerFailure('Failed to get payment account details'),
+      );
     }
   }
 }

@@ -1,10 +1,22 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
 class ProjectItemComponentVariant extends Variant {
   const ProjectItemComponentVariant._(super.name);
 
-  static const basic = ProjectItemComponentVariant._('project.basic');
-  static const highlighted = ProjectItemComponentVariant._('project.highlighted');
-  static const dark = ProjectItemComponentVariant._('project.dark');
-  static const flat = ProjectItemComponentVariant._('project.flat');
+  /// Doc Required
+  static const ProjectItemComponentVariant basic =
+      ProjectItemComponentVariant._('project.basic');
+
+  /// Doc Required
+  static const ProjectItemComponentVariant highlighted =
+      ProjectItemComponentVariant._('project.highlighted');
+
+  /// Doc Required
+  static const ProjectItemComponentVariant dark =
+      ProjectItemComponentVariant._('project.dark');
+
+  /// Doc Required
+  static const ProjectItemComponentVariant flat =
+      ProjectItemComponentVariant._('project.flat');
 }

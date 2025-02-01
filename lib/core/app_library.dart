@@ -41,7 +41,6 @@ export 'package:todo_app/core/constants/colors.dart';
 export 'package:todo_app/core/constants/file_paths.dart';
 export 'package:todo_app/core/constants/images.dart';
 export 'package:todo_app/core/error/error_codes.dart';
-
 /// Networking
 export 'package:todo_app/core/error/exceptions.dart';
 export 'package:todo_app/core/error/failure.dart';
@@ -70,18 +69,15 @@ export 'package:todo_app/core/useCases/use_case.dart';
 export 'package:todo_app/core/utils/log_service.dart';
 export 'package:todo_app/core/utils/parse_service.dart';
 export 'package:todo_app/core/utils/schedule_service.dart';
-
 /// Injection
 export 'package:todo_app/core/utils/service_dependency_injection.dart';
 export 'package:todo_app/core/utils/time_service.dart';
 export 'package:todo_app/core/utils/utility_service.dart';
-
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/feature/auth/auth_dependency_injection.dart';
 export 'package:todo_app/feature/auth/data/dataSource/local/user_credentials.dart';
 export 'package:todo_app/feature/auth/data/dataSource/remote/user_database_impl.dart';
-
 // Auth Feature
 export 'package:todo_app/feature/auth/data/model/response/fail_response.dart';
 export 'package:todo_app/feature/auth/data/model/response/login_response.dart';
@@ -127,16 +123,12 @@ export 'package:todo_app/feature/pomodoro/data/models/pomodoro_model.dart';
 export 'package:todo_app/feature/pomodoro/data/repositories/pomodoro_repository.dart';
 export 'package:todo_app/feature/pomodoro/domain/entities/pomodoro_entity.dart';
 export 'package:todo_app/feature/pomodoro/domain/repositories/pomodoro_repository.dart';
-
 export 'package:todo_app/feature/pomodoro/pomodoro_dependency_injection.dart';
-
 // Pomodoro
 export 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
 export 'package:todo_app/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 export 'package:todo_app/feature/pomodoro/presentation/pomodoro/pomodoro_view.dart'
     hide TimerWidget;
-export 'package:todo_app/feature/project/data/data_sources/remote/base_project_data_source.dart';
-export 'package:todo_app/feature/project/data/data_sources/remote/project_remote_data_source.dart';
 export 'package:todo_app/feature/project/data/models/projectModel/project_model.dart';
 export 'package:todo_app/feature/project/data/models/project_category_config.dart';
 export 'package:todo_app/feature/project/data/models/project_page_param.dart';
@@ -144,20 +136,6 @@ export 'package:todo_app/feature/project/data/repositories/project_repository_im
 export 'package:todo_app/feature/project/domain/entities/projectCategoryDataEntity/project_category_data_entity.dart';
 export 'package:todo_app/feature/project/domain/entities/projectEntity/project_entity.dart';
 export 'package:todo_app/feature/project/domain/repositories/project_repository.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/archive_project_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/assign_todos_to_project_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/bulk_create_projects_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/bulk_delete_projects_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/create_project_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/delete_project_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/get_all_projects_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/get_paginated_projects_for_todo_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/get_paginated_todos_for_project_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/get_project_by_id_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/get_project_category_data_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/restore_project_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/search_projects_use_case.dart';
-export 'package:todo_app/feature/project/domain/use_cases/project/update_project_use_case.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_bloc.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_event.dart';
 export 'package:todo_app/feature/project/presentation/bloc/project_state.dart';
@@ -170,19 +148,10 @@ export 'package:todo_app/feature/project/presentation/widgets/projectCategorySel
 export 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_component.variant.dart';
 export 'package:todo_app/feature/project/presentation/widgets/projectCategorySelectorComponent/project_category_selector_component.dart';
 export 'package:todo_app/feature/project/presentation/widgets/projectListItemComponent/project_item_component.dart';
+export 'package:todo_app/feature/project/presentation/widgets/projectListItemComponent/project_item_component.style.dart';
+export 'package:todo_app/feature/project/presentation/widgets/projectListItemComponent/project_item_component.variant.dart';
 export 'package:todo_app/feature/project/projects_dependency_injection.dart';
-export 'package:todo_app/feature/settings/domain/repository/account_security_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/app_appearance_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/application_settings_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/billing_and_subscription_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/data_analytics_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/date_time_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/linked_accounts_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/payment_account_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/pomodoro_preference_repository.dart';
-export 'package:todo_app/feature/settings/domain/repository/profile_repository.dart';
 export 'package:todo_app/feature/settings/presentation/view/setting_view.dart';
-
 // Tag Feature
 export 'package:todo_app/feature/tags/data/data_sources/remote/tags_remote_database.dart';
 export 'package:todo_app/feature/tags/data/data_sources/remote/tags_remote_firebase.dart';
@@ -190,21 +159,7 @@ export 'package:todo_app/feature/tags/data/data_sources/tags_remote_base.dart';
 export 'package:todo_app/feature/tags/data/models/response/list_of_tags_seeded_tag_response.dart';
 export 'package:todo_app/feature/tags/data/repositories/tags_repository_impl.dart';
 export 'package:todo_app/feature/tags/domain/entities/tags.dart';
-export 'package:todo_app/feature/tags/domain/repositories/helper_tag_repository.dart';
 export 'package:todo_app/feature/tags/domain/repositories/tags_repository.dart';
-export 'package:todo_app/feature/tags/domain/useCases/archive_tag_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/bulk_create_tags_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_by_todo_id_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/bulk_delete_tags_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/create_tag_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/delete_tag_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/get_all_seeded_tags_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/get_all_tags_by_user_id_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/get_all_tags_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/get_tag_by_id_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/get_tags_by_todo_id_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/restore_tag_use_case.dart';
-export 'package:todo_app/feature/tags/domain/useCases/search_tags_use_case.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_bloc.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_event.dart';
 export 'package:todo_app/feature/tags/presentation/bloc/tag_state.dart';
@@ -213,7 +168,6 @@ export 'package:todo_app/feature/tags/presentation/widget/color_picker_component
 export 'package:todo_app/feature/tags/presentation/widget/tag_button_component.dart';
 export 'package:todo_app/feature/tags/presentation/widget/tag_input_field.dart';
 export 'package:todo_app/feature/tags/tags_dependency_injection.dart';
-
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
 export 'package:todo_app/feature/todo/data/dataSource/remote/database_api_impl.dart';
@@ -248,7 +202,6 @@ export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.variant.dart';
 export 'package:todo_app/feature/todo/todo_dependency_injection.dart';
 export 'package:todo_app/firebase_options.dart';
-
 /// GENERATED
 export 'package:todo_app/generated/assets.dart';
 export 'package:todo_app/main.dart';
@@ -257,7 +210,6 @@ export 'package:todo_app/shared/service/task_detail_api_service.dart';
 export 'package:todo_app/shared/util/entity_utils.dart';
 export 'package:todo_app/shared/util/task_detail_selection_util.dart';
 export 'package:todo_app/shared/widget/dialogs.dart';
-
 /// SHARED
 export 'package:todo_app/shared/widget/empty_widget.dart';
 export 'package:todo_app/shared/widget/loading_widget.dart';

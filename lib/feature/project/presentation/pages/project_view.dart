@@ -1,41 +1,57 @@
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/project/presentation/widgets/project_category_selector_widget.dart';
 
+/// Doc Required
+
 class ProjectPage extends HookWidget {
-  final ProjectPageParam? param;
+  /// Doc Required
 
   const ProjectPage({this.param, super.key});
 
-  void _initProject(BuildContext context, ProjectPageParam param) {
-    useEffect(() {
-      final bloc = context.read<ProjectBloc>();
-      final completer = Completer<void>();
+  /// Doc Required
+  final ProjectPageParam? param;
 
-      bloc.add(InitProjectEvent());
+  void _initProject(final BuildContext context, final ProjectPageParam param) {
+    useEffect(
+      () async {
+        final ProjectBloc bloc = context.read<ProjectBloc>();
+        final Completer<void> completer = Completer<void>();
 
-      final subscription = bloc.stream.listen((state) {
-        if (state is InitProjectState) {
-          completer.complete();
-        }
-      });
+        bloc.add(InitProjectEvent());
 
-      completer.future.then((_) {
-        final currentState = bloc.state;
-        if (currentState is InitProjectState) {
-          _updateProjectParams(param, currentState.projectCategoryData?.data);
-        }
-      });
+        final StreamSubscription<ProjectState> subscription =
+            bloc.stream.listen((final ProjectState state) {
+          if (state is InitProjectState) {
+            completer.complete();
+          }
+        });
 
-      return () {
-        subscription.cancel();
-      };
-    }, []);
+        await completer.future.then((final _) {
+          final ProjectState currentState = bloc.state;
+          if (currentState is InitProjectState) {
+            _updateProjectParams(
+              param,
+              currentState.projectCategoryData?.data,
+            );
+          }
+        });
+
+        return subscription.cancel;
+      } as Dispose? Function(),
+      <Object?>[],
+    );
   }
 
-  void _updateProjectParams(ProjectPageParam param, ProjectCategoryDataEntity? data) {
-    if (data == null) return;
+  void _updateProjectParams(
+    final ProjectPageParam param,
+    final ProjectCategoryDataEntity? data,
+  ) {
+    if (data == null) {
+      return;
+    }
 
-    final mappings = {
+    final Map<List<Object>, List<Object>?> mappings =
+        <List<Object>, List<Object>?>{
       param.listOfProjectCategories: data.categories,
       param.listOfProjectPhases: data.phases,
       param.listOfProjectPriority: data.priorities,
@@ -43,52 +59,80 @@ class ProjectPage extends HookWidget {
       param.listOfProjectTypes: data.types,
     };
 
-    for (final entry in mappings.entries) {
+    for (final MapEntry<List<Object>, List<Object>?> entry
+        in mappings.entries) {
       _addToParamList(entry.key, entry.value);
     }
   }
 
-  void _addToParamList<T>(List<T> targetList, List<T>? sourceList) {
+  void _addToParamList<T>(final List<T> targetList, final List<T>? sourceList) {
     if (sourceList != null) {
       targetList.addAll(sourceList);
     }
   }
 
-  Future<void> _selectEstimatedHours(BuildContext context, ProjectPageParam projectParam) async {
-    await timeService.selectTimeRange(context).then((time) async {
-      if (!context.mounted) return;
-      projectParam.projectEstimatedHours.text = time.formatedStringTimeDuration.validate();
+  Future<void> _selectEstimatedHours(
+    final BuildContext context,
+    final ProjectPageParam projectParam,
+  ) async {
+    await timeService
+        .selectTimeRange(context)
+        .then((final TimeServiceModel time) async {
+      if (!context.mounted) {
+        return;
+      }
+      projectParam.projectEstimatedHours.text =
+          time.formatedStringTimeDuration.validate();
       projectParam.estimatedHours = time;
     });
   }
 
-  Future<void> _selectActualHours(BuildContext context, ProjectPageParam projectParam) async {
-    await timeService.selectTimeRange(context).then((time) async {
-      if (!context.mounted) return;
-      projectParam.projectActualHours.text = time.formatedStringTimeDuration.validate();
+  Future<void> _selectActualHours(
+    final BuildContext context,
+    final ProjectPageParam projectParam,
+  ) async {
+    await timeService
+        .selectTimeRange(context)
+        .then((final TimeServiceModel time) async {
+      if (!context.mounted) {
+        return;
+      }
+      projectParam.projectActualHours.text =
+          time.formatedStringTimeDuration.validate();
       projectParam.actualHours = time;
     });
   }
 
-  void _createProject(ProjectPageParam projectParam, BuildContext context) {
+  void _createProject(
+    final ProjectPageParam projectParam,
+    final BuildContext context,
+  ) {
     context.read<ProjectBloc>().add(CreateProjectEvent(request: projectParam));
   }
 
   @override
-  Widget build(BuildContext context) {
-    final projectParam = useMemoized(() => param ?? ProjectPageParam(), [param]);
+  Widget build(final BuildContext context) {
+    final ProjectPageParam projectParam =
+        useMemoized(() => param ?? ProjectPageParam(), <Object?>[param]);
     _initProject(context, projectParam);
-    final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
 
     return Scaffold(
-      appBar: AppBar(title: Text("New Project", style: boldTextStyle(size: 16))),
+      appBar: AppBar(
+        title: Text('New Project', style: boldTextStyle(size: 16)),
+      ),
       body: Stack(
         fit: StackFit.expand,
-        children: [
+        children: <Widget>[
           AnimatedScrollView(
             listAnimationType: ListAnimationType.None,
-            padding: const EdgeInsets.only(bottom: 120, right: 16, left: 16, top: 0),
-            children: [
+            padding: const EdgeInsets.only(
+              bottom: 120,
+              right: 16,
+              left: 16,
+            ),
+            children: <Widget>[
               ContentWidget(
                 title: 'Project Name',
                 controller: projectParam.projectName,
@@ -101,9 +145,14 @@ class ProjectPage extends HookWidget {
                 isDateField: true,
                 onTap: () async {
                   hideKeyboard(context);
-                  await timeService.selectDate(context).then((date) async {
-                    if (!context.mounted) return;
-                    projectParam.projectStartDate.text = date.formatTimeInString;
+                  await timeService
+                      .selectDate(context)
+                      .then((final TimeServiceModel date) async {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    projectParam.projectStartDate.text =
+                        date.formatTimeInString;
                     projectParam.startDate = date;
                   });
                 },
@@ -115,8 +164,12 @@ class ProjectPage extends HookWidget {
                 isTimeField: true,
                 onTap: () async {
                   hideKeyboard(context);
-                  await timeService.selectDate(context).then((date) async {
-                    if (!context.mounted) return;
+                  await timeService
+                      .selectDate(context)
+                      .then((final TimeServiceModel date) async {
+                    if (!context.mounted) {
+                      return;
+                    }
                     projectParam.projectEndDate.text = date.formatTimeInString;
                     projectParam.endDate = date;
                   });
@@ -150,20 +203,20 @@ class ProjectPage extends HookWidget {
                 lines: 10,
               ),
               CustomCheckboxComponent(
-                title: "1. Is your project public?",
-                onChanged: (value) {
+                title: '1. Is your project public?',
+                onChanged: (final bool value) {
                   projectParam.isPublic = value;
                 },
               ),
               CustomCheckboxComponent(
-                title: "2. Would you like your project archived?",
-                onChanged: (value) {
+                title: '2. Would you like your project archived?',
+                onChanged: (final bool value) {
                   projectParam.isArchived = value;
                 },
               ),
               CustomCheckboxComponent(
-                title: "3. Is your project featured?",
-                onChanged: (value) {
+                title: '3. Is your project featured?',
+                onChanged: (final bool value) {
                   projectParam.isFeatured = value;
                 },
               ),
@@ -175,7 +228,7 @@ class ProjectPage extends HookWidget {
               right: 16,
               left: 16,
               child: CustomButton(
-                data: "Create Project",
+                data: 'Create Project',
                 onTap: () async {
                   _createProject(projectParam, context);
                 },

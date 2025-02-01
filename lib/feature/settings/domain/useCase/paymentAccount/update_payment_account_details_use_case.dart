@@ -1,24 +1,44 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class UpdatePaymentAccountDetailsParams {
-  final String userId;
-  final Map<String, dynamic> paymentDetails;
+  /// Doc Required
+  UpdatePaymentAccountDetailsParams({
+    required this.userId,
+    required this.paymentDetails,
+  });
 
-  UpdatePaymentAccountDetailsParams({required this.userId, required this.paymentDetails});
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> paymentDetails;
 }
 
-class UpdatePaymentAccountDetailsUseCase extends UseCase<void, UpdatePaymentAccountDetailsParams> {
-  final PaymentAccountRepository<void> paymentAccountRepository;
-
+/// Doc Required
+class UpdatePaymentAccountDetailsUseCase
+    extends UseCase<void, UpdatePaymentAccountDetailsParams> {
+  /// Doc Required
   UpdatePaymentAccountDetailsUseCase({required this.paymentAccountRepository});
 
+  /// Doc Required
+  final PaymentAccountRepository<void> paymentAccountRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdatePaymentAccountDetailsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdatePaymentAccountDetailsParams params,
+  ) async {
     try {
-      await paymentAccountRepository.updatePaymentAccountDetails(params.userId, params.paymentDetails);
-      return const Right(null);
+      await paymentAccountRepository.updatePaymentAccountDetails(
+        params.userId,
+        params.paymentDetails,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update payment account details'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update payment account details'),
+      );
     }
   }
 }

@@ -1,33 +1,46 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
-// Temporary concrete class for demonstration
-class ConcreteSubscriptionDetails {
-  final String subscriptionInfo;
-
-  ConcreteSubscriptionDetails({required this.subscriptionInfo});
-}
-
+/// Doc Required
 class UpdateSubscriptionDetailsParams {
-  final String userId;
-  final Map<String, dynamic> subscriptionDetails;
+  /// Doc Required
+  UpdateSubscriptionDetailsParams({
+    required this.userId,
+    required this.subscriptionDetails,
+  });
 
-  UpdateSubscriptionDetailsParams({required this.userId, required this.subscriptionDetails});
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> subscriptionDetails;
 }
 
-class UpdateSubscriptionDetailsUseCase extends UseCase<void, UpdateSubscriptionDetailsParams> {
-  final BillingAndSubscriptionRepository<void> billingAndSubscriptionRepository;
-
+/// Doc Required
+class UpdateSubscriptionDetailsUseCase
+    extends UseCase<void, UpdateSubscriptionDetailsParams> {
+  /// Doc Required
   UpdateSubscriptionDetailsUseCase({
     required this.billingAndSubscriptionRepository,
   });
 
+  /// Doc Required
+  final BillingAndSubscriptionRepository<void> billingAndSubscriptionRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateSubscriptionDetailsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateSubscriptionDetailsParams params,
+  ) async {
     try {
-      await billingAndSubscriptionRepository.updateSubscriptionDetails(params.userId, params.subscriptionDetails);
-      return const Right(null);
+      await billingAndSubscriptionRepository.updateSubscriptionDetails(
+        params.userId,
+        params.subscriptionDetails,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update subscription details'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update subscription details'),
+      );
     }
   }
 }

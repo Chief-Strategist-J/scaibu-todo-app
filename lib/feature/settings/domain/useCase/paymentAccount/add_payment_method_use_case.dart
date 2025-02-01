@@ -1,24 +1,38 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
+/// Doc Required
 class AddPaymentMethodParams {
-  final String userId;
-  final Map<String, dynamic> paymentMethod;
-
+  /// Doc Required
   AddPaymentMethodParams({required this.userId, required this.paymentMethod});
+
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> paymentMethod;
 }
 
+/// Doc Required
 class AddPaymentMethodUseCase extends UseCase<void, AddPaymentMethodParams> {
-  final PaymentAccountRepository<void> paymentAccountRepository;
-
+  /// Doc Required
   AddPaymentMethodUseCase({required this.paymentAccountRepository});
 
+  /// Doc Required
+  final PaymentAccountRepository<void> paymentAccountRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(AddPaymentMethodParams params) async {
+  Future<Either<Failure, void>> call(
+    final AddPaymentMethodParams params,
+  ) async {
     try {
-      await paymentAccountRepository.addPaymentMethod(params.userId, params.paymentMethod);
-      return const Right(null);
+      await paymentAccountRepository.addPaymentMethod(
+        params.userId,
+        params.paymentMethod,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to add payment method'));
+      return Left<Failure, void>(ServerFailure('Failed to add payment method'));
     }
   }
 }

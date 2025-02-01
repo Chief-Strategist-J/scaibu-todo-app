@@ -1,31 +1,45 @@
-import 'package:todo_app/core/app_library.dart';
-
+part of use_case;
 
 // Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteDateTimeSettings {
-  final String timeZone;
-  final String dateFormat;
-
+  /// Doc Required
   ConcreteDateTimeSettings({
     required this.timeZone,
     required this.dateFormat,
   });
+
+  /// Doc Required
+  final String timeZone;
+
+  /// Doc Required
+  final String dateFormat;
 }
 
-class GetDateTimeSettingsUseCase extends UseCase<ConcreteDateTimeSettings, void> {
-  final DateTimeRepository<ConcreteDateTimeSettings> dateTimeRepository;
-
+/// Doc Required
+class GetDateTimeSettingsUseCase
+    extends UseCase<ConcreteDateTimeSettings, void> {
+  /// Doc Required
   GetDateTimeSettingsUseCase({
     required this.dateTimeRepository,
   });
 
+  /// Doc Required
+  final DateTimeRepository<ConcreteDateTimeSettings> dateTimeRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, ConcreteDateTimeSettings>> call(void params) async {
+  Future<Either<Failure, ConcreteDateTimeSettings>> call(
+    final void params,
+  ) async {
     try {
-      final settings = await dateTimeRepository.getDateTimeSettings();
-      return Right(settings);
+      final ConcreteDateTimeSettings settings =
+          await dateTimeRepository.getDateTimeSettings();
+      return Right<Failure, ConcreteDateTimeSettings>(settings);
     } catch (e) {
-      return Left(ServerFailure('Failed to get date and time settings'));
+      return Left<Failure, ConcreteDateTimeSettings>(
+        ServerFailure('Failed to get date and time settings'),
+      );
     }
   }
 }

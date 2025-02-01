@@ -1,34 +1,51 @@
 import 'package:todo_app/core/app_library.dart';
 
-import 'project_item_component.style.dart';
-import 'project_item_component.variant.dart';
 
+/// Doc Required
 class ProjectItemComponent extends StatelessWidget {
-  final String title;
-  final String description;
-  final VoidCallback onTap;
-  final ProjectItemComponentVariant variant;
-
+  /// Doc Required
   const ProjectItemComponent({
-    super.key,
     required this.title,
     required this.description,
     required this.onTap,
+    super.key,
     this.variant = ProjectItemComponentVariant.basic,
   });
 
+  /// Doc Required
+  final String title;
+
+  /// Doc Required
+  final String description;
+
+  /// Doc Required
+  final VoidCallback onTap;
+
+  /// Doc Required
+  final ProjectItemComponentVariant variant;
+
   @override
-  Widget build(BuildContext context) {
-    final style = ProjectItemComponentStyle(variant);
+  Widget build(final BuildContext context) {
+    final ProjectItemComponentStyle style = ProjectItemComponentStyle(variant);
 
     return PressableBox(
       style: style.containerStyle(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(title, style: style.titleStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
+        children: <Widget>[
+          Text(
+            title,
+            style: style.titleStyle(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
           const SizedBox(height: 4),
-          Text(description, style: style.descriptionStyle(), maxLines: 2, overflow: TextOverflow.ellipsis),
+          Text(
+            description,
+            style: style.descriptionStyle(),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );

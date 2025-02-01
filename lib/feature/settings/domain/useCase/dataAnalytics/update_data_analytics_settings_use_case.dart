@@ -1,36 +1,56 @@
-import 'package:todo_app/core/app_library.dart'; // Adjust import path as necessary
+part of use_case;
 
 // Temporary concrete class for demonstration
+/// Doc Required
 class ConcreteDataAnalyticsSettings {
-  final Map<String, dynamic> settings;
-
+  /// Doc Required
   ConcreteDataAnalyticsSettings({required this.settings});
+
+  /// Doc Required
+  final Map<String, dynamic> settings;
 }
 
+/// Doc Required
 class UpdateDataAnalyticsSettingsParams {
-  final String userId;
-  final Map<String, dynamic> settings;
-
+  /// Doc Required
   UpdateDataAnalyticsSettingsParams({
     required this.userId,
     required this.settings,
   });
+
+  /// Doc Required
+  final String userId;
+
+  /// Doc Required
+  final Map<String, dynamic> settings;
 }
 
-class UpdateDataAnalyticsSettingsUseCase extends UseCase<void, UpdateDataAnalyticsSettingsParams> {
-  final DataAnalyticsRepository<void> dataAnalyticsRepository;
-
+/// Doc Required
+class UpdateDataAnalyticsSettingsUseCase
+    extends UseCase<void, UpdateDataAnalyticsSettingsParams> {
+  /// Doc Required
   UpdateDataAnalyticsSettingsUseCase({
     required this.dataAnalyticsRepository,
   });
 
+  /// Doc Required
+  final DataAnalyticsRepository<void> dataAnalyticsRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, void>> call(UpdateDataAnalyticsSettingsParams params) async {
+  Future<Either<Failure, void>> call(
+    final UpdateDataAnalyticsSettingsParams params,
+  ) async {
     try {
-      await dataAnalyticsRepository.updateDataAnalyticsSettings(params.userId, params.settings);
-      return const Right(null);
+      await dataAnalyticsRepository.updateDataAnalyticsSettings(
+        params.userId,
+        params.settings,
+      );
+      return const Right<Failure, void>(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to update data analytics settings'));
+      return Left<Failure, void>(
+        ServerFailure('Failed to update data analytics settings'),
+      );
     }
   }
 }

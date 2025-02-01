@@ -1,21 +1,30 @@
-import 'package:todo_app/core/app_library.dart';
+part of use_case;
 
+/// Doc Required
 class Appearance {
   //
 }
 
+/// Doc Required
 class GetAppAppearanceSettingsUseCase extends UseCase<Appearance, void> {
-  final AppAppearanceRepository<Appearance> appAppearanceRepository;
-
+  /// Doc Required
   GetAppAppearanceSettingsUseCase({required this.appAppearanceRepository});
 
+  /// Doc Required
+  final AppAppearanceRepository<Appearance> appAppearanceRepository;
+
+  /// Doc Required
   @override
-  Future<Either<Failure, Appearance>> call(void params) async {
+  Future<Either<Failure, Appearance>> call(final void params) async {
     try {
-      final settings = await appAppearanceRepository.getAppAppearanceSettings();
-      return Right(settings);
+      final Appearance settings =
+          await appAppearanceRepository.getAppAppearanceSettings();
+
+      return Right<Failure, Appearance>(settings);
     } catch (e) {
-      return Left(ServerFailure('Failed to get app appearance settings'));
+      return Left<Failure, Appearance>(
+        ServerFailure('Failed to get app appearance settings'),
+      );
     }
   }
 }

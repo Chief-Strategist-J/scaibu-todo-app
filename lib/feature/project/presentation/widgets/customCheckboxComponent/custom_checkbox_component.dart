@@ -1,63 +1,72 @@
 import 'package:todo_app/core/app_library.dart';
 
+/// Doc Required
+
 class CustomCheckboxComponent extends HookWidget {
-  final ValueChanged<bool> _onChanged;
-  final CustomCheckboxComponentVariant _variant;
-  final String title;
+  /// Doc Required
 
   const CustomCheckboxComponent({
-    super.key,
-    required void Function(bool) onChanged,
-    CustomCheckboxComponentVariant variant = CustomCheckboxComponentVariant.light,
+    required final ValueChanged<bool> onChanged,
     required this.title,
+    super.key,
+    final CustomCheckboxComponentVariant variant =
+        CustomCheckboxComponentVariant.light,
   })  : _onChanged = onChanged,
         _variant = variant;
+  final ValueChanged<bool> _onChanged;
+  final CustomCheckboxComponentVariant _variant;
+
+  /// Doc Required
+  final String title;
+
+  /// Doc Required
 
   ColorSwatch<int> get getActiveColor {
-    final ColorSwatch<int> _activeColor;
+    final ColorSwatch<int> activeColor;
 
     if (_variant == CustomCheckboxComponentVariant.light) {
-      _activeColor = Colors.blueAccent;
+      activeColor = Colors.blueAccent;
     } else {
-      _activeColor = Colors.blueGrey;
+      activeColor = Colors.blueGrey;
     }
-    return _activeColor;
+    return activeColor;
   }
 
-  void _onChangeTap(bool? value, ValueNotifier<bool> _isChecked) {
+  void _onChangeTap(final bool? value, final ValueNotifier<bool> isChecked) {
     if (value != null) {
-      _isChecked.value = value;
+      isChecked.value = value;
       _onChanged(value); // Callback to parent with the new value
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final _isChecked = useState(false);
-    final _style = CustomCheckboxComponentStyle(_variant);
+  Widget build(final BuildContext context) {
+    final ValueNotifier<bool> isChecked = useState(false);
+    final CustomCheckboxComponentStyle style =
+        CustomCheckboxComponentStyle(_variant);
 
-    ColorSwatch<int> _activeColor = getActiveColor;
+    final ColorSwatch<int> activeColor = getActiveColor;
 
     return PressableBox(
-      style: _style.containerStyle(context),
+      style: style.containerStyle(context),
       child: Row(
-        children: [
+        children: <Widget>[
           Expanded(
             flex: 6,
             child: ListTile(
-              title: Text(title, style: _style.titleStyle()),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+              title: Text(title, style: style.titleStyle()),
+              contentPadding: EdgeInsets.zero,
               visualDensity: const VisualDensity(vertical: -4),
             ),
           ),
           Expanded(
             child: Checkbox(
-              value: _isChecked.value,
-              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              onChanged: (value) {
-                _onChangeTap(value, _isChecked);
+              value: isChecked.value,
+              shape: const RoundedRectangleBorder(),
+              onChanged: (final bool? value) {
+                _onChangeTap(value, isChecked);
               },
-              activeColor: _activeColor,
+              activeColor: activeColor,
               checkColor: Colors.white,
             ),
           ),

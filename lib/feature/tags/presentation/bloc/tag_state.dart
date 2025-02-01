@@ -2,26 +2,28 @@ import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
 
+/// Doc Required
 sealed class TagState extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
+/// Doc Required
 class TagDataState extends TagState {
-  final Color? color;
-
+  /// Doc Required
   TagDataState({this.color});
 
-  factory TagDataState.init() {
-    return TagDataState();
-  }
+  /// Doc Required
+  factory TagDataState.init() => TagDataState();
 
-  TagDataState copyWith({Color? color}) {
-    return TagDataState(
-      color: color ?? this.color,
+  /// Doc Required
+  final Color? color;
+
+  /// Doc Required
+  TagDataState copyWith({final Color? color}) => TagDataState(
+        color: color ?? this.color,
     );
-  }
 
   @override
-  List<Object?> get props => [color];
+  List<Object?> get props => <Object?>[color];
 }
