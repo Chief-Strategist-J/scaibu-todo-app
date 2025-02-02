@@ -98,7 +98,7 @@ class TagsRemoteFirebaseApi implements TagsRemoteBase<TagEntity> {
       // Add the document ID to the 'id' field
       await tagDoc.update(<Object, Object?>{'id': tagDoc.id});
 
-      // If todo_id is provided, create a tag in the todo collection
+      // If todo_id is provided, create a tag in the to-do collection
       if (data['todo_id'] != null) {
         await _createTagInTodoCollection(data, tagDoc.id);
       }
@@ -118,20 +118,20 @@ class TagsRemoteFirebaseApi implements TagsRemoteBase<TagEntity> {
         'order': data['order'],
         'version': data['version'],
         'follower_count': data['follower_count'],
-      'usage_count': data['usage_count'],
-      'related_posts_count': data['related_posts_count'],
-      'user_interaction_count': data['user_interaction_count'],
+        'usage_count': data['usage_count'],
+        'related_posts_count': data['related_posts_count'],
+        'user_interaction_count': data['user_interaction_count'],
         'popularity_score': data['popularity_score'],
         'name': data['name'],
         'slug': data['slug'],
         'meta_title': data['meta_title'],
         'color': data['color'],
-      'image_url': data['image_url'],
-      'tag_type': data['tag_type'],
-      'content_type': data['content_type'],
-      'description_vector': data['description_vector'],
-      'meta_description': data['meta_description'],
-      'description': data['description'],
+        'image_url': data['image_url'],
+        'tag_type': data['tag_type'],
+        'content_type': data['content_type'],
+        'description_vector': data['description_vector'],
+        'meta_description': data['meta_description'],
+        'description': data['description'],
         'geolocation_data': data['geolocation_data'] != null
             ? jsonEncode(data['geolocation_data'])
             : null,
