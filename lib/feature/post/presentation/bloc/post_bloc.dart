@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:todo_app/feature/post/presentation/bloc/post_event.dart';
+import 'package:todo_app/feature/post/presentation/bloc/post_state.dart';
 
-import 'post_event.dart';
-import 'post_state.dart';
 /// Doc Required
 class PostBloc extends Bloc<PostEvent, PostState> {
   /// Doc Required
@@ -10,7 +10,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   }
 
   Future<void> _init(
-      final InitPostEvent event, final Emitter<PostState> emit,) async {
+    final InitPostEvent event,
+    final Emitter<PostState> emit,
+  ) async {
     emit(InitPostState());
   }
 }

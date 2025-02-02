@@ -3,9 +3,10 @@ part of use_case;
 /// Doc Required
 class BulkDeleteTagsUseCase extends UseCase<void, List<String>> {
   /// Doc Required
-  BulkDeleteTagsUseCase(
-      {required this.tagsFirebaseRepository,
-      required this.tagsDatabaseRepository});
+  BulkDeleteTagsUseCase({
+    required this.tagsFirebaseRepository,
+    required this.tagsDatabaseRepository,
+  });
 
   /// Doc Required
   final TagsRepository<TagEntity> tagsDatabaseRepository;

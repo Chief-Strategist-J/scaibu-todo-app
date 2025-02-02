@@ -35,7 +35,8 @@ class SchedulePushNotificationUseCase
 
   @override
   Future<Either<Failure, void>> call(
-      final SchedulePushNotificationParams params) async {
+    final SchedulePushNotificationParams params,
+  ) async {
     try {
       await pushNotificationRepository.schedulePushNotification(
         params.title,

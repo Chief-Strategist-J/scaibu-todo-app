@@ -24,7 +24,8 @@ class SendPushNotificationUseCase
       return const Right<Failure, void>(null);
     } catch (e) {
       return Left<Failure, void>(
-          ServerFailure('Failed to send push notification'));
+        ServerFailure('Failed to send push notification'),
+      );
     }
   }
 }

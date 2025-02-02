@@ -6,10 +6,10 @@ import 'package:todo_app/feature/auth/presentation/widget/customButton/auth_cust
 class AuthCustomButton extends StatelessWidget {
   /// Doc Required
   const AuthCustomButton({
-    super.key,
-    this.variant = AuthCustomButtonVariant.primary,
     required this.text,
     required this.onPress,
+    super.key,
+    this.variant = AuthCustomButtonVariant.primary,
   });
 
   /// Doc Required

@@ -483,7 +483,7 @@ class __$$TagsModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TagsModelImpl implements _TagsModel {
+class _$TagsModelImpl with DiagnosticableTreeMixin implements _TagsModel {
   const _$TagsModelImpl(
       {this.id,
       this.uuid,
@@ -599,8 +599,45 @@ class _$TagsModelImpl implements _TagsModel {
   final DateTime? updatedAt;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TagsModel(id: $id, uuid: $uuid, isActive: $isActive, order: $order, version: $version, followerCount: $followerCount, usageCount: $usageCount, relatedPostsCount: $relatedPostsCount, userInteractionCount: $userInteractionCount, popularityScore: $popularityScore, name: $name, slug: $slug, metaTitle: $metaTitle, color: $color, imageUrl: $imageUrl, tagType: $tagType, contentType: $contentType, descriptionVector: $descriptionVector, metaDescription: $metaDescription, description: $description, geolocationData: $geolocationData, metaData: $metaData, deletedAt: $deletedAt, createdBy: $createdBy, parentId: $parentId, todoId: $todoId, lastTrendUpdate: $lastTrendUpdate, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TagsModel'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('uuid', uuid))
+      ..add(DiagnosticsProperty('isActive', isActive))
+      ..add(DiagnosticsProperty('order', order))
+      ..add(DiagnosticsProperty('version', version))
+      ..add(DiagnosticsProperty('followerCount', followerCount))
+      ..add(DiagnosticsProperty('usageCount', usageCount))
+      ..add(DiagnosticsProperty('relatedPostsCount', relatedPostsCount))
+      ..add(DiagnosticsProperty('userInteractionCount', userInteractionCount))
+      ..add(DiagnosticsProperty('popularityScore', popularityScore))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('slug', slug))
+      ..add(DiagnosticsProperty('metaTitle', metaTitle))
+      ..add(DiagnosticsProperty('color', color))
+      ..add(DiagnosticsProperty('imageUrl', imageUrl))
+      ..add(DiagnosticsProperty('tagType', tagType))
+      ..add(DiagnosticsProperty('contentType', contentType))
+      ..add(DiagnosticsProperty('descriptionVector', descriptionVector))
+      ..add(DiagnosticsProperty('metaDescription', metaDescription))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('geolocationData', geolocationData))
+      ..add(DiagnosticsProperty('metaData', metaData))
+      ..add(DiagnosticsProperty('deletedAt', deletedAt))
+      ..add(DiagnosticsProperty('createdBy', createdBy))
+      ..add(DiagnosticsProperty('parentId', parentId))
+      ..add(DiagnosticsProperty('todoId', todoId))
+      ..add(DiagnosticsProperty('lastTrendUpdate', lastTrendUpdate))
+      ..add(DiagnosticsProperty('lastUsedAt', lastUsedAt))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override

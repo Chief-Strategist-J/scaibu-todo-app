@@ -54,15 +54,22 @@ class SplashPage extends HookWidget {
     }
   }
 
+  void _initAsync(final BuildContext context, final AuthBloc authBloc) async {
+    await _init(context, authBloc);
+  }
+
   @override
   Widget build(final BuildContext context) {
     final AuthBloc authBloc = useMemoized(() => context.read<AuthBloc>());
 
     useEffect(
-      () async {
-        await _init(context, authBloc);
+      () {
+        _initAsync(
+          context,
+          authBloc,
+        );
         return null;
-      } as Dispose? Function(),
+      },
       <Object?>[],
     );
 

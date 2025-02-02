@@ -4,6 +4,7 @@ part of use_case;
 class CreateProjectUseCase extends UseCase<void, Map<String, dynamic>> {
   /// Doc Required
   CreateProjectUseCase({required this.projectRepository});
+
   /// Doc Required
   final ProjectRepository<ProjectEntity> projectRepository;
 
@@ -14,7 +15,10 @@ class CreateProjectUseCase extends UseCase<void, Map<String, dynamic>> {
       return const Right<Failure, void>(null);
     } catch (e, s) {
       await logService.crashLog(
-          errorMessage: 'Failed to create project', e: e, stack: s);
+        errorMessage: 'Failed to create project',
+        e: e,
+        stack: s,
+      );
       return Left<Failure, void>(ServerFailure('Failed to create project'));
     }
   }

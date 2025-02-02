@@ -29,7 +29,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserEntity> verifyForgetPasswordOtp(
-          final Map<String, dynamic> forgetPasswordCred) =>
+    final Map<String, dynamic> forgetPasswordCred,
+  ) =>
       _baseApi.verifyForgetPasswordOtp(forgetPasswordCred);
 
   @override

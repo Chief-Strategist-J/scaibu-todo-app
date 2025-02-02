@@ -19,8 +19,10 @@ class FileDownloader {
         await client.get(Uri.parse(url), headers: headers).timeout(timeout);
 
     if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw ApiException(response.statusCode,
-          'Download failed with status: ${response.statusCode}');
+      throw ApiException(
+        response.statusCode,
+        'Download failed with status: ${response.statusCode}',
+      );
     }
 
     return response;

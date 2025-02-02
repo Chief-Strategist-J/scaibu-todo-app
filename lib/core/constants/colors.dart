@@ -13,7 +13,7 @@ const MaterialAccentColor cardColor = Colors.blueAccent;
 const Color fillColor = Colors.transparent;
 
 /// Shadow color with 50% opacity.
-final Color shadowColor = Colors.grey.withOpacity(0.5);
+final Color shadowColor = Colors.grey.withValues(alpha: 0.5);
 
 /// Color for cancel buttons.
 const Color cancelButtonColor = Colors.black;
@@ -23,5 +23,6 @@ const MaterialColor secondaryTextColor = Colors.grey;
 
 /// GENERAL COLORS
 const MaterialAccentColor colorRed = Colors.redAccent;
+
 /// GENERAL COLORS
 const MaterialColor colorGreen = Colors.green;

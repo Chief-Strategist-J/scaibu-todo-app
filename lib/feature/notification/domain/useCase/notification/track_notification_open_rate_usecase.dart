@@ -21,8 +21,9 @@ class TrackNotificationOpenRateUseCase
 
   @override
   Future<Either<Failure, void>> call(
-      /// Doc Required
-final TrackNotificationOpenRateParams params) async {
+    /// Doc Required
+    final TrackNotificationOpenRateParams params,
+  ) async {
     try {
       await notificationRepository
           .trackNotificationOpenRate(params.notificationId);

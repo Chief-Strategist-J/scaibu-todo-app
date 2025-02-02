@@ -23,24 +23,33 @@ class ManageTodoPage extends HookWidget {
   @override
   Widget build(final BuildContext context) {
     final ManageTodoPageParam localTodoData = useMemoized(
-        () => todoPage ?? ManageTodoPageParam(), <Object?>[todoPage]);
+      () => todoPage ?? ManageTodoPageParam(),
+      <Object?>[todoPage],
+    );
 
     final ManageTodoPageUtils util = useMemoized(
-        () => ManageTodoPageUtils(context, localTodoData), <Object?>[]);
+      () => ManageTodoPageUtils(context, localTodoData),
+      <Object?>[],
+    );
 
     final bool isKeyboardNotOpened =
         MediaQuery.of(context).viewInsets.bottom == 0;
 
     final TodoBloc todoBloc = useMemoized(
-        () => context.read<TodoBloc>(), <Object?>[isInternetConnected]);
+      () => context.read<TodoBloc>(),
+      <Object?>[isInternetConnected],
+    );
 
-    useEffect(() {
-      if (!isInternetConnected) {
-        todoBloc.add(NoInternetConnectionEvent());
-      }
+    useEffect(
+      () {
+        if (!isInternetConnected) {
+          todoBloc.add(NoInternetConnectionEvent());
+        }
 
-      return null;
-    }, <Object?>[isInternetConnected]);
+        return null;
+      },
+      <Object?>[isInternetConnected],
+    );
 
     useEffect(() => util.dispose, <Object?>[util]);
 
@@ -57,7 +66,9 @@ class ManageTodoPage extends HookWidget {
             data: _getButtonText,
             onTap: () async {
               await util.onTapOfManageTodo(
-                  todoBloc: todoBloc, todoPage: todoPage);
+                todoBloc: todoBloc,
+                todoPage: todoPage,
+              );
             },
           );
         }
@@ -75,12 +86,17 @@ class ManageTodoPage extends HookWidget {
             child: AnimatedScrollView(
               listAnimationType: ListAnimationType.None,
               padding: const EdgeInsets.only(
-                  bottom: 120, right: 16, left: 16, top: 60),
+                bottom: 120,
+                right: 16,
+                left: 16,
+                top: 60,
+              ),
               children: <Widget>[
                 Row(
                   children: <Widget>[
                     Expanded(
-                        child: Text(_getTitle, style: boldTextStyle(size: 28))),
+                      child: Text(_getTitle, style: boldTextStyle(size: 28)),
+                    ),
                   ],
                 ),
                 ContentWidget(
@@ -150,7 +166,7 @@ class ManageTodoPage extends HookWidget {
           if (!isKeyboardNotOpened)
             const Offstage()
           else
-            Positioned(bottom: 16, left: 16, right: 16, child: buttonWidget)
+            Positioned(bottom: 16, left: 16, right: 16, child: buttonWidget),
         ],
       ),
     );

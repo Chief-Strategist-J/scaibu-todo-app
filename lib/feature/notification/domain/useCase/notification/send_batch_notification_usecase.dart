@@ -20,8 +20,9 @@ class SendBatchNotificationUseCase
 
   @override
   Future<Either<Failure, void>> call(
-      /// Doc Required
-final SendBatchNotificationParams params) async {
+    /// Doc Required
+    final SendBatchNotificationParams params,
+  ) async {
     try {
       await notificationRepository
           .sendBatchNotification(params.notificationIds);

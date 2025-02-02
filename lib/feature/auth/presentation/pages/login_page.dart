@@ -1,4 +1,3 @@
-import 'package:lottie/lottie.dart';
 import 'package:todo_app/core/app_library.dart';
 
 /// Doc Required
@@ -9,9 +8,9 @@ class LoginPage extends HookWidget {
   /// Doc Required
   Future<void> onLoginOrSignUpTap(
     final AuthBloc authBloc,
-    final AuthFormState authFormState,
-    final bool isSignUp,
-  ) async {
+    final AuthFormState authFormState, {
+    required final bool isSignUp,
+  }) async {
     if (!authFormState.validatorKey.currentState!.validate()) {
       return;
     }
@@ -76,11 +75,11 @@ class LoginPage extends HookWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text('Welcome', style: boldTextStyle(size: 24)),
-                        Lottie.asset(
-                          Assets.loginPageAssetsWelcome,
-                          width: 200,
-                          height: 200,
-                        ),
+                        // Lottie.asset(
+                        //   Assets.loginPageAssetsWelcome,
+                        //   width: 200,
+                        //   height: 200,
+                        // ),
                         16.height,
                         AppTextField(
                           textFieldType: TextFieldType.EMAIL,
@@ -114,7 +113,7 @@ class LoginPage extends HookWidget {
                             await onLoginOrSignUpTap(
                               authBloc,
                               authFormState,
-                              false,
+                              isSignUp: false,
                             ).then((final void value) async {
                               authFormState.clear();
                               if (!context.mounted) {

@@ -15,7 +15,10 @@ class ArchiveProjectUseCase extends UseCase<void, String> {
       return const Right<Failure, void>(null);
     } catch (e, s) {
       await logService.crashLog(
-          errorMessage: 'Failed to archive project', e: e, stack: s);
+        errorMessage: 'Failed to archive project',
+        e: e,
+        stack: s,
+      );
       return Left<Failure, void>(ServerFailure('Failed to archive project'));
     }
   }

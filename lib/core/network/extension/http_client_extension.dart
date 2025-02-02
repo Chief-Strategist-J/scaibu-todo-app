@@ -1,9 +1,8 @@
 import 'package:http/http.dart' as http;
-import 'package:todo_app/core/app_library.dart';
 
-/// Extension to add a `sendRequest` method to `http.Client`.
+/// Doc required
 extension HttpClientExtension on http.Client {
-  /// Sends an HTTP request with the specified method and URL.
+  /// Doc required
   Future<http.Response> sendRequest(
     final String method,
     final String url, {
@@ -14,6 +13,7 @@ extension HttpClientExtension on http.Client {
     final Uri uri = Uri.parse(url);
     final http.Request request = http.Request(method, uri);
 
+    // Set body (supports String, List<int>, or other objects)
     if (body != null) {
       request.body = body.toString();
     }

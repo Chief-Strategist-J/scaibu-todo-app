@@ -48,7 +48,7 @@ class FirebaseApiImpl implements BaseApi {
         todoId: parseService.parseToInt(e.data()['id']),
         firebaseTodoId: (e.data()['firebase_todo_id'] as String?) ?? '',
         title: (e.data()['title'] as String?) ?? '',
-        description: (e.data()['description'] as String) ?? '',
+        description: (e.data()['description'] as String?) ?? '',
         notes: (e.data()['notes'] as String?) ?? '-1',
         createdBy: e.data()['created_by'] as int? ?? -1,
         isCompleted: (e.data()['is_completed'] as bool?) ?? false,
@@ -71,7 +71,9 @@ class FirebaseApiImpl implements BaseApi {
 
   @override
   Future<void> updateTodo(
-      final String todoId, final Map<String, dynamic> updateTodoData) async {
+    final String todoId,
+    final Map<String, dynamic> updateTodoData,
+  ) async {
     await todoCollection.doc(todoId).update(updateTodoData);
     log('FIREBASE API: UPDATE TODO');
   }

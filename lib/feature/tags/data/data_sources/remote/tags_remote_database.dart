@@ -1,7 +1,7 @@
 import 'package:todo_app/core/app_library.dart';
 
 /// Doc Required
-abstract interface class HelperTagRepository<T> {
+sealed class HelperTagRepository<T> {
   /// Doc Required
   Future<List<T>> getAllSeededTags();
 }
@@ -23,9 +23,11 @@ class TagEndPoint {
   static const String deleteTag = 'api/v1/tags';
 
   /// Doc Required
-  static const String getAllSeeded = 'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
+  static const String getAllSeeded =
+      'api/v1/tags/getAllSeeded'; // Adjust if needed for specific tag ID
   /// Doc Required
-  static const String getAllTagsByUserId = 'api/v1/tags/getAllTagsByUserId'; // Adjust if needed for specific tag ID
+  static const String getAllTagsByUserId =
+      'api/v1/tags/getAllTagsByUserId'; // Adjust if needed for specific tag ID
   /// Doc Required
   static const String bulkCreateTags = 'api/v1/tags/bulk';
 
@@ -33,7 +35,8 @@ class TagEndPoint {
   static const String bulkDeleteTags = 'api/v1/tags/bulkDelete';
 
   /// Doc Required
-  static const String bulkDeleteTagsByTodoId = 'api/v1/tags/bulkDeleteTagsByTodoId';
+  static const String bulkDeleteTagsByTodoId =
+      'api/v1/tags/bulkDeleteTagsByTodoId';
 
   /// Doc Required
 

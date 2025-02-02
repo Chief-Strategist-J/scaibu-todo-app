@@ -42,5 +42,6 @@ class BackgroundComponentStyle {
           $flex.mainAxisAlignment.start(),
         ), // Aligns to the start for 'archive' variant
       ).applyVariants(
-          <Variant>[variant]); // Applies the selected variant alignment
+        <Variant>[variant],
+      ); // Applies the selected variant alignment
 }

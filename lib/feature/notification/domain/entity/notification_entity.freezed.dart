@@ -22,6 +22,9 @@ NotificationEntity _$NotificationEntityFromJson(Map<String, dynamic> json) {
 mixin _$NotificationEntity {
   int get id => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
+  String get uuid => throw _privateConstructorUsedError;
+  int get createdAt => throw _privateConstructorUsedError;
+  int get updatedAt => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
@@ -43,9 +46,6 @@ mixin _$NotificationEntity {
   int get retryCount => throw _privateConstructorUsedError;
   double? get deliveryTime => throw _privateConstructorUsedError;
   int? get responseCode => throw _privateConstructorUsedError;
-  String get uuid => throw _privateConstructorUsedError;
-  int get createdAt => throw _privateConstructorUsedError;
-  int get updatedAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
 
   /// Serializes this NotificationEntity to a JSON map.
@@ -67,6 +67,9 @@ abstract class $NotificationEntityCopyWith<$Res> {
   $Res call(
       {int id,
       int userId,
+      String uuid,
+      int createdAt,
+      int updatedAt,
       String title,
       String? message,
       String type,
@@ -88,9 +91,6 @@ abstract class $NotificationEntityCopyWith<$Res> {
       int retryCount,
       double? deliveryTime,
       int? responseCode,
-      String uuid,
-      int createdAt,
-      int updatedAt,
       DateTime? deletedAt});
 }
 
@@ -111,6 +111,9 @@ class _$NotificationEntityCopyWithImpl<$Res, $Val extends NotificationEntity>
   $Res call({
     Object? id = null,
     Object? userId = null,
+    Object? uuid = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? title = null,
     Object? message = freezed,
     Object? type = null,
@@ -132,9 +135,6 @@ class _$NotificationEntityCopyWithImpl<$Res, $Val extends NotificationEntity>
     Object? retryCount = null,
     Object? deliveryTime = freezed,
     Object? responseCode = freezed,
-    Object? uuid = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -145,6 +145,18 @@ class _$NotificationEntityCopyWithImpl<$Res, $Val extends NotificationEntity>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as int,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as int,
       title: null == title
           ? _value.title
@@ -230,18 +242,6 @@ class _$NotificationEntityCopyWithImpl<$Res, $Val extends NotificationEntity>
           ? _value.responseCode
           : responseCode // ignore: cast_nullable_to_non_nullable
               as int?,
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as int,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -261,6 +261,9 @@ abstract class _$$NotificationEntityImplCopyWith<$Res>
   $Res call(
       {int id,
       int userId,
+      String uuid,
+      int createdAt,
+      int updatedAt,
       String title,
       String? message,
       String type,
@@ -282,9 +285,6 @@ abstract class _$$NotificationEntityImplCopyWith<$Res>
       int retryCount,
       double? deliveryTime,
       int? responseCode,
-      String uuid,
-      int createdAt,
-      int updatedAt,
       DateTime? deletedAt});
 }
 
@@ -303,6 +303,9 @@ class __$$NotificationEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? userId = null,
+    Object? uuid = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? title = null,
     Object? message = freezed,
     Object? type = null,
@@ -324,9 +327,6 @@ class __$$NotificationEntityImplCopyWithImpl<$Res>
     Object? retryCount = null,
     Object? deliveryTime = freezed,
     Object? responseCode = freezed,
-    Object? uuid = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? deletedAt = freezed,
   }) {
     return _then(_$NotificationEntityImpl(
@@ -337,6 +337,18 @@ class __$$NotificationEntityImplCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as int,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as int,
       title: null == title
           ? _value.title
@@ -422,18 +434,6 @@ class __$$NotificationEntityImplCopyWithImpl<$Res>
           ? _value.responseCode
           : responseCode // ignore: cast_nullable_to_non_nullable
               as int?,
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as int,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -448,6 +448,9 @@ class _$NotificationEntityImpl implements _NotificationEntity {
   const _$NotificationEntityImpl(
       {required this.id,
       required this.userId,
+      required this.uuid,
+      required this.createdAt,
+      required this.updatedAt,
       this.title = 'New Notification',
       this.message,
       this.type = 'general',
@@ -469,9 +472,6 @@ class _$NotificationEntityImpl implements _NotificationEntity {
       this.retryCount = 0,
       this.deliveryTime,
       this.responseCode,
-      required this.uuid,
-      required this.createdAt,
-      required this.updatedAt,
       this.deletedAt})
       : _metadata = metadata;
 
@@ -482,6 +482,12 @@ class _$NotificationEntityImpl implements _NotificationEntity {
   final int id;
   @override
   final int userId;
+  @override
+  final String uuid;
+  @override
+  final int createdAt;
+  @override
+  final int updatedAt;
   @override
   @JsonKey()
   final String title;
@@ -543,17 +549,11 @@ class _$NotificationEntityImpl implements _NotificationEntity {
   @override
   final int? responseCode;
   @override
-  final String uuid;
-  @override
-  final int createdAt;
-  @override
-  final int updatedAt;
-  @override
   final DateTime? deletedAt;
 
   @override
   String toString() {
-    return 'NotificationEntity(id: $id, userId: $userId, title: $title, message: $message, type: $type, status: $status, isSeen: $isSeen, isArchived: $isArchived, priority: $priority, sentAt: $sentAt, readAt: $readAt, archivedAt: $archivedAt, url: $url, icon: $icon, metadata: $metadata, metadataAction: $metadataAction, metadataTarget: $metadataTarget, flags: $flags, platform: $platform, clickCount: $clickCount, retryCount: $retryCount, deliveryTime: $deliveryTime, responseCode: $responseCode, uuid: $uuid, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'NotificationEntity(id: $id, userId: $userId, uuid: $uuid, createdAt: $createdAt, updatedAt: $updatedAt, title: $title, message: $message, type: $type, status: $status, isSeen: $isSeen, isArchived: $isArchived, priority: $priority, sentAt: $sentAt, readAt: $readAt, archivedAt: $archivedAt, url: $url, icon: $icon, metadata: $metadata, metadataAction: $metadataAction, metadataTarget: $metadataTarget, flags: $flags, platform: $platform, clickCount: $clickCount, retryCount: $retryCount, deliveryTime: $deliveryTime, responseCode: $responseCode, deletedAt: $deletedAt)';
   }
 
   @override
@@ -563,6 +563,11 @@ class _$NotificationEntityImpl implements _NotificationEntity {
             other is _$NotificationEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.type, type) || other.type == type) &&
@@ -594,11 +599,6 @@ class _$NotificationEntityImpl implements _NotificationEntity {
                 other.deliveryTime == deliveryTime) &&
             (identical(other.responseCode, responseCode) ||
                 other.responseCode == responseCode) &&
-            (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt));
   }
@@ -609,6 +609,9 @@ class _$NotificationEntityImpl implements _NotificationEntity {
         runtimeType,
         id,
         userId,
+        uuid,
+        createdAt,
+        updatedAt,
         title,
         message,
         type,
@@ -630,9 +633,6 @@ class _$NotificationEntityImpl implements _NotificationEntity {
         retryCount,
         deliveryTime,
         responseCode,
-        uuid,
-        createdAt,
-        updatedAt,
         deletedAt
       ]);
 
@@ -657,6 +657,9 @@ abstract class _NotificationEntity implements NotificationEntity {
   const factory _NotificationEntity(
       {required final int id,
       required final int userId,
+      required final String uuid,
+      required final int createdAt,
+      required final int updatedAt,
       final String title,
       final String? message,
       final String type,
@@ -678,9 +681,6 @@ abstract class _NotificationEntity implements NotificationEntity {
       final int retryCount,
       final double? deliveryTime,
       final int? responseCode,
-      required final String uuid,
-      required final int createdAt,
-      required final int updatedAt,
       final DateTime? deletedAt}) = _$NotificationEntityImpl;
 
   factory _NotificationEntity.fromJson(Map<String, dynamic> json) =
@@ -690,6 +690,12 @@ abstract class _NotificationEntity implements NotificationEntity {
   int get id;
   @override
   int get userId;
+  @override
+  String get uuid;
+  @override
+  int get createdAt;
+  @override
+  int get updatedAt;
   @override
   String get title;
   @override
@@ -732,12 +738,6 @@ abstract class _NotificationEntity implements NotificationEntity {
   double? get deliveryTime;
   @override
   int? get responseCode;
-  @override
-  String get uuid;
-  @override
-  int get createdAt;
-  @override
-  int get updatedAt;
   @override
   DateTime? get deletedAt;
 

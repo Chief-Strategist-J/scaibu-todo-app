@@ -1,6 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
 
-
 /// Doc Required
 class TagBloc extends Bloc<TagEvent, TagState> {
   /// Doc Required
@@ -79,8 +78,12 @@ class TagBloc extends Bloc<TagEvent, TagState> {
     }
   }
 
-  String _getColors(final TagDataState currState) =>
-      '0x${(currState.color ?? blackColor).
-      value.toRadixString(16).padLeft(8, '0')}'
-          .toUpperCase();
+  String _getColors(final TagDataState currState) {
+    final Color color = currState.color ?? blackColor;
+    return '${color.a.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${color.r.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${color.g.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${color.b.toInt().toRadixString(16).padLeft(2, '0')}'
+        .toUpperCase();
+  }
 }

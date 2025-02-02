@@ -40,7 +40,15 @@ update_base_url() {
 
   if [ -f "$CONFIG_FILE_PATH" ]; then
     echo "Updating baseUrl in $CONFIG_FILE_PATH to $new_base_url"
-    sed -i "s|const baseUrl = 'http://.*:8000/';|const baseUrl = '$new_base_url';|" "$CONFIG_FILE_PATH"
+    sed -i "s|const String baseUrl = 'http://[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+:8000/';|const String baseUrl = '$new_base_url';|" "$CONFIG_FILE_PATH"
+
+    # Verify the change
+    if grep -q "$new_base_url" "$CONFIG_FILE_PATH"; then
+      echo "Successfully updated baseUrl"
+    else
+      echo "Failed to update baseUrl"
+      exit 1
+    fi
   else
     echo "Config file not found: $CONFIG_FILE_PATH"
     exit 1

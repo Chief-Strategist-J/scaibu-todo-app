@@ -22,21 +22,16 @@ PostModel _$PostModelFromJson(Map<String, dynamic> json) {
 mixin _$PostModel {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String get slug => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  String get slug => throw _privateConstructorUsedError;
   Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
-  @JsonKey(name: 'metadata_author')
   String? get metadataAuthor => throw _privateConstructorUsedError;
-  @JsonKey(name: 'metadata_category')
   String? get metadataCategory => throw _privateConstructorUsedError;
   DateTime? get publishedAt => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt => throw _privateConstructorUsedError;
 
   /// Serializes this PostModel to a JSON map.
@@ -57,17 +52,17 @@ abstract class $PostModelCopyWith<$Res> {
   $Res call(
       {int id,
       String title,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String slug,
       String? content,
       String status,
-      String slug,
       Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_author') String? metadataAuthor,
-      @JsonKey(name: 'metadata_category') String? metadataCategory,
+      String? metadataAuthor,
+      String? metadataCategory,
       DateTime? publishedAt,
-      int userId,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime? deletedAt});
+      DateTime? deletedAt});
 }
 
 /// @nodoc
@@ -87,16 +82,16 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? slug = null,
     Object? content = freezed,
     Object? status = null,
-    Object? slug = null,
     Object? metadata = freezed,
     Object? metadataAuthor = freezed,
     Object? metadataCategory = freezed,
     Object? publishedAt = freezed,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -108,6 +103,22 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      slug: null == slug
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -115,10 +126,6 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
               as String,
       metadata: freezed == metadata
           ? _value.metadata
@@ -136,18 +143,6 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -167,17 +162,17 @@ abstract class _$$PostModelImplCopyWith<$Res>
   $Res call(
       {int id,
       String title,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String slug,
       String? content,
       String status,
-      String slug,
       Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_author') String? metadataAuthor,
-      @JsonKey(name: 'metadata_category') String? metadataCategory,
+      String? metadataAuthor,
+      String? metadataCategory,
       DateTime? publishedAt,
-      int userId,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime? deletedAt});
+      DateTime? deletedAt});
 }
 
 /// @nodoc
@@ -195,16 +190,16 @@ class __$$PostModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? slug = null,
     Object? content = freezed,
     Object? status = null,
-    Object? slug = null,
     Object? metadata = freezed,
     Object? metadataAuthor = freezed,
     Object? metadataCategory = freezed,
     Object? publishedAt = freezed,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? deletedAt = freezed,
   }) {
     return _then(_$PostModelImpl(
@@ -216,6 +211,22 @@ class __$$PostModelImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      slug: null == slug
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -223,10 +234,6 @@ class __$$PostModelImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
               as String,
       metadata: freezed == metadata
           ? _value._metadata
@@ -244,18 +251,6 @@ class __$$PostModelImplCopyWithImpl<$Res>
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -270,17 +265,17 @@ class _$PostModelImpl implements _PostModel {
   const _$PostModelImpl(
       {required this.id,
       required this.title,
+      required this.userId,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.slug,
       this.content,
       this.status = 'draft',
-      required this.slug,
       final Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_author') this.metadataAuthor,
-      @JsonKey(name: 'metadata_category') this.metadataCategory,
+      this.metadataAuthor,
+      this.metadataCategory,
       this.publishedAt,
-      required this.userId,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'deleted_at') this.deletedAt})
+      this.deletedAt})
       : _metadata = metadata;
 
   factory _$PostModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -291,12 +286,18 @@ class _$PostModelImpl implements _PostModel {
   @override
   final String title;
   @override
+  final int userId;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
+  final String slug;
+  @override
   final String? content;
   @override
   @JsonKey()
   final String status;
-  @override
-  final String slug;
   final Map<String, dynamic>? _metadata;
   @override
   Map<String, dynamic>? get metadata {
@@ -308,28 +309,17 @@ class _$PostModelImpl implements _PostModel {
   }
 
   @override
-  @JsonKey(name: 'metadata_author')
   final String? metadataAuthor;
   @override
-  @JsonKey(name: 'metadata_category')
   final String? metadataCategory;
   @override
   final DateTime? publishedAt;
   @override
-  final int userId;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
-  @override
-  @JsonKey(name: 'deleted_at')
   final DateTime? deletedAt;
 
   @override
   String toString() {
-    return 'PostModel(id: $id, title: $title, content: $content, status: $status, slug: $slug, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'PostModel(id: $id, title: $title, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, content: $content, status: $status, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -339,9 +329,14 @@ class _$PostModelImpl implements _PostModel {
             other is _$PostModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.slug, slug) || other.slug == slug) &&
             const DeepCollectionEquality().equals(other._metadata, _metadata) &&
             (identical(other.metadataAuthor, metadataAuthor) ||
                 other.metadataAuthor == metadataAuthor) &&
@@ -349,11 +344,6 @@ class _$PostModelImpl implements _PostModel {
                 other.metadataCategory == metadataCategory) &&
             (identical(other.publishedAt, publishedAt) ||
                 other.publishedAt == publishedAt) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt));
   }
@@ -364,16 +354,16 @@ class _$PostModelImpl implements _PostModel {
       runtimeType,
       id,
       title,
+      userId,
+      createdAt,
+      updatedAt,
+      slug,
       content,
       status,
-      slug,
       const DeepCollectionEquality().hash(_metadata),
       metadataAuthor,
       metadataCategory,
       publishedAt,
-      userId,
-      createdAt,
-      updatedAt,
       deletedAt);
 
   /// Create a copy of PostModel
@@ -394,20 +384,19 @@ class _$PostModelImpl implements _PostModel {
 
 abstract class _PostModel implements PostModel {
   const factory _PostModel(
-          {required final int id,
-          required final String title,
-          final String? content,
-          final String status,
-          required final String slug,
-          final Map<String, dynamic>? metadata,
-          @JsonKey(name: 'metadata_author') final String? metadataAuthor,
-          @JsonKey(name: 'metadata_category') final String? metadataCategory,
-          final DateTime? publishedAt,
-          required final int userId,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
-          @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-          @JsonKey(name: 'deleted_at') final DateTime? deletedAt}) =
-      _$PostModelImpl;
+      {required final int id,
+      required final String title,
+      required final int userId,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
+      required final String slug,
+      final String? content,
+      final String status,
+      final Map<String, dynamic>? metadata,
+      final String? metadataAuthor,
+      final String? metadataCategory,
+      final DateTime? publishedAt,
+      final DateTime? deletedAt}) = _$PostModelImpl;
 
   factory _PostModel.fromJson(Map<String, dynamic> json) =
       _$PostModelImpl.fromJson;
@@ -417,31 +406,26 @@ abstract class _PostModel implements PostModel {
   @override
   String get title;
   @override
+  int get userId;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
+  String get slug;
+  @override
   String? get content;
   @override
   String get status;
   @override
-  String get slug;
-  @override
   Map<String, dynamic>? get metadata;
   @override
-  @JsonKey(name: 'metadata_author')
   String? get metadataAuthor;
   @override
-  @JsonKey(name: 'metadata_category')
   String? get metadataCategory;
   @override
   DateTime? get publishedAt;
   @override
-  int get userId;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
-  @override
-  @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt;
 
   /// Create a copy of PostModel

@@ -1,10 +1,11 @@
 part of use_case;
+
 /// Doc Required
 class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
   /// Doc Required
-  UpdateTodoUseCase(
-      {required final TodoRepository databaseRep})
-      : _databaseRep = databaseRep;
+  UpdateTodoUseCase({
+    required final TodoRepository databaseRep,
+  }) : _databaseRep = databaseRep;
   final TodoRepository _databaseRep;
 
   @override
@@ -24,4 +25,3 @@ class UpdateTodoUseCase extends UseCase<void, UpdateTodoParam> {
     }
   }
 }
-

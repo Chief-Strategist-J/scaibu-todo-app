@@ -1,14 +1,16 @@
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:todo_app/core/app_library.dart';
-
 import 'package:todo_app/core/network/internetConnection/internet_connection_state.dart';
 
 /// Cubit to manage internet connection status.
 class InternetConnectionCubit extends Cubit<InternetConnectionState> {
   /// Constructor initializes the internet connection status.
   InternetConnectionCubit()
-      : super(InternetConnectionState(
-            status: CurrentInternetStatus.disconnected)) {
+      : super(
+          InternetConnectionState(
+            status: CurrentInternetStatus.disconnected,
+          ),
+        ) {
     _getInternetConnectionStatus();
   }
 

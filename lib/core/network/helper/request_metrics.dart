@@ -50,9 +50,9 @@ class RequestMetrics {
       return 0;
     }
     final int total = attemptDurations.fold<int>(
-        0,
-        (final int sum, final Duration duration) =>
-            sum + duration.inMilliseconds);
+      0,
+      (final int sum, final Duration duration) => sum + duration.inMilliseconds,
+    );
     return total / attemptDurations.length;
   }
 }

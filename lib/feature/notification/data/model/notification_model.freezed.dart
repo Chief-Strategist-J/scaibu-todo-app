@@ -22,6 +22,9 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
 mixin _$NotificationModel {
   int get id => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
+  String get uuid => throw _privateConstructorUsedError;
+  int get createdAt => throw _privateConstructorUsedError;
+  int get updatedAt => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
@@ -44,9 +47,6 @@ mixin _$NotificationModel {
   int get retryCount => throw _privateConstructorUsedError;
   double? get deliveryTime => throw _privateConstructorUsedError;
   int? get responseCode => throw _privateConstructorUsedError;
-  String get uuid => throw _privateConstructorUsedError;
-  int get createdAt => throw _privateConstructorUsedError;
-  int get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this NotificationModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -67,6 +67,9 @@ abstract class $NotificationModelCopyWith<$Res> {
   $Res call(
       {int id,
       int userId,
+      String uuid,
+      int createdAt,
+      int updatedAt,
       String title,
       String? message,
       String type,
@@ -88,10 +91,7 @@ abstract class $NotificationModelCopyWith<$Res> {
       int clickCount,
       int retryCount,
       double? deliveryTime,
-      int? responseCode,
-      String uuid,
-      int createdAt,
-      int updatedAt});
+      int? responseCode});
 }
 
 /// @nodoc
@@ -111,6 +111,9 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
   $Res call({
     Object? id = null,
     Object? userId = null,
+    Object? uuid = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? title = null,
     Object? message = freezed,
     Object? type = null,
@@ -133,9 +136,6 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
     Object? retryCount = null,
     Object? deliveryTime = freezed,
     Object? responseCode = freezed,
-    Object? uuid = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -145,6 +145,18 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as int,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as int,
       title: null == title
           ? _value.title
@@ -234,18 +246,6 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
           ? _value.responseCode
           : responseCode // ignore: cast_nullable_to_non_nullable
               as int?,
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as int,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -261,6 +261,9 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
   $Res call(
       {int id,
       int userId,
+      String uuid,
+      int createdAt,
+      int updatedAt,
       String title,
       String? message,
       String type,
@@ -282,10 +285,7 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
       int clickCount,
       int retryCount,
       double? deliveryTime,
-      int? responseCode,
-      String uuid,
-      int createdAt,
-      int updatedAt});
+      int? responseCode});
 }
 
 /// @nodoc
@@ -303,6 +303,9 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? userId = null,
+    Object? uuid = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? title = null,
     Object? message = freezed,
     Object? type = null,
@@ -325,9 +328,6 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
     Object? retryCount = null,
     Object? deliveryTime = freezed,
     Object? responseCode = freezed,
-    Object? uuid = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
   }) {
     return _then(_$NotificationModelImpl(
       id: null == id
@@ -337,6 +337,18 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as int,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as int,
       title: null == title
           ? _value.title
@@ -426,18 +438,6 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
           ? _value.responseCode
           : responseCode // ignore: cast_nullable_to_non_nullable
               as int?,
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as int,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -448,6 +448,9 @@ class _$NotificationModelImpl implements _NotificationModel {
   const _$NotificationModelImpl(
       {required this.id,
       required this.userId,
+      required this.uuid,
+      required this.createdAt,
+      required this.updatedAt,
       this.title = 'New Notification',
       this.message,
       this.type = 'general',
@@ -469,10 +472,7 @@ class _$NotificationModelImpl implements _NotificationModel {
       this.clickCount = 0,
       this.retryCount = 0,
       this.deliveryTime,
-      this.responseCode,
-      required this.uuid,
-      required this.createdAt,
-      required this.updatedAt})
+      this.responseCode})
       : _metadata = metadata;
 
   factory _$NotificationModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -482,6 +482,12 @@ class _$NotificationModelImpl implements _NotificationModel {
   final int id;
   @override
   final int userId;
+  @override
+  final String uuid;
+  @override
+  final int createdAt;
+  @override
+  final int updatedAt;
   @override
   @JsonKey()
   final String title;
@@ -544,16 +550,10 @@ class _$NotificationModelImpl implements _NotificationModel {
   final double? deliveryTime;
   @override
   final int? responseCode;
-  @override
-  final String uuid;
-  @override
-  final int createdAt;
-  @override
-  final int updatedAt;
 
   @override
   String toString() {
-    return 'NotificationModel(id: $id, userId: $userId, title: $title, message: $message, type: $type, status: $status, isSeen: $isSeen, isArchived: $isArchived, priority: $priority, sentAt: $sentAt, readAt: $readAt, archivedAt: $archivedAt, deletedAt: $deletedAt, url: $url, icon: $icon, metadata: $metadata, metadataAction: $metadataAction, metadataTarget: $metadataTarget, flags: $flags, platform: $platform, clickCount: $clickCount, retryCount: $retryCount, deliveryTime: $deliveryTime, responseCode: $responseCode, uuid: $uuid, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'NotificationModel(id: $id, userId: $userId, uuid: $uuid, createdAt: $createdAt, updatedAt: $updatedAt, title: $title, message: $message, type: $type, status: $status, isSeen: $isSeen, isArchived: $isArchived, priority: $priority, sentAt: $sentAt, readAt: $readAt, archivedAt: $archivedAt, deletedAt: $deletedAt, url: $url, icon: $icon, metadata: $metadata, metadataAction: $metadataAction, metadataTarget: $metadataTarget, flags: $flags, platform: $platform, clickCount: $clickCount, retryCount: $retryCount, deliveryTime: $deliveryTime, responseCode: $responseCode)';
   }
 
   @override
@@ -563,6 +563,11 @@ class _$NotificationModelImpl implements _NotificationModel {
             other is _$NotificationModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.type, type) || other.type == type) &&
@@ -595,12 +600,7 @@ class _$NotificationModelImpl implements _NotificationModel {
             (identical(other.deliveryTime, deliveryTime) ||
                 other.deliveryTime == deliveryTime) &&
             (identical(other.responseCode, responseCode) ||
-                other.responseCode == responseCode) &&
-            (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.responseCode == responseCode));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -609,6 +609,9 @@ class _$NotificationModelImpl implements _NotificationModel {
         runtimeType,
         id,
         userId,
+        uuid,
+        createdAt,
+        updatedAt,
         title,
         message,
         type,
@@ -630,10 +633,7 @@ class _$NotificationModelImpl implements _NotificationModel {
         clickCount,
         retryCount,
         deliveryTime,
-        responseCode,
-        uuid,
-        createdAt,
-        updatedAt
+        responseCode
       ]);
 
   /// Create a copy of NotificationModel
@@ -657,6 +657,9 @@ abstract class _NotificationModel implements NotificationModel {
   const factory _NotificationModel(
       {required final int id,
       required final int userId,
+      required final String uuid,
+      required final int createdAt,
+      required final int updatedAt,
       final String title,
       final String? message,
       final String type,
@@ -678,10 +681,7 @@ abstract class _NotificationModel implements NotificationModel {
       final int clickCount,
       final int retryCount,
       final double? deliveryTime,
-      final int? responseCode,
-      required final String uuid,
-      required final int createdAt,
-      required final int updatedAt}) = _$NotificationModelImpl;
+      final int? responseCode}) = _$NotificationModelImpl;
 
   factory _NotificationModel.fromJson(Map<String, dynamic> json) =
       _$NotificationModelImpl.fromJson;
@@ -690,6 +690,12 @@ abstract class _NotificationModel implements NotificationModel {
   int get id;
   @override
   int get userId;
+  @override
+  String get uuid;
+  @override
+  int get createdAt;
+  @override
+  int get updatedAt;
   @override
   String get title;
   @override
@@ -734,12 +740,6 @@ abstract class _NotificationModel implements NotificationModel {
   double? get deliveryTime;
   @override
   int? get responseCode;
-  @override
-  String get uuid;
-  @override
-  int get createdAt;
-  @override
-  int get updatedAt;
 
   /// Create a copy of NotificationModel
   /// with the given fields replaced by the non-null parameter values.

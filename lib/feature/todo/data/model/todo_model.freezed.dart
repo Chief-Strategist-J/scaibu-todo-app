@@ -443,7 +443,7 @@ class __$$TodoModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TodoModelImpl implements _TodoModel {
+class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
   const _$TodoModelImpl(
       {this.todoId,
       this.title,
@@ -549,8 +549,42 @@ class _$TodoModelImpl implements _TodoModel {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TodoModel(todoId: $todoId, title: $title, description: $description, isCompleted: $isCompleted, dueDate: $dueDate, priority: $priority, assignedTo: $assignedTo, tags: $tags, createdBy: $createdBy, updatedBy: $updatedBy, status: $status, reminder: $reminder, attachment: $attachment, category: $category, estimatedTime: $estimatedTime, actualTime: $actualTime, recurring: $recurring, recurringFrequency: $recurringFrequency, notes: $notes, completedAt: $completedAt, colorCode: $colorCode, isArchived: $isArchived, firebaseTodoId: $firebaseTodoId, date: $date, startTime: $startTime, endTime: $endTime, tagNames: $tagNames)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TodoModel'))
+      ..add(DiagnosticsProperty('todoId', todoId))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('isCompleted', isCompleted))
+      ..add(DiagnosticsProperty('dueDate', dueDate))
+      ..add(DiagnosticsProperty('priority', priority))
+      ..add(DiagnosticsProperty('assignedTo', assignedTo))
+      ..add(DiagnosticsProperty('tags', tags))
+      ..add(DiagnosticsProperty('createdBy', createdBy))
+      ..add(DiagnosticsProperty('updatedBy', updatedBy))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('reminder', reminder))
+      ..add(DiagnosticsProperty('attachment', attachment))
+      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('estimatedTime', estimatedTime))
+      ..add(DiagnosticsProperty('actualTime', actualTime))
+      ..add(DiagnosticsProperty('recurring', recurring))
+      ..add(DiagnosticsProperty('recurringFrequency', recurringFrequency))
+      ..add(DiagnosticsProperty('notes', notes))
+      ..add(DiagnosticsProperty('completedAt', completedAt))
+      ..add(DiagnosticsProperty('colorCode', colorCode))
+      ..add(DiagnosticsProperty('isArchived', isArchived))
+      ..add(DiagnosticsProperty('firebaseTodoId', firebaseTodoId))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('startTime', startTime))
+      ..add(DiagnosticsProperty('endTime', endTime))
+      ..add(DiagnosticsProperty('tagNames', tagNames));
   }
 
   @override

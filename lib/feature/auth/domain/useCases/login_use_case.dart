@@ -53,11 +53,11 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
     } catch (e, s) {
       toast('An unexpected error occurred. Please try again.');
       await logService.crashLog(
-        errorMessage: 'Failed to create todo',
+        errorMessage: 'Failed to login todo',
         e: e,
         stack: s,
       );
-      return Left<Failure, LoginEntity>(ServerFailure('Failed to create todo'));
+      return Left<Failure, LoginEntity>(ServerFailure('Failed to login todo'));
     }
   }
 

@@ -31,7 +31,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _init(
-      final InitTodoEvent event, final Emitter<TodoState> emit) async {
+    final InitTodoEvent event,
+    final Emitter<TodoState> emit,
+  ) async {
     try {
       log('GETTING THE TODO-LIST');
       await GetIt.instance<GetTodoListUseCase>()(event.isListUpdated).then(

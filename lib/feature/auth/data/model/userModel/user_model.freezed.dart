@@ -301,7 +301,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserModelImpl extends _UserModel {
+class _$UserModelImpl extends _UserModel with DiagnosticableTreeMixin {
   const _$UserModelImpl(
       {@override this.id,
       @override this.firebaseUserDetailsId,
@@ -369,8 +369,30 @@ class _$UserModelImpl extends _UserModel {
   final String? bio;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'UserModel(id: $id, firebaseUserDetailsId: $firebaseUserDetailsId, userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, birthdate: $birthdate, address: $address, city: $city, state: $state, country: $country, zipcode: $zipcode, avatar: $avatar, bio: $bio)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'UserModel'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('firebaseUserDetailsId', firebaseUserDetailsId))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('firstName', firstName))
+      ..add(DiagnosticsProperty('lastName', lastName))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('phone', phone))
+      ..add(DiagnosticsProperty('birthdate', birthdate))
+      ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('city', city))
+      ..add(DiagnosticsProperty('state', state))
+      ..add(DiagnosticsProperty('country', country))
+      ..add(DiagnosticsProperty('zipcode', zipcode))
+      ..add(DiagnosticsProperty('avatar', avatar))
+      ..add(DiagnosticsProperty('bio', bio));
   }
 
   @override

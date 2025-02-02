@@ -20,7 +20,6 @@ LoginModel _$LoginModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LoginModel {
-  @override
   bool? get isLogin => throw _privateConstructorUsedError;
   @override
   bool? get isSignUp => throw _privateConstructorUsedError;
@@ -177,7 +176,7 @@ class __$$LoginModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LoginModelImpl extends _LoginModel {
+class _$LoginModelImpl extends _LoginModel with DiagnosticableTreeMixin {
   const _$LoginModelImpl(
       {@override this.isLogin,
       @override this.isSignUp,
@@ -210,8 +209,21 @@ class _$LoginModelImpl extends _LoginModel {
   final String? email;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'LoginModel(isLogin: $isLogin, isSignUp: $isSignUp, accessToken: $accessToken, id: $id, name: $name, email: $email)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoginModel'))
+      ..add(DiagnosticsProperty('isLogin', isLogin))
+      ..add(DiagnosticsProperty('isSignUp', isSignUp))
+      ..add(DiagnosticsProperty('accessToken', accessToken))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('email', email));
   }
 
   @override

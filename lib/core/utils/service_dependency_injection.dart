@@ -17,9 +17,11 @@ class ServiceDependencyInjection {
     );
 
     await getIt.isReady<UserCredentials>(
-        instanceName: ServiceInstance.userCredentialsKey);
+      instanceName: ServiceInstance.userCredentialsKey,
+    );
     userCredentials = getIt<UserCredentials>(
-        instanceName: ServiceInstance.userCredentialsKey);
+      instanceName: ServiceInstance.userCredentialsKey,
+    );
 
     getIt
       ..registerLazySingleton(() {
@@ -49,7 +51,8 @@ class ServiceDependencyInjection {
     log('\n SERVICE IN DISPOSED\n\n');
     getIt
       ..unregister<UserCredentials>(
-          instanceName: ServiceInstance.userCredentialsKey)
+        instanceName: ServiceInstance.userCredentialsKey,
+      )
       ..unregister<ScheduleService>()
       ..unregister<LogService>()
       ..unregister<ParseService>()

@@ -11,6 +11,9 @@ _$NotificationModelImpl _$$NotificationModelImplFromJson(
     _$NotificationModelImpl(
       id: (json['id'] as num).toInt(),
       userId: (json['userId'] as num).toInt(),
+      uuid: json['uuid'] as String,
+      createdAt: (json['createdAt'] as num).toInt(),
+      updatedAt: (json['updatedAt'] as num).toInt(),
       title: json['title'] as String? ?? 'New Notification',
       message: json['message'] as String?,
       type: json['type'] as String? ?? 'general',
@@ -41,9 +44,6 @@ _$NotificationModelImpl _$$NotificationModelImplFromJson(
       retryCount: (json['retryCount'] as num?)?.toInt() ?? 0,
       deliveryTime: (json['deliveryTime'] as num?)?.toDouble(),
       responseCode: (json['responseCode'] as num?)?.toInt(),
-      uuid: json['uuid'] as String,
-      createdAt: (json['createdAt'] as num).toInt(),
-      updatedAt: (json['updatedAt'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$NotificationModelImplToJson(
@@ -51,6 +51,9 @@ Map<String, dynamic> _$$NotificationModelImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,
+      'uuid': instance.uuid,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
       'title': instance.title,
       'message': instance.message,
       'type': instance.type,
@@ -73,7 +76,4 @@ Map<String, dynamic> _$$NotificationModelImplToJson(
       'retryCount': instance.retryCount,
       'deliveryTime': instance.deliveryTime,
       'responseCode': instance.responseCode,
-      'uuid': instance.uuid,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
     };

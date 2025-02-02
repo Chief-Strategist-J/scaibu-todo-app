@@ -13,7 +13,9 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<void> updateTodo(
-      final Map<String, dynamic> todoData, final String todoId) async {
+    final Map<String, dynamic> todoData,
+    final String todoId,
+  ) async {
     await baseApi.updateTodo(todoId, todoData);
   }
 
@@ -27,9 +29,10 @@ class TodoRepositoryImpl implements TodoRepository {
       baseApi.createTodo(todoData);
 
   @override
-  Future<bool> updateTodoId(
-          {required final String id,
-          required final Map<String, String> request}) async =>
+  Future<bool> updateTodoId({
+    required final String id,
+    required final Map<String, String> request,
+  }) async =>
       updateTodo(request, id)
           .then((final void value) => true)
           .catchError((final void e) => false);

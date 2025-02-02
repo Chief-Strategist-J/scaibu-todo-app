@@ -20,7 +20,7 @@ class TagInputField extends StatelessWidget {
             width: 16,
             height: 16,
             colorFilter: ColorFilter.mode(
-              cardColor.withOpacity(0.3),
+              cardColor.withValues(alpha: 0.3),
               BlendMode.srcIn,
             ),
           ),

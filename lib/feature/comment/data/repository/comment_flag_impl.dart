@@ -6,7 +6,9 @@ class CommentFlagImpl
     extends CommentFlagRepository<CommentFlagRepository<Comment>> {
   @override
   Future<bool> addFlagToComment(
-      final int commentId, final Map<String, dynamic> flag) {
+    final int commentId,
+    final Map<String, dynamic> flag,
+  ) {
     throw UnimplementedError();
   }
 
@@ -16,29 +18,36 @@ class CommentFlagImpl
   }
 
   @override
-  Future<List<CommentFlagRepository<Comment>>> getAllFlags(
-      {final int page = 1, final int pageSize = 20}) {
+  Future<List<CommentFlagRepository<Comment>>> getAllFlags({
+    final int page = 1,
+    final int pageSize = 20,
+  }) {
     throw UnimplementedError();
   }
 
   @override
   Future<List<CommentFlagRepository<Comment>>> getFlaggedCommentsByDateRange(
-      final DateTime startDate, final DateTime endDate,
-      {final int page = 1, final int pageSize = 20}) {
+    final DateTime startDate,
+    final DateTime endDate, {
+    final int page = 1,
+    final int pageSize = 20,
+  }) {
     throw UnimplementedError();
   }
 
   @override
   Future<List<CommentFlagRepository<Comment>>> getFlaggedCommentsByReason(
-      final String reason,
-      {final int page = 1,
-      final int pageSize = 20}) {
+    final String reason, {
+    final int page = 1,
+    final int pageSize = 20,
+  }) {
     throw UnimplementedError();
   }
 
   @override
   Future<List<CommentFlagRepository<Comment>>> getFlagsForComment(
-      final int commentId) {
+    final int commentId,
+  ) {
     throw UnimplementedError();
   }
 
@@ -49,7 +58,9 @@ class CommentFlagImpl
 
   @override
   Future<bool> removeFlagFromComment(
-      final int commentId, final Map<String, dynamic> flag) {
+    final int commentId,
+    final Map<String, dynamic> flag,
+  ) {
     throw UnimplementedError();
   }
 }

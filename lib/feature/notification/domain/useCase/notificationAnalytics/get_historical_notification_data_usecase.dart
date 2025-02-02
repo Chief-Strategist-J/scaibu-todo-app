@@ -33,9 +33,9 @@ class GetHistoricalNotificationDataUseCase extends UseCase<
 
   @override
   Future<Either<Failure, List<NotificationEntity>>> call(
-
-      /// Doc Required
-      final GetHistoricalNotificationDataParams params) async {
+    /// Doc Required
+    final GetHistoricalNotificationDataParams params,
+  ) async {
     try {
       /// Doc Required
       final List<NotificationEntity> historicalData =

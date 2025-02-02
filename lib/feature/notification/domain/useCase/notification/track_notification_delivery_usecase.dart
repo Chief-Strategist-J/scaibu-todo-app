@@ -23,8 +23,9 @@ class TrackNotificationDeliveryUseCase
 
   @override
   Future<Either<Failure, void>> call(
-      /// Doc Required
-final TrackNotificationDeliveryParams params) async {
+    /// Doc Required
+    final TrackNotificationDeliveryParams params,
+  ) async {
     try {
       await notificationRepository
           .trackNotificationDelivery(params.notificationId);

@@ -9,7 +9,7 @@ class AppThemeData {
       );
 
   static BorderSide get _borderSide => BorderSide(
-        color: cardColor.withOpacity(0.3),
+        color: cardColor.withValues(alpha: 0.3),
       );
 
   /// Provides a custom decoration for input fields with an underline border.
@@ -57,7 +57,7 @@ class AppThemeData {
           filled: true,
           isDense: true,
           contentPadding: const EdgeInsets.all(16),
-          fillColor: shadowColor.withOpacity(0.1),
+          fillColor: shadowColor.withValues(alpha: 0.1),
           enabledBorder: _getInputBoarder,
           focusedBorder: _getInputBoarder,
           errorBorder: _getInputBoarder,

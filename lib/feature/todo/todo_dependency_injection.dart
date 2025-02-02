@@ -25,8 +25,10 @@ class TodoDependencyInjection {
   static void registerTodoApi() {
     getIt
       ..registerSingleton<BaseApi>(FirebaseApiImpl(), instanceName: firebaseApi)
-      ..registerSingleton<BaseApi>(DataBaseApiImpl(restApi),
-          instanceName: localApi);
+      ..registerSingleton<BaseApi>(
+        DataBaseApiImpl(restApi),
+        instanceName: localApi,
+      );
   }
 
   /// Doc Required
@@ -46,19 +48,27 @@ class TodoDependencyInjection {
   /// Doc Required
   static void registerTodoUseCase() {
     getIt
-      ..registerFactory(() => GetTodoListUseCase(
-            databaseRepo: getIt<TodoRepository>(instanceName: serverRepo),
-          ))
-      ..registerFactory(() => CreateTodoUseCase(
-            firebaseRepo: getIt<TodoRepository>(instanceName: firebaseRepo),
-            databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
-          ))
-      ..registerFactory(() => UpdateTodoUseCase(
-            databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
-          ))
-      ..registerFactory(() => DeleteTodoUseCase(
-            databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
-          ));
+      ..registerFactory(
+        () => GetTodoListUseCase(
+          databaseRepo: getIt<TodoRepository>(instanceName: serverRepo),
+        ),
+      )
+      ..registerFactory(
+        () => CreateTodoUseCase(
+          firebaseRepo: getIt<TodoRepository>(instanceName: firebaseRepo),
+          databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
+        ),
+      )
+      ..registerFactory(
+        () => UpdateTodoUseCase(
+          databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
+        ),
+      )
+      ..registerFactory(
+        () => DeleteTodoUseCase(
+          databaseRep: getIt<TodoRepository>(instanceName: serverRepo),
+        ),
+      );
   }
 
   /// Doc Required

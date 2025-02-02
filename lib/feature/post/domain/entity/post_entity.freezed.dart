@@ -22,21 +22,16 @@ PostEntity _$PostEntityFromJson(Map<String, dynamic> json) {
 mixin _$PostEntity {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  String get slug => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  String get slug => throw _privateConstructorUsedError;
   Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
-  @JsonKey(name: 'metadata_author')
   String? get metadataAuthor => throw _privateConstructorUsedError;
-  @JsonKey(name: 'metadata_category')
   String? get metadataCategory => throw _privateConstructorUsedError;
   DateTime? get publishedAt => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt => throw _privateConstructorUsedError;
 
   /// Serializes this PostEntity to a JSON map.
@@ -58,17 +53,17 @@ abstract class $PostEntityCopyWith<$Res> {
   $Res call(
       {int id,
       String title,
+      String slug,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
       String? content,
       String status,
-      String slug,
       Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_author') String? metadataAuthor,
-      @JsonKey(name: 'metadata_category') String? metadataCategory,
+      String? metadataAuthor,
+      String? metadataCategory,
       DateTime? publishedAt,
-      int userId,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime? deletedAt});
+      DateTime? deletedAt});
 }
 
 /// @nodoc
@@ -88,16 +83,16 @@ class _$PostEntityCopyWithImpl<$Res, $Val extends PostEntity>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? slug = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? content = freezed,
     Object? status = null,
-    Object? slug = null,
     Object? metadata = freezed,
     Object? metadataAuthor = freezed,
     Object? metadataCategory = freezed,
     Object? publishedAt = freezed,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -109,6 +104,22 @@ class _$PostEntityCopyWithImpl<$Res, $Val extends PostEntity>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      slug: null == slug
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -116,10 +127,6 @@ class _$PostEntityCopyWithImpl<$Res, $Val extends PostEntity>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
               as String,
       metadata: freezed == metadata
           ? _value.metadata
@@ -137,18 +144,6 @@ class _$PostEntityCopyWithImpl<$Res, $Val extends PostEntity>
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -168,17 +163,17 @@ abstract class _$$PostEntityImplCopyWith<$Res>
   $Res call(
       {int id,
       String title,
+      String slug,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
       String? content,
       String status,
-      String slug,
       Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_author') String? metadataAuthor,
-      @JsonKey(name: 'metadata_category') String? metadataCategory,
+      String? metadataAuthor,
+      String? metadataCategory,
       DateTime? publishedAt,
-      int userId,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime? deletedAt});
+      DateTime? deletedAt});
 }
 
 /// @nodoc
@@ -196,16 +191,16 @@ class __$$PostEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? slug = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? content = freezed,
     Object? status = null,
-    Object? slug = null,
     Object? metadata = freezed,
     Object? metadataAuthor = freezed,
     Object? metadataCategory = freezed,
     Object? publishedAt = freezed,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? deletedAt = freezed,
   }) {
     return _then(_$PostEntityImpl(
@@ -217,6 +212,22 @@ class __$$PostEntityImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      slug: null == slug
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -224,10 +235,6 @@ class __$$PostEntityImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
               as String,
       metadata: freezed == metadata
           ? _value._metadata
@@ -245,18 +252,6 @@ class __$$PostEntityImplCopyWithImpl<$Res>
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -271,17 +266,17 @@ class _$PostEntityImpl implements _PostEntity {
   const _$PostEntityImpl(
       {required this.id,
       required this.title,
+      required this.slug,
+      required this.userId,
+      required this.createdAt,
+      required this.updatedAt,
       this.content,
       this.status = 'draft',
-      required this.slug,
       final Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_author') this.metadataAuthor,
-      @JsonKey(name: 'metadata_category') this.metadataCategory,
+      this.metadataAuthor,
+      this.metadataCategory,
       this.publishedAt,
-      required this.userId,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'deleted_at') this.deletedAt})
+      this.deletedAt})
       : _metadata = metadata;
 
   factory _$PostEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -292,12 +287,18 @@ class _$PostEntityImpl implements _PostEntity {
   @override
   final String title;
   @override
+  final String slug;
+  @override
+  final int userId;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
   final String? content;
   @override
   @JsonKey()
   final String status;
-  @override
-  final String slug;
   final Map<String, dynamic>? _metadata;
   @override
   Map<String, dynamic>? get metadata {
@@ -309,28 +310,17 @@ class _$PostEntityImpl implements _PostEntity {
   }
 
   @override
-  @JsonKey(name: 'metadata_author')
   final String? metadataAuthor;
   @override
-  @JsonKey(name: 'metadata_category')
   final String? metadataCategory;
   @override
   final DateTime? publishedAt;
   @override
-  final int userId;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
-  @override
-  @JsonKey(name: 'deleted_at')
   final DateTime? deletedAt;
 
   @override
   String toString() {
-    return 'PostEntity(id: $id, title: $title, content: $content, status: $status, slug: $slug, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'PostEntity(id: $id, title: $title, slug: $slug, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, content: $content, status: $status, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -340,9 +330,14 @@ class _$PostEntityImpl implements _PostEntity {
             other is _$PostEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.slug, slug) || other.slug == slug) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.slug, slug) || other.slug == slug) &&
             const DeepCollectionEquality().equals(other._metadata, _metadata) &&
             (identical(other.metadataAuthor, metadataAuthor) ||
                 other.metadataAuthor == metadataAuthor) &&
@@ -350,11 +345,6 @@ class _$PostEntityImpl implements _PostEntity {
                 other.metadataCategory == metadataCategory) &&
             (identical(other.publishedAt, publishedAt) ||
                 other.publishedAt == publishedAt) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt));
   }
@@ -365,16 +355,16 @@ class _$PostEntityImpl implements _PostEntity {
       runtimeType,
       id,
       title,
+      slug,
+      userId,
+      createdAt,
+      updatedAt,
       content,
       status,
-      slug,
       const DeepCollectionEquality().hash(_metadata),
       metadataAuthor,
       metadataCategory,
       publishedAt,
-      userId,
-      createdAt,
-      updatedAt,
       deletedAt);
 
   /// Create a copy of PostEntity
@@ -395,20 +385,19 @@ class _$PostEntityImpl implements _PostEntity {
 
 abstract class _PostEntity implements PostEntity {
   const factory _PostEntity(
-          {required final int id,
-          required final String title,
-          final String? content,
-          final String status,
-          required final String slug,
-          final Map<String, dynamic>? metadata,
-          @JsonKey(name: 'metadata_author') final String? metadataAuthor,
-          @JsonKey(name: 'metadata_category') final String? metadataCategory,
-          final DateTime? publishedAt,
-          required final int userId,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
-          @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-          @JsonKey(name: 'deleted_at') final DateTime? deletedAt}) =
-      _$PostEntityImpl;
+      {required final int id,
+      required final String title,
+      required final String slug,
+      required final int userId,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
+      final String? content,
+      final String status,
+      final Map<String, dynamic>? metadata,
+      final String? metadataAuthor,
+      final String? metadataCategory,
+      final DateTime? publishedAt,
+      final DateTime? deletedAt}) = _$PostEntityImpl;
 
   factory _PostEntity.fromJson(Map<String, dynamic> json) =
       _$PostEntityImpl.fromJson;
@@ -418,31 +407,26 @@ abstract class _PostEntity implements PostEntity {
   @override
   String get title;
   @override
+  String get slug;
+  @override
+  int get userId;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
   String? get content;
   @override
   String get status;
   @override
-  String get slug;
-  @override
   Map<String, dynamic>? get metadata;
   @override
-  @JsonKey(name: 'metadata_author')
   String? get metadataAuthor;
   @override
-  @JsonKey(name: 'metadata_category')
   String? get metadataCategory;
   @override
   DateTime? get publishedAt;
   @override
-  int get userId;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
-  @override
-  @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt;
 
   /// Create a copy of PostEntity

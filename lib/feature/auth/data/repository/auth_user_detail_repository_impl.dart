@@ -19,7 +19,9 @@ class AuthUserDetailRepositoryImpl implements AuthUserDetailRepository {
 
   @override
   Future<UserEntity> updateUserDetail(
-      final Map<String, dynamic> userDetail, final String userID) {
+    final Map<String, dynamic> userDetail,
+    final String userID,
+  ) {
     throw UnimplementedError();
   }
 }

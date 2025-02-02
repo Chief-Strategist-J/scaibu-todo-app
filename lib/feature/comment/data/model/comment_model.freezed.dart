@@ -22,20 +22,14 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) {
 mixin _$CommentModel {
   int get id => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  int get postId => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
-  @JsonKey(name: 'metadata_approved_by')
   String? get metadataApprovedBy => throw _privateConstructorUsedError;
   DateTime? get approvedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'post_id')
-  int get postId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user_id')
-  int get userId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt => throw _privateConstructorUsedError;
 
   /// Serializes this CommentModel to a JSON map.
@@ -57,15 +51,15 @@ abstract class $CommentModelCopyWith<$Res> {
   $Res call(
       {int id,
       String content,
+      int postId,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
       String status,
       Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_approved_by') String? metadataApprovedBy,
+      String? metadataApprovedBy,
       DateTime? approvedAt,
-      @JsonKey(name: 'post_id') int postId,
-      @JsonKey(name: 'user_id') int userId,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime? deletedAt});
+      DateTime? deletedAt});
 }
 
 /// @nodoc
@@ -85,14 +79,14 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
   $Res call({
     Object? id = null,
     Object? content = null,
-    Object? status = null,
-    Object? metadata = freezed,
-    Object? metadataApprovedBy = freezed,
-    Object? approvedAt = freezed,
     Object? postId = null,
     Object? userId = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? status = null,
+    Object? metadata = freezed,
+    Object? metadataApprovedBy = freezed,
+    Object? approvedAt = freezed,
     Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -104,22 +98,6 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      metadata: freezed == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      metadataApprovedBy: freezed == metadataApprovedBy
-          ? _value.metadataApprovedBy
-          : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      approvedAt: freezed == approvedAt
-          ? _value.approvedAt
-          : approvedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       postId: null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
@@ -136,6 +114,22 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      metadata: freezed == metadata
+          ? _value.metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      metadataApprovedBy: freezed == metadataApprovedBy
+          ? _value.metadataApprovedBy
+          : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -155,15 +149,15 @@ abstract class _$$CommentModelImplCopyWith<$Res>
   $Res call(
       {int id,
       String content,
+      int postId,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
       String status,
       Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_approved_by') String? metadataApprovedBy,
+      String? metadataApprovedBy,
       DateTime? approvedAt,
-      @JsonKey(name: 'post_id') int postId,
-      @JsonKey(name: 'user_id') int userId,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime? deletedAt});
+      DateTime? deletedAt});
 }
 
 /// @nodoc
@@ -181,14 +175,14 @@ class __$$CommentModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? content = null,
-    Object? status = null,
-    Object? metadata = freezed,
-    Object? metadataApprovedBy = freezed,
-    Object? approvedAt = freezed,
     Object? postId = null,
     Object? userId = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? status = null,
+    Object? metadata = freezed,
+    Object? metadataApprovedBy = freezed,
+    Object? approvedAt = freezed,
     Object? deletedAt = freezed,
   }) {
     return _then(_$CommentModelImpl(
@@ -200,22 +194,6 @@ class __$$CommentModelImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      metadata: freezed == metadata
-          ? _value._metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      metadataApprovedBy: freezed == metadataApprovedBy
-          ? _value.metadataApprovedBy
-          : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      approvedAt: freezed == approvedAt
-          ? _value.approvedAt
-          : approvedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       postId: null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
@@ -232,6 +210,22 @@ class __$$CommentModelImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      metadata: freezed == metadata
+          ? _value._metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      metadataApprovedBy: freezed == metadataApprovedBy
+          ? _value.metadataApprovedBy
+          : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -246,15 +240,15 @@ class _$CommentModelImpl implements _CommentModel {
   const _$CommentModelImpl(
       {required this.id,
       required this.content,
+      required this.postId,
+      required this.userId,
+      required this.createdAt,
+      required this.updatedAt,
       this.status = 'pending',
       final Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_approved_by') this.metadataApprovedBy,
+      this.metadataApprovedBy,
       this.approvedAt,
-      @JsonKey(name: 'post_id') required this.postId,
-      @JsonKey(name: 'user_id') required this.userId,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'deleted_at') this.deletedAt})
+      this.deletedAt})
       : _metadata = metadata;
 
   factory _$CommentModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -264,6 +258,14 @@ class _$CommentModelImpl implements _CommentModel {
   final int id;
   @override
   final String content;
+  @override
+  final int postId;
+  @override
+  final int userId;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
   @override
   @JsonKey()
   final String status;
@@ -278,29 +280,15 @@ class _$CommentModelImpl implements _CommentModel {
   }
 
   @override
-  @JsonKey(name: 'metadata_approved_by')
   final String? metadataApprovedBy;
   @override
   final DateTime? approvedAt;
   @override
-  @JsonKey(name: 'post_id')
-  final int postId;
-  @override
-  @JsonKey(name: 'user_id')
-  final int userId;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
-  @override
-  @JsonKey(name: 'deleted_at')
   final DateTime? deletedAt;
 
   @override
   String toString() {
-    return 'CommentModel(id: $id, content: $content, status: $status, metadata: $metadata, metadataApprovedBy: $metadataApprovedBy, approvedAt: $approvedAt, postId: $postId, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'CommentModel(id: $id, content: $content, postId: $postId, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, metadata: $metadata, metadataApprovedBy: $metadataApprovedBy, approvedAt: $approvedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -310,18 +298,18 @@ class _$CommentModelImpl implements _CommentModel {
             other is _$CommentModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other._metadata, _metadata) &&
-            (identical(other.metadataApprovedBy, metadataApprovedBy) ||
-                other.metadataApprovedBy == metadataApprovedBy) &&
-            (identical(other.approvedAt, approvedAt) ||
-                other.approvedAt == approvedAt) &&
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other._metadata, _metadata) &&
+            (identical(other.metadataApprovedBy, metadataApprovedBy) ||
+                other.metadataApprovedBy == metadataApprovedBy) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt));
   }
@@ -332,14 +320,14 @@ class _$CommentModelImpl implements _CommentModel {
       runtimeType,
       id,
       content,
-      status,
-      const DeepCollectionEquality().hash(_metadata),
-      metadataApprovedBy,
-      approvedAt,
       postId,
       userId,
       createdAt,
       updatedAt,
+      status,
+      const DeepCollectionEquality().hash(_metadata),
+      metadataApprovedBy,
+      approvedAt,
       deletedAt);
 
   /// Create a copy of CommentModel
@@ -362,15 +350,14 @@ abstract class _CommentModel implements CommentModel {
   const factory _CommentModel(
       {required final int id,
       required final String content,
+      required final int postId,
+      required final int userId,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
       final String status,
       final Map<String, dynamic>? metadata,
-      @JsonKey(name: 'metadata_approved_by') final String? metadataApprovedBy,
+      final String? metadataApprovedBy,
       final DateTime? approvedAt,
-      @JsonKey(name: 'post_id') required final int postId,
-      @JsonKey(name: 'user_id') required final int userId,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
-      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-      @JsonKey(name: 'deleted_at')
       final DateTime? deletedAt}) = _$CommentModelImpl;
 
   factory _CommentModel.fromJson(Map<String, dynamic> json) =
@@ -381,28 +368,22 @@ abstract class _CommentModel implements CommentModel {
   @override
   String get content;
   @override
+  int get postId;
+  @override
+  int get userId;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
   String get status;
   @override
   Map<String, dynamic>? get metadata;
   @override
-  @JsonKey(name: 'metadata_approved_by')
   String? get metadataApprovedBy;
   @override
   DateTime? get approvedAt;
   @override
-  @JsonKey(name: 'post_id')
-  int get postId;
-  @override
-  @JsonKey(name: 'user_id')
-  int get userId;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
-  @override
-  @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt;
 
   /// Create a copy of CommentModel
