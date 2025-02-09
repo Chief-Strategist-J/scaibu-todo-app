@@ -16,8 +16,9 @@ Future<void> callbackHandlerTest() async {
     debugPrint('Network status: $status');
   });
 
-  handler.operationResults
-      .listen((final ExecuteResult<Map<String, dynamic>> result) {
+  handler.operationResults.listen((
+    final ExecuteResult<Map<String, dynamic>> result,
+  ) {
     result.fold(
       (final Map<String, dynamic> data) => debugPrint(
         'Operation succeeded: $data',
@@ -50,4 +51,6 @@ Future<void> callbackHandlerTest() async {
     (final Map<String, dynamic> data) => debugPrint('Success: $data'),
     (final Exception error) => debugPrint('Error: $error'),
   );
+
+  await handler.dispose();
 }

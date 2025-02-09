@@ -1,59 +1,63 @@
 import 'package:todo_app/core/app_library.dart';
 
-/// Generic type definitions for better type safety
+/// A callback definition for asynchronous functions,
+/// allowing better type safety when handling asynchronous operations.
 typedef AsyncCallback<T> = Future<T> Function();
 
-/// Generic type definitions for better type safety
+/// A callback definition for handling errors in asynchronous functions,
+/// with support for capturing the error and its associated stack trace.
 typedef ErrorHandler<E> = Future<void> Function(E error, StackTrace stackTrace);
 
-/// Generic type definitions for better type safety
+/// A callback definition for validating data of a given type.
+/// Returns `true` if the data is valid, `false` otherwise.
 typedef ValidationCallback<T> = bool Function(T data);
 
-/// Generic type definitions for better type safety
+/// A callback definition for transforming data of type `T` into type `R`.
+/// Useful for mapping or converting data structures.
 typedef TransformCallback<T, R> = R Function(T data);
 
-/// Generic type definitions for better type safety
+/// Represents the network status of the application.
 enum NetworkStatus {
-  /// Generic type definitions for better type safety
+  /// Indicates that the device is connected to the internet.
   online,
 
-  /// Generic type definitions for better type safety
+  /// Indicates that the device is not connected to the internet.
   offline
 }
 
-/// Generic type definitions for better type safety
+/// Represents the priority level of operations.
 enum Priority {
-  /// Generic type definitions for better type safety
+  /// High priority for critical operations.
   high,
 
-  /// Generic type definitions for better type safety
+  /// Medium priority for standard operations.
   medium,
 
-  /// Generic type definitions for better type safety
+  /// Low priority for less critical operations.
   low
 }
 
-/// Custom exceptions
+/// Defines synchronization strategies for queued operations.
 enum SyncStrategy {
-  /// Custom exceptions
+  /// Immediate synchronization after an operation.
   immediate,
 
-  /// Custom exceptions
+  /// Batched synchronization of multiple operations.
   batched,
 
-  /// Custom exceptions
+  /// Periodic synchronization at regular intervals.
   periodic
 }
 
-/// Custom exceptions
+/// Custom exception class for synchronization errors.
 class SyncException implements Exception {
-  /// Custom exceptions
+  /// Creates a [SyncException] with a message and an optional original error.
   SyncException(this.message, [this.originalError]);
 
-  /// Custom exceptions
+  /// A message describing the exception.
   final String message;
 
-  /// Custom exceptions
+  /// An optional reference to the original error.
   final dynamic originalError;
 
   @override
@@ -61,9 +65,9 @@ class SyncException implements Exception {
       'Original error: $originalError' : ''}';
 }
 
-/// Data class for operation queue
+/// Represents a queued operation with metadata and execution details.
 class QueuedOperation<T> {
-  /// Data class for operation queue
+  /// Creates a [QueuedOperation] with the required parameters.
   QueuedOperation({
     required this.id,
     required this.operation,
@@ -72,47 +76,47 @@ class QueuedOperation<T> {
     this.timeout = const Duration(seconds: 30),
   });
 
-  /// Data class for operation queue
+  /// Unique identifier for the operation.
   final String id;
 
-  /// Data class for operation queue
+  /// The asynchronous operation to be executed.
   final AsyncCallback<T> operation;
 
-  /// Data class for operation queue
+  /// The priority level of the operation.
   final Priority priority;
 
-  /// Data class for operation queue
+  /// The timestamp when the operation was created.
   final DateTime createdAt;
 
-  /// Data class for operation queue
+  /// The maximum allowed duration for the operation.
   final Duration timeout;
 
-  /// Data class for operation queue
+  /// The current retry count for the operation.
   int retryCount = 0;
 }
 
-/// Result wrapper for better error handling
+/// Wrapper class for handling the results of operations, including errors.
 class ExecuteResult<T> {
-  /// Main class implementation
+  /// Creates a successful [ExecuteResult] with the given data.
   ExecuteResult.success(this.data)
       : error = null,
         isSuccess = true;
 
-  /// Main class implementation
+  /// Creates a failed [ExecuteResult] with the given error.
   ExecuteResult.failure(this.error)
       : data = null,
         isSuccess = false;
 
-  /// Main class implementation
+  /// The result data, if the operation was successful.
   final T? data;
 
-  /// Main class implementation
+  /// The error encountered, if the operation failed.
   final Exception? error;
 
-  /// Main class implementation
+  /// Indicates whether the operation was successful.
   final bool isSuccess;
 
-  /// Main class implementation
+  /// Applies either [onSuccess] or [onError] depending on the result.
   R fold<R>(
     final R Function(T data) onSuccess,
     final R Function(Exception error) onError,
@@ -122,7 +126,7 @@ class ExecuteResult<T> {
 
 /// Main class implementation
 class AdvancedCallbackHandler<T> {
-  /// Main class implementation
+  /// Factory constructor
   factory AdvancedCallbackHandler() =>
       <Type, AdvancedCallbackHandler<T>>{}.putIfAbsent(
         T,
@@ -134,19 +138,19 @@ class AdvancedCallbackHandler<T> {
     unawaited(_startPeriodicSync());
   }
 
-  // State management
+  /// State management
   NetworkStatus _networkStatus = NetworkStatus.online;
   final List<QueuedOperation<T>> _operationQueue = <QueuedOperation<T>>[];
   final Map<String, T> _cache = <String, T>{};
   final Map<String, T> _pendingSync = <String, T>{};
 
-  // Configuration
+  /// Configuration
   SyncStrategy _syncStrategy = SyncStrategy.immediate;
   Duration _syncInterval = const Duration(minutes: 5);
   int _maxRetries = 3;
   Duration _baseRetryDelay = const Duration(seconds: 1);
 
-  // Streams for reactive programming
+  /// Streams for reactive programming
   late StreamController<NetworkStatus> _networkStatusController;
   late StreamController<ExecuteResult<T>> _operationResultController;
   late StreamController<Map<String, T>> _syncProgressController;
@@ -162,7 +166,7 @@ class AdvancedCallbackHandler<T> {
   /// Configuration method
   Stream<Map<String, T>> get syncProgress => _syncProgressController.stream;
 
-  // Initialize streams
+  /// Initialize streams
   void _initializeStreams() {
     _networkStatusController = StreamController<NetworkStatus>.broadcast();
     _operationResultController = StreamController<ExecuteResult<T>>.broadcast();
@@ -217,7 +221,7 @@ class AdvancedCallbackHandler<T> {
     }
   }
 
-  // Online execution implementation
+  /// Online execution implementation
   Future<ExecuteResult<T>> _executeOnline(
     final QueuedOperation<T> operation,
     final ValidationCallback<T>? validator,
@@ -247,7 +251,7 @@ class AdvancedCallbackHandler<T> {
     }
   }
 
-  // Offline execution implementation
+  /// Offline execution implementation
   Future<ExecuteResult<T>> _executeOffline(
     final QueuedOperation<T> operation,
     final AsyncCallback<T>? offlineOperation,
@@ -274,7 +278,7 @@ class AdvancedCallbackHandler<T> {
     }
   }
 
-  // Queue management
+  /// Queue management
   void _queueOperation(final QueuedOperation<T> operation) {
     _operationQueue.add(operation);
     _sortQueue();
@@ -291,7 +295,7 @@ class AdvancedCallbackHandler<T> {
     });
   }
 
-  // Sync management
+  /// Sync management
   Future<void> _startPeriodicSync() async {
     if (_syncStrategy == SyncStrategy.periodic) {
       Timer.periodic(_syncInterval, (final _) => _performSync());
@@ -337,14 +341,15 @@ class AdvancedCallbackHandler<T> {
               await _performSync();
             }
           case SyncStrategy.periodic:
-            // Handled by periodic timer
+
+            /// Handled by periodic timer
             break;
         }
       }
     }
   }
 
-  // Helper methods
+  /// Helper methods
   Duration _calculateRetryDelay(final int retryCount) =>
       _baseRetryDelay * pow(2, retryCount - 1);
 
@@ -354,7 +359,8 @@ class AdvancedCallbackHandler<T> {
   ) async {
     debugPrint('Error occurred: $error');
     debugPrint('Stack trace: $stackTrace');
-    // Add your error handling logic here
+
+    /// Add your error handling logic here
   }
 
   /// Generic type definitions for better type safety
