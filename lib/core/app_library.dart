@@ -28,6 +28,7 @@ export 'package:get_it/get_it.dart';
 export 'package:go_router/go_router.dart';
 export 'package:hive/hive.dart';
 export 'package:http/http.dart';
+export 'package:lottie/lottie.dart';
 export 'package:mix/mix.dart' hide Box;
 export 'package:mockito/mockito.dart';
 export 'package:nb_utils/nb_utils.dart'
@@ -41,6 +42,7 @@ export 'package:todo_app/core/constants/colors.dart';
 export 'package:todo_app/core/constants/file_paths.dart';
 export 'package:todo_app/core/constants/images.dart';
 export 'package:todo_app/core/error/error_codes.dart';
+
 /// Networking
 export 'package:todo_app/core/error/exceptions.dart';
 export 'package:todo_app/core/error/failure.dart';
@@ -69,10 +71,12 @@ export 'package:todo_app/core/useCases/use_case.dart';
 export 'package:todo_app/core/utils/log_service.dart';
 export 'package:todo_app/core/utils/parse_service.dart';
 export 'package:todo_app/core/utils/schedule_service.dart';
+
 /// Injection
 export 'package:todo_app/core/utils/service_dependency_injection.dart';
 export 'package:todo_app/core/utils/time_service.dart';
 export 'package:todo_app/core/utils/utility_service.dart';
+
 /// CORE
 export 'package:todo_app/dependency.dart';
 export 'package:todo_app/feature/auth/auth_dependency_injection.dart';
@@ -168,6 +172,7 @@ export 'package:todo_app/feature/tags/presentation/widget/color_picker_component
 export 'package:todo_app/feature/tags/presentation/widget/tag_button_component.dart';
 export 'package:todo_app/feature/tags/presentation/widget/tag_input_field.dart';
 export 'package:todo_app/feature/tags/tags_dependency_injection.dart';
+
 /// TODOs Feature
 export 'package:todo_app/feature/todo/data/dataSource/base_api.dart';
 export 'package:todo_app/feature/todo/data/dataSource/remote/database_api_impl.dart';
@@ -202,6 +207,7 @@ export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/
 export 'package:todo_app/feature/todo/presentation/widget/todoListItemComponent/todo_list_item_component.variant.dart';
 export 'package:todo_app/feature/todo/todo_dependency_injection.dart';
 export 'package:todo_app/firebase_options.dart';
+
 /// GENERATED
 export 'package:todo_app/generated/assets.dart';
 export 'package:todo_app/main.dart';
@@ -210,6 +216,7 @@ export 'package:todo_app/shared/service/task_detail_api_service.dart';
 export 'package:todo_app/shared/util/entity_utils.dart';
 export 'package:todo_app/shared/util/task_detail_selection_util.dart';
 export 'package:todo_app/shared/widget/dialogs.dart';
+
 /// SHARED
 export 'package:todo_app/shared/widget/empty_widget.dart';
 export 'package:todo_app/shared/widget/loading_widget.dart';

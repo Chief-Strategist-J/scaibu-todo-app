@@ -75,11 +75,11 @@ class LoginPage extends HookWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text('Welcome', style: boldTextStyle(size: 24)),
-                        // Lottie.asset(
-                        //   Assets.loginPageAssetsWelcome,
-                        //   width: 200,
-                        //   height: 200,
-                        // ),
+                        Lottie.asset(
+                          Assets.loginPageAssetsWelcome,
+                          width: 200,
+                          height: 200,
+                        ),
                         16.height,
                         AppTextField(
                           textFieldType: TextFieldType.EMAIL,

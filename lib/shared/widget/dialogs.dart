@@ -1,6 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
 
-/// show confirm dialog box
+/// Show a confirm dialog box
 Future<T?> appShowConfirmDialogCustom<T>(
   final BuildContext context, {
   required final T Function(BuildContext) onAccept,
@@ -40,7 +40,7 @@ Future<T?> appShowConfirmDialogCustom<T>(
         Container(),
     barrierDismissible: barrierDismissible,
     barrierLabel: '',
-    transitionDuration: transitionDuration ?? 400.milliseconds,
+    transitionDuration: transitionDuration ?? const Duration(milliseconds: 400),
     transitionBuilder: (
       final BuildContext a,
       final Animation<double> animation,
@@ -113,11 +113,10 @@ Future<T?> appShowConfirmDialogCustom<T>(
                         ),
                       ],
                     ).fit(),
-                    onTap: () {
-                      if (cancelable) {
-                        finish(a, false);
+                    onTap: () async {
+                      if (cancelable && GoRouter.of(context).canPop()) {
+                        GoRouter.of(context).pop();
                       }
-
                       onCancel?.call(a);
                     },
                   ).expand(),
@@ -141,11 +140,11 @@ Future<T?> appShowConfirmDialogCustom<T>(
                         ),
                       ],
                     ).fit(),
-                    onTap: () {
+                    onTap: () async {
                       onAccept.call(a);
 
-                      if (cancelable) {
-                        finish(a, true);
+                      if (cancelable && GoRouter.of(context).canPop()) {
+                        GoRouter.of(context).pop();
                       }
                     },
                   ).expand(),
