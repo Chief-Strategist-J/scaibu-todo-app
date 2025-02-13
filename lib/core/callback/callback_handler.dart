@@ -1,4 +1,11 @@
-import 'package:todo_app/core/app_library.dart';
+import 'dart:async';
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+import 'package:todo_app/core/callback/exceptions/sync_exception.dart';
+import 'package:todo_app/core/callback/models/execute_result.dart';
+import 'package:todo_app/core/callback/models/queued_operation.dart';
+import 'package:todo_app/core/callback/utils/enums.dart';
 
 /// A callback definition for asynchronous functions,
 /// allowing better type safety when handling asynchronous operations.
@@ -16,124 +23,13 @@ typedef ValidationCallback<T> = bool Function(T data);
 /// Useful for mapping or converting data structures.
 typedef TransformCallback<T, R> = R Function(T data);
 
-/// Represents the network status of the application.
-enum NetworkStatus {
-  /// Indicates that the device is connected to the internet.
-  online,
-
-  /// Indicates that the device is not connected to the internet.
-  offline
-}
-
-/// Represents the priority level of operations.
-enum Priority {
-  /// High priority for critical operations.
-  high,
-
-  /// Medium priority for standard operations.
-  medium,
-
-  /// Low priority for less critical operations.
-  low
-}
-
-/// Defines synchronization strategies for queued operations.
-enum SyncStrategy {
-  /// Immediate synchronization after an operation.
-  immediate,
-
-  /// Batched synchronization of multiple operations.
-  batched,
-
-  /// Periodic synchronization at regular intervals.
-  periodic
-}
-
-/// Custom exception class for synchronization errors.
-class SyncException implements Exception {
-  /// Creates a [SyncException] with a message and an optional original error.
-  SyncException(this.message, [this.originalError]);
-
-  /// A message describing the exception.
-  final String message;
-
-  /// An optional reference to the original error.
-  final dynamic originalError;
-
-  @override
-  String toString() => 'SyncException: $message${originalError != null ? '\n'
-      'Original error: $originalError' : ''}';
-}
-
-/// Represents a queued operation with metadata and execution details.
-class QueuedOperation<T> {
-  /// Creates a [QueuedOperation] with the required parameters.
-  QueuedOperation({
-    required this.id,
-    required this.operation,
-    required this.createdAt,
-    this.priority = Priority.medium,
-    this.timeout = const Duration(seconds: 30),
-  });
-
-  /// Unique identifier for the operation.
-  final String id;
-
-  /// The asynchronous operation to be executed.
-  final AsyncCallback<T> operation;
-
-  /// The priority level of the operation.
-  final Priority priority;
-
-  /// The timestamp when the operation was created.
-  final DateTime createdAt;
-
-  /// The maximum allowed duration for the operation.
-  final Duration timeout;
-
-  /// The current retry count for the operation.
-  int retryCount = 0;
-}
-
-/// Wrapper class for handling the results of operations, including errors.
-class ExecuteResult<T> {
-  /// Creates a successful [ExecuteResult] with the given data.
-  ExecuteResult.success(this.data)
-      : error = null,
-        isSuccess = true;
-
-  /// Creates a failed [ExecuteResult] with the given error.
-  ExecuteResult.failure(this.error)
-      : data = null,
-        isSuccess = false;
-
-  /// The result data, if the operation was successful.
-  final T? data;
-
-  /// The error encountered, if the operation failed.
-  final Exception? error;
-
-  /// Indicates whether the operation was successful.
-  final bool isSuccess;
-
-  /// Applies either [onSuccess] or [onError] depending on the result.
-  R fold<R>(
-    final R Function(T data) onSuccess,
-    final R Function(Exception error) onError,
-  ) =>
-      isSuccess ? onSuccess(data as T) : onError(error!);
-}
-
 /// Main class implementation
-class AdvancedCallbackHandler<T> {
+class CallbackHandler<T> {
   /// Factory constructor
-  factory AdvancedCallbackHandler() =>
-      <Type, AdvancedCallbackHandler<T>>{}.putIfAbsent(
-        T,
-        AdvancedCallbackHandler<T>._internal,
-      );
+  factory CallbackHandler() =>
+      <Type, CallbackHandler<T>>{}.putIfAbsent(T, CallbackHandler<T>._internal);
 
-  AdvancedCallbackHandler._internal() {
+  CallbackHandler._internal() {
     _initializeStreams();
     unawaited(_startPeriodicSync());
   }

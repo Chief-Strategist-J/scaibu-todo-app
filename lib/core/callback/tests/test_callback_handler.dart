@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:todo_app/core/callback/callback_handler.dart';
+import 'package:todo_app/core/callback/models/execute_result.dart';
+import 'package:todo_app/core/callback/utils/enums.dart';
 
 ///
 Future<void> callbackHandlerTest() async {
-  final AdvancedCallbackHandler<Map<String, dynamic>> handler =
-      AdvancedCallbackHandler<Map<String, dynamic>>()
+  final CallbackHandler<Map<String, dynamic>> handler =
+      CallbackHandler<Map<String, dynamic>>()
         ..configure(
           syncStrategy: SyncStrategy.immediate,
           syncInterval: const Duration(minutes: 1),
@@ -16,21 +18,22 @@ Future<void> callbackHandlerTest() async {
     debugPrint('Network status: $status');
   });
 
-  handler.operationResults.listen((
-    final ExecuteResult<Map<String, dynamic>> result,
-  ) {
-    result.fold(
-      (final Map<String, dynamic> data) => debugPrint(
-        'Operation succeeded: $data',
-      ),
-      (final Exception error) => debugPrint(
-        'Operation failed: $error',
-      ),
-    );
-  });
+  handler.operationResults.listen(
+    (final ExecuteResult<Map<String, dynamic>> result) {
+      result.fold(
+        (final Map<String, dynamic> data) => debugPrint(
+          'Operation succeeded: $data',
+        ),
+        (final Exception error) => debugPrint(
+          'Operation failed: $error',
+        ),
+      );
+    },
+  );
 
   final ExecuteResult<Map<String, dynamic>> result = await handler.execute(
     operationId: 'user_data_sync',
+    priority: Priority.high,
     onlineOperation: () async => <String, dynamic>{
       'userId': '123',
       'data': 'online data',
@@ -44,7 +47,6 @@ Future<void> callbackHandlerTest() async {
       ...data,
       'timestamp': DateTime.now().toString(),
     },
-    priority: Priority.high,
   );
 
   result.fold(

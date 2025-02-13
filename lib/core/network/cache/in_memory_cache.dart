@@ -90,7 +90,7 @@ class InMemoryCache<T> {
     onCacheCleared?.call();
   }
 
-  /// Retrieves the current data, throwing an exception if the cache is empty.
+  /// Retrieves the current data, throwing an exceptions if the cache is empty.
   T? get currentData {
     if (isEmpty()) {
       throw EmptyCacheException();
