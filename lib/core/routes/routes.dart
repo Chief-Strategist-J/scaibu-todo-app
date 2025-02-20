@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+import 'package:todo_app/feature/chat/presentations/screens/todo_chat_view.dart';
 
 /// Initializes the GoRouter for navigation management.
 final GoRouter router = GoRouter(
@@ -94,6 +95,12 @@ final GoRouter router = GoRouter(
       path: ApplicationPaths.listOfProjectScreen,
       builder: (final BuildContext context, final GoRouterState state) =>
           const ProjectListScreen(),
+    ),
+    GoRoute(
+      name: ApplicationPaths.chatScreen,
+      path: ApplicationPaths.chatScreen,
+      builder: (final BuildContext context, final GoRouterState state) =>
+          const TodoChatPage(),
     ),
   ],
 );

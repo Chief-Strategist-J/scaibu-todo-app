@@ -1,9 +1,9 @@
 import 'package:todo_app/core/app_library.dart';
 
 /// Doc Required
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class TodoAuthBloc extends Bloc<AuthEvent, AuthState> {
   /// Doc Required
-  AuthBloc() : super(EmptyState()) {
+  TodoAuthBloc() : super(EmptyState()) {
     on<AuthInitEvent>(_init);
   }
 

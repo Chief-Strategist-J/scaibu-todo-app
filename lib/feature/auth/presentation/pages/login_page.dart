@@ -7,7 +7,7 @@ class LoginPage extends HookWidget {
 
   /// Doc Required
   Future<void> onLoginOrSignUpTap(
-    final AuthBloc authBloc,
+    final TodoAuthBloc authBloc,
     final AuthFormState authFormState, {
     required final bool isSignUp,
   }) async {
@@ -28,8 +28,8 @@ class LoginPage extends HookWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final AuthBloc authBloc =
-        useMemoized(() => context.read<AuthBloc>(), <Object?>[]);
+    final TodoAuthBloc authBloc =
+        useMemoized(() => context.read<TodoAuthBloc>(), <Object?>[]);
     final AuthFormState authFormState = Provider.of<AuthFormState>(context);
     final ValueNotifier<String> emailText =
         useState(authFormState.emailController.text);
@@ -58,7 +58,7 @@ class LoginPage extends HookWidget {
 
     return Scaffold(
       restorationId: '_LoginPage',
-      body: BlocBuilder<AuthBloc, AuthState>(
+      body: BlocBuilder<TodoAuthBloc, AuthState>(
         bloc: authBloc,
         builder: (final BuildContext context, final AuthState state) =>
             Container(

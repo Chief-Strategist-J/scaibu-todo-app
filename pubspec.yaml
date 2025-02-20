@@ -72,6 +72,7 @@ dependencies:
   encrypt: ^5.0.3
   flutter_secure_storage: ^9.2.2
   lottie: ^3.3.1
+  google_sign_in: ^6.2.2
 
 dependency_overrides:
   get_it: ^7.6.4

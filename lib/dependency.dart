@@ -7,7 +7,7 @@ import 'package:todo_app/core/app_library.dart';
 class ServiceInstance {
   /// The key used to store and retrieve user credentials from persistent
   /// storage.
-  /// This key is typically used in local storage or secure storage systems.
+  /// This key is typically used in locals storage or secure storage systems.
   static const String userCredentialsKey = 'userCredentials';
 }
 

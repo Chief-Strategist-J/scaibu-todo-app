@@ -55,6 +55,12 @@ class DrawerItemModel {
           },
         ),
         DrawerItemModel(
+          title: 'Chat',
+          onTap: () async {
+            await context.push(ApplicationPaths.chatScreen);
+          },
+        ),
+        DrawerItemModel(
           title: 'Notifications',
           onTap: () async => context.push(ApplicationPaths.notificationPage),
         ),

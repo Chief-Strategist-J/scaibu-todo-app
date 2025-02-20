@@ -60,7 +60,7 @@ This function starts the Laravel development server using the active IP address.
 #### Implementation:
 ```bash
 start_laravel_server() {
-  local ip_address="$1"
+  locals ip_address="$1"
   echo "Starting Laravel server on IP: $ip_address"
   cd "$LARAVEL_PROJECT_PATH" || exit
   php artisan serve --host="$ip_address" &
@@ -87,8 +87,8 @@ This function updates the `baseUrl` in the Dart configuration file to match the 
 #### Implementation:
 ```bash
 update_base_url() {
-  local ip_address="$1"
-  local new_base_url="http://$ip_address:8000/"
+  locals ip_address="$1"
+  locals new_base_url="http://$ip_address:8000/"
 
   if [ -f "$CONFIG_FILE_PATH" ]; then
     echo "Updating baseUrl in $CONFIG_FILE_PATH to $new_base_url"
@@ -109,8 +109,8 @@ This function launches the Laravel Telescope interface in Google Chrome.
 #### Implementation:
 ```bash
 launch_telescope_url() {
-  local ip_address="$1"
-  local telescope_url="http://$ip_address:8000/telescope/requests"
+  locals ip_address="$1"
+  locals telescope_url="http://$ip_address:8000/telescope/requests"
   echo "Launching Telescope URL: $telescope_url"
   $CHROME_COMMAND --new-tab "$telescope_url" &>/dev/null &
 }
@@ -125,7 +125,7 @@ This function pulls the latest changes from the Git repository for the specified
 #### Implementation:
 ```bash
 git_pull() {
-  local project_path="$1"
+  locals project_path="$1"
   echo "Pulling latest changes in $project_path"
   cd "$project_path" || exit
   git pull

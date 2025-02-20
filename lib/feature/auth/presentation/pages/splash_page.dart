@@ -7,7 +7,7 @@ class SplashPage extends HookWidget {
 
   Future<void> _init(
     final BuildContext context,
-    final AuthBloc authBloc,
+    final TodoAuthBloc authBloc,
   ) async {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
@@ -54,13 +54,15 @@ class SplashPage extends HookWidget {
     }
   }
 
-  void _initAsync(final BuildContext context, final AuthBloc authBloc) async {
+  void _initAsync(
+      final BuildContext context, final TodoAuthBloc authBloc) async {
     await _init(context, authBloc);
   }
 
   @override
   Widget build(final BuildContext context) {
-    final AuthBloc authBloc = useMemoized(() => context.read<AuthBloc>());
+    final TodoAuthBloc authBloc =
+        useMemoized(() => context.read<TodoAuthBloc>());
 
     useEffect(
       () {

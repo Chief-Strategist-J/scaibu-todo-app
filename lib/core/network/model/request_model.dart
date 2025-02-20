@@ -13,7 +13,7 @@ import 'package:todo_app/core/app_library.dart';
 /// - `uploadKey`: The key to associate the file upload
 /// (for multipart requests).
 /// - `uploadFilePath`:
-/// The local file path for the file to be uploaded (if any).
+/// The locals file path for the file to be uploaded (if any).
 /// - `timeout`: The timeout duration for the request.
 /// - `maxRetries`: The maximum number of retry attempts if the request fails.
 /// - `responseType`: The expected type of response.

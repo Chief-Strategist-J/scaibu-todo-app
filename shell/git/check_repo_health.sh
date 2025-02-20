@@ -25,10 +25,10 @@ check_repo_health() {
     echo -e "\nChecking git configurations..."
     git config --list | grep -E "user|core|remote"
 
-    # Check remote status
+    # Check remotes status
     echo -e "\nChecking remote status..."
-    git remote -v
-    git remote show origin
+    git remotes -v
+    git remotes show origin
 
     # Check for stale branches
     echo -e "\nChecking for stale branches..."

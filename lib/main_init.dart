@@ -58,12 +58,13 @@ class InitialSetup {
     WidgetsFlutterBinding.ensureInitialized();
   }
 
-  /// Initializes the local storage by setting up Hive.
+  /// Initializes the locals storage by setting up Hive.
   /// This method ensures that Hive is properly initialized and ready to
-  /// use for local storage.
+  /// use for locals storage.
   static Future<void> localStorageInit() async {
     /// Retrieves the application documents directory.
     final Directory directory = await getApplicationDocumentsDirectory();
+
     /// Initializes Hive with the path of the application documents directory.
     Hive.init(directory.path);
   }

@@ -26,8 +26,9 @@ class AuthDependencyInjection {
       ..registerSingleton<StandardLogoutUseCase>(
         StandardLogoutUseCase(getIt<AuthRepository>()),
       )
-      ..registerFactory(AuthBloc.new);
+      ..registerFactory(TodoAuthBloc.new);
   }
+
   /// Doc Required
   static Future<void> disposeDependencyInjection() async {
     getIt
@@ -37,6 +38,6 @@ class AuthDependencyInjection {
       ..unregister<LoginUseCase>()
       ..unregister<GetUserDetailUseCase>()
       ..unregister<StandardLogoutUseCase>()
-      ..unregister<AuthBloc>();
+      ..unregister<TodoAuthBloc>();
   }
 }

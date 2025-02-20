@@ -1,5 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:pillu_app/core/library/pillu_lib.dart' hide AuthBloc;
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/core/network/internetConnection/internet_connection_cubit.dart';
 
@@ -10,6 +10,9 @@ GetIt getIt = GetIt.instance;
 UserCredentials userCredentials = getIt<UserCredentials>(
   instanceName: ServiceInstance.userCredentialsKey,
 );
+
+/// Use for pillu configuration
+final AppConfig appConfig = AppConfig();
 
 Future<void> main() async {
   await InitialSetup.utilityInit();
@@ -22,6 +25,7 @@ Future<void> main() async {
   getIt = GetIt.instance;
 
   await Dependency.setup();
+  await appConfig.configure(isConfigureFirebase: false);
 
   await getIt.isReady<UserCredentials>(
     instanceName: ServiceInstance.userCredentialsKey,
@@ -85,9 +89,9 @@ class MyApp extends HookWidget {
         BlocProvider<InternetConnectionCubit>(
           create: (final BuildContext context) => InternetConnectionCubit(),
         ),
-        BlocProvider<AuthBloc>(
+        BlocProvider<TodoAuthBloc>(
           create: (final BuildContext context) =>
-              GetIt.instance<AuthBloc>()..add(AuthInitEvent()),
+              GetIt.instance<TodoAuthBloc>()..add(AuthInitEvent()),
         ),
         BlocProvider<TodoBloc>(
           create: (final BuildContext context) => GetIt.instance<TodoBloc>(),

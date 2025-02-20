@@ -40,4 +40,7 @@ class ApplicationPaths {
 
   /// Route for the list of projects screen
   static const String listOfProjectScreen = '/listOfProjectScreen';
+
+  /// Route for the list of chat screen
+  static const String chatScreen = '/chatScreen';
 }
