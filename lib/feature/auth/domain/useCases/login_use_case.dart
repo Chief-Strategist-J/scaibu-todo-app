@@ -31,7 +31,7 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
         );
       }
 
-      await _oneSignalLogin(params);
+      // await _oneSignalLogin(params);
       await _storeOnFirebaseResponse(user);
 
       return Right<Failure, LoginEntity>(auth);
@@ -77,9 +77,9 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
     }
   }
 
-  Future<void> _oneSignalLogin(final Map<String, dynamic> params) async {
-    await OneSignal.login(params['email'] as String);
-    await OneSignal.User.addEmail(params['email'] as String);
-    await OneSignal.User.addTags(<String, dynamic>{'email': params['email']});
-  }
+  // Future<void> _oneSignalLogin(final Map<String, dynamic> params) async {
+  //   await OneSignal.login(params['email'] as String);
+  //   await OneSignal.User.addEmail(params['email'] as String);
+  //   await OneSignal.User.addTags(<String, dynamic>{'email': params['email']});
+  // }
 }

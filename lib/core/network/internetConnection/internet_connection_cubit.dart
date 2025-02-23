@@ -1,4 +1,3 @@
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/core/network/internetConnection/internet_connection_state.dart';
 
@@ -15,7 +14,7 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
   }
 
   bool _internetConnectionStreamInit = true;
-  StreamSubscription<InternetStatus>? _internetStatusSubscription;
+  StreamSubscription<List<ConnectivityResult>>? _internetStatusSubscription;
 
   @override
   Future<void> close() {
@@ -29,10 +28,17 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
     if (_internetConnectionStreamInit) {
       _internetConnectionStreamInit = false;
       log('INTERNET CONNECTION STREAM IN INITIALIZE');
-      _internetStatusSubscription = InternetConnection()
-          .onStatusChange
-          .listen((final InternetStatus status) {
-        if (status == InternetStatus.connected) {
+      _internetStatusSubscription = Connectivity()
+          .checkConnectivity()
+          .asStream()
+          .listen((final List<ConnectivityResult> status) {
+        if (status.any((element) {
+         return element == ConnectivityResult.bluetooth ||
+             element == ConnectivityResult.wifi ||
+             element == ConnectivityResult.mobile ||
+             element == ConnectivityResult.ethernet ||
+             element == ConnectivityResult.vpn;
+        })) {
           isInternetConnected = true;
           emit(state.clone(status: CurrentInternetStatus.connected));
         } else {

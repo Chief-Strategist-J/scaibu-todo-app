@@ -32,7 +32,7 @@ class DrawerItemModel {
                     'email': userCredentials.getUserEmail.toString(),
                   },
                 );
-                await OneSignal.logout();
+                // await OneSignal.logout();
                 await userCredentials.clear();
 
                 await 1.seconds.delay;

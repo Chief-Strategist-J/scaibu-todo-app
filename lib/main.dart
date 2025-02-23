@@ -1,4 +1,3 @@
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:pillu_app/core/library/pillu_lib.dart' hide AuthBloc;
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/core/network/internetConnection/internet_connection_cubit.dart';
@@ -18,7 +17,7 @@ Future<void> main() async {
   await InitialSetup.utilityInit();
   await InitialSetup.firebaseInit();
   await InitialSetup.languageInit();
-  await InitialSetup.oneSignalInit();
+  // await InitialSetup.oneSignalInit();
   await InitialSetup.localStorageInit();
   Provider.debugCheckInvalidValueType = null;
   textBoldSizeGlobal = 12;
@@ -133,11 +132,16 @@ class MyApp extends HookWidget {
       ];
 
   Dispose? _checkInternetConnectivity() {
-    final StreamSubscription<InternetStatus> listener =
-        InternetConnection().onStatusChange.listen(
-      (final InternetStatus status) {
-        isInternetConnected = status == InternetStatus.connected;
-        if (!isInternetConnected) {
+    StreamSubscription<List<ConnectivityResult>>? listener =
+        Connectivity().checkConnectivity().asStream().listen(
+      (final List<ConnectivityResult> status) {
+        if (status.any((element) {
+          return element == ConnectivityResult.bluetooth ||
+              element == ConnectivityResult.wifi ||
+              element == ConnectivityResult.mobile ||
+              element == ConnectivityResult.ethernet ||
+              element == ConnectivityResult.vpn;
+        })) {
           toast('your_internet_is_not_connected'.tr(), bgColor: redColor);
         }
       },

@@ -34,7 +34,7 @@ export 'package:mockito/mockito.dart';
 export 'package:nb_utils/nb_utils.dart'
     hide isLinux, isMacOS, isWindows, log, tan;
 export 'package:nested/nested.dart';
-export 'package:onesignal_flutter/onesignal_flutter.dart';
+// export 'package:onesignal_flutter/onesignal_flutter.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:provider/provider.dart' hide Dispose;
 export 'package:rxdart/rxdart.dart';

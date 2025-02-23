@@ -73,14 +73,14 @@ class InitialSetup {
   /// This method should be called early in the app
   /// lifecycle to set up OneSignal for sending and receiving push
   /// notifications.
-  static Future<void> oneSignalInit() async {
-    await OneSignal.Debug.setAlertLevel(OSLogLevel.none);
-    OneSignal.initialize(Env.oneSignalAppID);
-    await OneSignal.consentRequired(true);
-    await OneSignal.consentGiven(true);
-
-    await OneSignal.Notifications.requestPermission(true);
-    await OneSignal.Notifications.clearAll();
-    await OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-  }
+  // static Future<void> oneSignalInit() async {
+  //   await OneSignal.Debug.setAlertLevel(OSLogLevel.none);
+  //   OneSignal.initialize(Env.oneSignalAppID);
+  //   await OneSignal.consentRequired(true);
+  //   await OneSignal.consentGiven(true);
+  //
+  //   await OneSignal.Notifications.requestPermission(true);
+  //   await OneSignal.Notifications.clearAll();
+  //   await OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  // }
 }
