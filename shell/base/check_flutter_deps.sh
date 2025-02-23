@@ -54,20 +54,6 @@ generate_header() {
     } >> "$DEPS_FILE"
 }
 
-# Function to fetch dependencies
-fetch_dependencies() {
-    echo "Running flutter pub get to fetch dependencies..."
-    cd "$PROJECT_DIR" || exit 1
-
-    # Run flutter pub get and capture output
-    flutter pub get 2>&1 | tee "$FLUTTER_LOG"
-
-    if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        echo -e "${RED}Error: Failed to fetch dependencies! Check log: $FLUTTER_LOG${NC}"
-        exit 1
-    fi
-}
-
 # Function to fetch dependency tree
 fetch_dependency_tree() {
     echo "Generating dependency tree in: $DEPS_FILE"
@@ -108,6 +94,5 @@ search_dependency() {
 create_directories
 check_flutter_installed
 validate_project_directory
-fetch_dependencies
 fetch_dependency_tree
 search_dependency

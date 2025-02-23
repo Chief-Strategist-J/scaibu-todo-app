@@ -2,7 +2,7 @@
 
 # Configuration Variables
 LARAVEL_PROJECT_PATH="/home/j/live/todo-app" # Path to your Laravel project
-DART_PROJECT_PATH="/home/j/live/scaibutodoapp" # Path to your Dart project
+DART_PROJECT_PATH="/home/j/live/scaibu-todo-app" # Path to your Dart project
 CONFIG_FILE_PATH="$DART_PROJECT_PATH/lib/core/network/network_config.dart" # Path to the Dart config file
 FLUTTER_SDK_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.0-stable.tar.xz" # Flutter SDK download URL
 FLUTTER_INSTALL_DIR="$HOME/flutter" # Directory to install Flutter SDK

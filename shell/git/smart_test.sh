@@ -32,7 +32,7 @@ smart_test() {
         for test in "${affected_tests[@]}"; do
             echo "Running $test"
             # Add your test runner command here
-            # Example: npm test "$test" or python -m pytest "$test"
+            # Example: npm test "$test" or todo_py -m pytest "$test"
         done
     else
         echo "No affected tests found"

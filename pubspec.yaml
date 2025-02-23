@@ -17,9 +17,9 @@ dependencies:
     git:
       url: https://github.com/Scaibu/pillu_app.git
       ref: main
-  bloc: ^8.1.4
+  bloc: ^9.0.0
   cupertino_icons: ^1.0.8
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.0.0
 
   # performance optimizations
   get_it: ^8.0.0-pre-5
@@ -64,7 +64,7 @@ dependencies:
   rxdart: ^0.28.0
   collection: ^1.18.0
   async: ^2.11.0
-  bloc_test: ^9.1.7
+  bloc_test: ^10.0.0
   flex_color_picker: ^3.5.1
   percent_indicator: ^4.2.3
   encrypt: ^5.0.3
