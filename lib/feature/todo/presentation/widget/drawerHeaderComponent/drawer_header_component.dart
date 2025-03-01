@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:todo_app/core/app_library.dart';
 
 /// Doc Required
@@ -10,11 +11,11 @@ class DrawerHeaderComponent extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              if (userCredentials.getFirebasePhotoUrl == null)
+              if (userCredentials.getFirebasePhotoUrl.validate().isEmpty)
                 const CircleAvatar(radius: 40)
               else
-                Image.network(
-                  userCredentials.getFirebasePhotoUrl!,
+                CachedNetworkImage(
+                  imageUrl: userCredentials.getFirebasePhotoUrl!,
                   width: 40,
                   height: 40,
                 ),

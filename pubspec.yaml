@@ -71,6 +71,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   lottie: ^3.3.1
   google_sign_in: ^6.2.2
+  cached_network_image: ^3.4.1
 
 dependency_overrides:
   get_it: ^7.6.4
@@ -117,6 +118,9 @@ flutter:
     - assets/image/
     - assets/icon/
     - assets/json/loginPageAssets/
+    - pillu_assets/
+    - pillu_assets/3.0x/
+    - pillu_assets/2.0x/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

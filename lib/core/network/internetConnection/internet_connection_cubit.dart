@@ -10,7 +10,7 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
             status: CurrentInternetStatus.disconnected,
           ),
         ) {
-    _getInternetConnectionStatus();
+    unawaited(_getInternetConnectionStatus());
   }
 
   bool _internetConnectionStreamInit = true;
@@ -23,7 +23,7 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
   }
 
   /// Initializes the stream for internet connection status.
-  void _getInternetConnectionStatus() {
+  Future<void> _getInternetConnectionStatus() async {
     log('_getInternetConnectionStatus is executed.');
     if (_internetConnectionStreamInit) {
       _internetConnectionStreamInit = false;
@@ -32,13 +32,14 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
           .checkConnectivity()
           .asStream()
           .listen((final List<ConnectivityResult> status) {
-        if (status.any((element) {
-         return element == ConnectivityResult.bluetooth ||
-             element == ConnectivityResult.wifi ||
-             element == ConnectivityResult.mobile ||
-             element == ConnectivityResult.ethernet ||
-             element == ConnectivityResult.vpn;
-        })) {
+        if (status.any(
+          (final ConnectivityResult element) =>
+              element == ConnectivityResult.bluetooth ||
+              element == ConnectivityResult.wifi ||
+              element == ConnectivityResult.mobile ||
+              element == ConnectivityResult.ethernet ||
+              element == ConnectivityResult.vpn,
+        )) {
           isInternetConnected = true;
           emit(state.clone(status: CurrentInternetStatus.connected));
         } else {

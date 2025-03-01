@@ -100,7 +100,7 @@ final GoRouter router = GoRouter(
       name: ApplicationPaths.chatScreen,
       path: ApplicationPaths.chatScreen,
       builder: (final BuildContext context, final GoRouterState state) =>
-          const TodoChatPage(),
+           TodoChatPage(),
     ),
   ],
 );

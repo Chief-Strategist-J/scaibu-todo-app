@@ -1,4 +1,5 @@
-import 'package:pillu_app/core/library/pillu_lib.dart' hide AuthBloc;
+import 'package:pillu_app/core/library/pillu_lib.dart'
+    hide PilluAuthBloc, toast;
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/core/network/internetConnection/internet_connection_cubit.dart';
 
@@ -17,7 +18,8 @@ Future<void> main() async {
   await InitialSetup.utilityInit();
   await InitialSetup.firebaseInit();
   await InitialSetup.languageInit();
-  // await InitialSetup.oneSignalInit();
+  // TODO : This is used for one signal notification management
+  /// await InitialSetup.oneSignalInit();
   await InitialSetup.localStorageInit();
   Provider.debugCheckInvalidValueType = null;
   textBoldSizeGlobal = 12;
@@ -132,22 +134,26 @@ class MyApp extends HookWidget {
       ];
 
   Dispose? _checkInternetConnectivity() {
-    StreamSubscription<List<ConnectivityResult>>? listener =
-        Connectivity().checkConnectivity().asStream().listen(
+    unawaited(_listenInternetConnection());
+
+    return () {};
+  }
+
+  Future<void> _listenInternetConnection() async {
+    Connectivity().checkConnectivity().asStream().listen(
       (final List<ConnectivityResult> status) {
-        if (status.any((element) {
-          return element == ConnectivityResult.bluetooth ||
+        if (status.any(
+          (final ConnectivityResult element) =>
+              element == ConnectivityResult.bluetooth ||
               element == ConnectivityResult.wifi ||
               element == ConnectivityResult.mobile ||
               element == ConnectivityResult.ethernet ||
-              element == ConnectivityResult.vpn;
-        })) {
+              element == ConnectivityResult.vpn,
+        )) {
           toast('your_internet_is_not_connected'.tr(), bgColor: redColor);
         }
       },
     );
-
-    return listener.cancel;
   }
 
   @override
