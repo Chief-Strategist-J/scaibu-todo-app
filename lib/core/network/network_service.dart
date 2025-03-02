@@ -81,7 +81,7 @@ class RestApiImpl implements RestApi {
   final Logger _logger;
 
   @override
-  Future<T> request<T>({
+  Future<http.Response> request<T>({
     required final String endPoint,
     final HttpRequestMethod type = HttpRequestMethod.get,
     final Map<String, dynamic> requestBody = const <String, dynamic>{},
@@ -114,7 +114,7 @@ class RestApiImpl implements RestApi {
     return _requestQueue.enqueue(() => _executeRequest<T>(request));
   }
 
-  Future<T> _executeRequest<T>(final RequestModel request) async {
+  Future<http.Response> _executeRequest<T>(final RequestModel request) async {
     final RequestMetrics metrics = RequestMetrics();
     int attempts = 0;
 
@@ -126,7 +126,7 @@ class RestApiImpl implements RestApi {
 
         await _logger.logRequest(request, response, metrics);
 
-        return await processResponse<T>(
+        return await processResponse<http.Response>(
           response,
           request.responseType,
           request.onStatusCodeError,
@@ -248,12 +248,12 @@ class RestApiImpl implements RestApi {
         _ => _defaultTimeout
       };
 
-  T _parseResponse<T>(
+  dynamic _parseResponse<T>(
     final Response response,
     final HttpResponseType responseType,
   ) {
-    if (response.body.isEmpty && T == dynamic) {
-      return null as T;
+    if (response.bodyBytes.isEmpty && T == dynamic) {
+      return response as T;
     }
 
     try {
@@ -261,9 +261,9 @@ class RestApiImpl implements RestApi {
         case HttpResponseType.JSON:
           return jsonDecode(response.body) as T;
         case HttpResponseType.STRING:
-          return response.body as T;
+          return jsonDecode(response.body) as T;
         case HttpResponseType.BODY_BYTES:
-          return response.bodyBytes as T;
+          return jsonDecode(response.body) as T;
         case HttpResponseType.FULL_RESPONSE:
           return response as T;
       }

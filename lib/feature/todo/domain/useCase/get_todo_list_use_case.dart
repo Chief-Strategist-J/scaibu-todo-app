@@ -133,7 +133,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
       final Box<dynamic> box = await Hive.openBox(_hiveBoxName);
 
       final List<TodoEntity> cachedTodos =
-          await _getCachedTodos(box) ?? await _fetchAndCacheTodos(box);
+         /* await _getCachedTodos(box) ?? */await _fetchAndCacheTodos(box);
 
       return Right<Failure, List<TodoEntity>>(cachedTodos);
     } catch (e, s) {

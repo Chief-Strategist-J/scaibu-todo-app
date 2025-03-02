@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/core/app_library.dart';
 
 /// Represents the application's theme data configuration.
@@ -52,6 +53,7 @@ class AppThemeData {
         scaffoldBackgroundColor: primaryColor,
         checkboxTheme: checkboxThemeData,
         appBarTheme: appBarTheme,
+        fontFamily: GoogleFonts.jost().fontFamily,
         inputDecorationTheme: InputDecorationTheme(
           focusColor: cardColor,
           filled: true,

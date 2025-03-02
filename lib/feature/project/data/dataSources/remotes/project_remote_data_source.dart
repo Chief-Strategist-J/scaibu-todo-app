@@ -277,10 +277,10 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async {
     final ProjectCategoryDataModelEntity projectCategoryData
     = ProjectCategoryDataModelEntity.fromJson(
-      await restApi.request<Map<String, dynamic>>(
+      (await restApi.request<Map<String, dynamic>>(
         endPoint: ProjectEndPoint.getProjectCategoryDetail,
         requestBody: <String, dynamic>{},
-      ),
+      )) as Map<String, dynamic>,
     );
     return projectCategoryData;
   }

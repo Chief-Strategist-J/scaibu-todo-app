@@ -10,9 +10,9 @@ class CustomButtonStyle {
 
   /// Returns the button style based on the current build context.
   Style button(final BuildContext context) => Style(
-        $box.padding.all(16),
+        $box.padding.all(8),
         $box.margin.horizontal(8),
-        $box.height(50),
+        $box.height(52),
         $box.alignment.center(),
         CustomButtonVariant.primary(
           $box.decoration.color(context.cardColor),

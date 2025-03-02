@@ -35,13 +35,10 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   ) async {
     try {
       final Either<Failure, ProjectCategoryDataModelEntity> res =
-          await projectCategory(
-        NoParams(),
-      );
+          await projectCategory(NoParams());
+
       final Either<Failure, List<ProjectEntity>> projectListRes =
-          await listOfProjectsUseCase(
-        NoParams(),
-      );
+          await listOfProjectsUseCase(NoParams());
 
       res.fold(
         (final Failure failure) {

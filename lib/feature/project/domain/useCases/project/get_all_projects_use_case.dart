@@ -83,13 +83,13 @@ class GetAllProjectsUseCase extends UseCase<List<ProjectEntity>, NoParams> {
       _lock.synchronized(() async {
         try {
           final List<ProjectEntity>? inMemoryData = _inMemoryCache.validData;
-          if (inMemoryData != null) {
+          if (inMemoryData != null && inMemoryData.isNotEmpty) {
             return Right<Failure, List<ProjectEntity>>(inMemoryData);
           }
 
           await _initializeCache();
           final List<ProjectEntity>? storedData = await _getStorageCache();
-          if (storedData != null) {
+          if (storedData != null && storedData.isNotEmpty) {
             _inMemoryCache.setData(storedData);
             return Right<Failure, List<ProjectEntity>>(storedData);
           }

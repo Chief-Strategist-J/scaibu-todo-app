@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:todo_app/core/app_library.dart';
 import 'package:todo_app/feature/project/presentation/widgets/project_category_selector_widget.dart';
 
@@ -13,7 +15,7 @@ class ProjectPage extends HookWidget {
 
   void _initProject(final BuildContext context, final ProjectPageParam param) {
     useEffect(
-      () async {
+      ()  {
         final ProjectBloc bloc = context.read<ProjectBloc>();
         final Completer<void> completer = Completer<void>();
 
@@ -26,7 +28,7 @@ class ProjectPage extends HookWidget {
           }
         });
 
-        await completer.future.then((final _) {
+         unawaited(completer.future.then((final _) {
           final ProjectState currentState = bloc.state;
           if (currentState is InitProjectState) {
             _updateProjectParams(
@@ -34,10 +36,10 @@ class ProjectPage extends HookWidget {
               currentState.projectCategoryData?.data,
             );
           }
-        });
+        }));
 
         return subscription.cancel;
-      } as Dispose? Function(),
+      } ,
       <Object?>[],
     );
   }

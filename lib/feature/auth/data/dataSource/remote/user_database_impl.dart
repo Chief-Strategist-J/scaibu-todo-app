@@ -79,7 +79,7 @@ class UserDatabaseImpl extends UserBaseApi {
     final Map<String, dynamic> loginCred,
   ) async {
     final LoginResponse res = LoginResponse.fromJson(
-      await restApi.request<dynamic>(
+      await restApi.request<Response>(
         requestBody: loginCred,
         endPoint: UserAuthEndPoint.loginOrSignUp,
         type: HttpRequestMethod.post,
