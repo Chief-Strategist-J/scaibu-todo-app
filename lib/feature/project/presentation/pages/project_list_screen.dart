@@ -11,20 +11,21 @@ class ProjectListScreen extends HookWidget {
     final BuildContext context,
     final ValueNotifier<List<ProjectItemComponent>> projectComponents,
   ) {
-    useEffect(() {
+    useEffect(
+      () {
         final ProjectBloc bloc = context.read<ProjectBloc>()
           ..add(InitProjectEvent());
 
         final StreamSubscription<ProjectState> subscription =
-      bloc.stream.listen((final ProjectState state) {
-        if (state is InitProjectState) {
+            bloc.stream.listen((final ProjectState state) {
+          if (state is InitProjectState) {
             final List<ProjectItemComponent> items = state.projectList
                     ?.map(
                       (final ProjectEntity project) => ProjectItemComponent(
                         title: project.name ?? 'No Title',
                         description: project.description ?? 'No Description',
                         onTap: () {
-                          //
+                          _deleteProject(bloc, project);
                         },
                       ),
                     )
@@ -32,12 +33,16 @@ class ProjectListScreen extends HookWidget {
                 <ProjectItemComponent>[];
             projectComponents.value = items;
           }
-      });
+        });
 
         return subscription.cancel;
       },
       <Object?>[],
     );
+  }
+
+  void _deleteProject(final ProjectBloc bloc, final ProjectEntity project) {
+    bloc.add(DeleteProjectEvent(projectId: project.id ?? 0));
   }
 
   Future<void> _onCreateProjectTap(final BuildContext context) async {

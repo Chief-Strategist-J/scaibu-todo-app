@@ -13,6 +13,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
         ) {
     on<InitProjectEvent>(_init);
     on<CreateProjectEvent>(_createProject);
+    on<DeleteProjectEvent>(_deleteProject);
   }
 
   /// Doc Required
@@ -34,8 +35,12 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     final Emitter<ProjectState> emit,
   ) async {
     try {
+      await projectCategory.updateData();
+
       final Either<Failure, ProjectCategoryDataModelEntity> res =
           await projectCategory(NoParams());
+
+      await listOfProjectsUseCase.updateData();
 
       final Either<Failure, List<ProjectEntity>> projectListRes =
           await listOfProjectsUseCase(NoParams());
@@ -111,8 +116,20 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     );
   }
 
-  /// Doc Required
+  Future<void> _deleteProject(
+    final DeleteProjectEvent event,
+    final Emitter<ProjectState> emit,
+  ) async {
+    final DeleteProjectUseCase deleteProjectUseCase =
+        getIt<DeleteProjectUseCase>(
+      instanceName: ProjectDependencyInjection.deleteProjectUseCase,
+    );
 
+    await deleteProjectUseCase(event.projectId);
+    add(InitProjectEvent());
+  }
+
+  /// Doc Required
   void getListOfProjects() {
     //
   }

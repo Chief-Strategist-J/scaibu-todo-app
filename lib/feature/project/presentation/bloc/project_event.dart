@@ -24,3 +24,16 @@ class CreateProjectEvent extends ProjectEvent {
   @override
   List<Object?> get props => <Object?>[request];
 }
+
+/// Doc Required
+class DeleteProjectEvent extends ProjectEvent {
+  /// Doc Required
+
+  DeleteProjectEvent({required this.projectId});
+
+  /// Doc Required
+  final int projectId;
+
+  @override
+  List<Object?> get props => <Object?>[projectId];
+}

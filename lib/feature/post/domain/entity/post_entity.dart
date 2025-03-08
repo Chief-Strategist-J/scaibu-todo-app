@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'post_entity.freezed.dart';
+
 part 'post_entity.g.dart';
 
 /// Doc Required
 @freezed
-class PostEntity with _$PostEntity {
+abstract class PostEntity with _$PostEntity {
   /// Doc Required
   const factory PostEntity({
     required final int id,

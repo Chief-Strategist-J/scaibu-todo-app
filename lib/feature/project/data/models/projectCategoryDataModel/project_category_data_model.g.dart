@@ -6,73 +6,67 @@ part of 'project_category_data_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProjectCategoryImpl _$$ProjectCategoryImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProjectCategoryImpl(
+_ProjectCategory _$ProjectCategoryFromJson(Map<String, dynamic> json) =>
+    _ProjectCategory(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectCategoryImplToJson(
-        _$ProjectCategoryImpl instance) =>
+Map<String, dynamic> _$ProjectCategoryToJson(_ProjectCategory instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectPhaseImpl _$$ProjectPhaseImplFromJson(Map<String, dynamic> json) =>
-    _$ProjectPhaseImpl(
+_ProjectPhase _$ProjectPhaseFromJson(Map<String, dynamic> json) =>
+    _ProjectPhase(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectPhaseImplToJson(_$ProjectPhaseImpl instance) =>
+Map<String, dynamic> _$ProjectPhaseToJson(_ProjectPhase instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectPriorityImpl _$$ProjectPriorityImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProjectPriorityImpl(
+_ProjectPriority _$ProjectPriorityFromJson(Map<String, dynamic> json) =>
+    _ProjectPriority(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectPriorityImplToJson(
-        _$ProjectPriorityImpl instance) =>
+Map<String, dynamic> _$ProjectPriorityToJson(_ProjectPriority instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectTypeImpl _$$ProjectTypeImplFromJson(Map<String, dynamic> json) =>
-    _$ProjectTypeImpl(
+_ProjectType _$ProjectTypeFromJson(Map<String, dynamic> json) => _ProjectType(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectTypeImplToJson(_$ProjectTypeImpl instance) =>
+Map<String, dynamic> _$ProjectTypeToJson(_ProjectType instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectStatusImpl _$$ProjectStatusImplFromJson(Map<String, dynamic> json) =>
-    _$ProjectStatusImpl(
+_ProjectStatus _$ProjectStatusFromJson(Map<String, dynamic> json) =>
+    _ProjectStatus(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectStatusImplToJson(_$ProjectStatusImpl instance) =>
+Map<String, dynamic> _$ProjectStatusToJson(_ProjectStatus instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectCategoryDataImpl _$$ProjectCategoryDataImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProjectCategoryDataImpl(
+_ProjectCategoryData _$ProjectCategoryDataFromJson(Map<String, dynamic> json) =>
+    _ProjectCategoryData(
       categories: (json['categories'] as List<dynamic>?)
           ?.map((e) => ProjectCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -90,8 +84,8 @@ _$ProjectCategoryDataImpl _$$ProjectCategoryDataImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$ProjectCategoryDataImplToJson(
-        _$ProjectCategoryDataImpl instance) =>
+Map<String, dynamic> _$ProjectCategoryDataToJson(
+        _ProjectCategoryData instance) =>
     <String, dynamic>{
       'categories': instance.categories,
       'phases': instance.phases,
@@ -100,9 +94,9 @@ Map<String, dynamic> _$$ProjectCategoryDataImplToJson(
       'statuses': instance.statuses,
     };
 
-_$ProjectCategoryDataModelImpl _$$ProjectCategoryDataModelImplFromJson(
+_ProjectCategoryDataModel _$ProjectCategoryDataModelFromJson(
         Map<String, dynamic> json) =>
-    _$ProjectCategoryDataModelImpl(
+    _ProjectCategoryDataModel(
       message: json['message'] as String?,
       status: json['status'] as bool?,
       data: json['data'] == null
@@ -110,8 +104,8 @@ _$ProjectCategoryDataModelImpl _$$ProjectCategoryDataModelImplFromJson(
           : ProjectCategoryData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$ProjectCategoryDataModelImplToJson(
-        _$ProjectCategoryDataModelImpl instance) =>
+Map<String, dynamic> _$ProjectCategoryDataModelToJson(
+        _ProjectCategoryDataModel instance) =>
     <String, dynamic>{
       'message': instance.message,
       'status': instance.status,

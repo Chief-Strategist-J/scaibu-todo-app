@@ -6,8 +6,7 @@ part of 'post_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PostEntityImpl _$$PostEntityImplFromJson(Map<String, dynamic> json) =>
-    _$PostEntityImpl(
+_PostEntity _$PostEntityFromJson(Map<String, dynamic> json) => _PostEntity(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       slug: json['slug'] as String,
@@ -27,7 +26,7 @@ _$PostEntityImpl _$$PostEntityImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['deletedAt'] as String),
     );
 
-Map<String, dynamic> _$$PostEntityImplToJson(_$PostEntityImpl instance) =>
+Map<String, dynamic> _$PostEntityToJson(_PostEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

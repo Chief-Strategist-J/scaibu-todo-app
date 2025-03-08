@@ -6,8 +6,7 @@ part of 'tags.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TagEntityImpl _$$TagEntityImplFromJson(Map<String, dynamic> json) =>
-    _$TagEntityImpl(
+_TagEntity _$TagEntityFromJson(Map<String, dynamic> json) => _TagEntity(
       id: (json['id'] as num?)?.toInt(),
       uuid: json['uuid'] as String?,
       isActive: json['isActive'] as bool?,
@@ -50,7 +49,7 @@ _$TagEntityImpl _$$TagEntityImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$TagEntityImplToJson(_$TagEntityImpl instance) =>
+Map<String, dynamic> _$TagEntityToJson(_TagEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'uuid': instance.uuid,

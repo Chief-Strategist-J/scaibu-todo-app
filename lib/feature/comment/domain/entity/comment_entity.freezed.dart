@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,142 +10,84 @@ part of 'comment_entity.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-CommentEntity _$CommentEntityFromJson(Map<String, dynamic> json) {
-  return _CommentEntity.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CommentEntity {
-  int get id => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
-  int get postId => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
-  String? get metadataApprovedBy => throw _privateConstructorUsedError;
-  DateTime? get approvedAt => throw _privateConstructorUsedError;
-  DateTime? get deletedAt => throw _privateConstructorUsedError;
-
-  /// Serializes this CommentEntity to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int get id;
+  String get content;
+  int get postId;
+  int get userId;
+  DateTime get createdAt;
+  DateTime get updatedAt;
+  String get status;
+  Map<String, dynamic>? get metadata;
+  String? get metadataApprovedBy;
+  DateTime? get approvedAt;
+  DateTime? get deletedAt;
 
   /// Create a copy of CommentEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CommentEntityCopyWith<CommentEntity> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CommentEntityCopyWith<$Res> {
-  factory $CommentEntityCopyWith(
-          CommentEntity value, $Res Function(CommentEntity) then) =
-      _$CommentEntityCopyWithImpl<$Res, CommentEntity>;
-  @useResult
-  $Res call(
-      {int id,
-      String content,
-      int postId,
-      int userId,
-      DateTime createdAt,
-      DateTime updatedAt,
-      String status,
-      Map<String, dynamic>? metadata,
-      String? metadataApprovedBy,
-      DateTime? approvedAt,
-      DateTime? deletedAt});
-}
-
-/// @nodoc
-class _$CommentEntityCopyWithImpl<$Res, $Val extends CommentEntity>
-    implements $CommentEntityCopyWith<$Res> {
-  _$CommentEntityCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of CommentEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $CommentEntityCopyWith<CommentEntity> get copyWith =>
+      _$CommentEntityCopyWithImpl<CommentEntity>(
+          this as CommentEntity, _$identity);
+
+  /// Serializes this CommentEntity to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? content = null,
-    Object? postId = null,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? status = null,
-    Object? metadata = freezed,
-    Object? metadataApprovedBy = freezed,
-    Object? approvedAt = freezed,
-    Object? deletedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      postId: null == postId
-          ? _value.postId
-          : postId // ignore: cast_nullable_to_non_nullable
-              as int,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      metadata: freezed == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      metadataApprovedBy: freezed == metadataApprovedBy
-          ? _value.metadataApprovedBy
-          : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      approvedAt: freezed == approvedAt
-          ? _value.approvedAt
-          : approvedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      deletedAt: freezed == deletedAt
-          ? _value.deletedAt
-          : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CommentEntity &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other.metadata, metadata) &&
+            (identical(other.metadataApprovedBy, metadataApprovedBy) ||
+                other.metadataApprovedBy == metadataApprovedBy) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.deletedAt, deletedAt) ||
+                other.deletedAt == deletedAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      content,
+      postId,
+      userId,
+      createdAt,
+      updatedAt,
+      status,
+      const DeepCollectionEquality().hash(metadata),
+      metadataApprovedBy,
+      approvedAt,
+      deletedAt);
+
+  @override
+  String toString() {
+    return 'CommentEntity(id: $id, content: $content, postId: $postId, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, metadata: $metadata, metadataApprovedBy: $metadataApprovedBy, approvedAt: $approvedAt, deletedAt: $deletedAt)';
   }
 }
 
 /// @nodoc
-abstract class _$$CommentEntityImplCopyWith<$Res>
-    implements $CommentEntityCopyWith<$Res> {
-  factory _$$CommentEntityImplCopyWith(
-          _$CommentEntityImpl value, $Res Function(_$CommentEntityImpl) then) =
-      __$$CommentEntityImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CommentEntityCopyWith<$Res> {
+  factory $CommentEntityCopyWith(
+          CommentEntity value, $Res Function(CommentEntity) _then) =
+      _$CommentEntityCopyWithImpl;
   @useResult
   $Res call(
       {int id,
@@ -161,12 +104,12 @@ abstract class _$$CommentEntityImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CommentEntityImplCopyWithImpl<$Res>
-    extends _$CommentEntityCopyWithImpl<$Res, _$CommentEntityImpl>
-    implements _$$CommentEntityImplCopyWith<$Res> {
-  __$$CommentEntityImplCopyWithImpl(
-      _$CommentEntityImpl _value, $Res Function(_$CommentEntityImpl) _then)
-      : super(_value, _then);
+class _$CommentEntityCopyWithImpl<$Res>
+    implements $CommentEntityCopyWith<$Res> {
+  _$CommentEntityCopyWithImpl(this._self, this._then);
+
+  final CommentEntity _self;
+  final $Res Function(CommentEntity) _then;
 
   /// Create a copy of CommentEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -185,49 +128,49 @@ class __$$CommentEntityImplCopyWithImpl<$Res>
     Object? approvedAt = freezed,
     Object? deletedAt = freezed,
   }) {
-    return _then(_$CommentEntityImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       content: null == content
-          ? _value.content
+          ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
       postId: null == postId
-          ? _value.postId
+          ? _self.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as int,
       userId: null == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
       createdAt: null == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       updatedAt: null == updatedAt
-          ? _value.updatedAt
+          ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
       metadata: freezed == metadata
-          ? _value._metadata
+          ? _self.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       metadataApprovedBy: freezed == metadataApprovedBy
-          ? _value.metadataApprovedBy
+          ? _self.metadataApprovedBy
           : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
               as String?,
       approvedAt: freezed == approvedAt
-          ? _value.approvedAt
+          ? _self.approvedAt
           : approvedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       deletedAt: freezed == deletedAt
-          ? _value.deletedAt
+          ? _self.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
@@ -236,8 +179,8 @@ class __$$CommentEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CommentEntityImpl implements _CommentEntity {
-  const _$CommentEntityImpl(
+class _CommentEntity implements CommentEntity {
+  const _CommentEntity(
       {required this.id,
       required this.content,
       required this.postId,
@@ -250,9 +193,8 @@ class _$CommentEntityImpl implements _CommentEntity {
       this.approvedAt,
       this.deletedAt})
       : _metadata = metadata;
-
-  factory _$CommentEntityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CommentEntityImplFromJson(json);
+  factory _CommentEntity.fromJson(Map<String, dynamic> json) =>
+      _$CommentEntityFromJson(json);
 
   @override
   final int id;
@@ -286,16 +228,26 @@ class _$CommentEntityImpl implements _CommentEntity {
   @override
   final DateTime? deletedAt;
 
+  /// Create a copy of CommentEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CommentEntity(id: $id, content: $content, postId: $postId, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, metadata: $metadata, metadataApprovedBy: $metadataApprovedBy, approvedAt: $approvedAt, deletedAt: $deletedAt)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CommentEntityCopyWith<_CommentEntity> get copyWith =>
+      __$CommentEntityCopyWithImpl<_CommentEntity>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CommentEntityToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CommentEntityImpl &&
+            other is _CommentEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.postId, postId) || other.postId == postId) &&
@@ -330,66 +282,106 @@ class _$CommentEntityImpl implements _CommentEntity {
       approvedAt,
       deletedAt);
 
-  /// Create a copy of CommentEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CommentEntityImplCopyWith<_$CommentEntityImpl> get copyWith =>
-      __$$CommentEntityImplCopyWithImpl<_$CommentEntityImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CommentEntityImplToJson(
-      this,
-    );
+  String toString() {
+    return 'CommentEntity(id: $id, content: $content, postId: $postId, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, metadata: $metadata, metadataApprovedBy: $metadataApprovedBy, approvedAt: $approvedAt, deletedAt: $deletedAt)';
   }
 }
 
-abstract class _CommentEntity implements CommentEntity {
-  const factory _CommentEntity(
-      {required final int id,
-      required final String content,
-      required final int postId,
-      required final int userId,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      final String status,
-      final Map<String, dynamic>? metadata,
-      final String? metadataApprovedBy,
-      final DateTime? approvedAt,
-      final DateTime? deletedAt}) = _$CommentEntityImpl;
+/// @nodoc
+abstract mixin class _$CommentEntityCopyWith<$Res>
+    implements $CommentEntityCopyWith<$Res> {
+  factory _$CommentEntityCopyWith(
+          _CommentEntity value, $Res Function(_CommentEntity) _then) =
+      __$CommentEntityCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String content,
+      int postId,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String status,
+      Map<String, dynamic>? metadata,
+      String? metadataApprovedBy,
+      DateTime? approvedAt,
+      DateTime? deletedAt});
+}
 
-  factory _CommentEntity.fromJson(Map<String, dynamic> json) =
-      _$CommentEntityImpl.fromJson;
+/// @nodoc
+class __$CommentEntityCopyWithImpl<$Res>
+    implements _$CommentEntityCopyWith<$Res> {
+  __$CommentEntityCopyWithImpl(this._self, this._then);
 
-  @override
-  int get id;
-  @override
-  String get content;
-  @override
-  int get postId;
-  @override
-  int get userId;
-  @override
-  DateTime get createdAt;
-  @override
-  DateTime get updatedAt;
-  @override
-  String get status;
-  @override
-  Map<String, dynamic>? get metadata;
-  @override
-  String? get metadataApprovedBy;
-  @override
-  DateTime? get approvedAt;
-  @override
-  DateTime? get deletedAt;
+  final _CommentEntity _self;
+  final $Res Function(_CommentEntity) _then;
 
   /// Create a copy of CommentEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CommentEntityImplCopyWith<_$CommentEntityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? content = null,
+    Object? postId = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? status = null,
+    Object? metadata = freezed,
+    Object? metadataApprovedBy = freezed,
+    Object? approvedAt = freezed,
+    Object? deletedAt = freezed,
+  }) {
+    return _then(_CommentEntity(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      content: null == content
+          ? _self.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+      postId: null == postId
+          ? _self.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as int,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      metadata: freezed == metadata
+          ? _self._metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      metadataApprovedBy: freezed == metadataApprovedBy
+          ? _self.metadataApprovedBy
+          : metadataApprovedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      approvedAt: freezed == approvedAt
+          ? _self.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      deletedAt: freezed == deletedAt
+          ? _self.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
 }
+
+// dart format on

@@ -27,7 +27,7 @@ abstract interface class ProjectRepository<T> {
   Future<void> updateProject(final String id, final Map<String, dynamic> data);
 
   /// Doc Required
-  Future<void> deleteProject(final String id);
+  Future<void> deleteProject(final int id);
 
   /// Doc Required
   Future<List<T>> searchProjects(final String query);

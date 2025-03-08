@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,253 +10,177 @@ part of 'todo_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-TodoModel _$TodoModelFromJson(Map<String, dynamic> json) {
-  return _TodoModel.fromJson(json);
-}
-
 /// @nodoc
-mixin _$TodoModel {
-  int? get todoId => throw _privateConstructorUsedError;
-  String? get title => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  bool? get isCompleted => throw _privateConstructorUsedError;
-  DateTime? get dueDate => throw _privateConstructorUsedError;
-  int? get priority => throw _privateConstructorUsedError;
-  String? get assignedTo => throw _privateConstructorUsedError;
-  List<String>? get tags => throw _privateConstructorUsedError;
-  int? get createdBy => throw _privateConstructorUsedError;
-  int? get updatedBy => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
-  DateTime? get reminder => throw _privateConstructorUsedError;
-  String? get attachment => throw _privateConstructorUsedError;
-  String? get category => throw _privateConstructorUsedError;
-  String? get estimatedTime => throw _privateConstructorUsedError;
-  String? get actualTime => throw _privateConstructorUsedError;
-  bool? get recurring => throw _privateConstructorUsedError;
-  String? get recurringFrequency => throw _privateConstructorUsedError;
-  String? get notes => throw _privateConstructorUsedError;
-  DateTime? get completedAt => throw _privateConstructorUsedError;
-  String? get colorCode => throw _privateConstructorUsedError;
-  bool? get isArchived => throw _privateConstructorUsedError;
-  String? get firebaseTodoId => throw _privateConstructorUsedError;
-  DateTime? get date => throw _privateConstructorUsedError;
-  DateTime? get startTime => throw _privateConstructorUsedError;
-  DateTime? get endTime => throw _privateConstructorUsedError;
-  List<String>? get tagNames => throw _privateConstructorUsedError;
-
-  /// Serializes this TodoModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+mixin _$TodoModel implements DiagnosticableTreeMixin {
+  int? get todoId;
+  String? get title;
+  String? get description;
+  bool? get isCompleted;
+  DateTime? get dueDate;
+  int? get priority;
+  String? get assignedTo;
+  List<String>? get tags;
+  int? get createdBy;
+  int? get updatedBy;
+  String? get status;
+  DateTime? get reminder;
+  String? get attachment;
+  String? get category;
+  String? get estimatedTime;
+  String? get actualTime;
+  bool? get recurring;
+  String? get recurringFrequency;
+  String? get notes;
+  DateTime? get completedAt;
+  String? get colorCode;
+  bool? get isArchived;
+  String? get firebaseTodoId;
+  DateTime? get date;
+  DateTime? get startTime;
+  DateTime? get endTime;
+  List<String>? get tagNames;
 
   /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $TodoModelCopyWith<TodoModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $TodoModelCopyWith<$Res> {
-  factory $TodoModelCopyWith(TodoModel value, $Res Function(TodoModel) then) =
-      _$TodoModelCopyWithImpl<$Res, TodoModel>;
-  @useResult
-  $Res call(
-      {int? todoId,
-      String? title,
-      String? description,
-      bool? isCompleted,
-      DateTime? dueDate,
-      int? priority,
-      String? assignedTo,
-      List<String>? tags,
-      int? createdBy,
-      int? updatedBy,
-      String? status,
-      DateTime? reminder,
-      String? attachment,
-      String? category,
-      String? estimatedTime,
-      String? actualTime,
-      bool? recurring,
-      String? recurringFrequency,
-      String? notes,
-      DateTime? completedAt,
-      String? colorCode,
-      bool? isArchived,
-      String? firebaseTodoId,
-      DateTime? date,
-      DateTime? startTime,
-      DateTime? endTime,
-      List<String>? tagNames});
-}
-
-/// @nodoc
-class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
-    implements $TodoModelCopyWith<$Res> {
-  _$TodoModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of TodoModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $TodoModelCopyWith<TodoModel> get copyWith =>
+      _$TodoModelCopyWithImpl<TodoModel>(this as TodoModel, _$identity);
+
+  /// Serializes this TodoModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? todoId = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? isCompleted = freezed,
-    Object? dueDate = freezed,
-    Object? priority = freezed,
-    Object? assignedTo = freezed,
-    Object? tags = freezed,
-    Object? createdBy = freezed,
-    Object? updatedBy = freezed,
-    Object? status = freezed,
-    Object? reminder = freezed,
-    Object? attachment = freezed,
-    Object? category = freezed,
-    Object? estimatedTime = freezed,
-    Object? actualTime = freezed,
-    Object? recurring = freezed,
-    Object? recurringFrequency = freezed,
-    Object? notes = freezed,
-    Object? completedAt = freezed,
-    Object? colorCode = freezed,
-    Object? isArchived = freezed,
-    Object? firebaseTodoId = freezed,
-    Object? date = freezed,
-    Object? startTime = freezed,
-    Object? endTime = freezed,
-    Object? tagNames = freezed,
-  }) {
-    return _then(_value.copyWith(
-      todoId: freezed == todoId
-          ? _value.todoId
-          : todoId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isCompleted: freezed == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      dueDate: freezed == dueDate
-          ? _value.dueDate
-          : dueDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      priority: freezed == priority
-          ? _value.priority
-          : priority // ignore: cast_nullable_to_non_nullable
-              as int?,
-      assignedTo: freezed == assignedTo
-          ? _value.assignedTo
-          : assignedTo // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      createdBy: freezed == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as int?,
-      updatedBy: freezed == updatedBy
-          ? _value.updatedBy
-          : updatedBy // ignore: cast_nullable_to_non_nullable
-              as int?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reminder: freezed == reminder
-          ? _value.reminder
-          : reminder // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      attachment: freezed == attachment
-          ? _value.attachment
-          : attachment // ignore: cast_nullable_to_non_nullable
-              as String?,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String?,
-      estimatedTime: freezed == estimatedTime
-          ? _value.estimatedTime
-          : estimatedTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-      actualTime: freezed == actualTime
-          ? _value.actualTime
-          : actualTime // ignore: cast_nullable_to_non_nullable
-              as String?,
-      recurring: freezed == recurring
-          ? _value.recurring
-          : recurring // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      recurringFrequency: freezed == recurringFrequency
-          ? _value.recurringFrequency
-          : recurringFrequency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
-      completedAt: freezed == completedAt
-          ? _value.completedAt
-          : completedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      colorCode: freezed == colorCode
-          ? _value.colorCode
-          : colorCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isArchived: freezed == isArchived
-          ? _value.isArchived
-          : isArchived // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      firebaseTodoId: freezed == firebaseTodoId
-          ? _value.firebaseTodoId
-          : firebaseTodoId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      startTime: freezed == startTime
-          ? _value.startTime
-          : startTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      endTime: freezed == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      tagNames: freezed == tagNames
-          ? _value.tagNames
-          : tagNames // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-    ) as $Val);
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'TodoModel'))
+      ..add(DiagnosticsProperty('todoId', todoId))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('isCompleted', isCompleted))
+      ..add(DiagnosticsProperty('dueDate', dueDate))
+      ..add(DiagnosticsProperty('priority', priority))
+      ..add(DiagnosticsProperty('assignedTo', assignedTo))
+      ..add(DiagnosticsProperty('tags', tags))
+      ..add(DiagnosticsProperty('createdBy', createdBy))
+      ..add(DiagnosticsProperty('updatedBy', updatedBy))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('reminder', reminder))
+      ..add(DiagnosticsProperty('attachment', attachment))
+      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('estimatedTime', estimatedTime))
+      ..add(DiagnosticsProperty('actualTime', actualTime))
+      ..add(DiagnosticsProperty('recurring', recurring))
+      ..add(DiagnosticsProperty('recurringFrequency', recurringFrequency))
+      ..add(DiagnosticsProperty('notes', notes))
+      ..add(DiagnosticsProperty('completedAt', completedAt))
+      ..add(DiagnosticsProperty('colorCode', colorCode))
+      ..add(DiagnosticsProperty('isArchived', isArchived))
+      ..add(DiagnosticsProperty('firebaseTodoId', firebaseTodoId))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('startTime', startTime))
+      ..add(DiagnosticsProperty('endTime', endTime))
+      ..add(DiagnosticsProperty('tagNames', tagNames));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is TodoModel &&
+            (identical(other.todoId, todoId) || other.todoId == todoId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted) &&
+            (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority) &&
+            (identical(other.assignedTo, assignedTo) ||
+                other.assignedTo == assignedTo) &&
+            const DeepCollectionEquality().equals(other.tags, tags) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy) &&
+            (identical(other.updatedBy, updatedBy) ||
+                other.updatedBy == updatedBy) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.reminder, reminder) ||
+                other.reminder == reminder) &&
+            (identical(other.attachment, attachment) ||
+                other.attachment == attachment) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.estimatedTime, estimatedTime) ||
+                other.estimatedTime == estimatedTime) &&
+            (identical(other.actualTime, actualTime) ||
+                other.actualTime == actualTime) &&
+            (identical(other.recurring, recurring) ||
+                other.recurring == recurring) &&
+            (identical(other.recurringFrequency, recurringFrequency) ||
+                other.recurringFrequency == recurringFrequency) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.completedAt, completedAt) ||
+                other.completedAt == completedAt) &&
+            (identical(other.colorCode, colorCode) ||
+                other.colorCode == colorCode) &&
+            (identical(other.isArchived, isArchived) ||
+                other.isArchived == isArchived) &&
+            (identical(other.firebaseTodoId, firebaseTodoId) ||
+                other.firebaseTodoId == firebaseTodoId) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            const DeepCollectionEquality().equals(other.tagNames, tagNames));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        todoId,
+        title,
+        description,
+        isCompleted,
+        dueDate,
+        priority,
+        assignedTo,
+        const DeepCollectionEquality().hash(tags),
+        createdBy,
+        updatedBy,
+        status,
+        reminder,
+        attachment,
+        category,
+        estimatedTime,
+        actualTime,
+        recurring,
+        recurringFrequency,
+        notes,
+        completedAt,
+        colorCode,
+        isArchived,
+        firebaseTodoId,
+        date,
+        startTime,
+        endTime,
+        const DeepCollectionEquality().hash(tagNames)
+      ]);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TodoModel(todoId: $todoId, title: $title, description: $description, isCompleted: $isCompleted, dueDate: $dueDate, priority: $priority, assignedTo: $assignedTo, tags: $tags, createdBy: $createdBy, updatedBy: $updatedBy, status: $status, reminder: $reminder, attachment: $attachment, category: $category, estimatedTime: $estimatedTime, actualTime: $actualTime, recurring: $recurring, recurringFrequency: $recurringFrequency, notes: $notes, completedAt: $completedAt, colorCode: $colorCode, isArchived: $isArchived, firebaseTodoId: $firebaseTodoId, date: $date, startTime: $startTime, endTime: $endTime, tagNames: $tagNames)';
   }
 }
 
 /// @nodoc
-abstract class _$$TodoModelImplCopyWith<$Res>
-    implements $TodoModelCopyWith<$Res> {
-  factory _$$TodoModelImplCopyWith(
-          _$TodoModelImpl value, $Res Function(_$TodoModelImpl) then) =
-      __$$TodoModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $TodoModelCopyWith<$Res> {
+  factory $TodoModelCopyWith(TodoModel value, $Res Function(TodoModel) _then) =
+      _$TodoModelCopyWithImpl;
   @useResult
   $Res call(
       {int? todoId,
@@ -288,12 +213,11 @@ abstract class _$$TodoModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TodoModelImplCopyWithImpl<$Res>
-    extends _$TodoModelCopyWithImpl<$Res, _$TodoModelImpl>
-    implements _$$TodoModelImplCopyWith<$Res> {
-  __$$TodoModelImplCopyWithImpl(
-      _$TodoModelImpl _value, $Res Function(_$TodoModelImpl) _then)
-      : super(_value, _then);
+class _$TodoModelCopyWithImpl<$Res> implements $TodoModelCopyWith<$Res> {
+  _$TodoModelCopyWithImpl(this._self, this._then);
+
+  final TodoModel _self;
+  final $Res Function(TodoModel) _then;
 
   /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
@@ -328,113 +252,113 @@ class __$$TodoModelImplCopyWithImpl<$Res>
     Object? endTime = freezed,
     Object? tagNames = freezed,
   }) {
-    return _then(_$TodoModelImpl(
+    return _then(_self.copyWith(
       todoId: freezed == todoId
-          ? _value.todoId
+          ? _self.todoId
           : todoId // ignore: cast_nullable_to_non_nullable
               as int?,
       title: freezed == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
       isCompleted: freezed == isCompleted
-          ? _value.isCompleted
+          ? _self.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool?,
       dueDate: freezed == dueDate
-          ? _value.dueDate
+          ? _self.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       priority: freezed == priority
-          ? _value.priority
+          ? _self.priority
           : priority // ignore: cast_nullable_to_non_nullable
               as int?,
       assignedTo: freezed == assignedTo
-          ? _value.assignedTo
+          ? _self.assignedTo
           : assignedTo // ignore: cast_nullable_to_non_nullable
               as String?,
       tags: freezed == tags
-          ? _value._tags
+          ? _self.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       createdBy: freezed == createdBy
-          ? _value.createdBy
+          ? _self.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as int?,
       updatedBy: freezed == updatedBy
-          ? _value.updatedBy
+          ? _self.updatedBy
           : updatedBy // ignore: cast_nullable_to_non_nullable
               as int?,
       status: freezed == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
       reminder: freezed == reminder
-          ? _value.reminder
+          ? _self.reminder
           : reminder // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       attachment: freezed == attachment
-          ? _value.attachment
+          ? _self.attachment
           : attachment // ignore: cast_nullable_to_non_nullable
               as String?,
       category: freezed == category
-          ? _value.category
+          ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
       estimatedTime: freezed == estimatedTime
-          ? _value.estimatedTime
+          ? _self.estimatedTime
           : estimatedTime // ignore: cast_nullable_to_non_nullable
               as String?,
       actualTime: freezed == actualTime
-          ? _value.actualTime
+          ? _self.actualTime
           : actualTime // ignore: cast_nullable_to_non_nullable
               as String?,
       recurring: freezed == recurring
-          ? _value.recurring
+          ? _self.recurring
           : recurring // ignore: cast_nullable_to_non_nullable
               as bool?,
       recurringFrequency: freezed == recurringFrequency
-          ? _value.recurringFrequency
+          ? _self.recurringFrequency
           : recurringFrequency // ignore: cast_nullable_to_non_nullable
               as String?,
       notes: freezed == notes
-          ? _value.notes
+          ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
       completedAt: freezed == completedAt
-          ? _value.completedAt
+          ? _self.completedAt
           : completedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       colorCode: freezed == colorCode
-          ? _value.colorCode
+          ? _self.colorCode
           : colorCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isArchived: freezed == isArchived
-          ? _value.isArchived
+          ? _self.isArchived
           : isArchived // ignore: cast_nullable_to_non_nullable
               as bool?,
       firebaseTodoId: freezed == firebaseTodoId
-          ? _value.firebaseTodoId
+          ? _self.firebaseTodoId
           : firebaseTodoId // ignore: cast_nullable_to_non_nullable
               as String?,
       date: freezed == date
-          ? _value.date
+          ? _self.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       startTime: freezed == startTime
-          ? _value.startTime
+          ? _self.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       endTime: freezed == endTime
-          ? _value.endTime
+          ? _self.endTime
           : endTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       tagNames: freezed == tagNames
-          ? _value._tagNames
+          ? _self.tagNames
           : tagNames // ignore: cast_nullable_to_non_nullable
               as List<String>?,
     ));
@@ -443,8 +367,8 @@ class __$$TodoModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
-  const _$TodoModelImpl(
+class _TodoModel extends TodoModel with DiagnosticableTreeMixin {
+  const _TodoModel(
       {this.todoId,
       this.title,
       this.description,
@@ -473,10 +397,10 @@ class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
       this.endTime,
       final List<String>? tagNames})
       : _tags = tags,
-        _tagNames = tagNames;
-
-  factory _$TodoModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TodoModelImplFromJson(json);
+        _tagNames = tagNames,
+        super._();
+  factory _TodoModel.fromJson(Map<String, dynamic> json) =>
+      _$TodoModelFromJson(json);
 
   @override
   final int? todoId;
@@ -548,14 +472,23 @@ class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of TodoModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TodoModel(todoId: $todoId, title: $title, description: $description, isCompleted: $isCompleted, dueDate: $dueDate, priority: $priority, assignedTo: $assignedTo, tags: $tags, createdBy: $createdBy, updatedBy: $updatedBy, status: $status, reminder: $reminder, attachment: $attachment, category: $category, estimatedTime: $estimatedTime, actualTime: $actualTime, recurring: $recurring, recurringFrequency: $recurringFrequency, notes: $notes, completedAt: $completedAt, colorCode: $colorCode, isArchived: $isArchived, firebaseTodoId: $firebaseTodoId, date: $date, startTime: $startTime, endTime: $endTime, tagNames: $tagNames)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$TodoModelCopyWith<_TodoModel> get copyWith =>
+      __$TodoModelCopyWithImpl<_TodoModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$TodoModelToJson(
+      this,
+    );
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TodoModel'))
       ..add(DiagnosticsProperty('todoId', todoId))
@@ -591,7 +524,7 @@ class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TodoModelImpl &&
+            other is _TodoModel &&
             (identical(other.todoId, todoId) || other.todoId == todoId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -672,114 +605,201 @@ class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
         const DeepCollectionEquality().hash(_tagNames)
       ]);
 
-  /// Create a copy of TodoModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>
-      __$$TodoModelImplCopyWithImpl<_$TodoModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TodoModelImplToJson(
-      this,
-    );
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TodoModel(todoId: $todoId, title: $title, description: $description, isCompleted: $isCompleted, dueDate: $dueDate, priority: $priority, assignedTo: $assignedTo, tags: $tags, createdBy: $createdBy, updatedBy: $updatedBy, status: $status, reminder: $reminder, attachment: $attachment, category: $category, estimatedTime: $estimatedTime, actualTime: $actualTime, recurring: $recurring, recurringFrequency: $recurringFrequency, notes: $notes, completedAt: $completedAt, colorCode: $colorCode, isArchived: $isArchived, firebaseTodoId: $firebaseTodoId, date: $date, startTime: $startTime, endTime: $endTime, tagNames: $tagNames)';
   }
 }
 
-abstract class _TodoModel implements TodoModel {
-  const factory _TodoModel(
-      {final int? todoId,
-      final String? title,
-      final String? description,
-      final bool? isCompleted,
-      final DateTime? dueDate,
-      final int? priority,
-      final String? assignedTo,
-      final List<String>? tags,
-      final int? createdBy,
-      final int? updatedBy,
-      final String? status,
-      final DateTime? reminder,
-      final String? attachment,
-      final String? category,
-      final String? estimatedTime,
-      final String? actualTime,
-      final bool? recurring,
-      final String? recurringFrequency,
-      final String? notes,
-      final DateTime? completedAt,
-      final String? colorCode,
-      final bool? isArchived,
-      final String? firebaseTodoId,
-      final DateTime? date,
-      final DateTime? startTime,
-      final DateTime? endTime,
-      final List<String>? tagNames}) = _$TodoModelImpl;
+/// @nodoc
+abstract mixin class _$TodoModelCopyWith<$Res>
+    implements $TodoModelCopyWith<$Res> {
+  factory _$TodoModelCopyWith(
+          _TodoModel value, $Res Function(_TodoModel) _then) =
+      __$TodoModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int? todoId,
+      String? title,
+      String? description,
+      bool? isCompleted,
+      DateTime? dueDate,
+      int? priority,
+      String? assignedTo,
+      List<String>? tags,
+      int? createdBy,
+      int? updatedBy,
+      String? status,
+      DateTime? reminder,
+      String? attachment,
+      String? category,
+      String? estimatedTime,
+      String? actualTime,
+      bool? recurring,
+      String? recurringFrequency,
+      String? notes,
+      DateTime? completedAt,
+      String? colorCode,
+      bool? isArchived,
+      String? firebaseTodoId,
+      DateTime? date,
+      DateTime? startTime,
+      DateTime? endTime,
+      List<String>? tagNames});
+}
 
-  factory _TodoModel.fromJson(Map<String, dynamic> json) =
-      _$TodoModelImpl.fromJson;
+/// @nodoc
+class __$TodoModelCopyWithImpl<$Res> implements _$TodoModelCopyWith<$Res> {
+  __$TodoModelCopyWithImpl(this._self, this._then);
 
-  @override
-  int? get todoId;
-  @override
-  String? get title;
-  @override
-  String? get description;
-  @override
-  bool? get isCompleted;
-  @override
-  DateTime? get dueDate;
-  @override
-  int? get priority;
-  @override
-  String? get assignedTo;
-  @override
-  List<String>? get tags;
-  @override
-  int? get createdBy;
-  @override
-  int? get updatedBy;
-  @override
-  String? get status;
-  @override
-  DateTime? get reminder;
-  @override
-  String? get attachment;
-  @override
-  String? get category;
-  @override
-  String? get estimatedTime;
-  @override
-  String? get actualTime;
-  @override
-  bool? get recurring;
-  @override
-  String? get recurringFrequency;
-  @override
-  String? get notes;
-  @override
-  DateTime? get completedAt;
-  @override
-  String? get colorCode;
-  @override
-  bool? get isArchived;
-  @override
-  String? get firebaseTodoId;
-  @override
-  DateTime? get date;
-  @override
-  DateTime? get startTime;
-  @override
-  DateTime? get endTime;
-  @override
-  List<String>? get tagNames;
+  final _TodoModel _self;
+  final $Res Function(_TodoModel) _then;
 
   /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? todoId = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? isCompleted = freezed,
+    Object? dueDate = freezed,
+    Object? priority = freezed,
+    Object? assignedTo = freezed,
+    Object? tags = freezed,
+    Object? createdBy = freezed,
+    Object? updatedBy = freezed,
+    Object? status = freezed,
+    Object? reminder = freezed,
+    Object? attachment = freezed,
+    Object? category = freezed,
+    Object? estimatedTime = freezed,
+    Object? actualTime = freezed,
+    Object? recurring = freezed,
+    Object? recurringFrequency = freezed,
+    Object? notes = freezed,
+    Object? completedAt = freezed,
+    Object? colorCode = freezed,
+    Object? isArchived = freezed,
+    Object? firebaseTodoId = freezed,
+    Object? date = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? tagNames = freezed,
+  }) {
+    return _then(_TodoModel(
+      todoId: freezed == todoId
+          ? _self.todoId
+          : todoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      title: freezed == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isCompleted: freezed == isCompleted
+          ? _self.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      dueDate: freezed == dueDate
+          ? _self.dueDate
+          : dueDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      priority: freezed == priority
+          ? _self.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int?,
+      assignedTo: freezed == assignedTo
+          ? _self.assignedTo
+          : assignedTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tags: freezed == tags
+          ? _self._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      createdBy: freezed == createdBy
+          ? _self.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      updatedBy: freezed == updatedBy
+          ? _self.updatedBy
+          : updatedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reminder: freezed == reminder
+          ? _self.reminder
+          : reminder // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      attachment: freezed == attachment
+          ? _self.attachment
+          : attachment // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _self.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      estimatedTime: freezed == estimatedTime
+          ? _self.estimatedTime
+          : estimatedTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      actualTime: freezed == actualTime
+          ? _self.actualTime
+          : actualTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      recurring: freezed == recurring
+          ? _self.recurring
+          : recurring // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      recurringFrequency: freezed == recurringFrequency
+          ? _self.recurringFrequency
+          : recurringFrequency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      notes: freezed == notes
+          ? _self.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      completedAt: freezed == completedAt
+          ? _self.completedAt
+          : completedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      colorCode: freezed == colorCode
+          ? _self.colorCode
+          : colorCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isArchived: freezed == isArchived
+          ? _self.isArchived
+          : isArchived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      firebaseTodoId: freezed == firebaseTodoId
+          ? _self.firebaseTodoId
+          : firebaseTodoId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: freezed == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      startTime: freezed == startTime
+          ? _self.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endTime: freezed == endTime
+          ? _self.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      tagNames: freezed == tagNames
+          ? _self._tagNames
+          : tagNames // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
 }
+
+// dart format on

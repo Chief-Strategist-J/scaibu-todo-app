@@ -91,8 +91,9 @@ mixin TodoEntityMixin {
 
 /// Doc Required
 @freezed
-class TodoModel with _$TodoModel, TodoEntityMixin {
-  /// Doc Required
+abstract class TodoModel with _$TodoModel, TodoEntityMixin { // Add this
+
+  /// Doc is required
   const factory TodoModel({
     final int? todoId,
     final String? title,
@@ -122,6 +123,9 @@ class TodoModel with _$TodoModel, TodoEntityMixin {
     final DateTime? endTime,
     final List<String>? tagNames,
   }) = _TodoModel;
+
+  /// Doc Required
+  const TodoModel._();
 
   /// Doc Required
   factory TodoModel.fromJson(final Map<String, dynamic> json) =>

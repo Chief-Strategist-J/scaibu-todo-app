@@ -6,79 +6,74 @@ part of 'project_category_data_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProjectCategoryEntityImpl _$$ProjectCategoryEntityImplFromJson(
+_ProjectCategoryEntity _$ProjectCategoryEntityFromJson(
         Map<String, dynamic> json) =>
-    _$ProjectCategoryEntityImpl(
+    _ProjectCategoryEntity(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectCategoryEntityImplToJson(
-        _$ProjectCategoryEntityImpl instance) =>
+Map<String, dynamic> _$ProjectCategoryEntityToJson(
+        _ProjectCategoryEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectPhaseEntityImpl _$$ProjectPhaseEntityImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProjectPhaseEntityImpl(
+_ProjectPhaseEntity _$ProjectPhaseEntityFromJson(Map<String, dynamic> json) =>
+    _ProjectPhaseEntity(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectPhaseEntityImplToJson(
-        _$ProjectPhaseEntityImpl instance) =>
+Map<String, dynamic> _$ProjectPhaseEntityToJson(_ProjectPhaseEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectPriorityEntityImpl _$$ProjectPriorityEntityImplFromJson(
+_ProjectPriorityEntity _$ProjectPriorityEntityFromJson(
         Map<String, dynamic> json) =>
-    _$ProjectPriorityEntityImpl(
+    _ProjectPriorityEntity(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectPriorityEntityImplToJson(
-        _$ProjectPriorityEntityImpl instance) =>
+Map<String, dynamic> _$ProjectPriorityEntityToJson(
+        _ProjectPriorityEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectTypeEntityImpl _$$ProjectTypeEntityImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProjectTypeEntityImpl(
+_ProjectTypeEntity _$ProjectTypeEntityFromJson(Map<String, dynamic> json) =>
+    _ProjectTypeEntity(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectTypeEntityImplToJson(
-        _$ProjectTypeEntityImpl instance) =>
+Map<String, dynamic> _$ProjectTypeEntityToJson(_ProjectTypeEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectStatusEntityImpl _$$ProjectStatusEntityImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProjectStatusEntityImpl(
+_ProjectStatusEntity _$ProjectStatusEntityFromJson(Map<String, dynamic> json) =>
+    _ProjectStatusEntity(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$ProjectStatusEntityImplToJson(
-        _$ProjectStatusEntityImpl instance) =>
+Map<String, dynamic> _$ProjectStatusEntityToJson(
+        _ProjectStatusEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$ProjectCategoryDataEntityImpl _$$ProjectCategoryDataEntityImplFromJson(
+_ProjectCategoryDataEntity _$ProjectCategoryDataEntityFromJson(
         Map<String, dynamic> json) =>
-    _$ProjectCategoryDataEntityImpl(
+    _ProjectCategoryDataEntity(
       categories: (json['categories'] as List<dynamic>?)
           ?.map(
               (e) => ProjectCategoryEntity.fromJson(e as Map<String, dynamic>))
@@ -98,8 +93,8 @@ _$ProjectCategoryDataEntityImpl _$$ProjectCategoryDataEntityImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$ProjectCategoryDataEntityImplToJson(
-        _$ProjectCategoryDataEntityImpl instance) =>
+Map<String, dynamic> _$ProjectCategoryDataEntityToJson(
+        _ProjectCategoryDataEntity instance) =>
     <String, dynamic>{
       'categories': instance.categories,
       'phases': instance.phases,
@@ -108,19 +103,19 @@ Map<String, dynamic> _$$ProjectCategoryDataEntityImplToJson(
       'statuses': instance.statuses,
     };
 
-_$ProjectCategoryDataModelEntityImpl
-    _$$ProjectCategoryDataModelEntityImplFromJson(Map<String, dynamic> json) =>
-        _$ProjectCategoryDataModelEntityImpl(
-          message: json['message'] as String?,
-          status: json['status'] as bool?,
-          data: json['data'] == null
-              ? null
-              : ProjectCategoryDataEntity.fromJson(
-                  json['data'] as Map<String, dynamic>),
-        );
+_ProjectCategoryDataModelEntity _$ProjectCategoryDataModelEntityFromJson(
+        Map<String, dynamic> json) =>
+    _ProjectCategoryDataModelEntity(
+      message: json['message'] as String?,
+      status: json['status'] as bool?,
+      data: json['data'] == null
+          ? null
+          : ProjectCategoryDataEntity.fromJson(
+              json['data'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$$ProjectCategoryDataModelEntityImplToJson(
-        _$ProjectCategoryDataModelEntityImpl instance) =>
+Map<String, dynamic> _$ProjectCategoryDataModelEntityToJson(
+        _ProjectCategoryDataModelEntity instance) =>
     <String, dynamic>{
       'message': instance.message,
       'status': instance.status,

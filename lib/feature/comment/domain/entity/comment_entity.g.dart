@@ -6,8 +6,8 @@ part of 'comment_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CommentEntityImpl _$$CommentEntityImplFromJson(Map<String, dynamic> json) =>
-    _$CommentEntityImpl(
+_CommentEntity _$CommentEntityFromJson(Map<String, dynamic> json) =>
+    _CommentEntity(
       id: (json['id'] as num).toInt(),
       content: json['content'] as String,
       postId: (json['postId'] as num).toInt(),
@@ -25,7 +25,7 @@ _$CommentEntityImpl _$$CommentEntityImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['deletedAt'] as String),
     );
 
-Map<String, dynamic> _$$CommentEntityImplToJson(_$CommentEntityImpl instance) =>
+Map<String, dynamic> _$CommentEntityToJson(_CommentEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'content': instance.content,

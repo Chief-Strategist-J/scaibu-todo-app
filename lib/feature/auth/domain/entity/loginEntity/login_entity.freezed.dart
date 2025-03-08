@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,204 +10,33 @@ part of 'login_entity.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-LoginEntity _$LoginEntityFromJson(Map<String, dynamic> json) {
-  return _LoginEntity.fromJson(json);
-}
 
 /// @nodoc
 mixin _$LoginEntity {
-  bool? get isLogin => throw _privateConstructorUsedError;
-  bool? get isSignUp => throw _privateConstructorUsedError;
-  String? get accessToken => throw _privateConstructorUsedError;
-  num? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
-
-  /// Serializes this LoginEntity to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  bool? get isLogin;
+  bool? get isSignUp;
+  String? get accessToken;
+  num? get id;
+  String? get name;
+  String? get email;
 
   /// Create a copy of LoginEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $LoginEntityCopyWith<LoginEntity> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+      _$LoginEntityCopyWithImpl<LoginEntity>(this as LoginEntity, _$identity);
 
-/// @nodoc
-abstract class $LoginEntityCopyWith<$Res> {
-  factory $LoginEntityCopyWith(
-          LoginEntity value, $Res Function(LoginEntity) then) =
-      _$LoginEntityCopyWithImpl<$Res, LoginEntity>;
-  @useResult
-  $Res call(
-      {bool? isLogin,
-      bool? isSignUp,
-      String? accessToken,
-      num? id,
-      String? name,
-      String? email});
-}
-
-/// @nodoc
-class _$LoginEntityCopyWithImpl<$Res, $Val extends LoginEntity>
-    implements $LoginEntityCopyWith<$Res> {
-  _$LoginEntityCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of LoginEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLogin = freezed,
-    Object? isSignUp = freezed,
-    Object? accessToken = freezed,
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-  }) {
-    return _then(_value.copyWith(
-      isLogin: freezed == isLogin
-          ? _value.isLogin
-          : isLogin // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isSignUp: freezed == isSignUp
-          ? _value.isSignUp
-          : isSignUp // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      accessToken: freezed == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as num?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$LoginEntityImplCopyWith<$Res>
-    implements $LoginEntityCopyWith<$Res> {
-  factory _$$LoginEntityImplCopyWith(
-          _$LoginEntityImpl value, $Res Function(_$LoginEntityImpl) then) =
-      __$$LoginEntityImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {bool? isLogin,
-      bool? isSignUp,
-      String? accessToken,
-      num? id,
-      String? name,
-      String? email});
-}
-
-/// @nodoc
-class __$$LoginEntityImplCopyWithImpl<$Res>
-    extends _$LoginEntityCopyWithImpl<$Res, _$LoginEntityImpl>
-    implements _$$LoginEntityImplCopyWith<$Res> {
-  __$$LoginEntityImplCopyWithImpl(
-      _$LoginEntityImpl _value, $Res Function(_$LoginEntityImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of LoginEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLogin = freezed,
-    Object? isSignUp = freezed,
-    Object? accessToken = freezed,
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-  }) {
-    return _then(_$LoginEntityImpl(
-      isLogin: freezed == isLogin
-          ? _value.isLogin
-          : isLogin // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isSignUp: freezed == isSignUp
-          ? _value.isSignUp
-          : isSignUp // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      accessToken: freezed == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as num?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$LoginEntityImpl extends _LoginEntity {
-  const _$LoginEntityImpl(
-      {this.isLogin,
-      this.isSignUp,
-      this.accessToken,
-      this.id,
-      this.name,
-      this.email})
-      : super._();
-
-  factory _$LoginEntityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LoginEntityImplFromJson(json);
-
-  @override
-  final bool? isLogin;
-  @override
-  final bool? isSignUp;
-  @override
-  final String? accessToken;
-  @override
-  final num? id;
-  @override
-  final String? name;
-  @override
-  final String? email;
-
-  @override
-  String toString() {
-    return 'LoginEntity(isLogin: $isLogin, isSignUp: $isSignUp, accessToken: $accessToken, id: $id, name: $name, email: $email)';
-  }
+  /// Serializes this LoginEntity to a JSON map.
+  Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoginEntityImpl &&
+            other is LoginEntity &&
             (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
             (identical(other.isSignUp, isSignUp) ||
                 other.isSignUp == isSignUp) &&
@@ -222,52 +52,206 @@ class _$LoginEntityImpl extends _LoginEntity {
   int get hashCode =>
       Object.hash(runtimeType, isLogin, isSignUp, accessToken, id, name, email);
 
-  /// Create a copy of LoginEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LoginEntityImplCopyWith<_$LoginEntityImpl> get copyWith =>
-      __$$LoginEntityImplCopyWithImpl<_$LoginEntityImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LoginEntityImplToJson(
-      this,
-    );
+  String toString() {
+    return 'LoginEntity(isLogin: $isLogin, isSignUp: $isSignUp, accessToken: $accessToken, id: $id, name: $name, email: $email)';
   }
 }
 
-abstract class _LoginEntity extends LoginEntity {
-  const factory _LoginEntity(
-      {final bool? isLogin,
-      final bool? isSignUp,
-      final String? accessToken,
-      final num? id,
-      final String? name,
-      final String? email}) = _$LoginEntityImpl;
-  const _LoginEntity._() : super._();
+/// @nodoc
+abstract mixin class $LoginEntityCopyWith<$Res> {
+  factory $LoginEntityCopyWith(
+          LoginEntity value, $Res Function(LoginEntity) _then) =
+      _$LoginEntityCopyWithImpl;
+  @useResult
+  $Res call(
+      {bool? isLogin,
+      bool? isSignUp,
+      String? accessToken,
+      num? id,
+      String? name,
+      String? email});
+}
 
-  factory _LoginEntity.fromJson(Map<String, dynamic> json) =
-      _$LoginEntityImpl.fromJson;
+/// @nodoc
+class _$LoginEntityCopyWithImpl<$Res> implements $LoginEntityCopyWith<$Res> {
+  _$LoginEntityCopyWithImpl(this._self, this._then);
+
+  final LoginEntity _self;
+  final $Res Function(LoginEntity) _then;
+
+  /// Create a copy of LoginEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLogin = freezed,
+    Object? isSignUp = freezed,
+    Object? accessToken = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+  }) {
+    return _then(_self.copyWith(
+      isLogin: freezed == isLogin
+          ? _self.isLogin
+          : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isSignUp: freezed == isSignUp
+          ? _self.isSignUp
+          : isSignUp // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      accessToken: freezed == accessToken
+          ? _self.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as num?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _LoginEntity extends LoginEntity {
+  const _LoginEntity(
+      {this.isLogin,
+      this.isSignUp,
+      this.accessToken,
+      this.id,
+      this.name,
+      this.email})
+      : super._();
+  factory _LoginEntity.fromJson(Map<String, dynamic> json) =>
+      _$LoginEntityFromJson(json);
 
   @override
-  bool? get isLogin;
+  final bool? isLogin;
   @override
-  bool? get isSignUp;
+  final bool? isSignUp;
   @override
-  String? get accessToken;
+  final String? accessToken;
   @override
-  num? get id;
+  final num? id;
   @override
-  String? get name;
+  final String? name;
   @override
-  String? get email;
+  final String? email;
 
   /// Create a copy of LoginEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoginEntityImplCopyWith<_$LoginEntityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  _$LoginEntityCopyWith<_LoginEntity> get copyWith =>
+      __$LoginEntityCopyWithImpl<_LoginEntity>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$LoginEntityToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LoginEntity &&
+            (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
+            (identical(other.isSignUp, isSignUp) ||
+                other.isSignUp == isSignUp) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, isLogin, isSignUp, accessToken, id, name, email);
+
+  @override
+  String toString() {
+    return 'LoginEntity(isLogin: $isLogin, isSignUp: $isSignUp, accessToken: $accessToken, id: $id, name: $name, email: $email)';
+  }
 }
+
+/// @nodoc
+abstract mixin class _$LoginEntityCopyWith<$Res>
+    implements $LoginEntityCopyWith<$Res> {
+  factory _$LoginEntityCopyWith(
+          _LoginEntity value, $Res Function(_LoginEntity) _then) =
+      __$LoginEntityCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {bool? isLogin,
+      bool? isSignUp,
+      String? accessToken,
+      num? id,
+      String? name,
+      String? email});
+}
+
+/// @nodoc
+class __$LoginEntityCopyWithImpl<$Res> implements _$LoginEntityCopyWith<$Res> {
+  __$LoginEntityCopyWithImpl(this._self, this._then);
+
+  final _LoginEntity _self;
+  final $Res Function(_LoginEntity) _then;
+
+  /// Create a copy of LoginEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? isLogin = freezed,
+    Object? isSignUp = freezed,
+    Object? accessToken = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+  }) {
+    return _then(_LoginEntity(
+      isLogin: freezed == isLogin
+          ? _self.isLogin
+          : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isSignUp: freezed == isSignUp
+          ? _self.isSignUp
+          : isSignUp // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      accessToken: freezed == accessToken
+          ? _self.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as num?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+// dart format on

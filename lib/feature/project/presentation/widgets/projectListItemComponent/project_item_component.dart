@@ -30,6 +30,7 @@ class ProjectItemComponent extends StatelessWidget {
 
     return PressableBox(
       style: style.containerStyle(context),
+      onPress: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[

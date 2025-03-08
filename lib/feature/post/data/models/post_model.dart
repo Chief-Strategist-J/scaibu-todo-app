@@ -48,7 +48,7 @@ mixin PostEntityMixin {
 
 /// Doc Required
 @freezed
-class PostModel with _$PostModel, PostEntityMixin {
+abstract class PostModel with _$PostModel, PostEntityMixin {
   /// Doc Required
   const factory PostModel({
     required final int id,
@@ -65,6 +65,8 @@ class PostModel with _$PostModel, PostEntityMixin {
     final DateTime? publishedAt,
     final DateTime? deletedAt,
   }) = _PostModel;
+
+  const PostModel._();
 
   /// Doc Required
   factory PostModel.fromJson(final Map<String, dynamic> json) =>

@@ -6,8 +6,8 @@ part of 'project_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProjectModelImpl _$$ProjectModelImplFromJson(Map<String, dynamic> json) =>
-    _$ProjectModelImpl(
+_ProjectModel _$ProjectModelFromJson(Map<String, dynamic> json) =>
+    _ProjectModel(
       uuid: json['uuid'] as String?,
       name: json['name'] as String?,
       slug: json['slug'] as String?,
@@ -69,7 +69,7 @@ _$ProjectModelImpl _$$ProjectModelImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$ProjectModelImplToJson(_$ProjectModelImpl instance) =>
+Map<String, dynamic> _$ProjectModelToJson(_ProjectModel instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
       'name': instance.name,

@@ -81,7 +81,7 @@ class RestApiImpl implements RestApi {
   final Logger _logger;
 
   @override
-  Future<http.Response> request<T>({
+  Future<T> request<T>({
     required final String endPoint,
     final HttpRequestMethod type = HttpRequestMethod.get,
     final Map<String, dynamic> requestBody = const <String, dynamic>{},
@@ -114,7 +114,7 @@ class RestApiImpl implements RestApi {
     return _requestQueue.enqueue(() => _executeRequest<T>(request));
   }
 
-  Future<http.Response> _executeRequest<T>(final RequestModel request) async {
+  Future<T> _executeRequest<T>(final RequestModel request) async {
     final RequestMetrics metrics = RequestMetrics();
     int attempts = 0;
 
@@ -126,7 +126,7 @@ class RestApiImpl implements RestApi {
 
         await _logger.logRequest(request, response, metrics);
 
-        return await processResponse<http.Response>(
+        return await processResponse<T>(
           response,
           request.responseType,
           request.onStatusCodeError,
@@ -248,7 +248,7 @@ class RestApiImpl implements RestApi {
         _ => _defaultTimeout
       };
 
-  dynamic _parseResponse<T>(
+  T _parseResponse<T>(
     final Response response,
     final HttpResponseType responseType,
   ) {
@@ -259,13 +259,21 @@ class RestApiImpl implements RestApi {
     try {
       switch (responseType) {
         case HttpResponseType.JSON:
-          return jsonDecode(response.body) as T;
+          final dynamic decoded = jsonDecode(response.body);
+          if (decoded is T) {
+            return decoded;
+          } else {
+            throw ResponseParseException(
+              'Expected $T but got ${decoded.runtimeType}',
+              response.body,
+            );
+          }
         case HttpResponseType.STRING:
-          return jsonDecode(response.body) as T;
+          return response.body as T; // Correctly return as String
         case HttpResponseType.BODY_BYTES:
-          return jsonDecode(response.body) as T;
+          return response.bodyBytes as T; // Correctly return as bytes
         case HttpResponseType.FULL_RESPONSE:
-          return response as T;
+          return response as T; // Return full Response
       }
     } catch (e) {
       throw ResponseParseException(

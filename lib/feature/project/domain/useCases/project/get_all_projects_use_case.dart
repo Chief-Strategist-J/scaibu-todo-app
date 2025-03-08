@@ -57,13 +57,14 @@ class GetAllProjectsUseCase extends UseCase<List<ProjectEntity>, NoParams> {
   }
 
   Future<void> _setStorageCache(final List<ProjectEntity> projects) async {
-    final String jsonData = jsonEncode(
-      projects.map((final ProjectEntity e) => e.toJson()).toList(),
-    );
-    if (jsonData.length <= _config.maxCacheSize) {
-      await _box?.put(_config.dataKey, jsonData);
-      await _box?.put(_config.timeKey, DateTime.now().toIso8601String());
-    }
+    // final String jsonData = jsonEncode(
+    //   projects.map((final ProjectEntity e) => e.toJson()).toList(),
+    // );
+    //
+    // if (jsonData.length <= _config.maxCacheSize) {
+    //   await _box?.put(_config.dataKey, jsonData);
+    //   await _box?.put(_config.timeKey, DateTime.now().toIso8601String());
+    // }
   }
 
   Future<void> _clearStorageCache() async {
@@ -94,11 +95,7 @@ class GetAllProjectsUseCase extends UseCase<List<ProjectEntity>, NoParams> {
             return Right<Failure, List<ProjectEntity>>(storedData);
           }
 
-          final List<ProjectEntity> freshData =
-              await projectRepository.getAllProjects();
-
-          _inMemoryCache.setData(freshData);
-          await _setStorageCache(freshData);
+          final List<ProjectEntity> freshData = await updateData();
           return Right<Failure, List<ProjectEntity>>(freshData);
         } catch (e) {
           return Left<Failure, List<ProjectEntity>>(
@@ -106,4 +103,14 @@ class GetAllProjectsUseCase extends UseCase<List<ProjectEntity>, NoParams> {
           );
         }
       });
+
+  /// Update new data
+  Future<List<ProjectEntity>> updateData() async {
+    final List<ProjectEntity> freshData =
+        await projectRepository.getAllProjects();
+
+    _inMemoryCache.setData(freshData);
+    await _setStorageCache(freshData);
+    return freshData;
+  }
 }

@@ -6,8 +6,7 @@ part of 'todo_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TodoModelImpl _$$TodoModelImplFromJson(Map<String, dynamic> json) =>
-    _$TodoModelImpl(
+_TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => _TodoModel(
       todoId: (json['todoId'] as num?)?.toInt(),
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -50,7 +49,7 @@ _$TodoModelImpl _$$TodoModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$TodoModelImplToJson(_$TodoModelImpl instance) =>
+Map<String, dynamic> _$TodoModelToJson(_TodoModel instance) =>
     <String, dynamic>{
       'todoId': instance.todoId,
       'title': instance.title,

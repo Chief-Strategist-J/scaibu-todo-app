@@ -5,10 +5,11 @@ part 'project_entity.g.dart';
 
 /// Doc Required
 @freezed
-class ProjectEntity with _$ProjectEntity {
+sealed class ProjectEntity with _$ProjectEntity {
   /// Doc Required
   const factory ProjectEntity({
     final String? uuid,
+    final int? id,
     final String? name,
     final String? slug,
     final String? description,

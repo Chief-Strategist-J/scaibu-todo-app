@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,156 +10,90 @@ part of 'post_entity.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PostEntity _$PostEntityFromJson(Map<String, dynamic> json) {
-  return _PostEntity.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PostEntity {
-  int get id => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get slug => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  String? get content => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
-  String? get metadataAuthor => throw _privateConstructorUsedError;
-  String? get metadataCategory => throw _privateConstructorUsedError;
-  DateTime? get publishedAt => throw _privateConstructorUsedError;
-  DateTime? get deletedAt => throw _privateConstructorUsedError;
-
-  /// Serializes this PostEntity to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int get id;
+  String get title;
+  String get slug;
+  int get userId;
+  DateTime get createdAt;
+  DateTime get updatedAt;
+  String? get content;
+  String get status;
+  Map<String, dynamic>? get metadata;
+  String? get metadataAuthor;
+  String? get metadataCategory;
+  DateTime? get publishedAt;
+  DateTime? get deletedAt;
 
   /// Create a copy of PostEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PostEntityCopyWith<PostEntity> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PostEntityCopyWith<$Res> {
-  factory $PostEntityCopyWith(
-          PostEntity value, $Res Function(PostEntity) then) =
-      _$PostEntityCopyWithImpl<$Res, PostEntity>;
-  @useResult
-  $Res call(
-      {int id,
-      String title,
-      String slug,
-      int userId,
-      DateTime createdAt,
-      DateTime updatedAt,
-      String? content,
-      String status,
-      Map<String, dynamic>? metadata,
-      String? metadataAuthor,
-      String? metadataCategory,
-      DateTime? publishedAt,
-      DateTime? deletedAt});
-}
-
-/// @nodoc
-class _$PostEntityCopyWithImpl<$Res, $Val extends PostEntity>
-    implements $PostEntityCopyWith<$Res> {
-  _$PostEntityCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PostEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $PostEntityCopyWith<PostEntity> get copyWith =>
+      _$PostEntityCopyWithImpl<PostEntity>(this as PostEntity, _$identity);
+
+  /// Serializes this PostEntity to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? slug = null,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? content = freezed,
-    Object? status = null,
-    Object? metadata = freezed,
-    Object? metadataAuthor = freezed,
-    Object? metadataCategory = freezed,
-    Object? publishedAt = freezed,
-    Object? deletedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      content: freezed == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      metadata: freezed == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      metadataAuthor: freezed == metadataAuthor
-          ? _value.metadataAuthor
-          : metadataAuthor // ignore: cast_nullable_to_non_nullable
-              as String?,
-      metadataCategory: freezed == metadataCategory
-          ? _value.metadataCategory
-          : metadataCategory // ignore: cast_nullable_to_non_nullable
-              as String?,
-      publishedAt: freezed == publishedAt
-          ? _value.publishedAt
-          : publishedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      deletedAt: freezed == deletedAt
-          ? _value.deletedAt
-          : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PostEntity &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.slug, slug) || other.slug == slug) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other.metadata, metadata) &&
+            (identical(other.metadataAuthor, metadataAuthor) ||
+                other.metadataAuthor == metadataAuthor) &&
+            (identical(other.metadataCategory, metadataCategory) ||
+                other.metadataCategory == metadataCategory) &&
+            (identical(other.publishedAt, publishedAt) ||
+                other.publishedAt == publishedAt) &&
+            (identical(other.deletedAt, deletedAt) ||
+                other.deletedAt == deletedAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      slug,
+      userId,
+      createdAt,
+      updatedAt,
+      content,
+      status,
+      const DeepCollectionEquality().hash(metadata),
+      metadataAuthor,
+      metadataCategory,
+      publishedAt,
+      deletedAt);
+
+  @override
+  String toString() {
+    return 'PostEntity(id: $id, title: $title, slug: $slug, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, content: $content, status: $status, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, deletedAt: $deletedAt)';
   }
 }
 
 /// @nodoc
-abstract class _$$PostEntityImplCopyWith<$Res>
-    implements $PostEntityCopyWith<$Res> {
-  factory _$$PostEntityImplCopyWith(
-          _$PostEntityImpl value, $Res Function(_$PostEntityImpl) then) =
-      __$$PostEntityImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PostEntityCopyWith<$Res> {
+  factory $PostEntityCopyWith(
+          PostEntity value, $Res Function(PostEntity) _then) =
+      _$PostEntityCopyWithImpl;
   @useResult
   $Res call(
       {int id,
@@ -177,12 +112,11 @@ abstract class _$$PostEntityImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$PostEntityImplCopyWithImpl<$Res>
-    extends _$PostEntityCopyWithImpl<$Res, _$PostEntityImpl>
-    implements _$$PostEntityImplCopyWith<$Res> {
-  __$$PostEntityImplCopyWithImpl(
-      _$PostEntityImpl _value, $Res Function(_$PostEntityImpl) _then)
-      : super(_value, _then);
+class _$PostEntityCopyWithImpl<$Res> implements $PostEntityCopyWith<$Res> {
+  _$PostEntityCopyWithImpl(this._self, this._then);
+
+  final PostEntity _self;
+  final $Res Function(PostEntity) _then;
 
   /// Create a copy of PostEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -203,57 +137,57 @@ class __$$PostEntityImplCopyWithImpl<$Res>
     Object? publishedAt = freezed,
     Object? deletedAt = freezed,
   }) {
-    return _then(_$PostEntityImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       title: null == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
       slug: null == slug
-          ? _value.slug
+          ? _self.slug
           : slug // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
       createdAt: null == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       updatedAt: null == updatedAt
-          ? _value.updatedAt
+          ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       content: freezed == content
-          ? _value.content
+          ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
       metadata: freezed == metadata
-          ? _value._metadata
+          ? _self.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       metadataAuthor: freezed == metadataAuthor
-          ? _value.metadataAuthor
+          ? _self.metadataAuthor
           : metadataAuthor // ignore: cast_nullable_to_non_nullable
               as String?,
       metadataCategory: freezed == metadataCategory
-          ? _value.metadataCategory
+          ? _self.metadataCategory
           : metadataCategory // ignore: cast_nullable_to_non_nullable
               as String?,
       publishedAt: freezed == publishedAt
-          ? _value.publishedAt
+          ? _self.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       deletedAt: freezed == deletedAt
-          ? _value.deletedAt
+          ? _self.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
@@ -262,8 +196,8 @@ class __$$PostEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PostEntityImpl implements _PostEntity {
-  const _$PostEntityImpl(
+class _PostEntity implements PostEntity {
+  const _PostEntity(
       {required this.id,
       required this.title,
       required this.slug,
@@ -278,9 +212,8 @@ class _$PostEntityImpl implements _PostEntity {
       this.publishedAt,
       this.deletedAt})
       : _metadata = metadata;
-
-  factory _$PostEntityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PostEntityImplFromJson(json);
+  factory _PostEntity.fromJson(Map<String, dynamic> json) =>
+      _$PostEntityFromJson(json);
 
   @override
   final int id;
@@ -318,16 +251,26 @@ class _$PostEntityImpl implements _PostEntity {
   @override
   final DateTime? deletedAt;
 
+  /// Create a copy of PostEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'PostEntity(id: $id, title: $title, slug: $slug, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, content: $content, status: $status, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, deletedAt: $deletedAt)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PostEntityCopyWith<_PostEntity> get copyWith =>
+      __$PostEntityCopyWithImpl<_PostEntity>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PostEntityToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PostEntityImpl &&
+            other is _PostEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.slug, slug) || other.slug == slug) &&
@@ -367,72 +310,117 @@ class _$PostEntityImpl implements _PostEntity {
       publishedAt,
       deletedAt);
 
-  /// Create a copy of PostEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PostEntityImplCopyWith<_$PostEntityImpl> get copyWith =>
-      __$$PostEntityImplCopyWithImpl<_$PostEntityImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PostEntityImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PostEntity(id: $id, title: $title, slug: $slug, userId: $userId, createdAt: $createdAt, updatedAt: $updatedAt, content: $content, status: $status, metadata: $metadata, metadataAuthor: $metadataAuthor, metadataCategory: $metadataCategory, publishedAt: $publishedAt, deletedAt: $deletedAt)';
   }
 }
 
-abstract class _PostEntity implements PostEntity {
-  const factory _PostEntity(
-      {required final int id,
-      required final String title,
-      required final String slug,
-      required final int userId,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      final String? content,
-      final String status,
-      final Map<String, dynamic>? metadata,
-      final String? metadataAuthor,
-      final String? metadataCategory,
-      final DateTime? publishedAt,
-      final DateTime? deletedAt}) = _$PostEntityImpl;
+/// @nodoc
+abstract mixin class _$PostEntityCopyWith<$Res>
+    implements $PostEntityCopyWith<$Res> {
+  factory _$PostEntityCopyWith(
+          _PostEntity value, $Res Function(_PostEntity) _then) =
+      __$PostEntityCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String title,
+      String slug,
+      int userId,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String? content,
+      String status,
+      Map<String, dynamic>? metadata,
+      String? metadataAuthor,
+      String? metadataCategory,
+      DateTime? publishedAt,
+      DateTime? deletedAt});
+}
 
-  factory _PostEntity.fromJson(Map<String, dynamic> json) =
-      _$PostEntityImpl.fromJson;
+/// @nodoc
+class __$PostEntityCopyWithImpl<$Res> implements _$PostEntityCopyWith<$Res> {
+  __$PostEntityCopyWithImpl(this._self, this._then);
 
-  @override
-  int get id;
-  @override
-  String get title;
-  @override
-  String get slug;
-  @override
-  int get userId;
-  @override
-  DateTime get createdAt;
-  @override
-  DateTime get updatedAt;
-  @override
-  String? get content;
-  @override
-  String get status;
-  @override
-  Map<String, dynamic>? get metadata;
-  @override
-  String? get metadataAuthor;
-  @override
-  String? get metadataCategory;
-  @override
-  DateTime? get publishedAt;
-  @override
-  DateTime? get deletedAt;
+  final _PostEntity _self;
+  final $Res Function(_PostEntity) _then;
 
   /// Create a copy of PostEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PostEntityImplCopyWith<_$PostEntityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? slug = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? content = freezed,
+    Object? status = null,
+    Object? metadata = freezed,
+    Object? metadataAuthor = freezed,
+    Object? metadataCategory = freezed,
+    Object? publishedAt = freezed,
+    Object? deletedAt = freezed,
+  }) {
+    return _then(_PostEntity(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      slug: null == slug
+          ? _self.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      content: freezed == content
+          ? _self.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      metadata: freezed == metadata
+          ? _self._metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      metadataAuthor: freezed == metadataAuthor
+          ? _self.metadataAuthor
+          : metadataAuthor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      metadataCategory: freezed == metadataCategory
+          ? _self.metadataCategory
+          : metadataCategory // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: freezed == publishedAt
+          ? _self.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      deletedAt: freezed == deletedAt
+          ? _self.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
 }
+
+// dart format on

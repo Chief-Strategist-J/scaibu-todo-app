@@ -6,7 +6,7 @@ part 'pomodoro_entity.g.dart';
 
 /// Doc Required
 @freezed
-class PomodoroEntity with _$PomodoroEntity {
+abstract class PomodoroEntity with _$PomodoroEntity {
   /// Doc Required
   const factory PomodoroEntity({
     final String? uuid,

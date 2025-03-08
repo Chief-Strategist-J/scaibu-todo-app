@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:todo_app/core/app_library.dart';
-import 'package:todo_app/feature/project/presentation/widgets/project_category_selector_widget.dart';
 
 /// Doc Required
 
@@ -15,31 +12,23 @@ class ProjectPage extends HookWidget {
 
   void _initProject(final BuildContext context, final ProjectPageParam param) {
     useEffect(
-      ()  {
-        final ProjectBloc bloc = context.read<ProjectBloc>();
-        final Completer<void> completer = Completer<void>();
-
-        bloc.add(InitProjectEvent());
+      () {
+        final ProjectBloc bloc = context.read<ProjectBloc>()
+          ..add(InitProjectEvent());
 
         final StreamSubscription<ProjectState> subscription =
-            bloc.stream.listen((final ProjectState state) {
-          if (state is InitProjectState) {
-            completer.complete();
-          }
-        });
+            bloc.stream.listen((final ProjectState state) {});
 
-         unawaited(completer.future.then((final _) {
-          final ProjectState currentState = bloc.state;
-          if (currentState is InitProjectState) {
-            _updateProjectParams(
-              param,
-              currentState.projectCategoryData?.data,
-            );
-          }
-        }));
+        final ProjectState currentState = bloc.state;
+        if (currentState is InitProjectState) {
+          _updateProjectParams(
+            param,
+            currentState.projectCategoryData?.data,
+          );
+        }
 
         return subscription.cancel;
-      } ,
+      },
       <Object?>[],
     );
   }
@@ -110,6 +99,8 @@ class ProjectPage extends HookWidget {
     final BuildContext context,
   ) {
     context.read<ProjectBloc>().add(CreateProjectEvent(request: projectParam));
+    context.read<ProjectBloc>().add(InitProjectEvent());
+    finish(context);
   }
 
   @override
@@ -197,7 +188,6 @@ class ProjectPage extends HookWidget {
                   await _selectActualHours(context, projectParam);
                 },
               ),
-              ProjectCategorySelectorWidget(projectParam),
               ContentWidget(
                 title: 'Project Description',
                 controller: projectParam.projectDescription,

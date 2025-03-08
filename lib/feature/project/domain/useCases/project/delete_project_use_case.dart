@@ -1,7 +1,7 @@
 part of use_case;
 
 /// Doc Required
-class DeleteProjectUseCase extends UseCase<void, String> {
+class DeleteProjectUseCase extends UseCase<void, int> {
   /// Doc Required
   DeleteProjectUseCase({required this.projectRepository});
 
@@ -9,7 +9,7 @@ class DeleteProjectUseCase extends UseCase<void, String> {
   final ProjectRepository<ProjectEntity> projectRepository;
 
   @override
-  Future<Either<Failure, void>> call(final String params) async {
+  Future<Either<Failure, void>> call(final int params) async {
     try {
       await projectRepository.deleteProject(params);
       return const Right<Failure, void>(null);

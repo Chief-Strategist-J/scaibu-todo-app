@@ -89,7 +89,8 @@ mixin NotificationEntityMixin {
 
 /// Doc Required
 @freezed
-class NotificationModel with _$NotificationModel, NotificationEntityMixin {
+abstract class NotificationModel
+    with _$NotificationModel, NotificationEntityMixin {
   /// Doc Required
   const factory NotificationModel({
     required final int id,
@@ -120,6 +121,8 @@ class NotificationModel with _$NotificationModel, NotificationEntityMixin {
     final double? deliveryTime,
     final int? responseCode,
   }) = _NotificationModel;
+
+  const NotificationModel._();
 
   /// Doc Required
   factory NotificationModel.fromJson(final Map<String, dynamic> json) =>

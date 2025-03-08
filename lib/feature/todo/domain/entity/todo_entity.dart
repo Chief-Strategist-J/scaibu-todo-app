@@ -5,7 +5,7 @@ part 'todo_entity.g.dart';
 
 /// Doc Required
 @freezed
-class TodoEntity with _$TodoEntity {
+abstract class TodoEntity with _$TodoEntity {
   /// Doc Required
   const factory TodoEntity({
     final int? todoId,

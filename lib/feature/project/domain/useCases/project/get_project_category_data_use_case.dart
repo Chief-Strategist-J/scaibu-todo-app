@@ -96,10 +96,7 @@ class GetProjectCategoryDataUseCase
             return Right<Failure, ProjectCategoryDataModelEntity>(storedData);
           }
 
-          final ProjectCategoryDataModelEntity freshData =
-              await projectRepository.getProjectCategoryData();
-          _inMemoryCache.setData(freshData);
-          await _setStorageCache(freshData);
+          final ProjectCategoryDataModelEntity freshData = await updateData();
           return Right<Failure, ProjectCategoryDataModelEntity>(freshData);
         } catch (e) {
           return Left<Failure, ProjectCategoryDataModelEntity>(
@@ -107,4 +104,13 @@ class GetProjectCategoryDataUseCase
           );
         }
       });
+
+  /// Update data
+  Future<ProjectCategoryDataModelEntity> updateData() async {
+    final ProjectCategoryDataModelEntity freshData =
+        await projectRepository.getProjectCategoryData();
+    _inMemoryCache.setData(freshData);
+    await _setStorageCache(freshData);
+    return freshData;
+  }
 }

@@ -113,12 +113,13 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
 
   /// Doc Required
   @override
-  Future<void> deleteProject(final String id) async {
+  Future<void> deleteProject(final int id) async {
     await restApi.request<dynamic>(
       endPoint: ProjectEndPoint.deleteProject,
       type: HttpRequestMethod.post,
       requestBody: <String, dynamic>{
         'project_id': id,
+        'created_by': userCredentials.getUserId,
       },
     );
   }
@@ -277,10 +278,10 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async {
     final ProjectCategoryDataModelEntity projectCategoryData
     = ProjectCategoryDataModelEntity.fromJson(
-      (await restApi.request<Map<String, dynamic>>(
+      await restApi.request<Map<String, dynamic>>(
         endPoint: ProjectEndPoint.getProjectCategoryDetail,
         requestBody: <String, dynamic>{},
-      )) as Map<String, dynamic>,
+      ),
     );
     return projectCategoryData;
   }

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,217 +10,62 @@ part of 'project_category_data_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ProjectCategory _$ProjectCategoryFromJson(Map<String, dynamic> json) {
-  return _ProjectCategory.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ProjectCategory {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectCategory to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get id;
+  String? get name;
 
   /// Create a copy of ProjectCategory
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $ProjectCategoryCopyWith<ProjectCategory> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+      _$ProjectCategoryCopyWithImpl<ProjectCategory>(
+          this as ProjectCategory, _$identity);
 
-/// @nodoc
-abstract class $ProjectCategoryCopyWith<$Res> {
-  factory $ProjectCategoryCopyWith(
-          ProjectCategory value, $Res Function(ProjectCategory) then) =
-      _$ProjectCategoryCopyWithImpl<$Res, ProjectCategory>;
-  @useResult
-  $Res call({int? id, String? name});
-}
+  /// Serializes this ProjectCategory to a JSON map.
+  Map<String, dynamic> toJson();
 
-/// @nodoc
-class _$ProjectCategoryCopyWithImpl<$Res, $Val extends ProjectCategory>
-    implements $ProjectCategoryCopyWith<$Res> {
-  _$ProjectCategoryCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ProjectCategory
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectCategory &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
   }
-}
 
-/// @nodoc
-abstract class _$$ProjectCategoryImplCopyWith<$Res>
-    implements $ProjectCategoryCopyWith<$Res> {
-  factory _$$ProjectCategoryImplCopyWith(_$ProjectCategoryImpl value,
-          $Res Function(_$ProjectCategoryImpl) then) =
-      __$$ProjectCategoryImplCopyWithImpl<$Res>;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class __$$ProjectCategoryImplCopyWithImpl<$Res>
-    extends _$ProjectCategoryCopyWithImpl<$Res, _$ProjectCategoryImpl>
-    implements _$$ProjectCategoryImplCopyWith<$Res> {
-  __$$ProjectCategoryImplCopyWithImpl(
-      _$ProjectCategoryImpl _value, $Res Function(_$ProjectCategoryImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ProjectCategory
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_$ProjectCategoryImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ProjectCategoryImpl implements _ProjectCategory {
-  const _$ProjectCategoryImpl({this.id, this.name});
-
-  factory _$ProjectCategoryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectCategoryImplFromJson(json);
-
-  @override
-  final int? id;
-  @override
-  final String? name;
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @override
   String toString() {
     return 'ProjectCategory(id: $id, name: $name)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProjectCategoryImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name);
-
-  /// Create a copy of ProjectCategory
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectCategoryImplCopyWith<_$ProjectCategoryImpl> get copyWith =>
-      __$$ProjectCategoryImplCopyWithImpl<_$ProjectCategoryImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectCategoryImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ProjectCategory implements ProjectCategory {
-  const factory _ProjectCategory({final int? id, final String? name}) =
-      _$ProjectCategoryImpl;
-
-  factory _ProjectCategory.fromJson(Map<String, dynamic> json) =
-      _$ProjectCategoryImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  String? get name;
-
-  /// Create a copy of ProjectCategory
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectCategoryImplCopyWith<_$ProjectCategoryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ProjectPhase _$ProjectPhaseFromJson(Map<String, dynamic> json) {
-  return _ProjectPhase.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProjectPhase {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectPhase to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProjectPhase
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProjectPhaseCopyWith<ProjectPhase> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProjectPhaseCopyWith<$Res> {
-  factory $ProjectPhaseCopyWith(
-          ProjectPhase value, $Res Function(ProjectPhase) then) =
-      _$ProjectPhaseCopyWithImpl<$Res, ProjectPhase>;
+abstract mixin class $ProjectCategoryCopyWith<$Res> {
+  factory $ProjectCategoryCopyWith(
+          ProjectCategory value, $Res Function(ProjectCategory) _then) =
+      _$ProjectCategoryCopyWithImpl;
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class _$ProjectPhaseCopyWithImpl<$Res, $Val extends ProjectPhase>
-    implements $ProjectPhaseCopyWith<$Res> {
-  _$ProjectPhaseCopyWithImpl(this._value, this._then);
+class _$ProjectCategoryCopyWithImpl<$Res>
+    implements $ProjectCategoryCopyWith<$Res> {
+  _$ProjectCategoryCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ProjectCategory _self;
+  final $Res Function(ProjectCategory) _then;
 
-  /// Create a copy of ProjectPhase
+  /// Create a copy of ProjectCategory
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -227,53 +73,13 @@ class _$ProjectPhaseCopyWithImpl<$Res, $Val extends ProjectPhase>
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ProjectPhaseImplCopyWith<$Res>
-    implements $ProjectPhaseCopyWith<$Res> {
-  factory _$$ProjectPhaseImplCopyWith(
-          _$ProjectPhaseImpl value, $Res Function(_$ProjectPhaseImpl) then) =
-      __$$ProjectPhaseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class __$$ProjectPhaseImplCopyWithImpl<$Res>
-    extends _$ProjectPhaseCopyWithImpl<$Res, _$ProjectPhaseImpl>
-    implements _$$ProjectPhaseImplCopyWith<$Res> {
-  __$$ProjectPhaseImplCopyWithImpl(
-      _$ProjectPhaseImpl _value, $Res Function(_$ProjectPhaseImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ProjectPhase
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_$ProjectPhaseImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -282,110 +88,142 @@ class __$$ProjectPhaseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProjectPhaseImpl implements _ProjectPhase {
-  const _$ProjectPhaseImpl({this.id, this.name});
-
-  factory _$ProjectPhaseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectPhaseImplFromJson(json);
+class _ProjectCategory extends ProjectCategory {
+  const _ProjectCategory({this.id, this.name}) : super._();
+  factory _ProjectCategory.fromJson(Map<String, dynamic> json) =>
+      _$ProjectCategoryFromJson(json);
 
   @override
   final int? id;
   @override
   final String? name;
+
+  /// Create a copy of ProjectCategory
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectCategoryCopyWith<_ProjectCategory> get copyWith =>
+      __$ProjectCategoryCopyWithImpl<_ProjectCategory>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectCategoryToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ProjectCategory &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'ProjectCategory(id: $id, name: $name)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ProjectCategoryCopyWith<$Res>
+    implements $ProjectCategoryCopyWith<$Res> {
+  factory _$ProjectCategoryCopyWith(
+          _ProjectCategory value, $Res Function(_ProjectCategory) _then) =
+      __$ProjectCategoryCopyWithImpl;
+  @override
+  @useResult
+  $Res call({int? id, String? name});
+}
+
+/// @nodoc
+class __$ProjectCategoryCopyWithImpl<$Res>
+    implements _$ProjectCategoryCopyWith<$Res> {
+  __$ProjectCategoryCopyWithImpl(this._self, this._then);
+
+  final _ProjectCategory _self;
+  final $Res Function(_ProjectCategory) _then;
+
+  /// Create a copy of ProjectCategory
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_ProjectCategory(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$ProjectPhase {
+  int? get id;
+  String? get name;
+
+  /// Create a copy of ProjectPhase
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ProjectPhaseCopyWith<ProjectPhase> get copyWith =>
+      _$ProjectPhaseCopyWithImpl<ProjectPhase>(
+          this as ProjectPhase, _$identity);
+
+  /// Serializes this ProjectPhase to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectPhase &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @override
   String toString() {
     return 'ProjectPhase(id: $id, name: $name)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProjectPhaseImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name);
-
-  /// Create a copy of ProjectPhase
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectPhaseImplCopyWith<_$ProjectPhaseImpl> get copyWith =>
-      __$$ProjectPhaseImplCopyWithImpl<_$ProjectPhaseImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectPhaseImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ProjectPhase implements ProjectPhase {
-  const factory _ProjectPhase({final int? id, final String? name}) =
-      _$ProjectPhaseImpl;
-
-  factory _ProjectPhase.fromJson(Map<String, dynamic> json) =
-      _$ProjectPhaseImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  String? get name;
-
-  /// Create a copy of ProjectPhase
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectPhaseImplCopyWith<_$ProjectPhaseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ProjectPriority _$ProjectPriorityFromJson(Map<String, dynamic> json) {
-  return _ProjectPriority.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProjectPriority {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectPriority to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProjectPriority
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProjectPriorityCopyWith<ProjectPriority> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProjectPriorityCopyWith<$Res> {
-  factory $ProjectPriorityCopyWith(
-          ProjectPriority value, $Res Function(ProjectPriority) then) =
-      _$ProjectPriorityCopyWithImpl<$Res, ProjectPriority>;
+abstract mixin class $ProjectPhaseCopyWith<$Res> {
+  factory $ProjectPhaseCopyWith(
+          ProjectPhase value, $Res Function(ProjectPhase) _then) =
+      _$ProjectPhaseCopyWithImpl;
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class _$ProjectPriorityCopyWithImpl<$Res, $Val extends ProjectPriority>
-    implements $ProjectPriorityCopyWith<$Res> {
-  _$ProjectPriorityCopyWithImpl(this._value, this._then);
+class _$ProjectPhaseCopyWithImpl<$Res> implements $ProjectPhaseCopyWith<$Res> {
+  _$ProjectPhaseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ProjectPhase _self;
+  final $Res Function(ProjectPhase) _then;
 
-  /// Create a copy of ProjectPriority
+  /// Create a copy of ProjectPhase
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -393,53 +231,13 @@ class _$ProjectPriorityCopyWithImpl<$Res, $Val extends ProjectPriority>
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ProjectPriorityImplCopyWith<$Res>
-    implements $ProjectPriorityCopyWith<$Res> {
-  factory _$$ProjectPriorityImplCopyWith(_$ProjectPriorityImpl value,
-          $Res Function(_$ProjectPriorityImpl) then) =
-      __$$ProjectPriorityImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class __$$ProjectPriorityImplCopyWithImpl<$Res>
-    extends _$ProjectPriorityCopyWithImpl<$Res, _$ProjectPriorityImpl>
-    implements _$$ProjectPriorityImplCopyWith<$Res> {
-  __$$ProjectPriorityImplCopyWithImpl(
-      _$ProjectPriorityImpl _value, $Res Function(_$ProjectPriorityImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ProjectPriority
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_$ProjectPriorityImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -448,111 +246,143 @@ class __$$ProjectPriorityImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProjectPriorityImpl implements _ProjectPriority {
-  const _$ProjectPriorityImpl({this.id, this.name});
-
-  factory _$ProjectPriorityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectPriorityImplFromJson(json);
+class _ProjectPhase extends ProjectPhase {
+  const _ProjectPhase({this.id, this.name}) : super._();
+  factory _ProjectPhase.fromJson(Map<String, dynamic> json) =>
+      _$ProjectPhaseFromJson(json);
 
   @override
   final int? id;
   @override
   final String? name;
+
+  /// Create a copy of ProjectPhase
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectPhaseCopyWith<_ProjectPhase> get copyWith =>
+      __$ProjectPhaseCopyWithImpl<_ProjectPhase>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectPhaseToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ProjectPhase &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'ProjectPhase(id: $id, name: $name)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ProjectPhaseCopyWith<$Res>
+    implements $ProjectPhaseCopyWith<$Res> {
+  factory _$ProjectPhaseCopyWith(
+          _ProjectPhase value, $Res Function(_ProjectPhase) _then) =
+      __$ProjectPhaseCopyWithImpl;
+  @override
+  @useResult
+  $Res call({int? id, String? name});
+}
+
+/// @nodoc
+class __$ProjectPhaseCopyWithImpl<$Res>
+    implements _$ProjectPhaseCopyWith<$Res> {
+  __$ProjectPhaseCopyWithImpl(this._self, this._then);
+
+  final _ProjectPhase _self;
+  final $Res Function(_ProjectPhase) _then;
+
+  /// Create a copy of ProjectPhase
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_ProjectPhase(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$ProjectPriority {
+  int? get id;
+  String? get name;
+
+  /// Create a copy of ProjectPriority
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ProjectPriorityCopyWith<ProjectPriority> get copyWith =>
+      _$ProjectPriorityCopyWithImpl<ProjectPriority>(
+          this as ProjectPriority, _$identity);
+
+  /// Serializes this ProjectPriority to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectPriority &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @override
   String toString() {
     return 'ProjectPriority(id: $id, name: $name)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProjectPriorityImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name);
-
-  /// Create a copy of ProjectPriority
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectPriorityImplCopyWith<_$ProjectPriorityImpl> get copyWith =>
-      __$$ProjectPriorityImplCopyWithImpl<_$ProjectPriorityImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectPriorityImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ProjectPriority implements ProjectPriority {
-  const factory _ProjectPriority({final int? id, final String? name}) =
-      _$ProjectPriorityImpl;
-
-  factory _ProjectPriority.fromJson(Map<String, dynamic> json) =
-      _$ProjectPriorityImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  String? get name;
-
-  /// Create a copy of ProjectPriority
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectPriorityImplCopyWith<_$ProjectPriorityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ProjectType _$ProjectTypeFromJson(Map<String, dynamic> json) {
-  return _ProjectType.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProjectType {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectType to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProjectType
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProjectTypeCopyWith<ProjectType> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProjectTypeCopyWith<$Res> {
-  factory $ProjectTypeCopyWith(
-          ProjectType value, $Res Function(ProjectType) then) =
-      _$ProjectTypeCopyWithImpl<$Res, ProjectType>;
+abstract mixin class $ProjectPriorityCopyWith<$Res> {
+  factory $ProjectPriorityCopyWith(
+          ProjectPriority value, $Res Function(ProjectPriority) _then) =
+      _$ProjectPriorityCopyWithImpl;
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class _$ProjectTypeCopyWithImpl<$Res, $Val extends ProjectType>
-    implements $ProjectTypeCopyWith<$Res> {
-  _$ProjectTypeCopyWithImpl(this._value, this._then);
+class _$ProjectPriorityCopyWithImpl<$Res>
+    implements $ProjectPriorityCopyWith<$Res> {
+  _$ProjectPriorityCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ProjectPriority _self;
+  final $Res Function(ProjectPriority) _then;
 
-  /// Create a copy of ProjectType
+  /// Create a copy of ProjectPriority
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -560,53 +390,13 @@ class _$ProjectTypeCopyWithImpl<$Res, $Val extends ProjectType>
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ProjectTypeImplCopyWith<$Res>
-    implements $ProjectTypeCopyWith<$Res> {
-  factory _$$ProjectTypeImplCopyWith(
-          _$ProjectTypeImpl value, $Res Function(_$ProjectTypeImpl) then) =
-      __$$ProjectTypeImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class __$$ProjectTypeImplCopyWithImpl<$Res>
-    extends _$ProjectTypeCopyWithImpl<$Res, _$ProjectTypeImpl>
-    implements _$$ProjectTypeImplCopyWith<$Res> {
-  __$$ProjectTypeImplCopyWithImpl(
-      _$ProjectTypeImpl _value, $Res Function(_$ProjectTypeImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ProjectType
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_$ProjectTypeImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -615,110 +405,141 @@ class __$$ProjectTypeImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProjectTypeImpl implements _ProjectType {
-  const _$ProjectTypeImpl({this.id, this.name});
-
-  factory _$ProjectTypeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectTypeImplFromJson(json);
+class _ProjectPriority extends ProjectPriority {
+  const _ProjectPriority({this.id, this.name}) : super._();
+  factory _ProjectPriority.fromJson(Map<String, dynamic> json) =>
+      _$ProjectPriorityFromJson(json);
 
   @override
   final int? id;
   @override
   final String? name;
+
+  /// Create a copy of ProjectPriority
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectPriorityCopyWith<_ProjectPriority> get copyWith =>
+      __$ProjectPriorityCopyWithImpl<_ProjectPriority>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectPriorityToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ProjectPriority &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'ProjectPriority(id: $id, name: $name)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ProjectPriorityCopyWith<$Res>
+    implements $ProjectPriorityCopyWith<$Res> {
+  factory _$ProjectPriorityCopyWith(
+          _ProjectPriority value, $Res Function(_ProjectPriority) _then) =
+      __$ProjectPriorityCopyWithImpl;
+  @override
+  @useResult
+  $Res call({int? id, String? name});
+}
+
+/// @nodoc
+class __$ProjectPriorityCopyWithImpl<$Res>
+    implements _$ProjectPriorityCopyWith<$Res> {
+  __$ProjectPriorityCopyWithImpl(this._self, this._then);
+
+  final _ProjectPriority _self;
+  final $Res Function(_ProjectPriority) _then;
+
+  /// Create a copy of ProjectPriority
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_ProjectPriority(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$ProjectType {
+  int? get id;
+  String? get name;
+
+  /// Create a copy of ProjectType
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ProjectTypeCopyWith<ProjectType> get copyWith =>
+      _$ProjectTypeCopyWithImpl<ProjectType>(this as ProjectType, _$identity);
+
+  /// Serializes this ProjectType to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectType &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @override
   String toString() {
     return 'ProjectType(id: $id, name: $name)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProjectTypeImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name);
-
-  /// Create a copy of ProjectType
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectTypeImplCopyWith<_$ProjectTypeImpl> get copyWith =>
-      __$$ProjectTypeImplCopyWithImpl<_$ProjectTypeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectTypeImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ProjectType implements ProjectType {
-  const factory _ProjectType({final int? id, final String? name}) =
-      _$ProjectTypeImpl;
-
-  factory _ProjectType.fromJson(Map<String, dynamic> json) =
-      _$ProjectTypeImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  String? get name;
-
-  /// Create a copy of ProjectType
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectTypeImplCopyWith<_$ProjectTypeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ProjectStatus _$ProjectStatusFromJson(Map<String, dynamic> json) {
-  return _ProjectStatus.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProjectStatus {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectStatus to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProjectStatus
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProjectStatusCopyWith<ProjectStatus> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProjectStatusCopyWith<$Res> {
-  factory $ProjectStatusCopyWith(
-          ProjectStatus value, $Res Function(ProjectStatus) then) =
-      _$ProjectStatusCopyWithImpl<$Res, ProjectStatus>;
+abstract mixin class $ProjectTypeCopyWith<$Res> {
+  factory $ProjectTypeCopyWith(
+          ProjectType value, $Res Function(ProjectType) _then) =
+      _$ProjectTypeCopyWithImpl;
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class _$ProjectStatusCopyWithImpl<$Res, $Val extends ProjectStatus>
-    implements $ProjectStatusCopyWith<$Res> {
-  _$ProjectStatusCopyWithImpl(this._value, this._then);
+class _$ProjectTypeCopyWithImpl<$Res> implements $ProjectTypeCopyWith<$Res> {
+  _$ProjectTypeCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ProjectType _self;
+  final $Res Function(ProjectType) _then;
 
-  /// Create a copy of ProjectStatus
+  /// Create a copy of ProjectType
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -726,53 +547,13 @@ class _$ProjectStatusCopyWithImpl<$Res, $Val extends ProjectStatus>
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ProjectStatusImplCopyWith<$Res>
-    implements $ProjectStatusCopyWith<$Res> {
-  factory _$$ProjectStatusImplCopyWith(
-          _$ProjectStatusImpl value, $Res Function(_$ProjectStatusImpl) then) =
-      __$$ProjectStatusImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class __$$ProjectStatusImplCopyWithImpl<$Res>
-    extends _$ProjectStatusCopyWithImpl<$Res, _$ProjectStatusImpl>
-    implements _$$ProjectStatusImplCopyWith<$Res> {
-  __$$ProjectStatusImplCopyWithImpl(
-      _$ProjectStatusImpl _value, $Res Function(_$ProjectStatusImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ProjectStatus
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_$ProjectStatusImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -781,27 +562,36 @@ class __$$ProjectStatusImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProjectStatusImpl implements _ProjectStatus {
-  const _$ProjectStatusImpl({this.id, this.name});
-
-  factory _$ProjectStatusImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectStatusImplFromJson(json);
+class _ProjectType extends ProjectType {
+  const _ProjectType({this.id, this.name}) : super._();
+  factory _ProjectType.fromJson(Map<String, dynamic> json) =>
+      _$ProjectTypeFromJson(json);
 
   @override
   final int? id;
   @override
   final String? name;
 
+  /// Create a copy of ProjectType
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ProjectStatus(id: $id, name: $name)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectTypeCopyWith<_ProjectType> get copyWith =>
+      __$ProjectTypeCopyWithImpl<_ProjectType>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectTypeToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProjectStatusImpl &&
+            other is _ProjectType &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -810,131 +600,264 @@ class _$ProjectStatusImpl implements _ProjectStatus {
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  /// Create a copy of ProjectStatus
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectStatusImplCopyWith<_$ProjectStatusImpl> get copyWith =>
-      __$$ProjectStatusImplCopyWithImpl<_$ProjectStatusImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectStatusImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ProjectType(id: $id, name: $name)';
   }
 }
 
-abstract class _ProjectStatus implements ProjectStatus {
-  const factory _ProjectStatus({final int? id, final String? name}) =
-      _$ProjectStatusImpl;
-
-  factory _ProjectStatus.fromJson(Map<String, dynamic> json) =
-      _$ProjectStatusImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$ProjectTypeCopyWith<$Res>
+    implements $ProjectTypeCopyWith<$Res> {
+  factory _$ProjectTypeCopyWith(
+          _ProjectType value, $Res Function(_ProjectType) _then) =
+      __$ProjectTypeCopyWithImpl;
   @override
+  @useResult
+  $Res call({int? id, String? name});
+}
+
+/// @nodoc
+class __$ProjectTypeCopyWithImpl<$Res> implements _$ProjectTypeCopyWith<$Res> {
+  __$ProjectTypeCopyWithImpl(this._self, this._then);
+
+  final _ProjectType _self;
+  final $Res Function(_ProjectType) _then;
+
+  /// Create a copy of ProjectType
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_ProjectType(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$ProjectStatus {
   int? get id;
-  @override
   String? get name;
 
   /// Create a copy of ProjectStatus
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectStatusImplCopyWith<_$ProjectStatusImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ProjectCategoryData _$ProjectCategoryDataFromJson(Map<String, dynamic> json) {
-  return _ProjectCategoryData.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ProjectCategoryData {
-  List<ProjectCategory>? get categories => throw _privateConstructorUsedError;
-  List<ProjectPhase>? get phases => throw _privateConstructorUsedError;
-  List<ProjectPriority>? get priorities => throw _privateConstructorUsedError;
-  List<ProjectType>? get types => throw _privateConstructorUsedError;
-  List<ProjectStatus>? get statuses => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectCategoryData to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProjectCategoryData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProjectCategoryDataCopyWith<ProjectCategoryData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProjectCategoryDataCopyWith<$Res> {
-  factory $ProjectCategoryDataCopyWith(
-          ProjectCategoryData value, $Res Function(ProjectCategoryData) then) =
-      _$ProjectCategoryDataCopyWithImpl<$Res, ProjectCategoryData>;
-  @useResult
-  $Res call(
-      {List<ProjectCategory>? categories,
-      List<ProjectPhase>? phases,
-      List<ProjectPriority>? priorities,
-      List<ProjectType>? types,
-      List<ProjectStatus>? statuses});
-}
-
-/// @nodoc
-class _$ProjectCategoryDataCopyWithImpl<$Res, $Val extends ProjectCategoryData>
-    implements $ProjectCategoryDataCopyWith<$Res> {
-  _$ProjectCategoryDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ProjectCategoryData
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ProjectStatusCopyWith<ProjectStatus> get copyWith =>
+      _$ProjectStatusCopyWithImpl<ProjectStatus>(
+          this as ProjectStatus, _$identity);
+
+  /// Serializes this ProjectStatus to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? categories = freezed,
-    Object? phases = freezed,
-    Object? priorities = freezed,
-    Object? types = freezed,
-    Object? statuses = freezed,
-  }) {
-    return _then(_value.copyWith(
-      categories: freezed == categories
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<ProjectCategory>?,
-      phases: freezed == phases
-          ? _value.phases
-          : phases // ignore: cast_nullable_to_non_nullable
-              as List<ProjectPhase>?,
-      priorities: freezed == priorities
-          ? _value.priorities
-          : priorities // ignore: cast_nullable_to_non_nullable
-              as List<ProjectPriority>?,
-      types: freezed == types
-          ? _value.types
-          : types // ignore: cast_nullable_to_non_nullable
-              as List<ProjectType>?,
-      statuses: freezed == statuses
-          ? _value.statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as List<ProjectStatus>?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectStatus &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'ProjectStatus(id: $id, name: $name)';
   }
 }
 
 /// @nodoc
-abstract class _$$ProjectCategoryDataImplCopyWith<$Res>
-    implements $ProjectCategoryDataCopyWith<$Res> {
-  factory _$$ProjectCategoryDataImplCopyWith(_$ProjectCategoryDataImpl value,
-          $Res Function(_$ProjectCategoryDataImpl) then) =
-      __$$ProjectCategoryDataImplCopyWithImpl<$Res>;
+abstract mixin class $ProjectStatusCopyWith<$Res> {
+  factory $ProjectStatusCopyWith(
+          ProjectStatus value, $Res Function(ProjectStatus) _then) =
+      _$ProjectStatusCopyWithImpl;
+  @useResult
+  $Res call({int? id, String? name});
+}
+
+/// @nodoc
+class _$ProjectStatusCopyWithImpl<$Res>
+    implements $ProjectStatusCopyWith<$Res> {
+  _$ProjectStatusCopyWithImpl(this._self, this._then);
+
+  final ProjectStatus _self;
+  final $Res Function(ProjectStatus) _then;
+
+  /// Create a copy of ProjectStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_self.copyWith(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _ProjectStatus extends ProjectStatus {
+  const _ProjectStatus({this.id, this.name}) : super._();
+  factory _ProjectStatus.fromJson(Map<String, dynamic> json) =>
+      _$ProjectStatusFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? name;
+
+  /// Create a copy of ProjectStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectStatusCopyWith<_ProjectStatus> get copyWith =>
+      __$ProjectStatusCopyWithImpl<_ProjectStatus>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectStatusToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ProjectStatus &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'ProjectStatus(id: $id, name: $name)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ProjectStatusCopyWith<$Res>
+    implements $ProjectStatusCopyWith<$Res> {
+  factory _$ProjectStatusCopyWith(
+          _ProjectStatus value, $Res Function(_ProjectStatus) _then) =
+      __$ProjectStatusCopyWithImpl;
+  @override
+  @useResult
+  $Res call({int? id, String? name});
+}
+
+/// @nodoc
+class __$ProjectStatusCopyWithImpl<$Res>
+    implements _$ProjectStatusCopyWith<$Res> {
+  __$ProjectStatusCopyWithImpl(this._self, this._then);
+
+  final _ProjectStatus _self;
+  final $Res Function(_ProjectStatus) _then;
+
+  /// Create a copy of ProjectStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_ProjectStatus(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$ProjectCategoryData {
+  List<ProjectCategory>? get categories;
+  List<ProjectPhase>? get phases;
+  List<ProjectPriority>? get priorities;
+  List<ProjectType>? get types;
+  List<ProjectStatus>? get statuses;
+
+  /// Create a copy of ProjectCategoryData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ProjectCategoryDataCopyWith<ProjectCategoryData> get copyWith =>
+      _$ProjectCategoryDataCopyWithImpl<ProjectCategoryData>(
+          this as ProjectCategoryData, _$identity);
+
+  /// Serializes this ProjectCategoryData to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectCategoryData &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories) &&
+            const DeepCollectionEquality().equals(other.phases, phases) &&
+            const DeepCollectionEquality()
+                .equals(other.priorities, priorities) &&
+            const DeepCollectionEquality().equals(other.types, types) &&
+            const DeepCollectionEquality().equals(other.statuses, statuses));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(categories),
+      const DeepCollectionEquality().hash(phases),
+      const DeepCollectionEquality().hash(priorities),
+      const DeepCollectionEquality().hash(types),
+      const DeepCollectionEquality().hash(statuses));
+
+  @override
+  String toString() {
+    return 'ProjectCategoryData(categories: $categories, phases: $phases, priorities: $priorities, types: $types, statuses: $statuses)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ProjectCategoryDataCopyWith<$Res> {
+  factory $ProjectCategoryDataCopyWith(
+          ProjectCategoryData value, $Res Function(ProjectCategoryData) _then) =
+      _$ProjectCategoryDataCopyWithImpl;
   @useResult
   $Res call(
       {List<ProjectCategory>? categories,
@@ -945,12 +868,12 @@ abstract class _$$ProjectCategoryDataImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ProjectCategoryDataImplCopyWithImpl<$Res>
-    extends _$ProjectCategoryDataCopyWithImpl<$Res, _$ProjectCategoryDataImpl>
-    implements _$$ProjectCategoryDataImplCopyWith<$Res> {
-  __$$ProjectCategoryDataImplCopyWithImpl(_$ProjectCategoryDataImpl _value,
-      $Res Function(_$ProjectCategoryDataImpl) _then)
-      : super(_value, _then);
+class _$ProjectCategoryDataCopyWithImpl<$Res>
+    implements $ProjectCategoryDataCopyWith<$Res> {
+  _$ProjectCategoryDataCopyWithImpl(this._self, this._then);
+
+  final ProjectCategoryData _self;
+  final $Res Function(ProjectCategoryData) _then;
 
   /// Create a copy of ProjectCategoryData
   /// with the given fields replaced by the non-null parameter values.
@@ -963,25 +886,25 @@ class __$$ProjectCategoryDataImplCopyWithImpl<$Res>
     Object? types = freezed,
     Object? statuses = freezed,
   }) {
-    return _then(_$ProjectCategoryDataImpl(
+    return _then(_self.copyWith(
       categories: freezed == categories
-          ? _value._categories
+          ? _self.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<ProjectCategory>?,
       phases: freezed == phases
-          ? _value._phases
+          ? _self.phases
           : phases // ignore: cast_nullable_to_non_nullable
               as List<ProjectPhase>?,
       priorities: freezed == priorities
-          ? _value._priorities
+          ? _self.priorities
           : priorities // ignore: cast_nullable_to_non_nullable
               as List<ProjectPriority>?,
       types: freezed == types
-          ? _value._types
+          ? _self.types
           : types // ignore: cast_nullable_to_non_nullable
               as List<ProjectType>?,
       statuses: freezed == statuses
-          ? _value._statuses
+          ? _self.statuses
           : statuses // ignore: cast_nullable_to_non_nullable
               as List<ProjectStatus>?,
     ));
@@ -990,8 +913,8 @@ class __$$ProjectCategoryDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProjectCategoryDataImpl implements _ProjectCategoryData {
-  const _$ProjectCategoryDataImpl(
+class _ProjectCategoryData implements ProjectCategoryData {
+  const _ProjectCategoryData(
       {final List<ProjectCategory>? categories,
       final List<ProjectPhase>? phases,
       final List<ProjectPriority>? priorities,
@@ -1002,9 +925,8 @@ class _$ProjectCategoryDataImpl implements _ProjectCategoryData {
         _priorities = priorities,
         _types = types,
         _statuses = statuses;
-
-  factory _$ProjectCategoryDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectCategoryDataImplFromJson(json);
+  factory _ProjectCategoryData.fromJson(Map<String, dynamic> json) =>
+      _$ProjectCategoryDataFromJson(json);
 
   final List<ProjectCategory>? _categories;
   @override
@@ -1056,16 +978,27 @@ class _$ProjectCategoryDataImpl implements _ProjectCategoryData {
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of ProjectCategoryData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ProjectCategoryData(categories: $categories, phases: $phases, priorities: $priorities, types: $types, statuses: $statuses)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectCategoryDataCopyWith<_ProjectCategoryData> get copyWith =>
+      __$ProjectCategoryDataCopyWithImpl<_ProjectCategoryData>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectCategoryDataToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProjectCategoryDataImpl &&
+            other is _ProjectCategoryData &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality().equals(other._phases, _phases) &&
@@ -1085,212 +1018,94 @@ class _$ProjectCategoryDataImpl implements _ProjectCategoryData {
       const DeepCollectionEquality().hash(_types),
       const DeepCollectionEquality().hash(_statuses));
 
-  /// Create a copy of ProjectCategoryData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectCategoryDataImplCopyWith<_$ProjectCategoryDataImpl> get copyWith =>
-      __$$ProjectCategoryDataImplCopyWithImpl<_$ProjectCategoryDataImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectCategoryDataImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ProjectCategoryData(categories: $categories, phases: $phases, priorities: $priorities, types: $types, statuses: $statuses)';
   }
 }
 
-abstract class _ProjectCategoryData implements ProjectCategoryData {
-  const factory _ProjectCategoryData(
-      {final List<ProjectCategory>? categories,
-      final List<ProjectPhase>? phases,
-      final List<ProjectPriority>? priorities,
-      final List<ProjectType>? types,
-      final List<ProjectStatus>? statuses}) = _$ProjectCategoryDataImpl;
+/// @nodoc
+abstract mixin class _$ProjectCategoryDataCopyWith<$Res>
+    implements $ProjectCategoryDataCopyWith<$Res> {
+  factory _$ProjectCategoryDataCopyWith(_ProjectCategoryData value,
+          $Res Function(_ProjectCategoryData) _then) =
+      __$ProjectCategoryDataCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {List<ProjectCategory>? categories,
+      List<ProjectPhase>? phases,
+      List<ProjectPriority>? priorities,
+      List<ProjectType>? types,
+      List<ProjectStatus>? statuses});
+}
 
-  factory _ProjectCategoryData.fromJson(Map<String, dynamic> json) =
-      _$ProjectCategoryDataImpl.fromJson;
+/// @nodoc
+class __$ProjectCategoryDataCopyWithImpl<$Res>
+    implements _$ProjectCategoryDataCopyWith<$Res> {
+  __$ProjectCategoryDataCopyWithImpl(this._self, this._then);
 
-  @override
-  List<ProjectCategory>? get categories;
-  @override
-  List<ProjectPhase>? get phases;
-  @override
-  List<ProjectPriority>? get priorities;
-  @override
-  List<ProjectType>? get types;
-  @override
-  List<ProjectStatus>? get statuses;
+  final _ProjectCategoryData _self;
+  final $Res Function(_ProjectCategoryData) _then;
 
   /// Create a copy of ProjectCategoryData
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectCategoryDataImplCopyWith<_$ProjectCategoryDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ProjectCategoryDataModel _$ProjectCategoryDataModelFromJson(
-    Map<String, dynamic> json) {
-  return _ProjectCategoryDataModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ProjectCategoryDataModel {
-  String? get message => throw _privateConstructorUsedError;
-  bool? get status => throw _privateConstructorUsedError;
-  ProjectCategoryData? get data => throw _privateConstructorUsedError;
-
-  /// Serializes this ProjectCategoryDataModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProjectCategoryDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProjectCategoryDataModelCopyWith<ProjectCategoryDataModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProjectCategoryDataModelCopyWith<$Res> {
-  factory $ProjectCategoryDataModelCopyWith(ProjectCategoryDataModel value,
-          $Res Function(ProjectCategoryDataModel) then) =
-      _$ProjectCategoryDataModelCopyWithImpl<$Res, ProjectCategoryDataModel>;
-  @useResult
-  $Res call({String? message, bool? status, ProjectCategoryData? data});
-
-  $ProjectCategoryDataCopyWith<$Res>? get data;
-}
-
-/// @nodoc
-class _$ProjectCategoryDataModelCopyWithImpl<$Res,
-        $Val extends ProjectCategoryDataModel>
-    implements $ProjectCategoryDataModelCopyWith<$Res> {
-  _$ProjectCategoryDataModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ProjectCategoryDataModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? message = freezed,
-    Object? status = freezed,
-    Object? data = freezed,
+    Object? categories = freezed,
+    Object? phases = freezed,
+    Object? priorities = freezed,
+    Object? types = freezed,
+    Object? statuses = freezed,
   }) {
-    return _then(_value.copyWith(
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as ProjectCategoryData?,
-    ) as $Val);
-  }
-
-  /// Create a copy of ProjectCategoryDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ProjectCategoryDataCopyWith<$Res>? get data {
-    if (_value.data == null) {
-      return null;
-    }
-
-    return $ProjectCategoryDataCopyWith<$Res>(_value.data!, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$ProjectCategoryDataModelImplCopyWith<$Res>
-    implements $ProjectCategoryDataModelCopyWith<$Res> {
-  factory _$$ProjectCategoryDataModelImplCopyWith(
-          _$ProjectCategoryDataModelImpl value,
-          $Res Function(_$ProjectCategoryDataModelImpl) then) =
-      __$$ProjectCategoryDataModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? message, bool? status, ProjectCategoryData? data});
-
-  @override
-  $ProjectCategoryDataCopyWith<$Res>? get data;
-}
-
-/// @nodoc
-class __$$ProjectCategoryDataModelImplCopyWithImpl<$Res>
-    extends _$ProjectCategoryDataModelCopyWithImpl<$Res,
-        _$ProjectCategoryDataModelImpl>
-    implements _$$ProjectCategoryDataModelImplCopyWith<$Res> {
-  __$$ProjectCategoryDataModelImplCopyWithImpl(
-      _$ProjectCategoryDataModelImpl _value,
-      $Res Function(_$ProjectCategoryDataModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ProjectCategoryDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? message = freezed,
-    Object? status = freezed,
-    Object? data = freezed,
-  }) {
-    return _then(_$ProjectCategoryDataModelImpl(
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as ProjectCategoryData?,
+    return _then(_ProjectCategoryData(
+      categories: freezed == categories
+          ? _self._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<ProjectCategory>?,
+      phases: freezed == phases
+          ? _self._phases
+          : phases // ignore: cast_nullable_to_non_nullable
+              as List<ProjectPhase>?,
+      priorities: freezed == priorities
+          ? _self._priorities
+          : priorities // ignore: cast_nullable_to_non_nullable
+              as List<ProjectPriority>?,
+      types: freezed == types
+          ? _self._types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<ProjectType>?,
+      statuses: freezed == statuses
+          ? _self._statuses
+          : statuses // ignore: cast_nullable_to_non_nullable
+              as List<ProjectStatus>?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$ProjectCategoryDataModelImpl implements _ProjectCategoryDataModel {
-  const _$ProjectCategoryDataModelImpl({this.message, this.status, this.data});
+mixin _$ProjectCategoryDataModel {
+  String? get message;
+  bool? get status;
+  ProjectCategoryData? get data;
 
-  factory _$ProjectCategoryDataModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProjectCategoryDataModelImplFromJson(json);
+  /// Create a copy of ProjectCategoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ProjectCategoryDataModelCopyWith<ProjectCategoryDataModel> get copyWith =>
+      _$ProjectCategoryDataModelCopyWithImpl<ProjectCategoryDataModel>(
+          this as ProjectCategoryDataModel, _$identity);
 
-  @override
-  final String? message;
-  @override
-  final bool? status;
-  @override
-  final ProjectCategoryData? data;
-
-  @override
-  String toString() {
-    return 'ProjectCategoryDataModel(message: $message, status: $status, data: $data)';
-  }
+  /// Serializes this ProjectCategoryDataModel to a JSON map.
+  Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProjectCategoryDataModelImpl &&
+            other is ProjectCategoryDataModel &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.data, data) || other.data == data));
@@ -1300,43 +1115,181 @@ class _$ProjectCategoryDataModelImpl implements _ProjectCategoryDataModel {
   @override
   int get hashCode => Object.hash(runtimeType, message, status, data);
 
-  /// Create a copy of ProjectCategoryDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ProjectCategoryDataModelImplCopyWith<_$ProjectCategoryDataModelImpl>
-      get copyWith => __$$ProjectCategoryDataModelImplCopyWithImpl<
-          _$ProjectCategoryDataModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProjectCategoryDataModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ProjectCategoryDataModel(message: $message, status: $status, data: $data)';
   }
 }
 
-abstract class _ProjectCategoryDataModel implements ProjectCategoryDataModel {
-  const factory _ProjectCategoryDataModel(
-      {final String? message,
-      final bool? status,
-      final ProjectCategoryData? data}) = _$ProjectCategoryDataModelImpl;
+/// @nodoc
+abstract mixin class $ProjectCategoryDataModelCopyWith<$Res> {
+  factory $ProjectCategoryDataModelCopyWith(ProjectCategoryDataModel value,
+          $Res Function(ProjectCategoryDataModel) _then) =
+      _$ProjectCategoryDataModelCopyWithImpl;
+  @useResult
+  $Res call({String? message, bool? status, ProjectCategoryData? data});
 
-  factory _ProjectCategoryDataModel.fromJson(Map<String, dynamic> json) =
-      _$ProjectCategoryDataModelImpl.fromJson;
+  $ProjectCategoryDataCopyWith<$Res>? get data;
+}
+
+/// @nodoc
+class _$ProjectCategoryDataModelCopyWithImpl<$Res>
+    implements $ProjectCategoryDataModelCopyWith<$Res> {
+  _$ProjectCategoryDataModelCopyWithImpl(this._self, this._then);
+
+  final ProjectCategoryDataModel _self;
+  final $Res Function(ProjectCategoryDataModel) _then;
+
+  /// Create a copy of ProjectCategoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = freezed,
+    Object? status = freezed,
+    Object? data = freezed,
+  }) {
+    return _then(_self.copyWith(
+      message: freezed == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      data: freezed == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ProjectCategoryData?,
+    ));
+  }
+
+  /// Create a copy of ProjectCategoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProjectCategoryDataCopyWith<$Res>? get data {
+    if (_self.data == null) {
+      return null;
+    }
+
+    return $ProjectCategoryDataCopyWith<$Res>(_self.data!, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _ProjectCategoryDataModel implements ProjectCategoryDataModel {
+  const _ProjectCategoryDataModel({this.message, this.status, this.data});
+  factory _ProjectCategoryDataModel.fromJson(Map<String, dynamic> json) =>
+      _$ProjectCategoryDataModelFromJson(json);
 
   @override
-  String? get message;
+  final String? message;
   @override
-  bool? get status;
+  final bool? status;
   @override
-  ProjectCategoryData? get data;
+  final ProjectCategoryData? data;
 
   /// Create a copy of ProjectCategoryDataModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProjectCategoryDataModelImplCopyWith<_$ProjectCategoryDataModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  _$ProjectCategoryDataModelCopyWith<_ProjectCategoryDataModel> get copyWith =>
+      __$ProjectCategoryDataModelCopyWithImpl<_ProjectCategoryDataModel>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectCategoryDataModelToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ProjectCategoryDataModel &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, message, status, data);
+
+  @override
+  String toString() {
+    return 'ProjectCategoryDataModel(message: $message, status: $status, data: $data)';
+  }
 }
+
+/// @nodoc
+abstract mixin class _$ProjectCategoryDataModelCopyWith<$Res>
+    implements $ProjectCategoryDataModelCopyWith<$Res> {
+  factory _$ProjectCategoryDataModelCopyWith(_ProjectCategoryDataModel value,
+          $Res Function(_ProjectCategoryDataModel) _then) =
+      __$ProjectCategoryDataModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String? message, bool? status, ProjectCategoryData? data});
+
+  @override
+  $ProjectCategoryDataCopyWith<$Res>? get data;
+}
+
+/// @nodoc
+class __$ProjectCategoryDataModelCopyWithImpl<$Res>
+    implements _$ProjectCategoryDataModelCopyWith<$Res> {
+  __$ProjectCategoryDataModelCopyWithImpl(this._self, this._then);
+
+  final _ProjectCategoryDataModel _self;
+  final $Res Function(_ProjectCategoryDataModel) _then;
+
+  /// Create a copy of ProjectCategoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? message = freezed,
+    Object? status = freezed,
+    Object? data = freezed,
+  }) {
+    return _then(_ProjectCategoryDataModel(
+      message: freezed == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      data: freezed == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ProjectCategoryData?,
+    ));
+  }
+
+  /// Create a copy of ProjectCategoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProjectCategoryDataCopyWith<$Res>? get data {
+    if (_self.data == null) {
+      return null;
+    }
+
+    return $ProjectCategoryDataCopyWith<$Res>(_self.data!, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
+}
+
+// dart format on

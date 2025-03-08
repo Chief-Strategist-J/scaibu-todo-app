@@ -96,8 +96,6 @@ class LoginUseCase extends UseCase<LoginEntity, Map<String, dynamic>> {
     final Map<String, dynamic> params,
   ) async {
     try {
-      toast('Logging in...', bgColor: cardColor);
-
       final LoginEntity auth = await authRepository.standardSignIn(params);
 
       await _storeCred(auth);

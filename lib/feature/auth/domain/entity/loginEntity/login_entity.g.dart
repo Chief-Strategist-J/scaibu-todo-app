@@ -6,8 +6,7 @@ part of 'login_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$LoginEntityImpl _$$LoginEntityImplFromJson(Map<String, dynamic> json) =>
-    _$LoginEntityImpl(
+_LoginEntity _$LoginEntityFromJson(Map<String, dynamic> json) => _LoginEntity(
       isLogin: json['isLogin'] as bool?,
       isSignUp: json['isSignUp'] as bool?,
       accessToken: json['accessToken'] as String?,
@@ -16,7 +15,7 @@ _$LoginEntityImpl _$$LoginEntityImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$$LoginEntityImplToJson(_$LoginEntityImpl instance) =>
+Map<String, dynamic> _$LoginEntityToJson(_LoginEntity instance) =>
     <String, dynamic>{
       'isLogin': instance.isLogin,
       'isSignUp': instance.isSignUp,

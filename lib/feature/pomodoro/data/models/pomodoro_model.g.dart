@@ -6,8 +6,8 @@ part of 'pomodoro_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PomodoroModelImpl _$$PomodoroModelImplFromJson(Map<String, dynamic> json) =>
-    _$PomodoroModelImpl(
+_PomodoroModel _$PomodoroModelFromJson(Map<String, dynamic> json) =>
+    _PomodoroModel(
       uuid: json['uuid'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -29,7 +29,7 @@ _$PomodoroModelImpl _$$PomodoroModelImplFromJson(Map<String, dynamic> json) =>
       projectId: (json['projectId'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$PomodoroModelImplToJson(_$PomodoroModelImpl instance) =>
+Map<String, dynamic> _$PomodoroModelToJson(_PomodoroModel instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
       'title': instance.title,

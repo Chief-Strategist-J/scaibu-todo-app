@@ -28,7 +28,7 @@ class ProjectRepositoryImpl implements ProjectRepository<ProjectEntity> {
       projectRemoteDataSource.createProject(data);
 
   @override
-  Future<void> deleteProject(final String id) async =>
+  Future<void> deleteProject(final int id) async =>
       projectRemoteDataSource.deleteProject(id);
 
   @override

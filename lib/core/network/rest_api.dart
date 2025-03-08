@@ -1,10 +1,9 @@
-import 'package:http/http.dart' as http show Response;
 import 'package:todo_app/core/app_library.dart';
 
 /// Abstract interface for making REST API requests and handling responses.
 abstract interface class RestApi {
   /// Makes a REST API request.
-  Future<http.Response> request<T>({
+  Future<T> request<T>({
     required final String endPoint,
     final HttpRequestMethod type = HttpRequestMethod.get,
     final Map<String, dynamic> requestBody = const <String, dynamic>{},

@@ -4,7 +4,7 @@ part 'login_model.freezed.dart';
 part 'login_model.g.dart';
 /// Doc Required
 @freezed
-class LoginModel with _$LoginModel, LoginEntityMixin {
+abstract class LoginModel with _$LoginModel, LoginEntityMixin {
   // Add this line
   /// Doc Required
   const factory LoginModel({

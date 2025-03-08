@@ -12,7 +12,6 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
   static const String _hiveBoxName = 'todo_list_cache';
   static const String _hiveKey = 'todo_list';
   static const String _cacheTimeKey = 'cache_time';
-  static const Duration _cacheDuration = Duration(days: 7);
   static const String _encryptionKeyKey = 'encryption_key';
 
   late encrypt.Encrypter _encrypter;
@@ -49,37 +48,6 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
     return newKey;
   }
 
-  Future<List<TodoEntity>?> _getCachedTodos(final Box<dynamic> box) async {
-    final String? storedData = box.get(_hiveKey) as String?;
-    final String? cacheTime = box.get(_cacheTimeKey) as String?;
-
-    if (storedData != null &&
-        cacheTime != null &&
-        !_isCacheExpired(cacheTime)) {
-      try {
-        final List<String> parts = storedData.split(':');
-        if (parts.length != 2) {
-          return null;
-        }
-
-        final encrypt.IV iv = encrypt.IV.fromBase64(parts[0]);
-        final String encryptedData = parts[1];
-
-        final String decryptedData =
-            _encrypter.decrypt64(encryptedData, iv: iv);
-        final dynamic decodedData = jsonDecode(decryptedData);
-
-        return (decodedData as List<Map<String, dynamic>>)
-            .map(TodoEntity.fromJson)
-            .toList();
-      } catch (e) {
-        await logService.crashLog(errorMessage: 'Decryption error: $e', e: e);
-        return null;
-      }
-    }
-    return null;
-  }
-
   /// Doc Required
   static Future<void> clearEncryptedCache() async {
     final Box<dynamic> box = await Hive.openBox(_hiveBoxName);
@@ -106,11 +74,6 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
     await box.put(_cacheTimeKey, DateTime.now().toIso8601String());
   }
 
-  bool _isCacheExpired(final String cacheTimeString) {
-    final DateTime cacheTime = DateTime.parse(cacheTimeString);
-    return DateTime.now().isAfter(cacheTime.add(_cacheDuration));
-  }
-
   // Fetch list from the remotes database
   Future<List<TodoEntity>> _fetchRemoteList() async {
     try {
@@ -132,8 +95,7 @@ class GetTodoListUseCase extends UseCase<List<TodoEntity>, bool> {
 
       final Box<dynamic> box = await Hive.openBox(_hiveBoxName);
 
-      final List<TodoEntity> cachedTodos =
-         /* await _getCachedTodos(box) ?? */await _fetchAndCacheTodos(box);
+      final List<TodoEntity> cachedTodos = await _fetchAndCacheTodos(box);
 
       return Right<Failure, List<TodoEntity>>(cachedTodos);
     } catch (e, s) {

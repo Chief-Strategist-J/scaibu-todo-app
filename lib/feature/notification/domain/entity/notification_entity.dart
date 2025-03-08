@@ -2,11 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_app/feature/notification/data/model/notification_model.dart';
 
 part 'notification_entity.freezed.dart';
+
 part 'notification_entity.g.dart';
 
 /// Doc Required
 @freezed
-class NotificationEntity with _$NotificationEntity, NotificationEntityMixin {
+abstract class NotificationEntity
+    with _$NotificationEntity, NotificationEntityMixin {
   /// Doc Required
   const factory NotificationEntity({
     required final int id,
@@ -37,6 +39,8 @@ class NotificationEntity with _$NotificationEntity, NotificationEntityMixin {
     final int? responseCode,
     final DateTime? deletedAt,
   }) = _NotificationEntity;
+
+  const NotificationEntity._();
 
   /// Doc Required
   factory NotificationEntity.fromJson(final Map<String, dynamic> json) =>

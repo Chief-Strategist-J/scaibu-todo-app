@@ -5,7 +5,7 @@ part 'user_model.g.dart';
 
 /// Doc Required
 @freezed
-class UserModel with _$UserModel, UserEntityMixin { // Add this line
+abstract class UserModel with _$UserModel, UserEntityMixin { // Add this line
 
   /// Doc Required
   const factory UserModel({

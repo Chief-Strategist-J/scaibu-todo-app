@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'project_model.freezed.dart';
+
 part 'project_model.g.dart';
 
 /// Mixin that defines the common interface for a project entity.
@@ -143,9 +144,10 @@ mixin ProjectModelMixin {
   /// Doc Required
   DateTime? get updatedAt;
 }
+
 /// Doc Required
 @freezed
-class ProjectModel with _$ProjectModel, ProjectModelMixin {
+abstract class ProjectModel with _$ProjectModel, ProjectModelMixin {
   /// Doc Required
   const factory ProjectModel({
     final String? uuid,
@@ -195,6 +197,8 @@ class ProjectModel with _$ProjectModel, ProjectModelMixin {
     final DateTime? createdAt,
     final DateTime? updatedAt,
   }) = _ProjectModel;
+
+  const ProjectModel._();
 
   /// Doc Required
   factory ProjectModel.fromJson(final Map<String, dynamic> json) =>

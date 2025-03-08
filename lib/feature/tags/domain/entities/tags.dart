@@ -6,7 +6,7 @@ part 'tags.g.dart';
 
 /// Doc Required
 @freezed
-class TagEntity with _$TagEntity {
+abstract class TagEntity with _$TagEntity {
   /// Doc Required
   const factory TagEntity({
     final int? id,

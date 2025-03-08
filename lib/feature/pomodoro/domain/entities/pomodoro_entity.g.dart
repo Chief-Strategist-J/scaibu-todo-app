@@ -6,8 +6,8 @@ part of 'pomodoro_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PomodoroEntityImpl _$$PomodoroEntityImplFromJson(Map<String, dynamic> json) =>
-    _$PomodoroEntityImpl(
+_PomodoroEntity _$PomodoroEntityFromJson(Map<String, dynamic> json) =>
+    _PomodoroEntity(
       uuid: json['uuid'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -29,8 +29,7 @@ _$PomodoroEntityImpl _$$PomodoroEntityImplFromJson(Map<String, dynamic> json) =>
       projectId: (json['projectId'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$PomodoroEntityImplToJson(
-        _$PomodoroEntityImpl instance) =>
+Map<String, dynamic> _$PomodoroEntityToJson(_PomodoroEntity instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
       'title': instance.title,

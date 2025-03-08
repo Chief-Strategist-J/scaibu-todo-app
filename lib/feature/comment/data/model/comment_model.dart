@@ -41,7 +41,8 @@ mixin CommentEntityMixin {
 
 /// Doc Required
 @freezed
-class CommentModel with _$CommentModel, CommentEntityMixin {
+abstract class CommentModel with _$CommentModel, CommentEntityMixin {
+
   /// Doc Required
   const factory CommentModel({
     required final int id,
@@ -57,6 +58,7 @@ class CommentModel with _$CommentModel, CommentEntityMixin {
     final DateTime? deletedAt,
   }) = _CommentModel;
 
+  const CommentModel._();
   /// Doc Required
   factory CommentModel.fromJson(final Map<String, dynamic> json) =>
       _$CommentModelFromJson(json);

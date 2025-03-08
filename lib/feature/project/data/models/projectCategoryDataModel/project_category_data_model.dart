@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'project_category_data_model.freezed.dart';
+
 part 'project_category_data_model.g.dart';
 
 /// Doc Required
@@ -50,12 +51,14 @@ mixin StatusMixin {
 
 /// Doc Required
 @freezed
-class ProjectCategory with _$ProjectCategory, CategoryMixin {
+abstract class ProjectCategory with _$ProjectCategory, CategoryMixin {
   /// Doc Required
   const factory ProjectCategory({
     final int? id,
     final String? name,
   }) = _ProjectCategory;
+
+  const ProjectCategory._();
 
   /// Doc Required
   factory ProjectCategory.fromJson(final Map<String, dynamic> json) =>
@@ -64,12 +67,14 @@ class ProjectCategory with _$ProjectCategory, CategoryMixin {
 
 /// Doc Required
 @freezed
-class ProjectPhase with _$ProjectPhase, PhaseMixin {
+abstract class ProjectPhase with _$ProjectPhase, PhaseMixin {
   /// Doc Required
   const factory ProjectPhase({
     final int? id,
     final String? name,
   }) = _ProjectPhase;
+
+  ProjectPhase._();
 
   /// Doc Required
   factory ProjectPhase.fromJson(final Map<String, dynamic> json) =>
@@ -78,12 +83,14 @@ class ProjectPhase with _$ProjectPhase, PhaseMixin {
 
 /// Doc Required
 @freezed
-class ProjectPriority with _$ProjectPriority, PriorityMixin {
+abstract class ProjectPriority with _$ProjectPriority, PriorityMixin {
   /// Doc Required
   const factory ProjectPriority({
     final int? id,
     final String? name,
   }) = _ProjectPriority;
+
+  ProjectPriority._();
 
   /// Doc Required
   factory ProjectPriority.fromJson(final Map<String, dynamic> json) =>
@@ -92,12 +99,14 @@ class ProjectPriority with _$ProjectPriority, PriorityMixin {
 
 /// Doc Required
 @freezed
-class ProjectType with _$ProjectType, TypeMixin {
+abstract class ProjectType with _$ProjectType, TypeMixin {
   /// Doc Required
   const factory ProjectType({
     final int? id,
     final String? name,
   }) = _ProjectType;
+
+  ProjectType._();
 
   /// Doc Required
   factory ProjectType.fromJson(final Map<String, dynamic> json) =>
@@ -106,12 +115,14 @@ class ProjectType with _$ProjectType, TypeMixin {
 
 /// Doc Required
 @freezed
-class ProjectStatus with _$ProjectStatus, StatusMixin {
+abstract class ProjectStatus with _$ProjectStatus, StatusMixin {
   /// Doc Required
   const factory ProjectStatus({
     final int? id,
     final String? name,
   }) = _ProjectStatus;
+
+  ProjectStatus._();
 
   /// Doc Required
   factory ProjectStatus.fromJson(final Map<String, dynamic> json) =>
@@ -120,7 +131,7 @@ class ProjectStatus with _$ProjectStatus, StatusMixin {
 
 /// Doc Required
 @freezed
-class ProjectCategoryData with _$ProjectCategoryData {
+abstract class ProjectCategoryData with _$ProjectCategoryData {
   /// Doc Required
   const factory ProjectCategoryData({
     final List<ProjectCategory>? categories,
@@ -137,7 +148,7 @@ class ProjectCategoryData with _$ProjectCategoryData {
 
 /// Doc Required
 @freezed
-class ProjectCategoryDataModel with _$ProjectCategoryDataModel {
+abstract class ProjectCategoryDataModel with _$ProjectCategoryDataModel {
   /// Doc Required
   const factory ProjectCategoryDataModel({
     final String? message,

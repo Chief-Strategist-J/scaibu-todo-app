@@ -70,7 +70,7 @@ mixin PomodoroModelMixin {
 /// Doc Required
 
 @freezed
-class PomodoroModel with _$PomodoroModel, PomodoroModelMixin {
+abstract class PomodoroModel with _$PomodoroModel, PomodoroModelMixin {
   /// Doc Required
 
   const factory PomodoroModel({
@@ -90,6 +90,8 @@ class PomodoroModel with _$PomodoroModel, PomodoroModelMixin {
     final int? userId,
     final int? projectId,
   }) = _PomodoroModel;
+
+  const PomodoroModel._();
 
   /// Doc Required
 

@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "16e298750b6d0af7ce8a3ba7c18c69c3785d11b15ec83f6dcd0ad2a0009b3cab"
+      sha256: dc27559385e905ad30838356c5f5d574014ba39872d732111cd07ac0beff4c57
       url: "https://pub.dev"
     source: hosted
-    version: "76.0.0"
+    version: "80.0.0"
   _flutterfire_internals:
     dependency: transitive
     description:
@@ -17,19 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.52"
-  _macros:
-    dependency: transitive
-    description: dart
-    source: sdk
-    version: "0.3.3"
   analyzer:
     dependency: "direct main"
     description:
       name: analyzer
-      sha256: "1f14db053a8c23e260789e9b0980fa27f2680dd640932cae5e1137cce0e46e1e"
+      sha256: "192d1c5b944e7e53b24b5586db760db934b177d4147c42fbca8c8c5f1eb8d11e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.11.0"
+    version: "7.3.0"
   app_links:
     dependency: transitive
     description:
@@ -732,10 +727,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "1c2b787f99bdca1f3718543f81d38aa1b124817dfeb9fb196201bea85b6134bf"
+      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.26"
+    version: "2.0.27"
   flutter_riverpod:
     dependency: transitive
     description:
@@ -830,18 +825,18 @@ packages:
     dependency: "direct main"
     description:
       name: freezed
-      sha256: "62b248b2dfb06ded10c84b713215b25aea020a5b08c32e801a974361557ebc3f"
+      sha256: a6274c34d61b3d68082f2b0e9a641a3ec197e525d269f35b82f62d5b2c6d9f75
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0-0.0.dev"
+    version: "3.0.3"
   freezed_annotation:
     dependency: "direct main"
     description:
       name: freezed_annotation
-      sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
+      sha256: c87ff004c8aa6af2d531668b46a4ea379f7191dc6dfa066acd53d506da6e044b
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "3.0.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -1014,10 +1009,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "82652a75e3dd667a91187769a6a2cc81bd8c111bbead698d8e938d2b63e5e89a"
+      sha256: "8bd392ba8b0c8957a157ae0dc9fcf48c58e6c20908d5880aea1d79734df090e9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.12+21"
+    version: "0.8.12+22"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -1178,14 +1173,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
-  macros:
-    dependency: transitive
-    description:
-      name: macros
-      sha256: "1d9e801cd66f7ea3663c45fc708450db1fa57f988142c64289142c9b7ee80656"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.3-main.0"
   matcher:
     dependency: transitive
     description:
@@ -1290,6 +1277,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  onesignal_flutter:
+    dependency: "direct main"
+    description:
+      name: onesignal_flutter
+      sha256: f1bc3cfa7bf8f9d06977f305802a0dcd31b007a9f95910c41b14bc99c3612828
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.0"
   open_file:
     dependency: transitive
     description:
@@ -1455,7 +1450,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: b1a2c9bf551deb04eeac842770a32a8c607ef699
+      resolved-ref: "1151ab53aad1faa3b40057ea17d800072a08d56f"
       url: "https://github.com/Scaibu/pillu_app.git"
     source: git
     version: "1.0.0+1"
@@ -1900,10 +1895,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "6fc2f56536ee873eeb867ad176ae15f304ccccc357848b351f6f0d8d4a40d193"
+      sha256: "1d0eae19bd7606ef60fe69ef3b312a437a16549476c42321d5dc1506c9ca3bf4"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.14"
+    version: "6.3.15"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -2016,14 +2011,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  weather_animation:
-    dependency: transitive
-    description:
-      name: weather_animation
-      sha256: "86165579ce94deed46064ccc6078333d0e54963a19fad23296d286f3f57ebaac"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   web:
     dependency: transitive
     description:

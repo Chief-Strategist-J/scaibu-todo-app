@@ -6,8 +6,7 @@ part of 'todo_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TodoEntityImpl _$$TodoEntityImplFromJson(Map<String, dynamic> json) =>
-    _$TodoEntityImpl(
+_TodoEntity _$TodoEntityFromJson(Map<String, dynamic> json) => _TodoEntity(
       todoId: (json['todoId'] as num?)?.toInt(),
       firebaseTodoId: json['firebaseTodoId'] as String?,
       title: json['title'] as String?,
@@ -50,7 +49,7 @@ _$TodoEntityImpl _$$TodoEntityImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$TodoEntityImplToJson(_$TodoEntityImpl instance) =>
+Map<String, dynamic> _$TodoEntityToJson(_TodoEntity instance) =>
     <String, dynamic>{
       'todoId': instance.todoId,
       'firebaseTodoId': instance.firebaseTodoId,

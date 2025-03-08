@@ -5,7 +5,7 @@ part 'comment_entity.g.dart';
 
 /// Doc Required
 @freezed
-class CommentEntity with _$CommentEntity {
+abstract class CommentEntity with _$CommentEntity {
   /// Doc Required
   const factory CommentEntity({
     required final int id,

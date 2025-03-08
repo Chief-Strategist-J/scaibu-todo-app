@@ -6,9 +6,8 @@ part of 'notification_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationEntityImpl _$$NotificationEntityImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationEntityImpl(
+_NotificationEntity _$NotificationEntityFromJson(Map<String, dynamic> json) =>
+    _NotificationEntity(
       id: (json['id'] as num).toInt(),
       userId: (json['userId'] as num).toInt(),
       uuid: json['uuid'] as String,
@@ -46,8 +45,7 @@ _$NotificationEntityImpl _$$NotificationEntityImplFromJson(
           : DateTime.parse(json['deletedAt'] as String),
     );
 
-Map<String, dynamic> _$$NotificationEntityImplToJson(
-        _$NotificationEntityImpl instance) =>
+Map<String, dynamic> _$NotificationEntityToJson(_NotificationEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,

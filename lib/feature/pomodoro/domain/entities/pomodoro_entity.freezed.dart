@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,170 +10,98 @@ part of 'pomodoro_entity.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PomodoroEntity _$PomodoroEntityFromJson(Map<String, dynamic> json) {
-  return _PomodoroEntity.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PomodoroEntity {
-  String? get uuid => throw _privateConstructorUsedError;
-  String? get title => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  int? get duration => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
-  DateTime? get startTime => throw _privateConstructorUsedError;
-  DateTime? get endTime => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
-  String? get priority => throw _privateConstructorUsedError;
-  String? get tags => throw _privateConstructorUsedError;
-  bool? get isCompleted => throw _privateConstructorUsedError;
-  bool? get isArchived => throw _privateConstructorUsedError;
-  int? get todoId => throw _privateConstructorUsedError;
-  int? get userId => throw _privateConstructorUsedError;
-  int? get projectId => throw _privateConstructorUsedError;
-
-  /// Serializes this PomodoroEntity to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get uuid;
+  String? get title;
+  String? get description;
+  int? get duration;
+  String? get status;
+  DateTime? get startTime;
+  DateTime? get endTime;
+  Map<String, dynamic>? get metadata;
+  String? get priority;
+  String? get tags;
+  bool? get isCompleted;
+  bool? get isArchived;
+  int? get todoId;
+  int? get userId;
+  int? get projectId;
 
   /// Create a copy of PomodoroEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PomodoroEntityCopyWith<PomodoroEntity> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PomodoroEntityCopyWith<$Res> {
-  factory $PomodoroEntityCopyWith(
-          PomodoroEntity value, $Res Function(PomodoroEntity) then) =
-      _$PomodoroEntityCopyWithImpl<$Res, PomodoroEntity>;
-  @useResult
-  $Res call(
-      {String? uuid,
-      String? title,
-      String? description,
-      int? duration,
-      String? status,
-      DateTime? startTime,
-      DateTime? endTime,
-      Map<String, dynamic>? metadata,
-      String? priority,
-      String? tags,
-      bool? isCompleted,
-      bool? isArchived,
-      int? todoId,
-      int? userId,
-      int? projectId});
-}
-
-/// @nodoc
-class _$PomodoroEntityCopyWithImpl<$Res, $Val extends PomodoroEntity>
-    implements $PomodoroEntityCopyWith<$Res> {
-  _$PomodoroEntityCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PomodoroEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $PomodoroEntityCopyWith<PomodoroEntity> get copyWith =>
+      _$PomodoroEntityCopyWithImpl<PomodoroEntity>(
+          this as PomodoroEntity, _$identity);
+
+  /// Serializes this PomodoroEntity to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? uuid = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? duration = freezed,
-    Object? status = freezed,
-    Object? startTime = freezed,
-    Object? endTime = freezed,
-    Object? metadata = freezed,
-    Object? priority = freezed,
-    Object? tags = freezed,
-    Object? isCompleted = freezed,
-    Object? isArchived = freezed,
-    Object? todoId = freezed,
-    Object? userId = freezed,
-    Object? projectId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      uuid: freezed == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      duration: freezed == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as int?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      startTime: freezed == startTime
-          ? _value.startTime
-          : startTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      endTime: freezed == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      metadata: freezed == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      priority: freezed == priority
-          ? _value.priority
-          : priority // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isCompleted: freezed == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isArchived: freezed == isArchived
-          ? _value.isArchived
-          : isArchived // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      todoId: freezed == todoId
-          ? _value.todoId
-          : todoId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      projectId: freezed == projectId
-          ? _value.projectId
-          : projectId // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PomodoroEntity &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            const DeepCollectionEquality().equals(other.metadata, metadata) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority) &&
+            (identical(other.tags, tags) || other.tags == tags) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted) &&
+            (identical(other.isArchived, isArchived) ||
+                other.isArchived == isArchived) &&
+            (identical(other.todoId, todoId) || other.todoId == todoId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.projectId, projectId) ||
+                other.projectId == projectId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      uuid,
+      title,
+      description,
+      duration,
+      status,
+      startTime,
+      endTime,
+      const DeepCollectionEquality().hash(metadata),
+      priority,
+      tags,
+      isCompleted,
+      isArchived,
+      todoId,
+      userId,
+      projectId);
+
+  @override
+  String toString() {
+    return 'PomodoroEntity(uuid: $uuid, title: $title, description: $description, duration: $duration, status: $status, startTime: $startTime, endTime: $endTime, metadata: $metadata, priority: $priority, tags: $tags, isCompleted: $isCompleted, isArchived: $isArchived, todoId: $todoId, userId: $userId, projectId: $projectId)';
   }
 }
 
 /// @nodoc
-abstract class _$$PomodoroEntityImplCopyWith<$Res>
-    implements $PomodoroEntityCopyWith<$Res> {
-  factory _$$PomodoroEntityImplCopyWith(_$PomodoroEntityImpl value,
-          $Res Function(_$PomodoroEntityImpl) then) =
-      __$$PomodoroEntityImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PomodoroEntityCopyWith<$Res> {
+  factory $PomodoroEntityCopyWith(
+          PomodoroEntity value, $Res Function(PomodoroEntity) _then) =
+      _$PomodoroEntityCopyWithImpl;
   @useResult
   $Res call(
       {String? uuid,
@@ -193,12 +122,12 @@ abstract class _$$PomodoroEntityImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$PomodoroEntityImplCopyWithImpl<$Res>
-    extends _$PomodoroEntityCopyWithImpl<$Res, _$PomodoroEntityImpl>
-    implements _$$PomodoroEntityImplCopyWith<$Res> {
-  __$$PomodoroEntityImplCopyWithImpl(
-      _$PomodoroEntityImpl _value, $Res Function(_$PomodoroEntityImpl) _then)
-      : super(_value, _then);
+class _$PomodoroEntityCopyWithImpl<$Res>
+    implements $PomodoroEntityCopyWith<$Res> {
+  _$PomodoroEntityCopyWithImpl(this._self, this._then);
+
+  final PomodoroEntity _self;
+  final $Res Function(PomodoroEntity) _then;
 
   /// Create a copy of PomodoroEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -221,65 +150,65 @@ class __$$PomodoroEntityImplCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? projectId = freezed,
   }) {
-    return _then(_$PomodoroEntityImpl(
+    return _then(_self.copyWith(
       uuid: freezed == uuid
-          ? _value.uuid
+          ? _self.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String?,
       title: freezed == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
       duration: freezed == duration
-          ? _value.duration
+          ? _self.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as int?,
       status: freezed == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
       startTime: freezed == startTime
-          ? _value.startTime
+          ? _self.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       endTime: freezed == endTime
-          ? _value.endTime
+          ? _self.endTime
           : endTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       metadata: freezed == metadata
-          ? _value._metadata
+          ? _self.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       priority: freezed == priority
-          ? _value.priority
+          ? _self.priority
           : priority // ignore: cast_nullable_to_non_nullable
               as String?,
       tags: freezed == tags
-          ? _value.tags
+          ? _self.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as String?,
       isCompleted: freezed == isCompleted
-          ? _value.isCompleted
+          ? _self.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool?,
       isArchived: freezed == isArchived
-          ? _value.isArchived
+          ? _self.isArchived
           : isArchived // ignore: cast_nullable_to_non_nullable
               as bool?,
       todoId: freezed == todoId
-          ? _value.todoId
+          ? _self.todoId
           : todoId // ignore: cast_nullable_to_non_nullable
               as int?,
       userId: freezed == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int?,
       projectId: freezed == projectId
-          ? _value.projectId
+          ? _self.projectId
           : projectId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -288,8 +217,8 @@ class __$$PomodoroEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PomodoroEntityImpl implements _PomodoroEntity {
-  const _$PomodoroEntityImpl(
+class _PomodoroEntity implements PomodoroEntity {
+  const _PomodoroEntity(
       {this.uuid,
       this.title,
       this.description,
@@ -306,9 +235,8 @@ class _$PomodoroEntityImpl implements _PomodoroEntity {
       this.userId,
       this.projectId})
       : _metadata = metadata;
-
-  factory _$PomodoroEntityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PomodoroEntityImplFromJson(json);
+  factory _PomodoroEntity.fromJson(Map<String, dynamic> json) =>
+      _$PomodoroEntityFromJson(json);
 
   @override
   final String? uuid;
@@ -349,16 +277,26 @@ class _$PomodoroEntityImpl implements _PomodoroEntity {
   @override
   final int? projectId;
 
+  /// Create a copy of PomodoroEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'PomodoroEntity(uuid: $uuid, title: $title, description: $description, duration: $duration, status: $status, startTime: $startTime, endTime: $endTime, metadata: $metadata, priority: $priority, tags: $tags, isCompleted: $isCompleted, isArchived: $isArchived, todoId: $todoId, userId: $userId, projectId: $projectId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PomodoroEntityCopyWith<_PomodoroEntity> get copyWith =>
+      __$PomodoroEntityCopyWithImpl<_PomodoroEntity>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PomodoroEntityToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PomodoroEntityImpl &&
+            other is _PomodoroEntity &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -403,79 +341,130 @@ class _$PomodoroEntityImpl implements _PomodoroEntity {
       userId,
       projectId);
 
-  /// Create a copy of PomodoroEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PomodoroEntityImplCopyWith<_$PomodoroEntityImpl> get copyWith =>
-      __$$PomodoroEntityImplCopyWithImpl<_$PomodoroEntityImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PomodoroEntityImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PomodoroEntity(uuid: $uuid, title: $title, description: $description, duration: $duration, status: $status, startTime: $startTime, endTime: $endTime, metadata: $metadata, priority: $priority, tags: $tags, isCompleted: $isCompleted, isArchived: $isArchived, todoId: $todoId, userId: $userId, projectId: $projectId)';
   }
 }
 
-abstract class _PomodoroEntity implements PomodoroEntity {
-  const factory _PomodoroEntity(
-      {final String? uuid,
-      final String? title,
-      final String? description,
-      final int? duration,
-      final String? status,
-      final DateTime? startTime,
-      final DateTime? endTime,
-      final Map<String, dynamic>? metadata,
-      final String? priority,
-      final String? tags,
-      final bool? isCompleted,
-      final bool? isArchived,
-      final int? todoId,
-      final int? userId,
-      final int? projectId}) = _$PomodoroEntityImpl;
+/// @nodoc
+abstract mixin class _$PomodoroEntityCopyWith<$Res>
+    implements $PomodoroEntityCopyWith<$Res> {
+  factory _$PomodoroEntityCopyWith(
+          _PomodoroEntity value, $Res Function(_PomodoroEntity) _then) =
+      __$PomodoroEntityCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String? uuid,
+      String? title,
+      String? description,
+      int? duration,
+      String? status,
+      DateTime? startTime,
+      DateTime? endTime,
+      Map<String, dynamic>? metadata,
+      String? priority,
+      String? tags,
+      bool? isCompleted,
+      bool? isArchived,
+      int? todoId,
+      int? userId,
+      int? projectId});
+}
 
-  factory _PomodoroEntity.fromJson(Map<String, dynamic> json) =
-      _$PomodoroEntityImpl.fromJson;
+/// @nodoc
+class __$PomodoroEntityCopyWithImpl<$Res>
+    implements _$PomodoroEntityCopyWith<$Res> {
+  __$PomodoroEntityCopyWithImpl(this._self, this._then);
 
-  @override
-  String? get uuid;
-  @override
-  String? get title;
-  @override
-  String? get description;
-  @override
-  int? get duration;
-  @override
-  String? get status;
-  @override
-  DateTime? get startTime;
-  @override
-  DateTime? get endTime;
-  @override
-  Map<String, dynamic>? get metadata;
-  @override
-  String? get priority;
-  @override
-  String? get tags;
-  @override
-  bool? get isCompleted;
-  @override
-  bool? get isArchived;
-  @override
-  int? get todoId;
-  @override
-  int? get userId;
-  @override
-  int? get projectId;
+  final _PomodoroEntity _self;
+  final $Res Function(_PomodoroEntity) _then;
 
   /// Create a copy of PomodoroEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PomodoroEntityImplCopyWith<_$PomodoroEntityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? uuid = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? duration = freezed,
+    Object? status = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? metadata = freezed,
+    Object? priority = freezed,
+    Object? tags = freezed,
+    Object? isCompleted = freezed,
+    Object? isArchived = freezed,
+    Object? todoId = freezed,
+    Object? userId = freezed,
+    Object? projectId = freezed,
+  }) {
+    return _then(_PomodoroEntity(
+      uuid: freezed == uuid
+          ? _self.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title: freezed == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      duration: freezed == duration
+          ? _self.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: freezed == startTime
+          ? _self.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endTime: freezed == endTime
+          ? _self.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      metadata: freezed == metadata
+          ? _self._metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      priority: freezed == priority
+          ? _self.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tags: freezed == tags
+          ? _self.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isCompleted: freezed == isCompleted
+          ? _self.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isArchived: freezed == isArchived
+          ? _self.isArchived
+          : isArchived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      todoId: freezed == todoId
+          ? _self.todoId
+          : todoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: freezed == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      projectId: freezed == projectId
+          ? _self.projectId
+          : projectId // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

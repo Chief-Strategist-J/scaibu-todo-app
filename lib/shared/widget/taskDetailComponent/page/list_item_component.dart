@@ -27,9 +27,10 @@ class ListItemComponent<T> extends StatelessWidget {
           return currentState.selectedTagList
               .any((final TagEntity element) => element.slug == slug);
         } else {
-          final String? slug = (_entity as ProjectEntity).slug;
+          return true;
+          /*final String? slug = (_entity as ProjectEntity).slug;
           return currentState.selectedProjectList
-              .any((final ProjectEntity element) => element.slug == slug);
+              .any((final ProjectEntity element) => element.slug == slug);*/
         }
       });
 
@@ -64,8 +65,8 @@ class ListItemComponent<T> extends StatelessWidget {
                   16.width,
                   if (_entity is TagEntity)
                     Text((_entity as TagEntity).name.validate()),
-                  if (_entity is ProjectEntity)
-                    Text((_entity as ProjectEntity).name.validate()),
+                  /*if (_entity is ProjectEntity)
+                    Text((_entity as ProjectEntity).name.validate()),*/
                 ],
               ),
             ),

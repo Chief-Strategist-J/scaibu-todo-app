@@ -89,9 +89,13 @@ class Data {
     date = data['date'] as String?;
     description = data['description'] as String?;
     priority = data['priority'] as String?;
-    tagNames = data['tag_names'] != null
-        ? List<String>.from(data['tag_names'] as List<String>)
-        : <String>[];
+    if (data['tag_names'] != null) {
+      tagNames = (data['tag_names'] as List<dynamic>?)
+          ?.map((final dynamic e) => e.toString())
+          .toList();
+    } else {
+      tagNames = <String>[];
+    }
   }
 
   /// Doc Required

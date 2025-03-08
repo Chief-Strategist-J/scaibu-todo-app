@@ -47,7 +47,7 @@ mixin LoginEntityMixin {
 
 /// Login Entity
 @freezed
-class LoginEntity with _$LoginEntity {
+abstract class LoginEntity with _$LoginEntity {
   // Add this line
   /// Login Entity constructor
   const factory LoginEntity({

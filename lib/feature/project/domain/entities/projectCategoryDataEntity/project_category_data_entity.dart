@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'project_category_data_entity.freezed.dart';
+
 part 'project_category_data_entity.g.dart';
 
 /// Doc Required
 @freezed
-class ProjectCategoryEntity with _$ProjectCategoryEntity {
+abstract class ProjectCategoryEntity with _$ProjectCategoryEntity {
   /// Doc Required
   const factory ProjectCategoryEntity({
     final int? id,
@@ -19,7 +20,7 @@ class ProjectCategoryEntity with _$ProjectCategoryEntity {
 
 /// Doc Required
 @freezed
-class ProjectPhaseEntity with _$ProjectPhaseEntity {
+abstract class ProjectPhaseEntity with _$ProjectPhaseEntity {
   /// Doc Required
   const factory ProjectPhaseEntity({
     final int? id,
@@ -33,7 +34,7 @@ class ProjectPhaseEntity with _$ProjectPhaseEntity {
 
 /// Doc Required
 @freezed
-class ProjectPriorityEntity with _$ProjectPriorityEntity {
+abstract class ProjectPriorityEntity with _$ProjectPriorityEntity {
   /// Doc Required
   const factory ProjectPriorityEntity({
     final int? id,
@@ -47,7 +48,7 @@ class ProjectPriorityEntity with _$ProjectPriorityEntity {
 
 /// Doc Required
 @freezed
-class ProjectTypeEntity with _$ProjectTypeEntity {
+abstract class ProjectTypeEntity with _$ProjectTypeEntity {
   /// Doc Required
   const factory ProjectTypeEntity({
     final int? id,
@@ -61,7 +62,7 @@ class ProjectTypeEntity with _$ProjectTypeEntity {
 
 /// Doc Required
 @freezed
-class ProjectStatusEntity with _$ProjectStatusEntity {
+abstract class ProjectStatusEntity with _$ProjectStatusEntity {
   /// Doc Required
   const factory ProjectStatusEntity({
     final int? id,
@@ -75,7 +76,7 @@ class ProjectStatusEntity with _$ProjectStatusEntity {
 
 /// Doc Required
 @freezed
-class ProjectCategoryDataEntity with _$ProjectCategoryDataEntity {
+abstract class ProjectCategoryDataEntity with _$ProjectCategoryDataEntity {
   /// Doc Required
   const factory ProjectCategoryDataEntity({
     final List<ProjectCategoryEntity>? categories,
@@ -92,7 +93,8 @@ class ProjectCategoryDataEntity with _$ProjectCategoryDataEntity {
 
 /// Doc Required
 @freezed
-class ProjectCategoryDataModelEntity with _$ProjectCategoryDataModelEntity {
+abstract class ProjectCategoryDataModelEntity
+    with _$ProjectCategoryDataModelEntity {
   /// Doc Required
   const factory ProjectCategoryDataModelEntity({
     final String? message,

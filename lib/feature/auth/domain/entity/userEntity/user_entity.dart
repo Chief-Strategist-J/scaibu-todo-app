@@ -53,7 +53,7 @@ mixin UserEntityMixin {
 
 /// Doc Required
 @freezed
-class UserEntity with _$UserEntity {
+abstract class UserEntity with _$UserEntity {
   // Add this line
   /// Doc Required
   const factory UserEntity({
