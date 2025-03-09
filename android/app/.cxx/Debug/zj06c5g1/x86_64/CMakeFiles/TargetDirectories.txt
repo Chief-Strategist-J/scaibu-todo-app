@@ -1,2 +1,0 @@
-/home/j/live/scaibu-todo-app/android/app/.cxx/Debug/zj06c5g1/x86_64/CMakeFiles/edit_cache.dir
-/home/j/live/scaibu-todo-app/android/app/.cxx/Debug/zj06c5g1/x86_64/CMakeFiles/rebuild_cache.dir
