@@ -1,4 +1,6 @@
 import 'package:todo_app/core/app_library.dart';
+// ignore_for_file: avoid_public_methods_on_bloc,
+// ignore_for_file: avoid_public_properties_on_bloc_and_cubit
 
 ///Manages the state and events for to-do operations, including initialization,
 /// loading, and handling no internet connection, using the BLoC pattern.

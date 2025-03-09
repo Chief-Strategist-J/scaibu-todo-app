@@ -18,14 +18,14 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 
   /// Doc Required
 
-  final GetProjectCategoryDataUseCase projectCategory =
+  final GetProjectCategoryDataUseCase _projectCategory =
       getIt<GetProjectCategoryDataUseCase>(
     instanceName: ProjectDependencyInjection.getProjectCategoryDataUseCase,
   );
 
   /// Doc Required
 
-  final GetAllProjectsUseCase listOfProjectsUseCase =
+  final GetAllProjectsUseCase _listOfProjectsUseCase =
       getIt<GetAllProjectsUseCase>(
     instanceName: ProjectDependencyInjection.getAllProjectsUseCase,
   );
@@ -35,15 +35,15 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     final Emitter<ProjectState> emit,
   ) async {
     try {
-      await projectCategory.updateData();
+      await _projectCategory.updateData();
 
       final Either<Failure, ProjectCategoryDataModelEntity> res =
-          await projectCategory(NoParams());
+          await _projectCategory(NoParams());
 
-      await listOfProjectsUseCase.updateData();
+      await _listOfProjectsUseCase.updateData();
 
       final Either<Failure, List<ProjectEntity>> projectListRes =
-          await listOfProjectsUseCase(NoParams());
+          await _listOfProjectsUseCase(NoParams());
 
       res.fold(
         (final Failure failure) {
@@ -129,8 +129,4 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     add(InitProjectEvent());
   }
 
-  /// Doc Required
-  void getListOfProjects() {
-    //
-  }
 }

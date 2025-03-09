@@ -125,16 +125,7 @@ class TagsDependencyInjection {
       // Register TagBloc
       ..registerFactory<TagBloc>(
         instanceName: TagsDependencyInjection.tagBloc,
-        () => TagBloc(
-          tagsFirebaseRepository: getIt<TagsRepository<TagEntity>>(
-            instanceName:
-                TagsDependencyInjection.tagsRemoteFirebaseImplementation,
-          ),
-          tagsDatabaseRepository: getIt<TagsRepository<TagEntity>>(
-            instanceName:
-                TagsDependencyInjection.tagsRemoteDatabaseImplementation,
-          ),
-        ),
+        TagBloc.new,
       )
       ..registerSingleton<ArchiveTagUseCase>(
         instanceName: TagsDependencyInjection.archiveTagUseCase,

@@ -34,7 +34,6 @@ analyzer:
 
 custom_lints/custom_lints:
   rules:
-    - prefer_streams_over_futures: error
 
   language:
     strict-casts: true

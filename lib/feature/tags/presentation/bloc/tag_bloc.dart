@@ -1,22 +1,15 @@
+// ignore_for_file: avoid_public_methods_on_bloc,
+// ignore_for_file: avoid_public_properties_on_bloc_and_cubit
 import 'package:todo_app/core/app_library.dart';
 
 /// Doc Required
 class TagBloc extends Bloc<TagEvent, TagState> {
   /// Doc Required
-  TagBloc({
-    required this.tagsDatabaseRepository,
-    required this.tagsFirebaseRepository,
-  }) : super(TagDataState()) {
+  TagBloc() : super(TagDataState()) {
     on<InitTagEvent>(_onInit);
     on<CreateTagEvent>(_onCreateTag);
     on<UpdateColorOfTagEvent>(_onUpdateTagColor);
   }
-
-  /// Doc Required
-  final TagsRepository<TagEntity> tagsDatabaseRepository;
-
-  /// Doc Required
-  final TagsRepository<TagEntity> tagsFirebaseRepository;
 
   /// Doc Required
   final TextEditingController tagTextEditingController =

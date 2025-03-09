@@ -15,14 +15,10 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<UpdatePomodoroCounterEvent>(_handleStateUpdateEvent);
     on<UpdatePomodoroDurationEvent>(_handleStateUpdateEvent);
   }
+
   bool _isSeededTagsRetrieved = false;
 
   final TaskDetailApiService _tagApiService = TaskDetailApiService();
-
-  @override
-  Future<void> close() async {
-    await super.close();
-  }
 
   Future<void> _init(
     final InitTaskDetailEvent event,
