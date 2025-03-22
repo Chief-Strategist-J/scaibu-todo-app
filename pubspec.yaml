@@ -75,6 +75,7 @@ dependencies:
   google_fonts: ^4.0.5
   path: ^1.9.1
   custom_lint_builder: ^0.7.5
+  scaibu_mutex_lock: ^1.0.6
 
 dependency_overrides:
   get_it: ^7.6.4

@@ -1637,6 +1637,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
+  scaibu_mutex_lock:
+    dependency: "direct main"
+    description:
+      name: scaibu_mutex_lock
+      sha256: ad0d3d618b00260edf990ef8943b5e2d671484e11cb1db179240fabcc4996087
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   scroll_to_index:
     dependency: transitive
     description:
@@ -2155,5 +2163,5 @@ packages:
     source: hosted
     version: "2.0.3"
 sdks:
-  dart: ">=3.7.0 <4.0.0"
+  dart: ">=3.7.2 <4.0.0"
   flutter: ">=3.27.0"
