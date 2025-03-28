@@ -91,7 +91,8 @@ mixin TodoEntityMixin {
 
 /// Doc Required
 @freezed
-abstract class TodoModel with _$TodoModel, TodoEntityMixin { // Add this
+abstract class TodoModel with _$TodoModel, TodoEntityMixin {
+  // Add this
 
   /// Doc is required
   const factory TodoModel({

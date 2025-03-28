@@ -128,5 +128,4 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     await deleteProjectUseCase(event.projectId);
     add(InitProjectEvent());
   }
-
 }

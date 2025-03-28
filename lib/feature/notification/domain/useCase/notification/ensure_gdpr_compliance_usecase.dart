@@ -21,7 +21,7 @@ class EnsureGDPRComplianceUseCase
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final EnsureGDPRComplianceParams params,
+    final EnsureGDPRComplianceParams params,
   ) async {
     try {
       await notificationRepository.ensureGDPRCompliance(params.userId);

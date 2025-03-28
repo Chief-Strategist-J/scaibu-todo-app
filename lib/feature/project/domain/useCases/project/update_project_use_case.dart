@@ -17,7 +17,6 @@ class UpdateProjectUseCase extends UseCase<void, Map<String, dynamic>> {
       await projectRepository.updateProject(id, data);
       return const Right<Failure, void>(null);
     } catch (e, s) {
-
       await logService.crashLog(
         errorMessage: 'Failed to update project',
         e: e,

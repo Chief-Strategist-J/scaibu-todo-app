@@ -51,6 +51,7 @@ class DefaultFirebaseOptions {
     appId: '1:285842097121:android:cf1dee9518a8de503a48a0',
     messagingSenderId: '285842097121',
     projectId: 'scaibu-todo-app',
+    databaseURL: 'https://scaibu-todo-app-default-rtdb.firebaseio.com',
     storageBucket: 'scaibu-todo-app.firebasestorage.app',
   );
 
@@ -59,7 +60,9 @@ class DefaultFirebaseOptions {
     appId: '1:285842097121:ios:51172e13cbb6be4f3a48a0',
     messagingSenderId: '285842097121',
     projectId: 'scaibu-todo-app',
+    databaseURL: 'https://scaibu-todo-app-default-rtdb.firebaseio.com',
     storageBucket: 'scaibu-todo-app.firebasestorage.app',
+    androidClientId: '285842097121-s9bekbu6ca8u8lemls4vce1k1ki0l1u7.apps.googleusercontent.com',
     iosClientId: '285842097121-bhh10v9sivo5i193l0nf07ni80485dkd.apps.googleusercontent.com',
     iosBundleId: 'com.example.todoApp',
   );
@@ -70,6 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '285842097121',
     projectId: 'scaibu-todo-app',
     authDomain: 'scaibu-todo-app.firebaseapp.com',
+    databaseURL: 'https://scaibu-todo-app-default-rtdb.firebaseio.com',
     storageBucket: 'scaibu-todo-app.firebasestorage.app',
     measurementId: 'G-4X10P4DYGW',
   );

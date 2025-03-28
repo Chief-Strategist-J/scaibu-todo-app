@@ -128,7 +128,6 @@ class UserInfo {
     email = dataMap['email'] as String?;
   }
 
-
   /// Doc Required
   num? id;
 

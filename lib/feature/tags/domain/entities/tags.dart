@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'tags.freezed.dart';
 part 'tags.g.dart';
 
-
 /// Doc Required
 @freezed
 abstract class TagEntity with _$TagEntity {

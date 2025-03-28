@@ -21,19 +21,22 @@ class PostMetadataImpl extends PostMetadataRepository<PostEntity> {
 
   /// Doc Required
   @override
-  Future<List<PostEntity>> getPostsByMetadata(final String key,
-      final String value, {
-        final int page = 1,
-        final int pageSize = 20,
-      }) {
+  Future<List<PostEntity>> getPostsByMetadata(
+    final String key,
+    final String value, {
+    final int page = 1,
+    final int pageSize = 20,
+  }) {
     // TO-DO: implement getPostsByMetadata
     throw UnimplementedError();
   }
 
   /// Doc Required
   @override
-  Future<void> updatePostMetadata(final int id,
-      final Map<String, dynamic> metadata,) {
+  Future<void> updatePostMetadata(
+    final int id,
+    final Map<String, dynamic> metadata,
+  ) {
     // TO-DO: implement updatePostMetadata
     throw UnimplementedError();
   }

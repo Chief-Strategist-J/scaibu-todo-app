@@ -6,21 +6,21 @@ import 'package:custom_lints/core/constant/bloc_lint_constants.dart';
 
 class AvoidPublicPropertiesOnBlocAndCubitLintRule extends DartLintRule {
   const AvoidPublicPropertiesOnBlocAndCubitLintRule()
-      : super(
-    code: const LintCode(
-      name: 'avoid_public_properties_on_bloc_and_cubit',
-      problemMessage:
-      '''Avoid public properties on Bloc and Cubit besides state.''',
-      errorSeverity: ErrorSeverity.ERROR,
-    ),
-  );
+    : super(
+        code: const LintCode(
+          name: 'avoid_public_properties_on_bloc_and_cubit',
+          problemMessage:
+              '''Avoid public properties on Bloc and Cubit besides state.''',
+          errorSeverity: ErrorSeverity.ERROR,
+        ),
+      );
 
   @override
   void run(
-      CustomLintResolver resolver,
-      ErrorReporter reporter,
-      CustomLintContext context,
-      ) {
+    CustomLintResolver resolver,
+    ErrorReporter reporter,
+    CustomLintContext context,
+  ) {
     context.registry.addClassDeclaration((node) {
       final superClass = node.extendsClause?.superclass.element?.name;
 

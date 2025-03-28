@@ -31,7 +31,7 @@ class SendMultichannelNotificationUseCase
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final SendMultichannelNotificationParams params,
+    final SendMultichannelNotificationParams params,
   ) async {
     try {
       await notificationRepository.sendMultichannelNotification(

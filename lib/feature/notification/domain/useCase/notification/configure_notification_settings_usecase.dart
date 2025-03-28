@@ -10,11 +10,11 @@ class ConfigureNotificationSettingsParams {
 
   /// Doc Required
   /// Doc Required
-final String userId;
+  final String userId;
 
   /// Doc Required
   /// Doc Required
-final Map<String, dynamic> settings;
+  final Map<String, dynamic> settings;
 }
 
 /// Doc Required
@@ -25,12 +25,12 @@ class ConfigureNotificationSettingsUseCase
 
   /// Doc Required
   /// Doc Required
-final NotificationRepository<NotificationEntity> notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final ConfigureNotificationSettingsParams params,
+    final ConfigureNotificationSettingsParams params,
   ) async {
     try {
       await notificationRepository.configureNotificationSettings(

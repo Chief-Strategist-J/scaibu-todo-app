@@ -14,6 +14,7 @@ class Assets {
   static const String imageAppleLogo = 'assets/image/apple-logo.png';
   static const String imageFacebook = 'assets/image/facebook.png';
   static const String imageGoogle = 'assets/image/google.png';
-  static const String loginPageAssetsWelcome = 'assets/json/loginPageAssets/welcome.json';
+  static const String loginPageAssetsWelcome =
+      'assets/json/loginPageAssets/welcome.json';
   static const String translationsEn = 'assets/translations/en.json';
 }

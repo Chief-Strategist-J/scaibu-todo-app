@@ -15,7 +15,6 @@ class GetProjectByIdUseCase extends UseCase<ProjectEntity?, String> {
           await projectRepository.getProjectById(params);
       return Right<Failure, ProjectEntity?>(project);
     } catch (e, s) {
-
       await logService.crashLog(
         errorMessage: 'Failed to get project by ID',
         e: e,

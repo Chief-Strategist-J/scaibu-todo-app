@@ -10,8 +10,10 @@ sealed class PomodoroState extends Equatable {
 class PomodoroDataState extends PomodoroState {
   /// Doc Required
   PomodoroDataState();
+
   /// Doc Required
   factory PomodoroDataState.init() => PomodoroDataState();
+
   /// Doc Required
   PomodoroDataState copyWith({final Color? color}) => PomodoroDataState();
 

@@ -61,104 +61,119 @@ class ProjectDependencyInjection {
     getIt
       ..registerSingleton<BaseProjectDataSource>(
         ProjectRemoteDataSource(restApi: getIt<RestApi>()),
-    )..registerSingleton<ProjectRepository<ProjectEntity>>(
-      ProjectRepositoryImpl(getIt<BaseProjectDataSource>()),
-      instanceName: projectRepositoryImpl,
-    )..registerSingleton<AssignTodosToProjectUseCase>(
-      instanceName: assignTodosToProjectUseCase,
-      AssignTodosToProjectUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<ProjectRepository<ProjectEntity>>(
+        ProjectRepositoryImpl(getIt<BaseProjectDataSource>()),
+        instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<AssignTodosToProjectUseCase>(
+        instanceName: assignTodosToProjectUseCase,
+        AssignTodosToProjectUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<BulkCreateProjectsUseCase>(
-      instanceName: bulkCreateProjectsUseCase,
-      BulkCreateProjectsUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<BulkCreateProjectsUseCase>(
+        instanceName: bulkCreateProjectsUseCase,
+        BulkCreateProjectsUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<BulkDeleteProjectsUseCase>(
-      instanceName: bulkDeleteProjectsUseCase,
-      BulkDeleteProjectsUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<BulkDeleteProjectsUseCase>(
+        instanceName: bulkDeleteProjectsUseCase,
+        BulkDeleteProjectsUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<CreateProjectUseCase>(
-      instanceName: createProjectUseCase,
-      CreateProjectUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<CreateProjectUseCase>(
+        instanceName: createProjectUseCase,
+        CreateProjectUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<DeleteProjectUseCase>(
-      instanceName: deleteProjectUseCase,
-      DeleteProjectUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<DeleteProjectUseCase>(
+        instanceName: deleteProjectUseCase,
+        DeleteProjectUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<GetAllProjectsUseCase>(
-      instanceName: getAllProjectsUseCase,
-      GetAllProjectsUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<GetAllProjectsUseCase>(
+        instanceName: getAllProjectsUseCase,
+        GetAllProjectsUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<GetPaginatedProjectsForTodoUseCase>(
-      instanceName: getPaginatedProjectsForTodoUseCase,
-      GetPaginatedProjectsForTodoUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<GetPaginatedProjectsForTodoUseCase>(
+        instanceName: getPaginatedProjectsForTodoUseCase,
+        GetPaginatedProjectsForTodoUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<GetPaginatedTodosForProjectUseCase>(
-      instanceName: getPaginatedTodosForProjectUseCase,
-      GetPaginatedTodosForProjectUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<GetPaginatedTodosForProjectUseCase>(
+        instanceName: getPaginatedTodosForProjectUseCase,
+        GetPaginatedTodosForProjectUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<GetProjectByIdUseCase>(
-      instanceName: getProjectByIdUseCase,
-      GetProjectByIdUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<GetProjectByIdUseCase>(
+        instanceName: getProjectByIdUseCase,
+        GetProjectByIdUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<RestoreProjectUseCase>(
-      instanceName: restoreProjectUseCase,
-      RestoreProjectUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<RestoreProjectUseCase>(
+        instanceName: restoreProjectUseCase,
+        RestoreProjectUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<SearchProjectsUseCase>(
-      instanceName: searchProjectsUseCase,
-      SearchProjectsUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<SearchProjectsUseCase>(
+        instanceName: searchProjectsUseCase,
+        SearchProjectsUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<UpdateProjectUseCase>(
-      instanceName: updateProjectUseCase,
-      UpdateProjectUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<UpdateProjectUseCase>(
+        instanceName: updateProjectUseCase,
+        UpdateProjectUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<GetProjectCategoryDataUseCase>(
-      instanceName: getProjectCategoryDataUseCase,
-      GetProjectCategoryDataUseCase(
-        projectRepository: getIt<ProjectRepository<ProjectEntity>>(
-          instanceName: projectRepositoryImpl,
+      )
+      ..registerSingleton<GetProjectCategoryDataUseCase>(
+        instanceName: getProjectCategoryDataUseCase,
+        GetProjectCategoryDataUseCase(
+          projectRepository: getIt<ProjectRepository<ProjectEntity>>(
+            instanceName: projectRepositoryImpl,
+          ),
         ),
-      ),
-    )..registerSingleton<ProjectBloc>(
-      instanceName: projectBloc,
-      ProjectBloc(),
-    );
+      )
+      ..registerSingleton<ProjectBloc>(
+        instanceName: projectBloc,
+        ProjectBloc(),
+      );
   }
 
   /// Doc Required

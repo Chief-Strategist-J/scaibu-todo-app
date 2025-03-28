@@ -245,7 +245,7 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
     await restApi.request<dynamic>(
       endPoint: ProjectEndPoint.getPaginatedProjectsForTodo,
       type: HttpRequestMethod.post,
-      requestBody: <String,dynamic >{
+      requestBody: <String, dynamic>{
         'todo_id': data['todo_id'],
         'user_id': data['user_id'],
         'page': 1,
@@ -276,8 +276,8 @@ class ProjectRemoteDataSource implements BaseProjectDataSource {
   /// Doc Required
   @override
   Future<ProjectCategoryDataModelEntity> getProjectCategoryData() async {
-    final ProjectCategoryDataModelEntity projectCategoryData
-    = ProjectCategoryDataModelEntity.fromJson(
+    final ProjectCategoryDataModelEntity projectCategoryData =
+        ProjectCategoryDataModelEntity.fromJson(
       await restApi.request<Map<String, dynamic>>(
         endPoint: ProjectEndPoint.getProjectCategoryDetail,
         requestBody: <String, dynamic>{},

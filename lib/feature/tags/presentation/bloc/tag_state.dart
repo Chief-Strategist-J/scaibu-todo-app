@@ -22,7 +22,7 @@ class TagDataState extends TagState {
   /// Doc Required
   TagDataState copyWith({final Color? color}) => TagDataState(
         color: color ?? this.color,
-    );
+      );
 
   @override
   List<Object?> get props => <Object?>[color];

@@ -27,7 +27,7 @@ class IntegrateThirdPartyServiceUseCase
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final IntegrateThirdPartyServiceParams params,
+    final IntegrateThirdPartyServiceParams params,
   ) async {
     try {
       await notificationRepository.integrateThirdPartyService(

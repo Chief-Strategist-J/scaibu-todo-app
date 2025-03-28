@@ -72,7 +72,6 @@ class Data {
     otp = dataMap['otp'] as String?;
   }
 
-
   /// Doc Required
   bool? success;
 

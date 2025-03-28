@@ -9,25 +9,24 @@ class ProjectCategoryComponentVariantStyle {
   final ProjectCategoryComponentVariant _variant;
 
   /// Doc Required
-  Style rowStyle(final BuildContext context, {
+  Style rowStyle(
+    final BuildContext context, {
     final double fontSize = 14,
     final FontWeight fontWeight = FontWeight.bold,
   }) =>
       Style().applyVariants(<Variant>[_variant]);
 
   /// Doc Required
-  Style dialogStyle(final BuildContext context) =>
-      Style(
+  Style dialogStyle(final BuildContext context) => Style(
         $box.width(context.width()),
         $box.padding(16),
       ).applyVariants(<Variant>[_variant]);
 
   /// Doc Required
-  Style buttonStyle(final BuildContext context) =>
-      Style(
+  Style buttonStyle(final BuildContext context) => Style(
         $box.borderRadius.circular(8),
         $box.padding.all(16),
-      $on.press($box.color.grey.shade200()),
+        $on.press($box.color.grey.shade200()),
       ).applyVariants(<Variant>[_variant]);
 
   /// Doc Required

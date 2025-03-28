@@ -90,34 +90,49 @@ class ManageTodoPageParam {
 
   /// Doc Required
   final TextEditingController note = TextEditingController();
+
   /// Doc Required
   TimeServiceModel? date;
+
   /// Doc Required
   TimeServiceModel? startTime;
+
   /// Doc Required
   TimeServiceModel? endTime;
+
   /// Doc Required
   final String? firebaseTodoId;
+
   /// Doc Required
   final String? todoId;
+
   /// Doc Required
   String priority;
+
   /// Doc Required
   List<TagEntity> tags = <TagEntity>[];
+
   /// Doc Required
   List<ProjectEntity> project = <ProjectEntity>[];
+
   /// Doc Required
   final ValueNotifier<bool> isWantToDeleteTodoAtEndTimeNotifier;
+
   /// Doc Required
   final ValueNotifier<int> pomodorowCount;
+
   /// Doc Required
   final ValueNotifier<int> pomodorowDuration;
+
   /// Doc Required
   bool isWantToDeleteTodoAtEndTime;
+
   /// Doc Required
   final int numberOfPomodorowCount;
+
   /// Doc Required
   final int numberOfPomodorowDuration;
+
   /// Doc Required
   final bool isUpdatingExistingTodo;
 

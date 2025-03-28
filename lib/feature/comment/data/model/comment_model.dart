@@ -42,7 +42,6 @@ mixin CommentEntityMixin {
 /// Doc Required
 @freezed
 abstract class CommentModel with _$CommentModel, CommentEntityMixin {
-
   /// Doc Required
   const factory CommentModel({
     required final int id,
@@ -59,6 +58,7 @@ abstract class CommentModel with _$CommentModel, CommentEntityMixin {
   }) = _CommentModel;
 
   const CommentModel._();
+
   /// Doc Required
   factory CommentModel.fromJson(final Map<String, dynamic> json) =>
       _$CommentModelFromJson(json);

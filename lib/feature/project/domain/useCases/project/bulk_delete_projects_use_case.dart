@@ -4,6 +4,7 @@ part of use_case;
 class BulkDeleteProjectsUseCase extends UseCase<void, List<String>> {
   /// Doc Required
   BulkDeleteProjectsUseCase({required this.projectRepository});
+
   /// Doc Required
   final ProjectRepository<ProjectEntity> projectRepository;
 

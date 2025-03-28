@@ -8,7 +8,7 @@ class MarkNotificationAsReadParams {
 
   /// Doc Required
   /// Doc Required
-final String notificationId;
+  final String notificationId;
 }
 
 /// Doc Required
@@ -20,12 +20,12 @@ class MarkNotificationAsReadUseCase
 
   /// Doc Required
   /// Doc Required
-final NotificationRepository<NotificationEntity> notificationRepository;
+  final NotificationRepository<NotificationEntity> notificationRepository;
 
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final MarkNotificationAsReadParams params,
+    final MarkNotificationAsReadParams params,
   ) async {
     try {
       await notificationRepository

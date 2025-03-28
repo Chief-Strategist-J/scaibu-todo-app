@@ -35,7 +35,7 @@ class SendPersonalizedNotificationUseCase
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final SendPersonalizedNotificationParams params,
+    final SendPersonalizedNotificationParams params,
   ) async {
     try {
       await notificationRepository.sendPersonalizedNotification(

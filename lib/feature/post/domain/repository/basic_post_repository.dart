@@ -16,7 +16,8 @@ abstract class BasicPostRepository<T> {
   Future<void> deletePost(final int id);
 
   /// Doc Required
-  Future<List<T>> searchPosts(final String query, {
+  Future<List<T>> searchPosts(
+    final String query, {
     final int page = 1,
     final int pageSize = 20,
   });

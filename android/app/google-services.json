@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "285842097121",
+    "firebase_url": "https://scaibu-todo-app-default-rtdb.firebaseio.com",
     "project_id": "scaibu-todo-app",
     "storage_bucket": "scaibu-todo-app.firebasestorage.app"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "285842097121-s9bekbu6ca8u8lemls4vce1k1ki0l1u7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.todo_app",
+            "certificate_hash": "e40e9386bbc04a4f0690dd9da0fe3d525e08e8e1"
+          }
+        },
         {
           "client_id": "285842097121-ksaepunn4mie5248ltfimsqpb2p3i54h.apps.googleusercontent.com",
           "client_type": 3

@@ -22,7 +22,7 @@ class GetUnreadNotificationsUseCase
   @override
   Future<Either<Failure, List<NotificationEntity>>> call(
     /// Doc Required
-final GetUnreadNotificationsParams params,
+    final GetUnreadNotificationsParams params,
   ) async {
     try {
       /// Doc Required

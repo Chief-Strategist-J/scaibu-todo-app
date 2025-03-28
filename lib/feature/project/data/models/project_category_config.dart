@@ -66,23 +66,23 @@ class ProjectCategoryConfig<T> implements BaseProjectCategoryConfig {
         ),
         ProjectCategoryConfig<ProjectPriorityEntity>(
           title: 'Project Priority',
-        items: projectParam.listOfProjectPriority,
-        controller: projectParam.projectPriority,
-        focusNode: projectParam.projectPriorityNode,
-      ),
-      ProjectCategoryConfig<ProjectPhaseEntity>(
-        title: 'Project Phases',
-        items: projectParam.listOfProjectPhases,
-        controller: projectParam.projectPhase,
-        focusNode: projectParam.projectPhaseNode,
-      ),
-      ProjectCategoryConfig<ProjectTypeEntity>(
-        title: 'Project Type',
-        items: projectParam.listOfProjectTypes,
-        controller: projectParam.projectProjectType,
-        focusNode: projectParam.projectProjectTypeNode,
-      ),
-    ];
+          items: projectParam.listOfProjectPriority,
+          controller: projectParam.projectPriority,
+          focusNode: projectParam.projectPriorityNode,
+        ),
+        ProjectCategoryConfig<ProjectPhaseEntity>(
+          title: 'Project Phases',
+          items: projectParam.listOfProjectPhases,
+          controller: projectParam.projectPhase,
+          focusNode: projectParam.projectPhaseNode,
+        ),
+        ProjectCategoryConfig<ProjectTypeEntity>(
+          title: 'Project Type',
+          items: projectParam.listOfProjectTypes,
+          controller: projectParam.projectProjectType,
+          focusNode: projectParam.projectProjectTypeNode,
+        ),
+      ];
 
   /// Doc Required
   String getCategoryName(final dynamic T) {

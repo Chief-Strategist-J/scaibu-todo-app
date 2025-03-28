@@ -31,7 +31,7 @@ class SendInAppNotificationUseCase
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final SendInAppNotificationParams params,
+    final SendInAppNotificationParams params,
   ) async {
     try {
       await notificationRepository.sendInAppNotification(

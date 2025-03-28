@@ -21,7 +21,7 @@ class RetryNotificationDeliveryUseCase
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final RetryNotificationDeliveryParams params,
+    final RetryNotificationDeliveryParams params,
   ) async {
     try {
       await notificationRepository

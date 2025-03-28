@@ -14,7 +14,7 @@ UserCredentials userCredentials = getIt<UserCredentials>(
 /// Use for pillu configuration
 final AppConfig appConfig = AppConfig();
 
-Future<void> main() async {
+void main() async {
   await InitialSetup.utilityInit();
   await InitialSetup.firebaseInit();
   await InitialSetup.languageInit();

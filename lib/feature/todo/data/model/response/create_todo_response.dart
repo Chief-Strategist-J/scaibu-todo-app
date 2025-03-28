@@ -49,6 +49,7 @@ class CreateTodoResponse {
     return map;
   }
 }
+
 /// Doc Required
 class TodoData {
   /// Doc Required

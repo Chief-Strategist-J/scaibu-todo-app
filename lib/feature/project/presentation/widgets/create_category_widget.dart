@@ -25,13 +25,13 @@ class CreateCategoryWidget extends HookWidget {
           Text(_title, style: boldTextStyle(size: 20)),
           const Spacer(),
           IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    );
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
 
   Widget _buildCreateButton(
     final TextEditingController controller,
@@ -45,7 +45,7 @@ class CreateCategoryWidget extends HookWidget {
           controller.clear();
           Navigator.pop(context);
         },
-    );
+      );
 
   @override
   Widget build(final BuildContext context) {

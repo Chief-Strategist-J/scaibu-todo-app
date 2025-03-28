@@ -2,12 +2,12 @@ part of use_case;
 
 /// Doc Required
 class RestoreTagUseCase extends UseCase<void, String> {
-
   /// Doc Required
   RestoreTagUseCase({
     required this.tagsFirebaseRepository,
     required this.tagsDatabaseRepository,
   });
+
   /// Doc Required
   final TagsRepository<TagEntity> tagsDatabaseRepository;
 

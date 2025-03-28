@@ -21,7 +21,7 @@ class QueueNotificationUseCase extends UseCase<void, QueueNotificationParams> {
   @override
   Future<Either<Failure, void>> call(
     /// Doc Required
-final QueueNotificationParams params,
+    final QueueNotificationParams params,
   ) async {
     try {
       await notificationRepository

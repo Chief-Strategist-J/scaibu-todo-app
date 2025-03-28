@@ -48,7 +48,7 @@ class TodoChatPage extends StatelessWidget {
         centerTitle: true,
       ),
       endDrawer: const AppDrawerData(),
-      body:  CustomScrollView(
+      body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: SizedBox(

@@ -1,5 +1,5 @@
 /// Base URL for the API
-const String baseUrl = 'http://192.168.15.175:8000/';
+const String baseUrl = 'http://192.168.31.166:8000/';
 
 /// Flag indicating internet connection status
 bool isInternetConnected = false;

@@ -1,4 +1,5 @@
 import 'package:todo_app/core/app_library.dart';
+
 /// Doc Required
 abstract interface class AuthUserDetailBaseApi {
   /// Doc Required
@@ -12,6 +13,7 @@ abstract interface class AuthUserDetailBaseApi {
     final Map<String, dynamic> userDetail,
     final String userID,
   );
+
   /// Doc Required
   Future<bool> deleteUserDetail(final String userID);
 }

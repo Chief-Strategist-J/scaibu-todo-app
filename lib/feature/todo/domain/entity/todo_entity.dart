@@ -36,6 +36,7 @@ abstract class TodoEntity with _$TodoEntity {
     final DateTime? date,
     final List<String>? tagNames,
   }) = _TodoEntity;
+
   /// Doc Required
   factory TodoEntity.fromJson(final Map<String, dynamic> json) =>
       _$TodoEntityFromJson(json);

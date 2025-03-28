@@ -16,7 +16,6 @@ class VerifyOtpForForgetPasswordResponse {
     data = dataMap['data'] != null ? UserData.fromJson(dataMap['data']) : null;
   }
 
-
   /// Doc Required
   String? message;
 
@@ -69,7 +68,6 @@ class Data {
     accessToken = dataMap['access_token'] as String?;
     data = dataMap['data'] != null ? Data.fromJson(dataMap['data']) : null;
   }
-
 
   /// Doc Required
   bool? success;
@@ -151,7 +149,6 @@ class UserData {
     avatar = dataMap['avatar'] as String?;
     bio = dataMap['bio'] as String?;
   }
-
 
   /// Doc Required
   num? id;

@@ -10,7 +10,7 @@ class CategorizeNotificationParams {
 
   /// Doc Required
   /// Doc Required
-final String notificationId;
+  final String notificationId;
 
   /// Doc Required
   final String category;

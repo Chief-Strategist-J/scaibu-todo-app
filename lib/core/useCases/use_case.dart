@@ -132,8 +132,6 @@ part 'package:todo_app/feature/tags/domain/useCases/restore_tag_use_case.dart';
 part 'package:todo_app/feature/tags/domain/useCases/search_tags_use_case.dart';
 part 'package:todo_app/feature/tags/domain/useCases/update_tag_use_case.dart';
 
-
-
 /// Abstract base class for use cases.
 sealed class UseCase<Type, Params> {
   /// Executes the use case logic with the provided [params].

@@ -11,8 +11,10 @@ class PriorityModel {
 
   /// Doc Required
   final String title;
+
   /// Doc Required
   final String code;
+
   /// Doc Required
   final Color color;
 }
